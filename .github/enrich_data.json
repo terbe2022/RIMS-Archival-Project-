@@ -1,0 +1,467 @@
+{
+ "1": {
+  "owner": "Tayler + Gauri",
+  "depends": "Nothing \u2014 start here",
+  "done": [
+   "Every column named, typed, and assigned to the stage that writes it",
+   "'Not yet processed' is distinguishable from 'processed, found nothing'",
+   "Assumptions table filled in for anything decided without evidence",
+   "Worksheet committed, even if partially answered"
+  ],
+  "links": [
+   {
+    "label": "Worksheet W1 \u2014 manifest schema",
+    "url": "https://github.com/terbe2022/RIMS-Archival-Project-/blob/main/worksheets/W1_manifest_schema_worksheet.md"
+   },
+   {
+    "label": "Pipeline design \u2014 section 8, the manifest",
+    "url": "https://github.com/terbe2022/RIMS-Archival-Project-/blob/main/docs/pipeline-design.md"
+   },
+   {
+    "label": "Scope doc \u2014 stage 01",
+    "url": "https://terbe2022.github.io/RIMS-Archival-Project-/#/s01"
+   }
+  ]
+ },
+ "2": {
+  "owner": "Tayler",
+  "depends": "Nothing",
+  "done": [
+   "Either a drive is mounted somewhere the pipeline can read it, or a directory listing of one representative drive is in hand",
+   "Chain of custody documented",
+   "Ingest path written up in W3"
+  ],
+  "links": [
+   {
+    "label": "Worksheet W3 \u2014 storage & ingest",
+    "url": "https://github.com/terbe2022/RIMS-Archival-Project-/blob/main/worksheets/W3_storage_and_ingest_assessment.md"
+   },
+   {
+    "label": "Questions by stakeholder",
+    "url": "https://github.com/terbe2022/RIMS-Archival-Project-/blob/main/worksheets/W4_questions_by_stakeholder.md"
+   },
+   {
+    "label": "Scope doc \u2014 stage 00",
+    "url": "https://terbe2022.github.io/RIMS-Archival-Project-/#/s00"
+   }
+  ]
+ },
+ "3": {
+  "owner": "Joanne + Bethany (Tayler to request)",
+  "depends": "Nothing",
+  "done": [
+   "Written appraisal policy exists",
+   "300\u2013500 files hand-labeled keep / discard / review",
+   "Labeled set stored in Box and linked here"
+  ],
+  "links": [
+   {
+    "label": "Questions by stakeholder",
+    "url": "https://github.com/terbe2022/RIMS-Archival-Project-/blob/main/worksheets/W4_questions_by_stakeholder.md"
+   },
+   {
+    "label": "Pipeline design \u2014 section 6, scoring",
+    "url": "https://github.com/terbe2022/RIMS-Archival-Project-/blob/main/docs/pipeline-design.md"
+   },
+   {
+    "label": "Box project folder",
+    "url": "https://uofi.box.com/s/81rl4der7gh815mkk44fpe1y21b7hqsn"
+   },
+   {
+    "label": "Scope doc \u2014 stage 02",
+    "url": "https://terbe2022.github.io/RIMS-Archival-Project-/#/s02"
+   }
+  ]
+ },
+ "4": {
+  "owner": "Gauri",
+  "depends": "Nothing",
+  "done": [
+   "Device Manager checked, screenshot posted here",
+   "If NVIDIA present, nvidia-smi output posted",
+   "Model plan confirmed or revised"
+  ],
+  "links": [
+   {
+    "label": "Setup guide",
+    "url": "https://github.com/terbe2022/RIMS-Archival-Project-/blob/main/docs/onboarding-and-setup.md"
+   }
+  ]
+ },
+ "5": {
+  "owner": "Gauri",
+  "depends": "Nothing",
+  "done": [
+   "venv created, requirements.txt frozen and committed",
+   "Ollama running; llama3.2:3b, moondream, nomic-embed-text pulled",
+   "One HTTP API call to Ollama succeeds (not the CLI)"
+  ],
+  "links": [
+   {
+    "label": "Setup guide",
+    "url": "https://github.com/terbe2022/RIMS-Archival-Project-/blob/main/docs/onboarding-and-setup.md"
+   },
+   {
+    "label": "requirements.txt",
+    "url": "https://github.com/terbe2022/RIMS-Archival-Project-/blob/main/requirements.txt"
+   }
+  ]
+ },
+ "6": {
+  "owner": "Gauri",
+  "depends": "#5",
+  "done": [
+   "Siegfried identifies a .docx renamed to .d1 correctly",
+   "ExifTool returns JSON for a test image",
+   "Throughput on 10,000 files recorded here"
+  ],
+  "links": [
+   {
+    "label": "Evaluation task W2",
+    "url": "https://github.com/terbe2022/RIMS-Archival-Project-/blob/main/worksheets/W2_software_evaluation_task.md"
+   },
+   {
+    "label": "Scope doc \u2014 stage 01",
+    "url": "https://terbe2022.github.io/RIMS-Archival-Project-/#/s01"
+   }
+  ]
+ },
+ "7": {
+  "owner": "Gauri",
+  "depends": "#5, #6",
+  "done": [
+   "All five checks pass",
+   "Embedding timing baseline posted here"
+  ],
+  "links": [
+   {
+    "label": "Setup guide",
+    "url": "https://github.com/terbe2022/RIMS-Archival-Project-/blob/main/docs/onboarding-and-setup.md"
+   }
+  ]
+ },
+ "8": {
+  "owner": "Gauri",
+  "depends": "#6",
+  "done": [
+   "Scoring sheet completed for each Tier 1 tool",
+   "Real sample output pasted for each",
+   "Recommendation written to docs/software-evaluation-results.md",
+   "Revised build list \u2014 what is genuinely left to write"
+  ],
+  "links": [
+   {
+    "label": "Task W2 \u2014 software evaluation",
+    "url": "https://github.com/terbe2022/RIMS-Archival-Project-/blob/main/worksheets/W2_software_evaluation_task.md"
+   },
+   {
+    "label": "Scope doc \u2014 software evaluation",
+    "url": "https://terbe2022.github.io/RIMS-Archival-Project-/#/x-software"
+   }
+  ]
+ },
+ "9": {
+  "owner": "Tayler (answer from Joanne + Brent)",
+  "depends": "Nothing",
+  "done": [
+   "Answer recorded for Preservica, Archivematica, DROID, ePADD",
+   "Build list adjusted if any are already running"
+  ],
+  "links": [
+   {
+    "label": "Questions by stakeholder",
+    "url": "https://github.com/terbe2022/RIMS-Archival-Project-/blob/main/worksheets/W4_questions_by_stakeholder.md"
+   },
+   {
+    "label": "Kickoff agenda \u2014 software position",
+    "url": "https://github.com/terbe2022/RIMS-Archival-Project-/blob/main/docs/kickoff-agenda.md"
+   },
+   {
+    "label": "Scope doc \u2014 software evaluation",
+    "url": "https://terbe2022.github.io/RIMS-Archival-Project-/#/x-software"
+   }
+  ]
+ },
+ "10": {
+  "owner": "Tayler (answer from Data Privacy)",
+  "depends": "Nothing",
+  "done": [
+   "Written confirmation that local open-weight processing is acceptable",
+   "Written confirmation that hosted AI services are excluded",
+   "Chain-of-custody requirements documented in W3"
+  ],
+  "links": [
+   {
+    "label": "Worksheet W3 \u2014 storage & ingest",
+    "url": "https://github.com/terbe2022/RIMS-Archival-Project-/blob/main/worksheets/W3_storage_and_ingest_assessment.md"
+   },
+   {
+    "label": "Kickoff agenda \u2014 hosted AI ruled out",
+    "url": "https://github.com/terbe2022/RIMS-Archival-Project-/blob/main/docs/kickoff-agenda.md"
+   }
+  ]
+ },
+ "11": {
+  "owner": "Tayler",
+  "depends": "Nothing",
+  "done": [
+   "500\u20132,000 files assembled, non-sensitive",
+   "Includes the awkward cases: mangled extensions, zero-byte, password-protected, nested zip, legacy .doc/.xls, scanned PDF",
+   "Stored in Box and linked here"
+  ],
+  "links": [
+   {
+    "label": "Box project folder",
+    "url": "https://uofi.box.com/s/81rl4der7gh815mkk44fpe1y21b7hqsn"
+   },
+   {
+    "label": "Task W2 \u2014 the nasty test folder",
+    "url": "https://github.com/terbe2022/RIMS-Archival-Project-/blob/main/worksheets/W2_software_evaluation_task.md"
+   }
+  ]
+ },
+ "12": {
+  "owner": "Tayler",
+  "depends": "Nothing",
+  "done": [
+   "01-Data / 02-Documents / 03-Working structure created",
+   "Shared with Joanne, Brent, Gauri",
+   "Share links posted here"
+  ],
+  "links": [
+   {
+    "label": "Box project folder",
+    "url": "https://uofi.box.com/s/81rl4der7gh815mkk44fpe1y21b7hqsn"
+   },
+   {
+    "label": "What goes in Box vs GitHub",
+    "url": "https://github.com/terbe2022/RIMS-Archival-Project-/blob/main/docs/work-tracking.md"
+   }
+  ]
+ },
+ "13": {
+  "owner": "Gauri",
+  "depends": "#1",
+  "done": [
+   "10,000 files inventoried in under a minute",
+   "Full original path preserved verbatim",
+   "Manifest written as partitioned Parquet, resumable",
+   "No hardcoded paths; markdown cell before each code cell"
+  ],
+  "links": [
+   {
+    "label": "Worksheet W1 \u2014 manifest schema",
+    "url": "https://github.com/terbe2022/RIMS-Archival-Project-/blob/main/worksheets/W1_manifest_schema_worksheet.md"
+   },
+   {
+    "label": "Scope doc \u2014 stage 01",
+    "url": "https://terbe2022.github.io/RIMS-Archival-Project-/#/s01"
+   }
+  ]
+ },
+ "14": {
+  "owner": "Gauri",
+  "depends": "#13, #6",
+  "done": [
+   "SHA-256 on every file",
+   "Siegfried PUID joined onto the manifest",
+   "Mangled-extension files resolve to their real format"
+  ],
+  "links": [
+   {
+    "label": "Scope doc \u2014 stage 01",
+    "url": "https://terbe2022.github.io/RIMS-Archival-Project-/#/s01"
+   },
+   {
+    "label": "Gap analysis",
+    "url": "https://github.com/terbe2022/RIMS-Archival-Project-/blob/main/docs/file-type-gap-analysis.md"
+   }
+  ]
+ },
+ "15": {
+  "owner": "Gauri",
+  "depends": "#14",
+  "done": [
+   "Exact duplicates collapsed by hash",
+   "Structural junk filtered",
+   "**Reduction percentage measured and posted here** \u2014 this number is the argument for the architecture",
+   "Nothing deleted; decisions written to the manifest"
+  ],
+  "links": [
+   {
+    "label": "Pipeline design \u2014 section 4",
+    "url": "https://github.com/terbe2022/RIMS-Archival-Project-/blob/main/docs/pipeline-design.md"
+   },
+   {
+    "label": "Scope doc \u2014 stage 02",
+    "url": "https://terbe2022.github.io/RIMS-Archival-Project-/#/s02"
+   }
+  ]
+ },
+ "16": {
+  "owner": "Gauri",
+  "depends": "#14",
+  "done": [
+   "Structured peek implemented: head after front matter, tail, strided middle, headings",
+   "Keyword extraction compared against raw-text embedding",
+   "Escalation ladder working \u2014 most files resolve at tier 1"
+  ],
+  "links": [
+   {
+    "label": "Pipeline design \u2014 section 5, smart text peek",
+    "url": "https://github.com/terbe2022/RIMS-Archival-Project-/blob/main/docs/pipeline-design.md"
+   },
+   {
+    "label": "Scope doc \u2014 stage 02",
+    "url": "https://terbe2022.github.io/RIMS-Archival-Project-/#/s02"
+   }
+  ]
+ },
+ "17": {
+  "owner": "Tayler",
+  "depends": "Nothing",
+  "done": [
+   "Same workload measured three ways: CLI, Ollama serve, vLLM",
+   "Results posted here and the design doc updated"
+  ],
+  "links": [
+   {
+    "label": "Image throughput case study",
+    "url": "https://taylererbe.com/archival-image-throughput-evaluation.html"
+   },
+   {
+    "label": "Model evaluation case study",
+    "url": "https://tayler-erbe.github.io/tayler-portfolio/vllm-inference-throughput-evaluation.html"
+   },
+   {
+    "label": "Scope doc \u2014 stage 04",
+    "url": "https://terbe2022.github.io/RIMS-Archival-Project-/#/s04"
+   }
+  ]
+ },
+ "18": {
+  "owner": "Gauri",
+  "depends": "#8",
+  "done": [
+   ".doc, .xls, .ppt extraction works with no Microsoft Office installed",
+   "Output parity verified against POC 2 on the same files",
+   "Runs on Colab and on Linux"
+  ],
+  "links": [
+   {
+    "label": "POC 2 \u2014 known defects",
+    "url": "https://github.com/terbe2022/RIMS-Archival-Project-/blob/main/poc/02-file-smart-search/"
+   },
+   {
+    "label": "Gap analysis",
+    "url": "https://github.com/terbe2022/RIMS-Archival-Project-/blob/main/docs/file-type-gap-analysis.md"
+   },
+   {
+    "label": "Scope doc \u2014 stage 03",
+    "url": "https://terbe2022.github.io/RIMS-Archival-Project-/#/s03"
+   }
+  ]
+ },
+ "19": {
+  "owner": "Gauri",
+  "depends": "#5",
+  "done": [
+   "Three models, same 20 documents, same prompt",
+   "Quality and speed recorded here",
+   "Note whether output is extraction or invention on factual fields"
+  ],
+  "links": [
+   {
+    "label": "Scope doc \u2014 model selection",
+    "url": "https://terbe2022.github.io/RIMS-Archival-Project-/#/x-models"
+   },
+   {
+    "label": "Setup guide",
+    "url": "https://github.com/terbe2022/RIMS-Archival-Project-/blob/main/docs/onboarding-and-setup.md"
+   }
+  ]
+ },
+ "20": {
+  "owner": "Gauri",
+  "depends": "#5",
+  "done": [
+   "Three vision models, same 20 images",
+   "Description and classification kept as separate steps",
+   "Compared against POC 3 results on the same material"
+  ],
+  "links": [
+   {
+    "label": "POC 3 \u2014 the split-step finding",
+    "url": "https://github.com/terbe2022/RIMS-Archival-Project-/blob/main/poc/03-image-classification/"
+   },
+   {
+    "label": "Sensitivity taxonomy",
+    "url": "https://github.com/terbe2022/RIMS-Archival-Project-/blob/main/poc/03-image-classification/data/Sensitive_Content_Taxonomy_DataFrame.csv"
+   },
+   {
+    "label": "Scope doc \u2014 model selection",
+    "url": "https://terbe2022.github.io/RIMS-Archival-Project-/#/x-models"
+   }
+  ]
+ },
+ "21": {
+  "owner": "Tayler + Brent",
+  "depends": "#9",
+  "done": [
+   "Brent's answer on current RIMS email tooling recorded",
+   "Decision made and written down with the reasoning"
+  ],
+  "links": [
+   {
+    "label": "POC 1 \u2014 email pipeline",
+    "url": "https://github.com/terbe2022/RIMS-Archival-Project-/blob/main/poc/01-email-processing/"
+   },
+   {
+    "label": "Scope doc \u2014 stage 04",
+    "url": "https://terbe2022.github.io/RIMS-Archival-Project-/#/s04"
+   },
+   {
+    "label": "ePADD",
+    "url": "https://library.stanford.edu/projects/epadd"
+   }
+  ]
+ },
+ "22": {
+  "owner": "Joanne + Brent + Tayler",
+  "depends": "#3",
+  "done": [
+   "Weekly review capacity established",
+   "Thresholds agreed or amended",
+   "Recorded in W4"
+  ],
+  "links": [
+   {
+    "label": "Scope doc \u2014 governance",
+    "url": "https://terbe2022.github.io/RIMS-Archival-Project-/#/x-governance"
+   },
+   {
+    "label": "Questions by stakeholder",
+    "url": "https://github.com/terbe2022/RIMS-Archival-Project-/blob/main/worksheets/W4_questions_by_stakeholder.md"
+   }
+  ]
+ },
+ "23": {
+  "owner": "Tayler",
+  "depends": "#13, #14, #15 running end to end",
+  "done": [
+   "Per-stage timing instrumented",
+   "Sizing model: file count and format mix in, wall-clock out",
+   "Recommended drive processing order for the Archives"
+  ],
+  "links": [
+   {
+    "label": "Scope doc \u2014 stage 07 (has the calculator)",
+    "url": "https://terbe2022.github.io/RIMS-Archival-Project-/#/s07"
+   },
+   {
+    "label": "Pipeline design \u2014 section 2, measured throughput",
+    "url": "https://github.com/terbe2022/RIMS-Archival-Project-/blob/main/docs/pipeline-design.md"
+   }
+  ]
+ }
+}
