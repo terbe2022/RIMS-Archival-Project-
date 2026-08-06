@@ -18,7 +18,7 @@ answers **which of these files matter** — and then describes the ones that do.
 | New to the project | [`docs/pipeline-design.md`](docs/pipeline-design.md) |
 | Setting up your machine | [`docs/onboarding-and-setup.md`](docs/onboarding-and-setup.md) |
 | Preparing for the kickoff | [`docs/kickoff-agenda.md`](docs/kickoff-agenda.md) |
-| Looking for the interactive scope doc | [`site/index.html`](site/index.html) — or the published GitHub Pages link |
+| Looking for the interactive scope doc | [Open the scope document](https://terbe2022.github.io/RIMS-Archival-Project-/site/) (GitHub Pages) · source: [`site/index.html`](site/index.html) |
 
 ---
 
