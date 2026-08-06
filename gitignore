@@ -1,0 +1,38 @@
+# Data — never commit. Box holds anything large or sensitive.
+*.csv
+*.parquet
+*.pkl
+*.index
+*.faiss
+data/raw/
+data/interim/
+temp_downloads/
+parsed_emails/
+
+# Exception: small reference tables
+!poc/03-image-classification/data/Sensitive_Content_Taxonomy_DataFrame.csv
+
+# Credentials
+.env
+*.key
+*.pem
+config.json
+box_config*.json
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.ipynb_checkpoints/
+*.egg-info/
+
+# Models
+models/
+*.gguf
+*.safetensors
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
