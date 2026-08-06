@@ -1,0 +1,32 @@
+# Core
+pandas>=2.0
+pyarrow>=14.0
+numpy>=1.24
+tqdm
+python-dotenv
+
+# Embeddings & search
+sentence-transformers>=2.2
+faiss-cpu
+
+# Extraction
+pypdf>=4.0
+pdfplumber
+python-docx
+python-pptx
+openpyxl
+beautifulsoup4
+lxml
+striprtf
+charset-normalizer
+
+# PII
+presidio-analyzer
+presidio-anonymizer
+# also: python -m spacy download en_core_web_lg
+
+# Format identification (Windows: python-magic-bin instead)
+python-magic
+
+# HTTP (for the Ollama API — do NOT shell out to the CLI)
+requests
