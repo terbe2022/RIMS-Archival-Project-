@@ -1,0 +1,73 @@
+name: Enrich issues with owners and links
+
+# Adds an "Owner / Done when / Reference" block to the bottom of every issue.
+# Run by hand from the Actions tab. Safe to re-run — it replaces the block
+# rather than stacking duplicates.
+on:
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: 'Type UPDATE to confirm.'
+        required: true
+        default: ''
+
+permissions:
+  issues: write
+  contents: read
+
+jobs:
+  enrich:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check confirmation
+        if: ${{ github.event.inputs.confirm != 'UPDATE' }}
+        run: |
+          echo "::error::Type UPDATE in the confirm box to run this."
+          exit 1
+
+      - uses: actions/checkout@v4
+
+      - name: Append the reference block to each issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          MARK='<!-- rims-ref -->'
+          for n in $(jq -r 'keys_unsorted[]' .github/enrich_data.json | sort -n); do
+            owner=$(jq -r ".\"$n\".owner"   .github/enrich_data.json)
+            dep=$(jq -r   ".\"$n\".depends" .github/enrich_data.json)
+
+            # current body, with any previous block stripped off
+            gh issue view "$n" --repo "$GITHUB_REPOSITORY" --json body --jq .body \
+              | sed "/$MARK/,\$d" > /tmp/body.md
+
+            {
+              printf '%s\n' "$MARK"
+              printf '\n---\n\n'
+              printf '**Owner:** %s  \n' "$owner"
+              printf '**Depends on:** %s\n\n' "$dep"
+              printf '**Done when**\n\n'
+              jq -r ".\"$n\".done[] | \"- [ ] \" + ." .github/enrich_data.json
+              printf '\n**Reference**\n\n'
+              jq -r ".\"$n\".links[] | \"- [\" + .label + \"](\" + .url + \")\"" .github/enrich_data.json
+              printf '\n<sub>Board: '
+              printf '[RIMS Pipeline](https://github.com/users/terbe2022/projects) · '
+              printf 'Repo: [RIMS-Archival-Project-](https://github.com/%s) · ' "$GITHUB_REPOSITORY"
+              printf 'Scope doc: [pipeline design](https://terbe2022.github.io/RIMS-Archival-Project-/)</sub>\n'
+            } >> /tmp/body.md
+
+            gh issue edit "$n" --repo "$GITHUB_REPOSITORY" --body-file /tmp/body.md
+            echo "updated #$n  ($owner)"
+          done
+
+      - name: Summary
+        run: |
+          {
+            echo "## Issues enriched"
+            echo ""
+            echo "Every issue now carries an Owner, a Depends-on line, a Done-when checklist,"
+            echo "and links to the worksheets, docs and scope-document pages it relates to."
+            echo ""
+            echo "### Assigning people"
+            echo "GitHub can only assign users with repo access. To assign Gauri:"
+            echo "Settings → Collaborators → Add people → then set her as assignee on her issues."
+          } >> $GITHUB_STEP_SUMMARY
