@@ -18,7 +18,7 @@ answers **which of these files matter** — and then describes the ones that do.
 | New to the project | [`docs/pipeline-design.md`](docs/pipeline-design.md) |
 | Setting up your machine | [`docs/onboarding-and-setup.md`](docs/onboarding-and-setup.md) |
 | Preparing for the kickoff | [`docs/kickoff-agenda.md`](docs/kickoff-agenda.md) |
-| Looking for the interactive scope doc | [Open the scope document](https://terbe2022.github.io/RIMS-Archival-Project-/site/) (GitHub Pages) · source: [`site/index.html`](site/index.html) |
+| Looking for the interactive scope doc | **[Open the scope document](https://terbe2022.github.io/RIMS-Archival-Project-/)** · source: [`site/index.html`](site/index.html) |
 
 ---
 
@@ -64,7 +64,7 @@ the numbers substantially. Use the post-optimisation figures for any planning.
 
 Data files, sample corpora and documents that cannot be committed live in Box.
 
-- Project folder: https://uofi.box.com/s/479zbfegbem8mk8dr9044mmzcd6wpmr
+- Project folder: https://uofi.box.com/s/81rl4der7gh815mkk44fpe1y21b7hqsn
 - Proposal document: https://uofi.box.com/s/cdfk4c98jpxiwuxgjgev2gu5mc8ns0kq
 
 ## Team
