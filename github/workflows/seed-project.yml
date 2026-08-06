@@ -1,0 +1,96 @@
+name: Set up project tracking
+
+# Run this by hand from the Actions tab. It is safe to leave in the repo —
+# it never runs on its own.
+on:
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: 'Type CREATE to confirm. This makes 23 issues.'
+        required: true
+        default: ''
+
+permissions:
+  issues: write
+  contents: read
+
+jobs:
+  seed:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check confirmation
+        if: ${{ github.event.inputs.confirm != 'CREATE' }}
+        run: |
+          echo "::error::Type CREATE in the confirm box to run this."
+          exit 1
+
+      - uses: actions/checkout@v4
+
+      - name: Stop if issues already exist
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          n=$(gh issue list --repo "$GITHUB_REPOSITORY" --state all --limit 100 --json number --jq 'length')
+          echo "Existing issues: $n"
+          if [ "$n" -gt 0 ]; then
+            echo "::error::This repo already has $n issues. Refusing to run and create duplicates."
+            exit 1
+          fi
+
+      - name: Create labels
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          jq -c '.labels[]' .github/seed_data.json | while read -r row; do
+            name=$(echo "$row" | jq -r '.name')
+            color=$(echo "$row" | jq -r '.color')
+            desc=$(echo "$row" | jq -r '.desc')
+            gh label create "$name" --repo "$GITHUB_REPOSITORY" --color "$color" \
+              --description "$desc" --force
+          done
+          echo "Labels done."
+
+      - name: Create milestones
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          jq -c '.milestones[]' .github/seed_data.json | while read -r row; do
+            title=$(echo "$row" | jq -r '.title')
+            desc=$(echo "$row" | jq -r '.desc')
+            gh api "repos/$GITHUB_REPOSITORY/milestones" \
+              -f title="$title" -f description="$desc" --silent \
+              && echo "milestone: $title" || echo "milestone exists: $title"
+          done
+
+      - name: Create issues
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          count=$(jq '.issues | length' .github/seed_data.json)
+          echo "Creating $count issues..."
+          for i in $(seq 0 $((count - 1))); do
+            title=$(jq -r ".issues[$i].title"     .github/seed_data.json)
+            labels=$(jq -r ".issues[$i].labels"   .github/seed_data.json)
+            ms=$(jq -r ".issues[$i].milestone"    .github/seed_data.json)
+            jq -r ".issues[$i].body" .github/seed_data.json > /tmp/body.md
+            gh issue create --repo "$GITHUB_REPOSITORY" \
+              --title "$title" --label "$labels" --milestone "$ms" \
+              --body-file /tmp/body.md
+          done
+
+      - name: Summary
+        run: |
+          {
+            echo "## Project tracking created"
+            echo ""
+            echo "- 23 labels"
+            echo "- 5 milestones (M1 Foundations to M5 Scale)"
+            echo "- 23 issues"
+            echo ""
+            echo "### Next"
+            echo "1. Go to the **Issues** tab"
+            echo "2. Tick the checkbox in the header row to select all"
+            echo "3. Click **Projects** in the toolbar, pick your board"
+            echo ""
+            echo "All 23 land on the board at once."
+          } >> $GITHUB_STEP_SUMMARY
