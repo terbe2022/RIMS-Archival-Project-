@@ -1,0 +1,327 @@
+{
+ "new": [
+  {
+   "col": "Blocked",
+   "title": "Send the proposal to Joanne for final review",
+   "labels": "type:decision,needs:joanne",
+   "milestone": "M1 - Foundations",
+   "assignees": [
+    "terbe2022"
+   ],
+   "body": "Ready since 7 Aug. Four technical sections added and marked (Erbe); Joanne's responses marked\n(Kaczmarek) with her wording unchanged. Indentation normalised throughout.\n\n- [ ] Sent\n- [ ] Confirm the 12,125-image corpus is representative \u2014 the throughput answer leans on it\n- [ ] Returned with her approval\n\n**Why this is first:** it is the only item where someone else is waiting on us."
+  },
+  {
+   "col": "Blocked",
+   "title": "Meeting with Joanne \u2014 accessions, numbering, standards, capacity",
+   "labels": "stage:00-source,type:question,needs:joanne,blocker",
+   "milestone": "M1 - Foundations",
+   "assignees": [
+    "terbe2022"
+   ],
+   "body": "Four questions that are really one conversation. Worth a meeting rather than four emails.\n\n### 1. How do accessions physically arrive\nEverything built so far assumes Box is the source. The six Box folders are **extracts copied\nfrom drives, not the drives** \u2014 so this is probably not how real accessions come in.\n\n- What physically shows up? Where is the media stored? Who can connect one to a machine?\n- How many are queued, and in what condition?\n- Does anything warrant forensic imaging rather than a file copy?\n\nIf drives get mounted rather than uploaded, the source layer needs a filesystem path, and\n\"download only what survives triage\" stops applying \u2014 a mounted drive is already local.\n\n### 2. Accession numbering\nBox folders are named `2620267_FemTech`, `2620191_MichaelHart`, `1513059_DonCrummey`,\n`2415001_VCResearch`. Those prefixes look like accession numbers already in use.\n\nThe schema uses them as `source_id`, and **`file_uid` is derived from it**. Getting this wrong\nmeans a full re-crawl. Confirm the format, who assigns them, and what to use when an accession\nhas none yet.\n\n### 3. Metadata standard\nDublin Core is the working assumption, IPTC for images. Confirm, or name the institutional\nprofile or EAD requirement instead. This fixes the `dc_*` columns.\n\n### 4. Review capacity\nHow many items per week can the Archives team realistically review? Thresholds set without\nknowing this produce a queue nobody works through.\n\n### Also\n- Where should processed output land in Box, separate from source material?\n- A directory listing of one real drive, even before access is sorted \u2014 it costs nothing and\n  replaces two of our biggest assumptions.\n\nReference: [W1 schema \u00a71.4](https://github.com/terbe2022/RIMS-Archival-Project-/blob/main/docs/W1_manifest_schema_v1.md) \u00b7 [W3 worksheet](https://github.com/terbe2022/RIMS-Archival-Project-/blob/main/worksheets/W3_storage_and_ingest_assessment.md)"
+  },
+  {
+   "col": "Blocked",
+   "title": "Appraisal policy and a labelled sample",
+   "labels": "stage:02-triage,type:question,needs:joanne,needs:bethany,blocker",
+   "milestone": "M1 - Foundations",
+   "assignees": [
+    "terbe2022"
+   ],
+   "body": "Without a written definition of what \"important\" means, triage cannot be built or measured.\n\n**Why this matters, concretely.** In the image POC, of 79 flagged images: 13 clearly correct,\n8 clearly wrong, **58 (73%) ambiguous**. That is not a model failure \u2014 it is what happens when\ncriteria were never written precisely enough for anyone, human or machine, to be consistent.\n\n### The ask, scoped realistically\n- [ ] Written appraisal policy \u2014 categories always retained, routinely disposable, mandatory review\n- [ ] **Start with 50 files, two archivists labelling independently.** If they disagree with\n      each other, that is the finding: the criteria need tightening before scaling the exercise.\n- [ ] Only then consider the larger 300\u2013500 file set\n\n50 files is cheap to try and tells us whether the bigger ask is worth making.\n\nReference: [pipeline design \u00a76](https://github.com/terbe2022/RIMS-Archival-Project-/blob/main/docs/pipeline-design.md)"
+  },
+  {
+   "col": "Blocked",
+   "title": "Which archival software the University already licenses",
+   "labels": "type:question,needs:joanne,needs:brent",
+   "milestone": "M1 - Foundations",
+   "assignees": [
+    "terbe2022"
+   ],
+   "body": "Preservica, Archivematica, DROID, ePADD. If any are already running, parts of stages 05 and 06\nshrink significantly.\n\n- [ ] Answer recorded for each\n- [ ] Build list adjusted accordingly\n\n**The framing worth using:** we should not be building a preservation system. Archivematica and\nPreservica already do that, better than we would. What no vendor sells is appraisal and\ndescription at scale \u2014 that is our contribution, and everything else should be borrowed.\n\nReference: [kickoff agenda](https://github.com/terbe2022/RIMS-Archival-Project-/blob/main/docs/kickoff-agenda.md) \u00b7 [scope doc \u2014 software](https://terbe2022.github.io/RIMS-Archival-Project-/#/x-software)"
+  },
+  {
+   "col": "Blocked",
+   "title": "Box Service Account authorization",
+   "labels": "stage:00-source,type:setup,needs:infra",
+   "milestone": "M1 - Foundations",
+   "assignees": [
+    "terbe2022"
+   ],
+   "body": "App `File_Archiving_Box_Storage` submitted \u2014 CCG, App Access Only, read+write, scoped to the\nproject folder.\n\n- [ ] Box admin identified (ask Joanne or Brent)\n- [ ] Status shows **Authorized**\n- [ ] Service Account email copied from the App Details panel\n- [ ] Folder collaborated to the Service Account\n- [ ] `python src/box_check.py` passes via CCG rather than the developer token\n\n**Not blocking** \u2014 developer tokens cover testing meanwhile. But they expire hourly, which is\nworkable for a spot check and disruptive for a long crawl.\n\nReference: [box-integration.md](https://github.com/terbe2022/RIMS-Archival-Project-/blob/main/docs/box-integration.md)"
+  },
+  {
+   "col": "Blocked",
+   "title": "Decide where the PII mapping store lives",
+   "labels": "stage:04-enrichment,type:decision,needs:privacy,needs:brent",
+   "milestone": "M3 - Enrichment",
+   "assignees": [
+    "terbe2022"
+   ],
+   "body": "POC 1 wrote the placeholder-to-real-value dictionary into a column beside the masked text.\nConvenient \u2014 and it defeats the entire point of masking.\n\nSchema v1 keeps only `s04_pii_map_ref` in the manifest, pointing at a separate store.\n\n- [ ] Where does that store live?\n- [ ] Who can read it?\n- [ ] Encryption at rest required?\n- [ ] Does the mapping outlive the processing run?\n\nAlso confirm the existing Data Privacy sign-off from the POCs extends to processing full\naccessions at volume \u2014 POC scope was sample data, and this is a different scale.\n\nBlocks Stage 04."
+  },
+  {
+   "col": "This week",
+   "title": "Set up the Python environment and pull the three models",
+   "labels": "type:setup",
+   "milestone": "M1 - Foundations",
+   "assignees": [
+    "gauri-bhasin"
+   ],
+   "body": "Project venv (not base Anaconda), install the stack, freeze `requirements.txt`.\n\n```\nollama pull llama3.2:3b        # ~2.0 GB \u2014 text workhorse\nollama pull moondream          # ~1.7 GB \u2014 vision, built for constrained hardware\nollama pull nomic-embed-text   # ~275 MB \u2014 embeddings, 8K context\n```\n\n**Use the Ollama HTTP API, not the CLI.** The CLI reloads model weights on every call, which is\nwhy POC 1 measured 34.8 sec/row. Do not copy that pattern from the old notebooks.\n\n- [ ] venv created, `requirements.txt` frozen and committed\n- [ ] Three models pulled\n- [ ] One HTTP API call succeeds\n\nReference: [setup guide](https://github.com/terbe2022/RIMS-Archival-Project-/blob/main/docs/onboarding-and-setup.md)"
+  },
+  {
+   "col": "This week",
+   "title": "Install Siegfried and ExifTool",
+   "labels": "stage:01-inventory,type:setup",
+   "milestone": "M1 - Foundations",
+   "assignees": [
+    "gauri-bhasin"
+   ],
+   "body": "Magic-byte format identification is what resolves the mangled extensions POC 2 had to skip \u2014\n`.d1`, `.career2`, `net3852448d`, `00361-00850`.\n\n- [ ] Siegfried on PATH, `sf -version` works\n- [ ] **Test specifically:** rename a `.docx` to `.d1` and confirm Siegfried still identifies it\n- [ ] ExifTool on PATH, returns JSON for a test image\n- [ ] Throughput on ~10,000 files recorded here"
+  },
+  {
+   "col": "This week",
+   "title": "Run the five-part environment smoke test",
+   "labels": "type:setup,good-first-issue",
+   "milestone": "M1 - Foundations",
+   "assignees": [
+    "gauri-bhasin"
+   ],
+   "body": "Before building anything, confirm each piece runs.\n\n1. Embed 100 strings with `nomic-embed-text`, record the timing \u2014 this is your baseline\n2. One prompt to `llama3.2:3b` via HTTP\n3. One image to `moondream`\n4. Siegfried over a folder, JSON out\n5. Read a `.docx` with python-docx and a `.pdf` with pypdf\n\n- [ ] All five pass, timings posted here"
+  },
+  {
+   "col": "Review",
+   "title": "Manifest schema v1 \u2014 review and sign off",
+   "labels": "type:decision,blocker",
+   "milestone": "M1 - Foundations",
+   "assignees": [
+    "gauri-bhasin"
+   ],
+   "body": "Schema v1 is drafted and decided \u2014 116 columns, stage ownership defined, enforceable code.\nI made the calls so we could move; **this is your pass to disagree.**\n\n**Docs:** [W1_manifest_schema_v1.md](https://github.com/terbe2022/RIMS-Archival-Project-/blob/main/docs/W1_manifest_schema_v1.md)\n**Code:** [manifest.py](https://github.com/terbe2022/RIMS-Archival-Project-/blob/main/src/schema/manifest.py) \u00b7 [validate.py](https://github.com/terbe2022/RIMS-Archival-Project-/blob/main/src/schema/validate.py)\n\n### Worth arguing about\n- **One row per path, never collapsed.** A file in three places is three archival facts. Dedupe\n  is a decision (`duplicate_of`), not a representation.\n- **`file_uid` is deterministic** \u2014 blake2b of `source_id + path_norm`. Re-crawling yields the\n  same keys so generations join. The catch: a wrong `source_id` means a full re-crawl.\n- **Per-stage status columns**, null = not reached. `WHERE s03_status IS NULL` is the work queue.\n- **Text and embeddings live outside the manifest**, pointers only.\n- **`layer` is derived, never authored** \u2014 recomputed from decisions so it cannot drift.\n\n- [ ] Read the schema doc\n- [ ] Run `validate.py` against the fixture\n- [ ] Raise disagreements here\n- [ ] Sign the worksheet\n\nTwo bugs found while testing, both worth understanding: NaN is truthy in Python, so\n`if row.get(\"duplicate_of\")` classified **every** row as layer 0 \u2014 triage would have looked\nlike it was rejecting everything. And adding ~100 columns one at a time fragments the\nDataFrame: fine at 5 rows, awful at 5 million."
+  },
+  {
+   "col": "This week",
+   "title": "Run the Box inventory on Hanratty and post the numbers",
+   "labels": "stage:01-inventory,type:build,blocker",
+   "milestone": "M1 - Foundations",
+   "assignees": [
+    "gauri-bhasin"
+   ],
+   "body": "First real measurement of an actual accession. Folder `318353711369`, 485 files.\n**Downloads nothing** \u2014 the manifest is built from Box metadata alone.\n\n- [ ] Crawl completes\n- [ ] **Numbers posted here:** file count, total GB, duplicate %, zero-byte, archives, top 25 extensions\n- [ ] Folder depth and size distribution\n- [ ] Outputs cleared before saving the notebook \u2014 it prints real filenames\n\n### Read the results against two assumptions\n- Design assumes **40\u201370% falls out at tier 0**. Expect much lower here. Most of that figure is\n  OS and application files, and Box extracts contain none. **A low number is not evidence the\n  assumption is wrong** \u2014 it is evidence we are measuring pre-filtered material.\n- The gap analysis came from a curated Box corpus. Formats here that POC 2 never handled move\n  those lanes up the priority order.\n\nNotebook: [01_box_inventory.ipynb](https://github.com/terbe2022/RIMS-Archival-Project-/blob/main/notebooks/01_box_inventory.ipynb) \u00b7 [Box folder](https://uofi.box.com/s/81rl4der7gh815mkk44fpe1y21b7hqsn)"
+  },
+  {
+   "col": "Backlog",
+   "title": "Run inventory across all six accessions and compare",
+   "labels": "stage:01-inventory,type:research",
+   "milestone": "M1 - Foundations",
+   "assignees": [
+    "gauri-bhasin"
+   ],
+   "body": "Hanratty (485), Election_2016 (75), VCResearch (23), MichaelHart (8), DonCrummey (8),\nFemTech (0).\n\nSix people's material. How much they **vary** is the design input \u2014 folder-context weighting\nonly works if structure carries meaning consistently.\n\n- [ ] All six crawled into per-source manifests\n- [ ] Variation compared: folder depth, files per folder, extension spread\n- [ ] `FemTech` (zero files) handled without error \u2014 empty folders are common on real drives\n- [ ] Cross-accession duplicates surfaced via the shared content index\n\nWatch for the same committee report on four people's drives. Genuinely useful to an archivist,\nand invisible if accessions are processed in isolation."
+  },
+  {
+   "col": "Backlog",
+   "title": "Build the 50-row test fixture",
+   "labels": "type:build,good-first-issue",
+   "milestone": "M1 - Foundations",
+   "assignees": [
+    "gauri-bhasin"
+   ],
+   "body": "`tests/fixtures/manifest_50.parquet` \u2014 synthetic, committed, safe in a public repo.\n\nMust cover every format class, every status value, every path flag, duplicates, archive children\nat depths 1\u20133, rows at each layer, and suspect dates (epoch zero, pre-1980, future).\n\n- [ ] Generated by a committed script, not by hand\n- [ ] `validate.report()` passes\n- [ ] A deliberately broken variant that trips each validation rule\n\nSmall task, disproportionate value: every test then runs without Box, without a drive, and\nwithout credentials."
+  },
+  {
+   "col": "Backlog",
+   "title": "Evaluate existing archival software and write it up",
+   "labels": "type:research",
+   "milestone": "M1 - Foundations",
+   "assignees": [
+    "gauri-bhasin"
+   ],
+   "body": "Score the shortlist against the eight criteria. Tier 1 first \u2014 Siegfried, Tika, ExifTool, DROID.\n\nQuestions I actually want answered:\n- Can Tika replace the `win32com` code for `.doc`/`.xls`/`.ppt`? Compare output on the same files.\n- Is DROID genuinely free with no institutional licence?\n- How big is the NSRL RDS download, and how much does it actually remove?\n- **What does Tika do when it fails** \u2014 hang, crash, or catchable error? This matters more than\n  its success rate. A hang on file 40,000 of 200,000 is worse than a clean failure.\n\n- [ ] Scoring sheets completed\n- [ ] Real sample output pasted for each tool\n- [ ] Recommendation written to `docs/software-evaluation-results.md`\n- [ ] Revised build list \u2014 what is genuinely left for us to write\n\nTask: [W2](https://github.com/terbe2022/RIMS-Archival-Project-/blob/main/worksheets/W2_software_evaluation_task.md)"
+  },
+  {
+   "col": "Backlog",
+   "title": "Add Open in Colab badges and a notebooks README",
+   "labels": "type:docs,good-first-issue",
+   "milestone": "M1 - Foundations",
+   "assignees": [
+    "gauri-bhasin"
+   ],
+   "body": "- [ ] Badge at the top of every notebook\n- [ ] `notebooks/README.md` \u2014 the series, what each does, what it depends on\n- [ ] Repo README layout block updated with `notebooks/`, `src/`, `tests/`\n\nSmall, but it is the difference between Joanne being able to look at the work and not."
+  },
+  {
+   "col": "Backlog",
+   "title": "Stage 01 \u2014 walk, hash, and identify against the schema",
+   "labels": "stage:01-inventory,type:build",
+   "milestone": "M2 - First pass working",
+   "assignees": [
+    "gauri-bhasin"
+   ],
+   "body": "The filesystem equivalent of the Box inventory, writing through `src/schema/manifest.py`.\n\n- [ ] Walk records path, size, timestamps, depth; full original path preserved verbatim\n- [ ] SHA-256 computed locally; Box SHA-1 retained in `content_sha1`\n- [ ] Siegfried joined for `s01_puid`, `s01_format_name`, `s01_id_confidence`\n- [ ] `s01_ext_mismatch` populated \u2014 this measures how wrong POC 2's extension routing was\n- [ ] `path_flags` and `date_flags` populated\n- [ ] `enforce()` on every write; nothing bypasses the schema\n- [ ] 10,000 files in under a minute\n- [ ] `validate.report()` passes\n\n**Open question from the schema, item 9:** whole-file SHA-256 is the current decision. Revisit\nif an accession turns out to be dominated by multi-gigabyte video, where head+tail+size would be\nfar faster. The inventory numbers will tell us."
+  },
+  {
+   "col": "Backlog",
+   "title": "Stage 02a \u2014 free filters, and measure the reduction",
+   "labels": "stage:02-triage,type:build",
+   "milestone": "M2 - First pass working",
+   "assignees": [
+    "gauri-bhasin"
+   ],
+   "body": "Zero-cost exclusions: exact duplicates by hash, NSRL known files, zero-byte, `~$` lock files,\n`.DS_Store`, `Thumbs.db`, caches, `node_modules`, `.git` internals.\n\n- [ ] Duplicate collapse writes `duplicate_of` and `duplicate_count`; **no rows removed**\n- [ ] NSRL RDS obtained and joined\n- [ ] Structural exclusions recorded in `s02_structural_exclusion`\n- [ ] **Reduction percentage measured and posted here**\n\nThat number is the argument for the whole architecture. Get it real rather than assumed \u2014 and\nremember Box extracts will understate it badly, because they contain no OS files."
+  },
+  {
+   "col": "Backlog",
+   "title": "Stage 02b \u2014 smart text peek",
+   "labels": "stage:02-triage,type:build",
+   "milestone": "M2 - First pass working",
+   "assignees": [
+    "gauri-bhasin"
+   ],
+   "body": "A flat first-2KB is not enough. Documents opening with letterhead, cover pages or a blank\nscanned page all look identical in their first 2KB, and on institutional material that is a\nlarge fraction of everything.\n\n~6KB budget, sampled structurally: head after front matter, tail (conclusions and signatures are\noften the most identifying part), three strided middle samples, plus headings and TOC entries.\n\n- [ ] Structured peek implemented, writes `s02_peek_text`, `s02_peek_method`, `s02_peek_tier`\n- [ ] **Compared against flat first-2KB on the same files** \u2014 show the difference\n- [ ] Keyword extraction compared against embedding raw text (boilerplate dominates raw peeks)\n- [ ] Escalation ladder working \u2014 most files resolve at tier 1\n\nReference: [pipeline design \u00a75](https://github.com/terbe2022/RIMS-Archival-Project-/blob/main/docs/pipeline-design.md)"
+  },
+  {
+   "col": "Backlog",
+   "title": "Stage 02c \u2014 scoring and folder-context weighting",
+   "labels": "stage:02-triage,type:build",
+   "milestone": "M2 - First pass working",
+   "assignees": [
+    "gauri-bhasin"
+   ],
+   "body": "Score each file, aggregate to folder, propagate back down.\n\n- [ ] Embeddings computed and stored **outside** the manifest, keyed on `file_uid`\n- [ ] `s02_file_score` and `s02_folder_score` kept **separate**\n- [ ] Folder weighting: a weak file in a coherent folder gets promoted; a strong-looking file in\n      a junk folder gets demoted\n- [ ] `s02_rationale` is human-readable\n- [ ] `layer` computed via `compute_layer()`, never authored by hand\n\nKeeping the two scores separate is the point: \"included because its folder is 70% significant\"\nis an auditable reason; a single blended number is not.\n\nDepends on the appraisal policy for the exemplars."
+  },
+  {
+   "col": "Backlog",
+   "title": "Port Office extraction off win32com to Tika + LibreOffice",
+   "labels": "stage:03-extraction,type:build",
+   "milestone": "M2 - First pass working",
+   "assignees": [
+    "gauri-bhasin"
+   ],
+   "body": "POC 2 uses `win32com.client` to drive actual Word, Excel and PowerPoint. It will not run in\nColab, will not run on the Linux server with the L4, cannot be parallelised safely, and hangs on\nmalformed files.\n\n**Prerequisite for the unified pipeline, not a cleanup task.**\n\n- [ ] `.doc`, `.xls`, `.ppt` extraction with no Microsoft Office installed\n- [ ] Output parity verified against POC 2 on the same sample files\n- [ ] Runs on Colab and on Linux\n- [ ] Timeout and hang handling \u2014 a hang mid-batch is worse than a clean failure\n\nReference: [POC 2 defects](https://github.com/terbe2022/RIMS-Archival-Project-/blob/main/poc/02-file-smart-search/) \u00b7 [gap analysis](https://github.com/terbe2022/RIMS-Archival-Project-/blob/main/docs/file-type-gap-analysis.md)"
+  },
+  {
+   "col": "Backlog",
+   "title": "Verify archive expansion against real archives",
+   "labels": "stage:03-extraction,type:build",
+   "milestone": "M2 - First pass working",
+   "assignees": [
+    "gauri-bhasin"
+   ],
+   "body": "The expander passes synthetic tests \u2014 nested zips, path traversal, password protection,\ncompression-ratio bombs, corrupt files. It has never seen a real archive from an accession.\n\n- [ ] Fetch a sample including archives\n- [ ] Child rows carry correct `virtual_path`, `parent_uid`, `archive_depth`\n- [ ] `validate.py` confirms parent references resolve\n- [ ] Add py7zr / rarfile if `.7z` or `.rar` appear in the inventory\n- [ ] `All Scanned Images.zip` (3.8 GB) as the large-archive case"
+  },
+  {
+   "col": "Backlog",
+   "title": "Agree human oversight thresholds",
+   "labels": "stage:02-triage,type:decision,needs:joanne,needs:brent",
+   "milestone": "M2 - First pass working",
+   "assignees": [
+    "terbe2022"
+   ],
+   "body": "Proposed starting position \u2014 to negotiate, not impose:\n\n| Situation | Oversight |\n|---|---|\n| Anything flagged sensitive | 100% human review, always |\n| Layer 0\u20131 exclusions, first accession | 100% review \u2014 the first one is calibration |\n| Layer 0\u20131, later accessions | Stratified 5\u201310% plus the borderline band |\n| Auto-promoted files | Stratified audit 5\u201310% |\n| Deletion of anything | Explicit human approval, batch level, recorded |\n\n**Establish review capacity first.** Thresholds set without knowing weekly capacity produce a\nqueue nobody works through.\n\nReference: [scope doc \u2014 governance](https://terbe2022.github.io/RIMS-Archival-Project-/#/x-governance)"
+  },
+  {
+   "col": "Backlog",
+   "title": "Re-benchmark the serving stack for text",
+   "labels": "stage:04-enrichment,type:research",
+   "milestone": "M3 - Enrichment",
+   "assignees": [
+    "terbe2022"
+   ],
+   "body": "POC 1 measured 34.8 sec/row via `subprocess.run()` against the Ollama CLI, which reloads model\nweights on every call. That is an implementation artefact, not a model limit.\n\nThe image pipeline went 22.2 hrs \u2192 3.7 hrs on the same L4 by migrating to vLLM \u2014 6.22\u00d7, of which\n3.6\u00d7 was purely the serving stack. Expect something comparable here.\n\n- [ ] Same workload measured three ways: CLI, Ollama serve, vLLM\n- [ ] Results posted here and `docs/pipeline-design.md` updated\n\nPrior work: [image throughput](https://taylererbe.com/archival-image-throughput-evaluation.html)"
+  },
+  {
+   "col": "Backlog",
+   "title": "Compare three text models on the same 20 documents",
+   "labels": "stage:04-enrichment,type:research",
+   "milestone": "M3 - Enrichment",
+   "assignees": [
+    "gauri-bhasin"
+   ],
+   "body": "Same documents, same prompt. Quality and speed recorded here.\n\n**The nuance that matters for metadata:** more detail is not better. A larger model writes more\nfluent prose and invents plausible creators and dates more confidently. For Dublin Core fields we\nwant *extraction*, not *generation* \u2014 small model, constrained schema, required to emit `null`\nrather than guess.\n\n- [ ] Three models compared\n- [ ] Note where each invents rather than extracts on factual fields\n- [ ] Recommendation for the enrichment default\n\nReference: [scope doc \u2014 models](https://terbe2022.github.io/RIMS-Archival-Project-/#/x-models)"
+  },
+  {
+   "col": "Backlog",
+   "title": "Compare three vision models on the same 20 images",
+   "labels": "stage:04-enrichment,type:research",
+   "milestone": "M3 - Enrichment",
+   "assignees": [
+    "gauri-bhasin"
+   ],
+   "body": "Same images, same prompt. Include `moondream` as the local baseline and `qwen2.5-vl` as the\nlikely upgrade from llava-llama3.\n\n**Carry forward from POC 3:** keep description and classification as **separate steps**. LLaVA\nproduced rationales that correctly described racialised content while returning\n`offensive: false` \u2014 the description was right and the judgment was wrong. That split is why the\nsemantic method worked, and why it was ~200\u00d7 faster.\n\n- [ ] Three models compared on quality and speed\n- [ ] Re-run against the same 1,000 images from POC 3 so results are comparable\n- [ ] Split-step design confirmed as the default\n\nReference: [POC 3](https://github.com/terbe2022/RIMS-Archival-Project-/blob/main/poc/03-image-classification/) \u00b7 [taxonomy](https://github.com/terbe2022/RIMS-Archival-Project-/blob/main/poc/03-image-classification/data/Sensitive_Content_Taxonomy_DataFrame.csv)"
+  },
+  {
+   "col": "Backlog",
+   "title": "Decide: adopt ePADD for email, or keep our own lane",
+   "labels": "stage:04-enrichment,type:decision,needs:brent",
+   "milestone": "M3 - Enrichment",
+   "assignees": [
+    "terbe2022"
+   ],
+   "body": "A genuine build-versus-adopt fork. ePADD is Stanford's email appraisal, redaction and discovery\ntool for archives, and it directly overlaps POC 1.\n\nEither it becomes the delivery interface for email and we feed it, or we keep our own lane.\nWorth deciding rather than drifting.\n\n- [ ] Ask Brent what RIMS currently uses for email archiving and e-discovery\n- [ ] Decision recorded here **with the reasoning**"
+  },
+  {
+   "col": "Backlog",
+   "title": "Stage 03 \u2014 extraction routing table",
+   "labels": "stage:03-extraction,type:build",
+   "milestone": "M3 - Enrichment",
+   "assignees": [
+    "gauri-bhasin"
+   ],
+   "body": "Route on the verified PRONOM PUID from Stage 01, **not** the extension.\n\n- [ ] Routing expressed as **data, not control flow** \u2014 a table of format class \u2192 lane \u2192\n      extractor \u2192 cost tier. Adding a format becomes adding a row.\n- [ ] Header-only reads for scientific, geospatial and 3D formats \u2014 the header *is* the metadata\n- [ ] Structural sampling for long documents; skip blank leading pages on scans\n- [ ] Encoding detection for legacy plain text (CP1252, Latin-1, UTF-16)\n- [ ] Unhandled formats degrade gracefully to technical metadata plus folder context\n\nReference: [gap analysis](https://github.com/terbe2022/RIMS-Archival-Project-/blob/main/docs/file-type-gap-analysis.md)"
+  },
+  {
+   "col": "Backlog",
+   "title": "Stage 04 \u2014 enrichment lanes",
+   "labels": "stage:04-enrichment,type:build",
+   "milestone": "M3 - Enrichment",
+   "assignees": [
+    "terbe2022",
+    "gauri-bhasin"
+   ],
+   "body": "Only files that survive triage reach here.\n\n- [ ] **Email:** parse, explode threads, extract headers, mask PII with Presidio, then summarise.\n      **Mask before summarising, never after.**\n- [ ] **Image:** downsample, extract EXIF/IPTC/XMP, describe, then classify sensitivity as a\n      separate auditable step, then OCR if text-bearing\n- [ ] **Document:** structural sampling, summary, doc-type inference, PII scan\n- [ ] **Tabular:** describe what the dataset *is* \u2014 schema, columns, ranges \u2014 not what it contains\n- [ ] Prompt templates versioned; `s04_model` and `s04_prompt_version` recorded\n- [ ] Structured output enforced; model must emit `null` rather than guess\n\n**Known defects to fix, not inherit:** the header regex assumes a fixed field order and returns\n`None` on anything else; the thread splitter only matches the English `-----Original Message-----`\ndelimiter; Presidio tagged a US phone number as `UK_NHS`.\n\nDepends on the PII mapping store decision."
+  },
+  {
+   "col": "Backlog",
+   "title": "Stage 05 \u2014 metadata and the Dublin Core crosswalk",
+   "labels": "stage:05-metadata,type:build",
+   "milestone": "M4 - Delivery",
+   "assignees": [
+    "gauri-bhasin"
+   ],
+   "body": "- [ ] Crosswalk from manifest columns to Dublin Core, built as **configuration** so a change in\n      target is a mapping change rather than a rewrite\n- [ ] IPTC/XMP written back for images via ExifTool\n- [ ] Provenance block: source, verbatim original path, hashes, PUID, ingest timestamp,\n      pipeline version, model, prompt version\n- [ ] `s05_generated_fields` records which DC fields a machine wrote\n- [ ] Second-pass triage re-ranks using the generated metadata\n\n**Leave a field blank rather than guessing.** An archivist reading a finding aid should be able\nto tell what a machine wrote. Blank beats confidently wrong.\n\nDepends on the metadata standard being confirmed."
+  },
+  {
+   "col": "Backlog",
+   "title": "Stage 06 \u2014 index, search and delivery",
+   "labels": "stage:06-index,type:build",
+   "milestone": "M4 - Delivery",
+   "assignees": [
+    "terbe2022",
+    "gauri-bhasin"
+   ],
+   "body": "POC 2 proved this works and it is what stakeholders responded to most strongly.\n\n- [ ] Vector index over summaries and descriptions\n- [ ] **Hybrid retrieval** \u2014 semantic plus keyword. Researchers search for exact names and grant\n      numbers as often as concepts.\n- [ ] Hierarchical browse alongside search\n- [ ] Verbatim original path returned on every hit\n- [ ] An interface the Archives team can actually use \u2014 POC 2 ran through a notebook CLI"
+  },
+  {
+   "col": "Backlog",
+   "title": "Build the review queue interface",
+   "labels": "stage:06-index,type:build",
+   "milestone": "M4 - Delivery",
+   "assignees": [
+    "terbe2022"
+   ],
+   "body": "The review queue is a first-class output, not a byproduct.\n\n- [ ] Reviewer sees layer 3 by default, can drill into any layer beneath\n- [ ] Column subset from `REVIEWER_VIEW` \u2014 those must stay human-readable\n- [ ] Override writes `rv_*` columns plus an append-only review log\n- [ ] Machine decision preserved when overridden\n\nMachine/human disagreement is the most valuable signal we will get \u2014 it is how we find out the\nappraisal policy is ambiguous."
+  },
+  {
+   "col": "Backlog",
+   "title": "Throughput model and drive sizing calculator",
+   "labels": "stage:07-scale,type:build",
+   "milestone": "M5 - Scale",
+   "assignees": [
+    "terbe2022"
+   ],
+   "body": "The Archives needs to prioritise accessions and schedule staff review time. That requires\nmeasurement, not estimation.\n\n- [ ] Per-stage timing instrumented into the manifest\n- [ ] Benchmark on a **representative** sample, not a convenient one \u2014 format mix drives cost\n      more than file count does\n- [ ] Sweep batch size, quantisation level, concurrency, persistent server vs per-call\n- [ ] Sizing model: file count and format mix in, wall-clock out\n- [ ] Recommended processing order across the accession queue\n\nBlocked in practice until a real drive exists \u2014 format mix and triage retention are the two\ndominant variables and both are currently assumptions.\n\nThe calculator on the [scope doc](https://terbe2022.github.io/RIMS-Archival-Project-/#/s07) already reproduces the measured image figures."
+  }
+ ],
+ "close_note": "Closing as part of a board reset on 8 Aug 2026.\n\nThe first issue set was written before we knew what was actually in Box, before the manifest\nschema existed, and before Colab and Box access were working. Several issues had become\nduplicates of each other and several described work we would no longer do that way.\n\nReplaced by a deduplicated set covering the same ground with current context. Nothing has been\ndropped \u2014 anything still real was rewritten rather than discarded. See the new issues."
+}
