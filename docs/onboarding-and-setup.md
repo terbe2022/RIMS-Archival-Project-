@@ -1,30 +1,39 @@
 # Getting Your Machine Set Up
 
+# Getting Your Machine Set Up
+
 **Gauri — read this first. Everything you need to be productive in week one.**
 From Tayler.
 
 ---
 
-## Before anything else: check your GPU
+## Your hardware, and what it means
 
-Your Task Manager report showed Intel UHD integrated graphics with no dedicated VRAM. That
-may be right, but I want you to double-check, because HP ships the ZBook Power G9 in
-configurations both with and without a discrete NVIDIA card, and Task Manager lists GPUs
-separately as "GPU 0" and "GPU 1." It's easy to look at the first one and stop.
+Thanks for the detailed specs — that's exactly what I needed. Working from what you sent:
 
-**Do this now — takes two minutes:**
+| Component | | What it means for us |
+|---|---|---|
+| CPU | i7-12700H, 14 cores / 20 threads | Strong. Parsing, hashing, embeddings, multiprocessing all fine |
+| GPU | Intel UHD, integrated | No CUDA — no vLLM, no GPU-accelerated inference |
+| RAM | 16 GB (15.6 usable) | The real constraint. ~11 GB free after Windows |
+| Storage | 954 GB NVMe | Plenty, but don't stage large sample sets locally |
 
-1. Right-click Start → Device Manager → expand **Display adapters**
-2. If you see anything starting with "NVIDIA," open Command Prompt and run `nvidia-smi`
-3. Send me a screenshot either way
+One 30-second thing worth confirming, and then I'll stop asking: HP ships the ZBook Power G9
+both with and without a discrete RTX A1000. Device Manager → Display adapters will say for
+certain. If NVIDIA shows up there, tell me — it changes which models you can run and I'd
+rather revise the plan now than have you work around a limit you don't have. If it's Intel
+only, that matches what you sent and we're set.
 
-If there's an NVIDIA card in there — even a 4 GB RTX A1000 — quite a lot changes for you and
-I'd rather know before you spend a week working around a limitation you don't have.
+**Here's the thing I want you to understand about your assignment.** The triage layer is
+entirely CPU work — walking a filesystem, hashing, identifying formats, parsing headers,
+extracting text, computing embeddings, applying scoring rules. None of it needs a GPU. And
+triage is the part of this system that determines whether the whole thing is viable, because
+it's what stops us running expensive models across a million files.
 
-The rest of this document assumes integrated graphics only. If it turns out you have a
-discrete card, tell me and I'll revise the model recommendations.
-
----
+So you're not getting the leftover work because you don't have a GPU. You're getting the part
+that matters most, and it happens to fit your machine well. The GPU-bound work — vision
+models, large-batch summarization — runs on Colab or on the L4 server, and I'll handle that
+until your server access comes through.
 
 ## What your machine is actually good for
 
