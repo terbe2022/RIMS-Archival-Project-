@@ -1,0 +1,126 @@
+name: Update project board
+
+# Creates the new issues, closes what is done, comments on what changed, and
+# prints the exact card moves to make. Run by hand from the Actions tab.
+#
+# The default GITHUB_TOKEN cannot move cards between Project v2 columns — that
+# needs a PAT with `project` scope. Everything else is automated; the drag list
+# is printed in the run summary.
+on:
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: 'Type UPDATE to confirm. Creates 13 issues.'
+        required: true
+        default: ''
+
+permissions:
+  issues: write
+  contents: read
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check confirmation
+        if: ${{ github.event.inputs.confirm != 'UPDATE' }}
+        run: |
+          echo "::error::Type UPDATE in the confirm box to run this."
+          exit 1
+
+      - uses: actions/checkout@v4
+
+      - name: Stop if the new issues already exist
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh issue list --repo "$GITHUB_REPOSITORY" --state all --limit 200 \
+               --search "Manifest schema v1 in:title" --json number --jq 'length' \
+               | grep -qv '^0$'; then
+            echo "::error::Looks like this already ran — 'Manifest schema v1' exists. Refusing to duplicate."
+            exit 1
+          fi
+          echo "safe to proceed"
+
+      - name: Comment on existing issues
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          for n in $(jq -r '.comments | keys[]' .github/board_update.json); do
+            jq -r ".comments[\"$n\"]" .github/board_update.json > /tmp/c.md
+            gh issue comment "$n" --repo "$GITHUB_REPOSITORY" --body-file /tmp/c.md
+            echo "commented on #$n"
+          done
+
+      - name: Close what is done
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          for n in $(jq -r '.closes | keys[]' .github/board_update.json); do
+            jq -r ".closes[\"$n\"]" .github/board_update.json > /tmp/c.md
+            gh issue comment "$n" --repo "$GITHUB_REPOSITORY" --body-file /tmp/c.md
+            gh issue close "$n" --repo "$GITHUB_REPOSITORY"
+            echo "closed #$n"
+          done
+
+      - name: Create the new issues
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          count=$(jq '.new | length' .github/board_update.json)
+          : > /tmp/created.txt
+          for i in $(seq 0 $((count - 1))); do
+            title=$(jq -r ".new[$i].title"     .github/board_update.json)
+            labels=$(jq -r ".new[$i].labels"   .github/board_update.json)
+            ms=$(jq -r ".new[$i].milestone"    .github/board_update.json)
+            col=$(jq -r ".new[$i].col"         .github/board_update.json)
+            asg=$(jq -r ".new[$i].assignees | join(\",\")" .github/board_update.json)
+            jq -r ".new[$i].body" .github/board_update.json > /tmp/body.md
+
+            url=$(gh issue create --repo "$GITHUB_REPOSITORY" \
+                    --title "$title" --label "$labels" --milestone "$ms" \
+                    --assignee "$asg" --body-file /tmp/body.md)
+            num="${url##*/}"
+            echo "$num|$col|$title" >> /tmp/created.txt
+            echo "  #$num  [$col]  $title"
+          done
+
+      - name: Print the card moves
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          {
+            echo "## Board updated"
+            echo ""
+            echo "Issues created, comments posted, #4 closed. Two things left, both drag-and-drop —"
+            echo "GitHub's default token cannot set Project v2 status."
+            echo ""
+            echo "### 1. Move existing cards"
+            echo ""
+            echo "| Issue | Move to | Why |"
+            echo "|---|---|---|"
+            jq -r '.moves | to_entries[] | "| #\(.key) | **\(.value.col)** | \(.value.note) |"' \
+              .github/board_update.json
+            echo "| #4 | — | closed, will drop out |"
+            echo ""
+            echo "### 2. Place the new cards"
+            echo ""
+            echo "They land in the default column. Move them to:"
+            echo ""
+            echo "| Issue | Column | Title |"
+            echo "|---|---|---|"
+            while IFS='|' read -r num col title; do
+              echo "| #$num | **$col** | $title |"
+            done < /tmp/created.txt
+            echo ""
+            echo "### Then"
+            echo ""
+            echo "Filter Issues by \`label:needs:joanne\` — that is your next conversation with her,"
+            echo "assembled for free."
+            echo ""
+            echo "---"
+            echo ""
+            echo "<sub>To automate the moves too: create a classic PAT with \`project\` scope, add it"
+            echo "as a repo secret named \`PROJECT_TOKEN\`, and the workflow can use"
+            echo "\`gh project item-edit\`. Worth it only if this becomes a regular chore.</sub>"
+          } >> $GITHUB_STEP_SUMMARY
