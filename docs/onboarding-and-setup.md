@@ -1,7 +1,5 @@
 # Getting Your Machine Set Up
 
-# Getting Your Machine Set Up
-
 **Gauri — read this first. Everything you need to be productive in week one.**
 From Tayler.
 
@@ -9,7 +7,7 @@ From Tayler.
 
 ## Your hardware, and what it means
 
-Thanks for the detailed specs — that's exactly what I needed. Working from what you sent:
+Thanks for the detailed specs — that's exactly what I needed.
 
 | Component | | What it means for us |
 |---|---|---|
@@ -17,12 +15,6 @@ Thanks for the detailed specs — that's exactly what I needed. Working from wha
 | GPU | Intel UHD, integrated | No CUDA — no vLLM, no GPU-accelerated inference |
 | RAM | 16 GB (15.6 usable) | The real constraint. ~11 GB free after Windows |
 | Storage | 954 GB NVMe | Plenty, but don't stage large sample sets locally |
-
-One 30-second thing worth confirming, and then I'll stop asking: HP ships the ZBook Power G9
-both with and without a discrete RTX A1000. Device Manager → Display adapters will say for
-certain. If NVIDIA shows up there, tell me — it changes which models you can run and I'd
-rather revise the plan now than have you work around a limit you don't have. If it's Intel
-only, that matches what you sent and we're set.
 
 **Here's the thing I want you to understand about your assignment.** The triage layer is
 entirely CPU work — walking a filesystem, hashing, identifying formats, parsing headers,
@@ -33,7 +25,7 @@ it's what stops us running expensive models across a million files.
 So you're not getting the leftover work because you don't have a GPU. You're getting the part
 that matters most, and it happens to fit your machine well. The GPU-bound work — vision
 models, large-batch summarization — runs on Colab or on the L4 server, and I'll handle that
-until your server access comes through.
+side until your server access comes through.
 
 ## What your machine is actually good for
 
