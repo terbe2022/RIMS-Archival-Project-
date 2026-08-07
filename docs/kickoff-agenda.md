@@ -125,7 +125,7 @@ needs no approval, has no per-token cost, and removes an entire category of risk
 
 Two things this does not rule out:
 
-- **AI assistance for building the pipeline.** Claude, Copilot and similar tools helping us
+- **AI assistance for building the pipeline.**  Copilot and similar tools helping us
   write and debug code involve no archive content. That is a straightforward productivity gain
   and we should use it.
 - **Local agentic loops on our own hardware.** Open-weight models with tool-calling on the L4,
