@@ -166,16 +166,18 @@ two variables that dominate processing time. That costs nothing to produce.
 
 | # | Decision | Owner | Needed by |
 |---|---|---|---|
-| D1 | Appraisal policy in writing | Joanne / Bethany / Brent | Before triage development |
-| D2 | Gold-standard labelled set, 300–500 files | Archives | Before any scoring work |
-| D3 | Metadata target confirmed | Joanne | Before stage 05 |
-| D4 | Which software the University already licenses | Joanne / Brent | Kickoff + 1 week |
-| D5 | Remote drive access, or a directory listing | Tayler / Infrastructure | ASAP — blocking |
+| D1 | Appraisal policy in writing — what "important" means, operationally | Joanne / Bethany / Brent | Before triage development |
+| D2 | Labelled sample — start with 50 files, two archivists independently. If they disagree, the criteria need tightening before scaling the exercise | Archives + Tayler | Before scoring work |
+| D3 | Which metadata standard the output must conform to — Dublin Core assumed, IPTC for images. Confirm, or name the institutional profile / EAD requirement instead | Joanne | Before stage 05 |
+| D4 | Which archival software the University already licenses — Preservica, Archivematica, DROID, ePADD | Joanne / Brent | Week 2 |
+| D5 | How accessions physically reach us — where the drives are stored, who is able to connect one, how many are queued, and what condition the media is in | Joanne (conversation, not a ticket) | Before any drive-based work |
 | D6 | Human review capacity per week | Joanne | Before threshold tuning |
-| D7 | Data Privacy sign-off on local model processing | Data Privacy | Before processing real content |
-| D8 | Gauri's server access | My supervisor | Declined for now; revisit ~4 weeks |
+| D7 | Confirm the existing Data Privacy sign-off from the POCs extends to processing full accessions at volume. Not a new request — a note for the record, since POC scope was sample data | Tayler | Before processing real accessions |
+| D8 | Gauri's server access — currently declined | Supervisor | Revisit ~4 weeks |
 | D9 | Manifest schema v1 | Tayler + Gauri | Week 1 |
-| D10 | ePADD — adopt or build our own email lane | Tayler + Brent | Week 4 |
+| D10 | ePADD — adopt for the email lane, or keep our own | Tayler | Week 4 |
+| D11 | Box app authorization — scopes submitted, awaiting admin approval. Developer token covers testing meanwhile | Tayler / Box admin | Not blocking |
+| D12 | Whether accessions arrive through Box or on physical media. This determines whether the source layer needs a filesystem path at all, and whether "download only what survives triage" applies | Joanne + Tayler | Before building the source adapter |
 
 ---
 
