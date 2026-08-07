@@ -1,0 +1,102 @@
+name: Reset issues
+
+# Closes every open issue with an explanatory note, then creates a clean,
+# deduplicated set. Run by hand from the Actions tab.
+#
+# GitHub Actions cannot DELETE issues — deletion is admin-only and has no bulk
+# option. Closing achieves the same result: they leave the board and the default
+# filters, and the history stays intact.
+on:
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: 'Type RESET to confirm. Closes ALL open issues and creates 32 new ones.'
+        required: true
+        default: ''
+
+permissions:
+  issues: write
+  contents: read
+
+jobs:
+  reset:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check confirmation
+        if: ${{ github.event.inputs.confirm != 'RESET' }}
+        run: |
+          echo "::error::Type RESET in the confirm box to run this."
+          exit 1
+
+      - uses: actions/checkout@v4
+
+      - name: Close every open issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          jq -r '.close_note' .github/reset_data.json > /tmp/note.md
+          open=$(gh issue list --repo "$GITHUB_REPOSITORY" --state open --limit 300 \
+                   --json number --jq '.[].number')
+          n=0
+          for i in $open; do
+            gh issue comment "$i" --repo "$GITHUB_REPOSITORY" --body-file /tmp/note.md >/dev/null
+            gh issue close "$i" --repo "$GITHUB_REPOSITORY" >/dev/null
+            n=$((n+1))
+          done
+          echo "closed $n issues"
+          echo "CLOSED=$n" >> "$GITHUB_ENV"
+
+      - name: Create the clean set
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          count=$(jq '.new | length' .github/reset_data.json)
+          : > /tmp/created.txt
+          for i in $(seq 0 $((count - 1))); do
+            title=$(jq -r ".new[$i].title"   .github/reset_data.json)
+            labels=$(jq -r ".new[$i].labels" .github/reset_data.json)
+            ms=$(jq -r ".new[$i].milestone"  .github/reset_data.json)
+            col=$(jq -r ".new[$i].col"       .github/reset_data.json)
+            asg=$(jq -r ".new[$i].assignees | join(\",\")" .github/reset_data.json)
+            jq -r ".new[$i].body" .github/reset_data.json > /tmp/body.md
+
+            url=$(gh issue create --repo "$GITHUB_REPOSITORY" \
+                    --title "$title" --label "$labels" --milestone "$ms" \
+                    --assignee "$asg" --body-file /tmp/body.md)
+            num="${url##*/}"
+            echo "$num|$col|$asg|$title" >> /tmp/created.txt
+            echo "  #$num  [$col]  $title"
+          done
+
+      - name: Print the card placement
+        run: |
+          {
+            echo "## Board reset"
+            echo ""
+            echo "Closed **$CLOSED** old issues. Created **$(wc -l < /tmp/created.txt)** new ones."
+            echo ""
+            echo "The closed ones drop off the board on their own. The new cards land in the"
+            echo "default column — move them as below. GitHub's default token cannot set"
+            echo "Project v2 status, so this last part is drag-and-drop."
+            echo ""
+            for c in "This week" "Review" "Blocked" "Backlog"; do
+              echo "### $c"
+              echo ""
+              echo "| Issue | Owner | Title |"
+              echo "|---|---|---|"
+              while IFS='|' read -r num col asg title; do
+                if [ "$col" = "$c" ]; then
+                  echo "| #$num | $asg | $title |"
+                fi
+              done < /tmp/created.txt
+              echo ""
+            done
+            echo "---"
+            echo ""
+            echo "### Then"
+            echo ""
+            echo "- Filter Issues by \`label:needs:joanne\` — that is your next meeting with her"
+            echo "- Send Gauri: \`/issues/assigned/gauri-bhasin\`"
+            echo "- If you want the closed issues gone entirely, each has to be deleted by hand"
+            echo "  (Issue → ⋯ → Delete). Closed is usually good enough."
+          } >> $GITHUB_STEP_SUMMARY
