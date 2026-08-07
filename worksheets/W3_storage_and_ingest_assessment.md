@@ -245,7 +245,41 @@ I don't have a good sense of the actual numbers, and everything downstream depen
 
 > Answer:
 
----
+What the Box sample data actually is — and isn't
+The `File_Archiving Project` folder contains three distinct kinds of test data:
+Type	Content	Scale
+Hard-drive extracts	`Hanratty Computer 2017` (485), `Election_2016` (75), `2415001_VCResearch` (23), `2620191_MichaelHart` (8), `1513059_DonCrummey` (8), `2620267_FemTech` (0)	~600 files, six accessions
+Image classification corpus	`All Scanned Images.zip`	3.8 GB
+Email archive artefacts	Two browser-saved `.download` files	77 KB
+These are files extracted from hard drives and copied into Box. They are not the drives.
+That matters for anything we measure:
+No operating system or application files. A large part of the assumed 40–70% tier-0
+reduction is Windows directories, Program Files, caches and installers. None of that is
+here, so the duplicate and junk rates measured against Box will be much lower than a real
+drive's — and that is not evidence the assumption is wrong.
+Folder structure may be flattened or partial. Folder-context weighting depends on
+hierarchy carrying meaning. We cannot fully validate that against extracts.
+Original filesystem metadata is gone. Box normalizes timestamps; original permissions,
+ACLs and creation times did not survive the copy.
+Nothing deleted, no slack space. Forensic acquisition would surface material that a
+file-level copy does not.
+Someone already made selection decisions. Whoever extracted these chose what to include,
+which is itself a form of appraisal that we cannot see or reverse.
+Consequence
+Box is a good enough environment to build and test the pipeline against, and the six
+accessions give us real variation between people. It is not sufficient to validate the
+triage retention rate, the tier-0 reduction, or the format-mix assumptions, because the
+material has already been filtered by hand.
+Those numbers stay provisional until we process a complete drive.
+Question this raises for the ingest design
+D12 in the decisions list. Everything built so far assumes Box is the source. If accessions
+arrive as physical media and get mounted, then:
+the source layer needs a filesystem path, not just a Box folder ID
+"download only what survives triage" does not apply, because a mounted drive is already local
+forensic imaging and write-blocking become relevant, and BitCurator moves up the list
+Worth resolving with Joanne before building further on the Box assumption.
+> **Ask Joanne:** when an accession arrives, what physically shows up, where does it live, who
+> is able to connect it to a machine, and how many are queued?
 
 ## Part 6 — Recommendation
 
