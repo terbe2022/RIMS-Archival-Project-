@@ -1,0 +1,103 @@
+name: Repair issues
+
+# Reopens the newest issue for each canonical title and leaves every older
+# duplicate closed. Creates nothing and deletes nothing, so a partial run is
+# harmless and it is safe to run repeatedly.
+on:
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: 'Type REPAIR to confirm.'
+        required: true
+        default: ''
+
+permissions:
+  issues: write
+  contents: read
+
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check confirmation
+        if: ${{ github.event.inputs.confirm != 'REPAIR' }}
+        run: |
+          echo "::error::Type REPAIR in the confirm box."
+          exit 1
+
+      - uses: actions/checkout@v4
+
+      - name: Reopen one issue per canonical title
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue list --repo "$GITHUB_REPOSITORY" --state all --limit 300 \
+            --json number,title,state > /tmp/all.json
+          echo "found $(jq length /tmp/all.json) issues total"
+
+          : > /tmp/report.txt
+          reopened=0; missing=0; dupes=0
+
+          n=$(jq '.titles | length' .github/repair_titles.json)
+          for i in $(seq 0 $((n - 1))); do
+            t=$(jq -r ".titles[$i]" .github/repair_titles.json)
+
+            # every issue with this exact title, newest number first
+            nums=$(jq -r --arg t "$t" \
+              '[.[] | select(.title == $t) | .number] | sort | reverse | .[]' /tmp/all.json)
+
+            if [ -z "$nums" ]; then
+              echo "MISSING|$t" >> /tmp/report.txt
+              echo "  MISSING  $t"
+              missing=$((missing+1))
+              continue
+            fi
+
+            keep=$(echo "$nums" | head -1)
+            gh issue reopen "$keep" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1 || true
+            echo "KEPT|$keep|$t" >> /tmp/report.txt
+            echo "  #$keep  $t"
+            reopened=$((reopened+1))
+
+            for extra in $(echo "$nums" | tail -n +2); do
+              gh issue close "$extra" --repo "$GITHUB_REPOSITORY" \
+                --comment "Duplicate of #$keep — left closed." >/dev/null 2>&1 || true
+              echo "  ...closed duplicate #$extra"
+              dupes=$((dupes+1))
+            done
+          done
+
+          echo "REOPENED=$reopened" >> "$GITHUB_ENV"
+          echo "MISSING=$missing"   >> "$GITHUB_ENV"
+          echo "DUPES=$dupes"       >> "$GITHUB_ENV"
+
+      - name: Summary
+        run: |
+          {
+            echo "## Repair complete"
+            echo ""
+            echo "| | |"
+            echo "|---|---|"
+            echo "| Reopened | **$REOPENED** |"
+            echo "| Duplicates left closed | $DUPES |"
+            echo "| Titles with no issue at all | $MISSING |"
+            echo ""
+            if [ "$MISSING" != "0" ]; then
+              echo "### Never created — make these by hand"
+              echo ""
+              grep '^MISSING|' /tmp/report.txt | cut -d'|' -f2 | sed 's/^/- /'
+              echo ""
+            fi
+            echo "### Card placement"
+            echo ""
+            for c in "This week" "Review" "Blocked" "Backlog"; do
+              echo "**$c**"
+              echo ""
+              while IFS='|' read -r tag num title; do
+                [ "$tag" = "KEPT" ] || continue
+                want=$(jq -r --arg t "$title" '.cols[$t]' .github/repair_titles.json)
+                [ "$want" = "$c" ] && echo "- #$num $title"
+              done < /tmp/report.txt
+              echo ""
+            done
+          } >> $GITHUB_STEP_SUMMARY
