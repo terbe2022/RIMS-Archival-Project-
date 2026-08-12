@@ -1,5 +1,13 @@
 # Storage & Ingest — Assessment Worksheet
 
+> **SUPERSEDED — most of this was answered on 12 Aug 2026.**
+> Material does not arrive on drives we have to attach: it is already on an Archives network
+> share, preservation-processed by Tracy Popp. See
+> [`docs/stakeholders/answers-2026-08.md`](../../docs/stakeholders/answers-2026-08.md) §1.
+> The one part still live — where the *working copy* lives during processing — is tracked in
+> [`docs/stakeholders/open-questions.md`](../../docs/stakeholders/open-questions.md).
+
+
 **Owner:** Tayler Erbe
 **Purpose:** Working document for me to fill in before taking this to Data Privacy, Records
 Management, and Infrastructure. Everything here needs an answer from someone before we can

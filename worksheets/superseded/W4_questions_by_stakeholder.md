@@ -1,5 +1,11 @@
 # Open Questions — Organised by Who Needs to Answer Them
 
+> **SUPERSEDED by [`docs/stakeholders/open-questions.md`](../../docs/stakeholders/open-questions.md).**
+> Answers received 12 Aug 2026 are recorded in
+> [`answers-2026-08.md`](../../docs/stakeholders/answers-2026-08.md); what remains open moved to
+> the new file. This one is kept only to show what was asked and when.
+
+
 Working list. Every question that currently blocks or shapes a decision, grouped by who I
 need to put it to. Fill in the answer and the date when I get one.
 
@@ -117,7 +123,7 @@ These don't need anyone else — they're design decisions we make and record.
 
 | | Question | Where it gets answered |
 |---|---|---|
-| 🔴 | The full manifest schema | `worksheets/W1_manifest_schema_worksheet.md` |
+| 🔴 | The full manifest schema | `docs/design/manifest-schema.md` |
 | 🔴 | Which existing software we adopt | `worksheets/W2_software_evaluation_task.md` |
 | 🟡 | Which models we standardise on | Model comparison, Week 2 |
 | 🟡 | Text peek strategy and budget | Pipeline design, stage 02 |
