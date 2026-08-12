@@ -12,7 +12,7 @@ it stopped rather than re-crawling.
     python box_inventory.py --folder 318353711369 --out manifest/
 
 Requires a .env with BOX_CLIENT_ID, BOX_CLIENT_SECRET, BOX_ENTERPRISE_ID.
-See docs/box-integration.md for how to get those and why the Service Account
+See docs/setup/box-integration.md for how to get those and why the Service Account
 must be collaborated onto the folder.
 """
 from __future__ import annotations
@@ -192,7 +192,7 @@ def summarise(df: pd.DataFrame):
     if df.empty:
         print("\nNo files found.")
         print("If the folder is not empty, the Service Account probably is not a")
-        print("collaborator on it — see docs/box-integration.md, 'the step everyone misses'.")
+        print("collaborator on it — see docs/setup/box-integration.md, 'the step everyone misses'.")
         return
 
     total = len(df)

@@ -236,7 +236,7 @@ footer{border-top:2px solid var(--ink); margin-top:60px; padding:20px 0 0;
     </div>
     <div class="mast-meta">
       <div>Ref <b>RIMS-P</b></div>
-      <div>Draft <b>v0.1</b></div>
+      <div>Draft <b>v0.2</b></div>
       <div>Author <b>T. Erbe</b></div>
       <div>Build <b>G. Bhasin</b></div>
       <div id="mast-date">&mdash;</div>
@@ -255,7 +255,17 @@ footer{border-top:2px solid var(--ink); margin-top:60px; padding:20px 0 0;
 <main class="wrap">
   <section id="view-home" class="view on">
     <div class="lede">
-      <p class="first">A drive arrives. It belonged to a researcher who has retired or died. Somewhere in its hundreds of thousands of files is work worth keeping — and no practical way to find it, because appraising it by hand means opening all of it.</p>
+      <p class="first" style="border-left:3px solid #7A2E1E;padding-left:14px">
+        <b>Revised 12 August 2026.</b> The University Archives answered the outstanding scoping
+        questions, and several answers changed the direction of this work rather than filling in
+        blanks. Material does not arrive on drives we have to attach &mdash; it is already on a
+        network share, preservation-processed, with <b>49 collections</b> waiting for appraisal
+        review. Scale is <b>100&ndash;10,000 files per accession</b>, not millions. Delivery runs
+        to Medusa, the Library Digital Library and <b>ArchivesSpace</b>. Stages 00, 02, 05, 06, 07
+        and the software and governance sections are updated below; the full record is in
+        <a href="https://github.com/terbe2022/RIMS-Archival-Project-/blob/main/docs/stakeholders/answers-2026-08.md">docs/stakeholders/answers-2026-08.md</a>.
+      </p>
+      <p>A drive arrives. It belonged to a researcher who has retired or died. Somewhere in its hundreds of thousands of files is work worth keeping — and no practical way to find it, because appraising it by hand means opening all of it.</p>
       <p>This document is the working plan for the system that answers one question at scale: <em>which of these files matter?</em> Everything expensive happens only after that question is answered. Each stage below lists what has to be true before the next one can start, what we can get from software that already exists, what we still have to build, and who is holding it.</p>
     </div>
 
@@ -304,15 +314,16 @@ const PIPELINE = {
 stages: [
 /* ---------------------------------------------------------------- 00 ---- */
 {
-  id:"s00", num:"00", ref:"RIMS-P/00", status:"blocked",
+  id:"s00", num:"00", ref:"RIMS-P/00", status:"decide",
   title:"Source & access",
   sub:"Make the bytes reachable before anything else can be designed",
   owner:"T, with SA", depends:"Nothing — this is the front of the line",
-  gate:"A real drive is mounted somewhere the pipeline can read it, with a documented chain of custody",
-  objective:"Every downstream design choice depends on how the material actually arrives. Right now we have only worked against small samples pulled through Box, which hides the problems that appear at drive scale. Until a full drive is reachable, the throughput numbers in stage 07 are guesses.",
+  gate:"Read access to the Archives network share holding the 49 collections, and a directory listing of one",
+  objective:"<b>Revised 12 Aug 2026.</b> This stage was scoped around getting physical drives connected to a machine. That was the wrong problem. The Archives already takes content off incoming media — Tracy Popp performs preservation processing and places it on a network drive, where 49 collections are now waiting for appraisal review. In Joanne's words: <i>this is our bottleneck.</i> So stage 00 is no longer an acquisition problem, it is a permissions problem: read access to a share. Much smaller, and the last thing standing between us and real measurements.",
   doThis:[
-    "Decide the ingest path for the pilot drive and document it end to end",
-    "Separate the <b>ingest</b> layer (where we read from) from the <b>delivery</b> layer (where the Archives team works). Box is a poor fit for the first and a good fit for the second.",
+    "Get read access to the Archives network share — read-only is sufficient, we never write to it",
+    "Establish what Tracy Popp's preservation processing already produces, and in what format. Parts of stage 01 may already exist.",
+    "Separate the <b>ingest</b> layer (where we read from) from the <b>delivery</b> layer (where the Archives team works). Box is pilot infrastructure only.",
     "Record chain of custody from the moment a drive is received: who handed it over, when, what was on it, hash of the source",
     "Stand up the Box project folder so Joanne's team has somewhere to work while the drive question is resolved"
   ],
@@ -327,20 +338,21 @@ stages: [
     "Pilot corpus assembly: 500–2,000 mixed, non-sensitive files for development"
   ],
   blockers:[
-    {title:"No remote access to a full hard drive",
-     impact:"We cannot measure real throughput, real format distribution, or real triage retention rates. Every number in this document that comes from a sample should be treated as provisional.",
-     alts:["Ship a drive to a machine Tayler can already reach","Attach the drive to a university workstation and enable remote access through the approved VPN/RDP path","Have the Archives copy one representative drive to Box as a one-off, accepting it will be slow","Image the drive locally and transfer the image"],
-     next:"Ask at the group meeting who physically holds the drives and what it would take to attach one to a networked machine. This is the highest-priority unblock.", owner:"T + J"},
+    {title:"No read access to the Archives network share",
+     impact:"We cannot measure real throughput or real triage retention. Note this is a much smaller blocker than the one it replaced — file counts and format mix are now known from the Archives directly; only total bytes and reduction rates remain unmeasured.",
+     alts:["Read-only mount of the share on the processing host","VPN plus SMB mount if the share is not directly reachable","A one-off copy of a single accession to work against while access is arranged","A directory listing alone, which answers the format-mix question at zero cost"],
+     next:"Ask Joanne for the share path and an introduction to Tracy Popp. This is a permissions request, not a logistics one.", owner:"T + J"},
     {title:"Gauri has no server access — L4 GPU unavailable to her",
      impact:"She cannot run GPU-bound enrichment. Approval was declined for now and may be revisited in roughly four weeks.",
      alts:["Assign her the triage layer, which is entirely CPU work and is the highest-leverage part of the system","Google Colab free/Pro T4 for anything that genuinely needs a GPU","Tayler runs batch jobs on the L4 against prompts she develops locally"],
      next:"Proceed on the CPU-first split. Re-request access once she has shipped stages 00–02.", owner:"T"}
   ],
   questions:[
-    "How many drives are queued, and what is the size distribution?",
-    "Are any accessions subject to donor agreements, estate restrictions, or litigation hold that change how we may handle them?",
-    "Does the Archives have an existing accessioning procedure this should plug into rather than sit beside?",
-    "Is there a write-blocker available, and do these accessions warrant forensic imaging?"
+    "<s>How many drives are queued?</s> <b>Answered:</b> 49 collections, 100–10,000 files each. Total bytes still unknown.",
+    "<s>Donor agreements, estate restrictions, litigation hold?</s> <b>Answered:</b> nothing under hold or FOIA. Deeds of Gift are held centrally by the Library and the U of I Foundation; we carry a pointer, not the Deed.",
+    "<s>Existing accessioning procedure to plug into?</s> <b>Answered:</b> one exists but is not consistently followed, and it stops short of reviewing the documents — which is exactly the gap.",
+    "<s>Write-blocker, forensic imaging?</s> <b>Answered:</b> handled upstream. Most material does not warrant bit-for-bit copies.",
+    "<b>Still open:</b> what does Tracy Popp's preservation processing produce, and where should the working copy live during processing?"
   ],
   actions:[
     {t:"Create and share the Box project folder structure", o:"T", d:"Week 1"},
@@ -407,8 +419,8 @@ stages: [
   title:"Triage & appraisal",
   sub:"Decide what is worth keeping, cheaply, before anything expensive runs",
   owner:"G builds · J, BA, B define", depends:"01 — a manifest with format IDs and hashes",
-  gate:"A written appraisal policy exists and 300–500 files have been hand-labelled as a gold set",
-  objective:"This is the stage that makes the project viable. If triage retains 2% of a 100,000-file drive, LLM summarisation drops from roughly forty days to under a day. Triage is not an optimisation of the architecture — it is the architecture.",
+  gate:"The two rulesets are drafted from the Archives' written guidance and confirmed against a 50-file labelled sample",
+  objective:"<b>Revised 12 Aug 2026.</b> The speed argument for triage is gone: at 100–10,000 files per accession and 3–6 months of acceptable turnaround, there is no throughput pressure at all. The real argument is unchanged and now carries the whole case — <b>most of what is on these drives should not be described at all</b>, and describing it would pollute the finding aid. The Archives confirms this from their side: system files, installed applications, personal finance and commercial entertainment are all named as routinely disposable. Two further changes: triage now branches on <b>accession type</b>, because personal papers and administrative records have different rules; and <b>discardable and sensitive are separate dispositions</b>, because HR material is listed as both and collapsing them would let the system bin personnel files unseen.",
   doThis:[
     "<b>Tier 0, free:</b> exact-duplicate collapse by hash, NSRL known-file discard, zero-byte and lock files, cache and temp paths, <code>node_modules</code>, <code>.git</code> internals. Expect 40–70% of a personal drive to fall out here at essentially zero risk.",
     "<b>Tier 1, negligible cost:</b> path and filename features — folder depth, sibling count, parent folder names, date patterns, version markers such as draft/final/v2/backup/copy of",
@@ -572,8 +584,8 @@ stages: [
   title:"Metadata & standards",
   sub:"Dublin Core and IPTC, filled as completely as is honest — and no further",
   owner:"G builds · J ratifies schema", depends:"04 — enriched content",
-  gate:"Joanne confirms the target schema and the crosswalk from our fields to it",
-  objective:"Produce description that an archivist would accept and a researcher could search. The standards are settled in principle — Dublin Core for everything, IPTC/XMP for images — but the crosswalk and the completeness expectations are not.",
+  gate:"The Dublin Core + PREMIS proposal is confirmed, and we know how item-level description attaches to a folder-level finding aid",
+  objective:"Produce description that an archivist would accept and a researcher could search. <b>Updated 12 Aug 2026.</b> The Archives works in EAD finding aids at <b>collection level</b>, and collection-level description already exists for these collections — so we produce file-level description that <i>attaches to</i> an existing finding aid rather than generating one. Joanne asked the sharper version of our own question back at us: how does item-level machine description attach to a folder-level finding aid without swamping it? That is now an open design decision. Machine-generated fields must be visibly marked as such — confirmed without qualification.",
   doThis:[
     "Populate Dublin Core across all record types; populate IPTC IIM and XMP for images",
     "Attach a provenance block Dublin Core does not cover: source drive identifier, chain of custody, verbatim original path, SHA-256, PRONOM PUID and identification confidence, ingest timestamp",
@@ -620,8 +632,8 @@ stages: [
   title:"Index, search & delivery",
   sub:"Make it findable — and make the interface something the Archives team will actually use",
   owner:"T + G", depends:"05 — described records",
-  gate:"A member of the Archives team can find a known item without help",
-  objective:"POC 2 proved this works and it is the piece stakeholders responded to most strongly. Natural-language search across heterogeneous file types, returning the original Box path. The rebuild should keep the approach largely intact and improve the interface and the clustering.",
+  gate:"A member of the Archives team can find a known item without help, and description is linked from ArchivesSpace",
+  objective:"POC 2 proved this works and it is the piece stakeholders responded to most strongly. <b>Promoted in importance 12 Aug 2026:</b> asked what success looks like, Joanne gave two measures in explicit order — clear the backlog first, but <i>long-term, researchers being able to find things is the primary goal.</i> That is this stage, so it is not a trailing nice-to-have and must not be what gets cut. Delivery is also a <b>three-way fork</b> we did not previously have: preservation copies to Medusa, access copies to the Library Digital Library for unrestricted material, and description linked from <b>ArchivesSpace</b> — a system that was not on our list at all. Not IDEALS, which was our assumption and was wrong. Access levels are <b>open</b> and <b>restricted</b>; there is no third value.",
   doThis:[
     "Vector index over summaries and descriptions, with the manifest as the metadata store",
     "Hybrid retrieval — semantic plus keyword — because researchers search for exact names and grant numbers as often as concepts",
@@ -659,8 +671,8 @@ stages: [
   title:"Scale & scheduling",
   sub:"Turn a working pipeline into a predictable one the Archives can plan around",
   owner:"T", depends:"03–05 running end to end on the pilot corpus",
-  gate:"We can quote a defensible processing time for a drive given its file count and format mix",
-  objective:"The Archives needs to prioritise drives and schedule staff review time. That requires a throughput model, which requires measurement rather than estimation. This stage exists to replace the guesses in this document with numbers.",
+  gate:"We can quote a defensible processing cost and staff-review time for an accession given its file count and format mix",
+  objective:"<b>Rescoped 12 Aug 2026.</b> This was sized against million-file drives. The real numbers are 100–10,000 files per accession across 49 collections — roughly 150,000 files in the entire personal-papers backlog, three orders of magnitude below the assumption. Combined with 3–6 month acceptable turnaround, <b>there is no scale pressure here</b>. This stops being capacity planning and becomes a cost estimate — and every design choice between <i>faster</i> and <i>more accurate, more auditable, more human-checked</i> should now go the second way. One unknown remains: total bytes. Video is in the confirmed format list, so 10,000 files could be 2 GB or 800 GB.",
   doThis:[
     "Instrument every stage to record per-file and per-batch timing into the manifest",
     "Benchmark on a representative sample, not a convenient one — format mix drives cost more than file count does",
@@ -708,7 +720,7 @@ cross: [
   sub:"What already exists, what it costs, and exactly where our code takes over",
   owner:"T evaluates · J and B confirm licences", depends:"—",
   gate:"We know which tools the University already has, and the build list is reduced accordingly",
-  objective:"The single most useful thing this evaluation can establish is that <b>we should not be building a preservation system.</b> Archivematica and Preservica already solve preservation packaging, and they solve it better than we would. What does not exist anywhere is appraisal and description at this scale. That gap is our contribution, and everything else should be borrowed.",
+  objective:"<b>Answered 12 Aug 2026 — see the licence findings below.</b> The University licenses <b>neither Preservica nor Archivematica</b>. The Library built its own preservation repository, <b>Medusa</b>, which is itself due for replacement, likely by a commercial product. <b>BitCurator is already in use</b>, administered by Tracy Popp, and it bundles format identification and PII scanning that we had planned to build. ePADD has been experimented with but not adopted. The position still holds: <b>we should not be building a preservation system.</b> What does not exist anywhere is appraisal and description at this scale. That gap is our contribution, and everything else should be borrowed.",
   doThis:[
     "Confirm with Joanne and Brent which of these the Archives already licenses or runs",
     "For each adopted tool, write down the handoff point explicitly — what it produces, what we consume, and where responsibility transfers",
@@ -844,8 +856,8 @@ cross: [
   title:"Governance & human oversight",
   sub:"Where the model decides, where a person decides, and how much review that costs",
   owner:"J and B set policy · T implements", depends:"—",
-  gate:"Review thresholds agreed and the Archives' review capacity is known",
-  objective:"Two questions have to be answered together, because they trade against each other: how much do we let the model decide on its own, and how much reviewing is the Archives team actually able to do? Setting thresholds without knowing capacity produces a queue nobody works through.",
+  gate:"<b>Thresholds agreed 12 Aug 2026.</b> Review capacity still unknown — re-asked in concrete units",
+  objective:"<b>Half-answered 12 Aug 2026.</b> The proposed oversight thresholds below were <b>approved by Joanne unchanged</b> — they are now configured defaults rather than a proposal. Review capacity is still unknown: the question was underspecified and is being re-asked concretely. Two further changes: there are <b>two reviewers, not one</b> — an accessioning archivist for general appraisal and deletion authority, a supervising archivist for anything flagged sensitive; and the pipeline now carries a <b>retention clock</b>, because the Archives does dispose of unselected material once selection completes, and the absence of exactly that clock is what created the current backlog.",
   tables:[
     {title:"Proposed oversight thresholds — a starting position to negotiate", head:["Situation","Oversight","Rationale"], rows:[
       ["Anything flagged sensitive — PII, or the nine-category taxonomy","<b>100% human review, always</b>","Never auto-decided. The cost of a wrong call here is reputational and legal, not computational."],
