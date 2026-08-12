@@ -1,5 +1,9 @@
 # Manifest Schema — Design Worksheet
 
+> **SUPERSEDED.** The blank worksheet was answered by schema v1.0 and then revised by v1.1.
+> Current: [`docs/design/manifest-schema.md`](../../docs/design/manifest-schema.md).
+
+
 **Status:** Not started. Nothing has been built yet.
 **Owners:** Tayler Erbe + Gauri Bhasin
 **Target:** Complete together in Week 1, before any pipeline code is written.

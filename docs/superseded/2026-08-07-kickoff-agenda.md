@@ -1,5 +1,13 @@
 # Kickoff — Agenda, Software Position, and Decisions
 
+> **SUPERSEDED — kept for provenance, do not work from this.**
+> A record of the kickoff as prepared on 7 Aug 2026. The event has happened and most of its
+> open questions were answered on 12 Aug. Its live content has moved:
+> the software position and decisions list to [`docs/design/decisions.md`](../design/decisions.md),
+> the storage and ingest section to [`docs/stakeholders/answers-2026-08.md`](../stakeholders/answers-2026-08.md) §1,
+> and the questions for the group to [`docs/stakeholders/open-questions.md`](../stakeholders/open-questions.md).
+
+
 **Draft v0.2** · Tayler Erbe
 Rewritten from v0.1: software section restated as a position rather than a recollection;
 hosted AI services ruled out on privacy grounds; POC summaries point to the repo.
@@ -134,7 +142,7 @@ Two things this does not rule out:
   where a classification costs one.
 
 I still want the position confirmed by Data Privacy in writing. Questions are in
-`worksheets/W3_storage_and_ingest_assessment.md`.
+`worksheets/superseded/W3_storage_and_ingest_assessment.md`.
 
 ---
 
@@ -153,7 +161,7 @@ The framing I want to use: **separate the ingest layer from the delivery layer.*
 | Delivery — what the Archives team uses | Box is genuinely fine here. Outputs and selected originals, not the raw drive. |
 
 I am working this through with Data Privacy and Infrastructure —
-`worksheets/W3_storage_and_ingest_assessment.md`.
+`worksheets/superseded/W3_storage_and_ingest_assessment.md`.
 
 **Current blocker:** no remote access to a real drive. Everything so far has run on small
 samples, which hides every problem that appears at scale. Failing full access, a directory
@@ -183,7 +191,7 @@ two variables that dominate processing time. That costs nothing to produce.
 
 ## 6. Questions for the group
 
-Full list organised by stakeholder in `worksheets/W4_questions_by_stakeholder.md`. The ones I
+Full list organised by stakeholder in `docs/stakeholders/open-questions.md`. The ones I
 want raised at the group meeting:
 
 1. What does the Archives do today when a drive arrives — is there a workflow we should feed?

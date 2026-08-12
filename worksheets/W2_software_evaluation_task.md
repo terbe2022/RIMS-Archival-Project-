@@ -1,5 +1,18 @@
 # Task — Evaluate Existing Software for the First-Pass Layer
 
+> **Update, 12 Aug 2026 — add BitCurator, and drop two.**
+> Answer 4.1: **BitCurator is already in use** at the Archives, administered by Tracy Popp. It
+> bundles format identification and PII scanning, both of which we planned to build. Find out
+> which components are actually running and what they emit **before** scoring anything else —
+> this may remove work rather than add it.
+> **DROID:** Joanne was unsure whether it runs. Ask Tracy, not Joanne.
+> **Drop Preservica and Archivematica** from the evaluation — neither is licensed or run.
+> Note also that the scale target dropped from millions of files to 100–10,000 per accession
+> (answer 1.7), so the Tika failure-mode risk is much smaller than framed below — though still
+> the most useful question on the list.
+> See [`../docs/stakeholders/answers-2026-08.md`](../docs/stakeholders/answers-2026-08.md).
+
+
 **Assigned to:** Gauri Bhasin
 **From:** Tayler Erbe
 **Target:** Week 2, recommendation by end of Week 3
@@ -221,6 +234,6 @@ document that hides where a tool disappointed you.
 
 ## Related
 
-- `docs/kickoff-agenda.md` — software availability table and the licensing questions for Joanne and Brent
-- `docs/pipeline-design.md` — stages 01 and 03, where these tools would sit
-- `worksheets/W1_manifest_schema_worksheet.md` — the manifest these tools' output has to join onto
+- `docs/superseded/2026-08-07-kickoff-agenda.md` — software availability table and the licensing questions for Joanne and Brent
+- `docs/design/pipeline-design.md` — stages 01 and 03, where these tools would sit
+- `docs/design/manifest-schema.md` — the manifest these tools' output has to join onto
