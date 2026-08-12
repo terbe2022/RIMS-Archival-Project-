@@ -1,5 +1,14 @@
 # POC 3 — Image Classification & Sensitivity Flagging
 
+> **Context note, 12 Aug 2026.** The Archives has given written appraisal guidance that the
+> nine-category sensitivity taxonomy should be checked against — HR and personnel matters,
+> discipline records, FMLA, personal finance. A PII scanner will not catch *"the discipline
+> hearing for the groundskeeper"*, and that material is now routed to a supervising archivist
+> rather than to discard. The 12,000-image corpus is also confirmed as a **separate backlog**
+> from the 49 personal-papers collections, so its figures do not generalise to the document
+> work. See [`docs/stakeholders/answers-2026-08.md`](../../docs/stakeholders/answers-2026-08.md).
+
+
 **Status:** Complete, with a clear methodological finding.
 **Corpus:** 1,000 archival TIFFs (production corpus is 12,125).
 

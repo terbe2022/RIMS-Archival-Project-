@@ -1,5 +1,14 @@
 # POC 2 — File Smart Search
 
+> **Context note, 12 Aug 2026.** The Archives has since confirmed the real format mix:
+> `.xls .doc .pdf .txt .csv .mov .jpg .mp4 .eml .pst`. Five lanes cover it — document, tabular,
+> image, av, email — and those should be built first. Specialist scientific and geospatial
+> formats are the tail rather than the body, so unhandled formats should **route to human
+> attention rather than fail**. Note also that this corpus came from Box, so any reduction or
+> retention percentage measured here understates badly: Box extracts contain no OS files.
+> See [`docs/stakeholders/answers-2026-08.md`](../../docs/stakeholders/answers-2026-08.md).
+
+
 **Status:** Complete. The piece stakeholders responded to most strongly.
 **Corpus:** Mixed files from a Box folder.
 
