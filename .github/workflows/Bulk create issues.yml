@@ -1,0 +1,169 @@
+name: Bulk create issues
+
+# Manual only. Actions tab > "Bulk create issues" > Run workflow.
+#
+# Reads .github/new-issues.json and creates each issue with its labels,
+# milestone and assignees. Idempotent: an issue whose exact title already
+# exists is skipped, so a re-run after a partial failure is safe.
+#
+# Run with dry_run = true first. It prints exactly what it would do and
+# creates nothing.
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Print what would be created, change nothing"
+        type: boolean
+        default: true
+      payload:
+        description: "Path to the issue JSON"
+        type: string
+        default: ".github/new-issues.json"
+      add_to_project:
+        description: "Also add created issues to the project board (needs PROJECT_TOKEN secret)"
+        type: boolean
+        default: false
+      project_number:
+        description: "Project number, used only when add_to_project is true"
+        type: string
+        default: "1"
+
+permissions:
+  issues: write
+  contents: read
+
+jobs:
+  create:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate payload
+        run: |
+          set -euo pipefail
+          PAYLOAD="${{ inputs.payload }}"
+          test -f "$PAYLOAD" || { echo "::error::$PAYLOAD not found"; exit 1; }
+          jq empty "$PAYLOAD" || { echo "::error::$PAYLOAD is not valid JSON"; exit 1; }
+          COUNT=$(jq '.issues | length' "$PAYLOAD")
+          echo "Payload OK — $COUNT issues defined."
+          jq -r '.issues[] | "  - \(.title)"' "$PAYLOAD"
+
+      - name: Ensure labels exist
+        if: ${{ inputs.dry_run == false }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          PAYLOAD="${{ inputs.payload }}"
+          jq -c '.labels_to_ensure // [] | .[]' "$PAYLOAD" | while read -r L; do
+            NAME=$(jq -r '.name'        <<<"$L")
+            COLOR=$(jq -r '.color'      <<<"$L")
+            DESC=$(jq -r '.description' <<<"$L")
+            echo "label: $NAME"
+            gh label create "$NAME" --color "$COLOR" --description "$DESC" --force \
+              --repo "${{ github.repository }}" || echo "  (skipped)"
+          done
+
+      - name: Create issues
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          PAYLOAD="${{ inputs.payload }}"
+          DRY="${{ inputs.dry_run }}"
+          REPO="${{ github.repository }}"
+
+          CREATED=0; SKIPPED=0; FAILED=0
+          : > created-issues.txt
+
+          COUNT=$(jq '.issues | length' "$PAYLOAD")
+          for i in $(seq 0 $((COUNT - 1))); do
+            TITLE=$(jq -r ".issues[$i].title" "$PAYLOAD")
+
+            # Defaults fill in anything the issue omits
+            MILESTONE=$(jq -r ".issues[$i].milestone // .defaults.milestone // empty" "$PAYLOAD")
+            LABELS=$(jq -r ".issues[$i].labels // [] | join(\",\")" "$PAYLOAD")
+            ASSIGNEES=$(jq -r ".issues[$i].assignees // .defaults.assignees // [] | join(\",\")" "$PAYLOAD")
+
+            echo "::group::[$((i+1))/$COUNT] $TITLE"
+            echo "  labels:     ${LABELS:-<none>}"
+            echo "  milestone:  ${MILESTONE:-<none>}"
+            echo "  assignees:  ${ASSIGNEES:-<none>}"
+
+            # Skip if an open or closed issue already has this exact title
+            EXISTING=$(gh issue list --repo "$REPO" --state all --limit 500 \
+                        --search "\"$TITLE\" in:title" \
+                        --json number,title \
+                        --jq "[.[] | select(.title == \$t) | .number] | first // empty" \
+                        --arg t "$TITLE" 2>/dev/null || true)
+
+            if [ -n "$EXISTING" ]; then
+              echo "  → already exists as #$EXISTING, skipping"
+              SKIPPED=$((SKIPPED + 1))
+              echo "::endgroup::"
+              continue
+            fi
+
+            if [ "$DRY" = "true" ]; then
+              echo "  → DRY RUN, not created"
+              echo "::endgroup::"
+              continue
+            fi
+
+            # Body via file to keep markdown, quotes and newlines intact
+            jq -r ".issues[$i].body" "$PAYLOAD" > /tmp/body.md
+
+            ARGS=(--repo "$REPO" --title "$TITLE" --body-file /tmp/body.md)
+            [ -n "$LABELS" ]    && ARGS+=(--label "$LABELS")
+            [ -n "$MILESTONE" ] && ARGS+=(--milestone "$MILESTONE")
+            [ -n "$ASSIGNEES" ] && ARGS+=(--assignee "$ASSIGNEES")
+
+            if URL=$(gh issue create "${ARGS[@]}"); then
+              echo "  → created: $URL"
+              echo "$URL" >> created-issues.txt
+              CREATED=$((CREATED + 1))
+            else
+              echo "::warning::failed to create: $TITLE"
+              FAILED=$((FAILED + 1))
+            fi
+            echo "::endgroup::"
+          done
+
+          {
+            echo "### Bulk issue creation"
+            echo ""
+            echo "| | |"
+            echo "|---|---|"
+            echo "| Mode | $([ "$DRY" = "true" ] && echo 'dry run' || echo 'live') |"
+            echo "| Created | $CREATED |"
+            echo "| Skipped, already existed | $SKIPPED |"
+            echo "| Failed | $FAILED |"
+            if [ -s created-issues.txt ]; then
+              echo ""
+              echo "**New issues**"
+              echo ""
+              sed 's/^/- /' created-issues.txt
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          [ "$FAILED" -eq 0 ]
+
+      - name: Add to project board
+        if: ${{ inputs.dry_run == false && inputs.add_to_project == true }}
+        env:
+          # GITHUB_TOKEN cannot write to Projects v2. Needs a PAT with the
+          # 'project' scope stored as the PROJECT_TOKEN repository secret.
+          GH_TOKEN: ${{ secrets.PROJECT_TOKEN }}
+        run: |
+          set -euo pipefail
+          if [ -z "${GH_TOKEN:-}" ]; then
+            echo "::warning::PROJECT_TOKEN not set — issues created but not added to the board. Add them by hand, or set the secret and re-run."
+            exit 0
+          fi
+          test -s created-issues.txt || { echo "Nothing to add."; exit 0; }
+          OWNER="${{ github.repository_owner }}"
+          while read -r URL; do
+            echo "adding $URL"
+            gh project item-add "${{ inputs.project_number }}" --owner "$OWNER" --url "$URL"
+          done < created-issues.txt
