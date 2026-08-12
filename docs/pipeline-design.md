@@ -1,22 +1,59 @@
 # RIMS Digital Archives — Unified Pipeline Design
 
-**Draft v0.2** · Tayler Erbe · Status: working document, for discussion
+**Draft v0.3** · Tayler Erbe · Status: working document, for discussion
+**Revised 12 Aug 2026** against the Archives' answers — see
+[`docs/stakeholders/answers-2026-08.md`](../stakeholders/answers-2026-08.md).
 
-Changes from v0.1: throughput figures replaced with measured post-optimisation numbers;
-triage restructured as two passes with metadata generation between them; smart text peek
-replaces the flat first-2KB approach; AI agent section added; assumptions separated from
-measurements.
+Changes from v0.2, all driven by those answers:
+
+- **The problem statement changed.** We are not processing drives that arrive; we are
+  unblocking a queue that already exists on a network share. §1 rewritten.
+- **Scale is three orders of magnitude smaller than assumed** — 100–10,000 files per
+  accession, ~49 accessions, not million-file drives. §2 and §3 rewritten.
+- **§3 "Things we do not know" is now mostly things we do know.** Two of the four guesses are
+  settled; one is narrowed; one remains.
+- **Two accession types**, personal papers and administrative records, with different
+  appraisal rules and different turnaround targets. Runs through §4 and §6.
+- **Delivery is a three-way fork** — Medusa, the Library Digital Library, ArchivesSpace. §8.
+- **Nothing-is-ever-deleted was wrong** as a description of the lifecycle. §6 and §10.
+- Human oversight thresholds in §10 are **approved**, not proposed.
+
+Changes from v0.1 (retained for the record): throughput figures replaced with measured
+post-optimisation numbers; triage restructured as two passes with metadata generation between
+them; smart text peek replaces the flat first-2KB approach; AI agent section added;
+assumptions separated from measurements.
 
 ---
 
 ## 1. The problem
 
-A drive arrives. It belonged to a researcher who has retired or died. Somewhere in it is work
-worth keeping, and there is no practical way to find it, because appraising it by hand means
-opening all of it.
+**The Archives has stated it plainly, and their wording is better than ours was.** Asked where
+media lives once received, Joanne Kaczmarek described the existing process — Tracy Popp takes
+content off the media, performs preservation processing, and lands it on a network drive, where:
+
+> ...the archivists are supposed to review and make final appraisal decisions.
+> **This is our bottleneck.**
+
+That is the problem. Not acquisition — that works, and someone else owns it. The failure is
+what happens *after* material lands on the share: **49 collections of personal papers are sitting
+there now**, waiting for an appraisal decision nobody has capacity to make, plus an unquantified
+email backlog and 12,000 images.
+
+Material belonged to researchers who have retired or died. Somewhere in it is work worth
+keeping, and there is no practical way to find it, because appraising it by hand means opening
+all of it.
 
 This system answers one question at scale: which of these files matter? Everything expensive
 happens only after that question has an answer.
+
+**What this reframing changes.** We are not building a front door — the Archives has one. We are
+building the middle, and the middle is stages 02 (triage and appraisal) and 06 (index, search
+and delivery). Stage 00 shrinks to obtaining read access on a share. Parts of stage 01 may
+already be done by Tracy's preservation processing and should be checked before being rebuilt.
+
+Success has two measures, and the Archives ordered them explicitly (answer 8.1): clearing the
+backlog first, but **long-term, researchers being able to find things is the primary goal.**
+Stage 06 is therefore not a trailing nice-to-have.
 
 ---
 
@@ -54,33 +91,69 @@ legislation corpus measured; document length here will differ.
 
 Full method and results: `vllm-inference-throughput-evaluation.html`
 
-### What this means for the architecture
+### What this means for the architecture — **substantially revised in v0.3**
 
-Triage still comes first, but the argument is now about proportion rather than impossibility.
-At roughly 1 second per image and 2.7 seconds per document on optimised serving, a 100,000
-file drive is on the order of a few days if we process everything, and hours if we triage
-first. Both are survivable; one is obviously better, and the gap widens with every drive.
+v0.2 sized this against a hypothetical 100,000-file drive. The real numbers are much smaller.
 
-The stronger argument for triage is not speed. It is that **most of what is on these drives
-should not be described at all** — system files, duplicates, caches, and material with no
-archival value. Generating rich metadata for those is not just slow, it pollutes the finding
-aid.
+Answer 1.7: **100 to 10,000 files per accession.** Answer 1.4: **49 collections** in the
+personal-papers backlog. At ~3,000 files average that is roughly **150,000 files in total** —
+not per drive, in the entire backlog.
+
+Answer 8.2: acceptable turnaround is **3–6 months** for personal papers and **≤3 months** for
+administrative records.
+
+Put those together and there is no throughput problem. At ~2.7 s/document on optimised serving,
+the whole personal-papers backlog is on the order of days of GPU time even with no triage at all.
+
+**So the speed argument for triage is dead, and that is fine, because it was never the real
+argument.** The real one is unchanged and now carries the whole case:
+
+> **Most of what is on these drives should not be described at all.** System files, duplicates,
+> caches, installers, and material with no archival value. Generating rich metadata for those is
+> not just slow — it pollutes the finding aid.
+
+Answer 3.3 confirms this from the Archives' side: system operations material, installed
+applications, personal finance and commercial entertainment are all named as routinely
+disposable. Describing them would actively make the catalogue worse.
+
+**The design consequence of having no scale pressure.** Every choice between *faster* and *more
+accurate, more auditable, more human-checked* should now go the second way. Cheap-deterministic-
+first stays, because it keeps inference cost down and keeps junk out of the description — not
+because we need it to survive the volume.
 
 ---
 
-## 3. Things we do not know
+## 3. What we know now, and what is still open
 
-Flagging these explicitly so they don't get read as findings.
+Rewritten in v0.3. Two of the four v0.2 guesses are settled, one is narrowed, one stands.
+
+### Settled
+
+| Was | Now |
+|---|---|
+| "Drives contain 10,000 to millions of files" — guess | **100–10,000 files per accession**, ~49 accessions (answers 1.7, 1.4) |
+| "Format mix resembles the file-search POC corpus" — unlikely | **Confirmed by the Archives**: `.xls .doc .pdf .txt .csv .mov .jpg .mp4 .eml .pst` (answer 1.7) |
+
+The format list is the extraction routing table, given to us. Note `.eml` and `.pst` in it:
+**email arrives inside personal-papers accessions**, not as a separate corpus later.
+
+### Narrowed
+
+| Assumption | Status |
+|---|---|
+| 40–70% falls out at zero cost | **Still untested, and harder to test than we thought.** Box extracts contain no OS files, and per answer 1.2 the network-share material has *also* been through preservation processing. Both corpora are pre-filtered, so both will understate this badly. A low number measured on either is evidence about the corpus, not about the architecture. |
+
+### Still open
 
 | Assumption | Status | What would settle it |
 |---|---|---|
-| Triage retains ~2% of a drive | **Guess.** Used in sizing examples only. | Run stages 01–02 on one real drive |
-| Drives contain 10,000 to millions of files | **Guess.** No real drive has been measured. | A directory listing of one representative drive |
-| 40–70% of a drive falls out at zero cost (duplicates, system files, junk) | **Plausible but untested** — typical of personal drives generally, not measured here | Same |
-| Format mix resembles the file-search POC corpus | **Unlikely.** That corpus came from Box, not a researcher's drive. Stakeholders mention ArcGIS and 3D imaging work we have never seen. | Same |
+| Triage retains ~2% | **Guess.** Sizing examples only | Run stages 01–02 on real share material |
+| **Total bytes** | **Unknown.** File counts are settled; size is not. `.mov` and `.mp4` are in the confirmed format list, so 10,000 files could be 2 GB or 800 GB | One `du -sh` on the share |
+| What Tracy Popp's preservation processing produces | **Unknown, and it may overlap stage 01** | A conversation. Highest-value open item in the project |
 
-A directory listing of one drive answers three of these four and costs nothing to produce. It
-is the cheapest thing we can ask for.
+The v0.2 line — "a directory listing of one drive answers three of these four and costs nothing"
+— is still true and still unfulfilled, but it is now cheaper: with read access to the share we
+generate it ourselves rather than asking anyone to produce it.
 
 ---
 
@@ -100,7 +173,7 @@ files.
 
 ```mermaid
 flowchart TD
-    SRC[/"Hard drive · Box · SMB share"/] --> S00
+    SRC[/"Archives network share · disk image · Box (pilot)"/] --> S00
 
     S00["<b>00 · SOURCE &amp; ACCESS</b><br/>make the bytes reachable"]
     S00 --> S01["<b>01 · INVENTORY &amp; IDENTIFY</b><br/>walk · SHA-256 · PRONOM format ID<br/><i>no file is opened for content</i>"]
@@ -120,9 +193,9 @@ flowchart TD
     T3 -->|lower value| L2[["LAYER 2<br/>described, not prioritised"]]
     T3 -->|high value| S05
 
-    S05["<b>05b · METADATA</b><br/>Dublin Core · IPTC · provenance"]
+    S05["<b>05b · METADATA</b><br/>Dublin Core · IPTC · provenance<br/><i>generated fields marked as generated</i>"]
     S05 --> REV{{"<b>HUMAN REVIEW</b><br/>sees Layer 3 by default<br/>can open any layer below"}}
-    REV --> S06["<b>06 · INDEX &amp; DELIVERY</b><br/>vector search · finding aids"]
+    REV --> S06["<b>06 · INDEX &amp; DELIVERY</b><br/>vector search · description<br/>Medusa · Digital Library · ArchivesSpace"]
     S06 --> OUT[/"Archives team"/]
 
     L0 -.-> DRILL[("All layers remain<br/>queryable · nothing deleted")]
@@ -147,6 +220,46 @@ importance with that is a genuinely different problem from ranking it with a fil
 This also means the expensive step earns its cost twice: once by producing the description we
 need for the finding aid, and once by producing the signal that makes the second triage
 possible.
+
+### Two accession types, not one — **new in v0.3**
+
+Answers 3.2, 3.3 and 8.2 make this unavoidable. **Personal papers and administrative records are
+different systems**, and one averaged ruleset would be wrong for both.
+
+| | Personal papers | Administrative records |
+|---|---|---|
+| Always keep | Correspondence, grant applications and reports, books and articles, committee and board material, courses taught | Dean/Director communications, annual reports, task force reports, minutes and agendas, budgets, enrolment statistics, curriculum change drafts and finals |
+| Nearly always discard | OS and application files, installers, personal finance, commercial entertainment | Accounting detail — purchases, payroll, timesheets |
+| Sensitive — **never auto-discard** | Personal finance, family correspondence | HR: FMLA, discipline matters, personnel discussions |
+| Drafts | **Depends on discipline** — discardable for a scientist, valuable for a humanities scholar | Keep, drafts and finals |
+| Turnaround target | 3–6 months | ≤ 3 months |
+
+Two things follow that were not in v0.2.
+
+**`accession_type` is set at ingest and triage branches on it.** Manifest schema v1.1 carries it.
+
+**The accession profile is a rule selector, not just model context.** Because drafts are junk for
+one discipline and the most valuable material for another, `profile_field` on the accession
+record *chooses which ruleset applies*. That is a branch in the code, not a hint in a prompt.
+Joanne confirmed profiles can be produced (answer 3.1).
+
+### Discardable and sensitive are different dispositions — **new in v0.3**
+
+Answer 3.3 lists HR material — FMLA, discipline matters, personnel discussions — as **both**
+routinely discardable **and** sensitive. Collapsing those would let the system route personnel
+files onto the discard pile on a rule match with no human ever seeing them.
+
+So `s02_decision` has four values, not two, and **a sensitivity match hard-beats a discard
+match** — encoded as precedence in the ruleset, not as a scoring weight:
+
+| Value | Next |
+|---|---|
+| `selected` | Continues to enrichment |
+| `not_selected` | Layer 1, subject to the retention clock |
+| `discard_candidate` | Layer 0, sampled review, then the clock |
+| `restricted_review` | **Supervising archivist, always. Never auto-discarded** |
+
+This is a change we made on the Archives' behalf and it should be put to them explicitly.
 
 ---
 
@@ -227,10 +340,29 @@ auditable reason. A single blended number is not.
 unrecoverable. Wrongly promoting a junk file costs a couple of seconds of GPU time. Set
 thresholds to over-include deliberately.
 
-**Never delete.** Each pass writes a layer, not a deletion. Layer 0, 1 and 2 material stays
-in the manifest and stays queryable. The reviewer sees the top layer by default and can open
-any layer beneath it. Deletion, if it ever happens, is a separate human-approved action with
-its own record.
+**Never delete autonomously — corrected in v0.3.** v0.2 said "never delete" flat, and treated
+that as a description of the archival lifecycle. It is not. Answer 5.7:
+
+> ...once we have COMPLETED the selection stage of accessioning, everything else should be
+> deleted. If there is a chance we need more time to decide on selection decisions, we will want
+> a clear time period for when that content needs to be acted on. **This has been one of our
+> challenges as we didn't set such a time period when the backlog content we have was originally
+> brought in.**
+
+The Archives disposes of material deliberately after selection, and answer 6.4 confirms nothing
+externally prevents it. The safety property belongs to *the software's autonomous behaviour*, not
+to the lifecycle. So:
+
+- Each pass writes a layer, not a deletion. Layers 0–2 stay in the manifest and stay queryable.
+- **The pipeline never deletes on its own.** Unchanged, non-negotiable.
+- It **does** provide a deletion action: batched, approved by the accession archivist, recorded
+  with who and when.
+- **Unselected material gets a clock**, starting when selection completes — not at ingest.
+  Joanne identified the absence of that clock as what created the existing backlog, so building
+  it in addresses the cause rather than the symptom.
+- **`restricted_review` material is never auto-proposed for disposal.**
+- **The manifest row survives deletion of the content** — path, hash, size, dates, decision and
+  rationale retained. That is the audit trail; destroying it would make disposal unaccountable.
 
 ---
 
@@ -288,8 +420,16 @@ This gives resumability for free — which stage a file has reached is visible f
 columns are populated — and it means every stage has the same interface: manifest in,
 manifest out, enriched.
 
-**Status: not yet designed.** The schema is the first real deliverable and everything else
-depends on it. Questions to work through are in `worksheets/W1_manifest_schema_worksheet.md`.
+**Status: v1.1 drafted, not yet frozen.** [`manifest-schema.md`](manifest-schema.md).
+
+v1.0 keyed `file_uid` to `source_id`, assuming the Box folder prefixes were accession numbers.
+They are **record series numbers**, and they are not unique per delivery — two accessions from
+the same office share one — so that key would have collided silently. v1.1 introduces
+`accession_uid`, a delivery-scoped key. Caught before freeze, so the migration cost was zero.
+
+Not freezing until the PII mapping store question is answered: it determines whether
+`s04_pii_map_ref` is a path, a URI, or a key into an access-controlled store, which is a type
+decision. Change history: [`schema-changelog.md`](schema-changelog.md).
 
 ---
 
@@ -314,28 +454,98 @@ This is a prerequisite for the unified pipeline, not a cleanup task.
 
 ## 10. Human oversight
 
-Starting position, to be agreed with Joanne and Brent:
+**Approved by Joanne unchanged, 12 Aug 2026** (answer 6.3). These are configured defaults, not a
+proposal — parameters in `src/schema/oversight.py`, not constants.
 
 | Situation | Oversight |
 |---|---|
-| Anything flagged sensitive | 100% human review, always. Never auto-decided. |
-| Layer 1 exclusions, first drive | 100% review — the first drive is calibration, not production |
-| Layer 1 exclusions, later drives | Stratified sample 5–10%, plus everything in the borderline band |
-| Auto-promoted files | Stratified audit sample 5–10% |
-| Deletion of anything | Explicit human approval, batch level, recorded |
+| Anything flagged sensitive | Full human review, always. Never auto-decided |
+| Discard decisions, first accession | Full review — the first accession is calibration, not production |
+| Discard decisions, later accessions | Stratified sample 5–10%, plus everything in the borderline band |
+| Auto-selected material | Stratified audit sample 5–10% |
+| Deleting anything | Explicit human approval, batch level, recorded |
 
 The reviewer sees Layer 3 by default. Layers 0 through 2 remain queryable so they can drill
-down when something looks like it's missing.
+down when something looks like it's missing. `restricted_review` items bypass layer assignment
+entirely and route to the supervising archivist regardless of score.
+
+### Two reviewers, not one — new in v0.3
+
+- **Accessioning archivist** — general appraisal; pulls in subject-matter experts as needed
+  (answer 3.4). Also holds deletion authority for their own accession (answer 6.5).
+- **Supervising archivist** — reviews flagged sensitive content (answer 6.2).
+
+Different people, different queues, different authority. Schema v1.1 carries `rv_role`.
+
+### Review capacity is still unknown
+
+Joanne could not give a number — arrival is irregular, and she reasonably asked what kind of
+review we meant (answer 6.1). Re-asking in concrete units: *if the system handed you 200 flagged
+documents, each with a one-line summary and a suggested disposition, is that an hour, a day, or a
+week?* Until we have that, thresholds are set from the table above and tuned later.
+
+One assumption of hers to correct: she has been assuming review means documents. Per answer 1.7
+it spans documents, images **and** email.
 
 ---
 
-## 11. Open questions
+## 11. Where the output goes — **new in v0.3**
 
-Organised by who needs to answer them in `worksheets/W4_questions_by_stakeholder.md`. The
-ones blocking work right now:
+v0.2 had no delivery architecture beyond "finding aids." Answer 5.4 and Joanne's covering email
+give one, and it is a **three-way fork**, not a single destination.
 
-1. Remote access to a real drive — or failing that, a directory listing of one
-2. Written appraisal policy and a 300–500 file gold set
-3. Whether the Library already licenses Preservica or runs Archivematica
-4. Data Privacy position on local model processing
-5. Archives review capacity per week
+```
+                ┌──→  Medusa (or its replacement)   preservation copies, all retained material
+   Stage 06 ────┤
+                ├──→  Library Digital Library       access copies, unrestricted material only
+                │
+                └──→  ArchivesSpace                 description + links out to the above
+```
+
+Four things follow.
+
+**IDEALS is out.** That was our assumption and it was wrong.
+
+**ArchivesSpace was not on our list at all.** It is the Archives' incoming searchable database.
+Joanne's model is links *from* ArchivesSpace *out* to files stored elsewhere — which also answers
+the item-level description question in practice: item records are not pushed into the finding
+aid, they are linked from it.
+
+**Medusa is being replaced**, likely by a commercial product, as part of a Library digital
+strategies exercise. Building tightly to its current ingest format is building to something with
+a known expiry. **The pipeline should emit a repository-neutral package with a thin per-
+destination adapter** — cheap now, saves a rebuild later.
+
+**Access levels are `open` and `restricted`.** Two values (answer 7.3). Not three. Use the
+Archives' vocabulary rather than inventing gradations they do not have.
+
+Still open: whether email gets a different access model entirely. Joanne is considering a
+stand-alone Archives workstation for email access rather than catalogue links, and is unsure
+whether that should be a searchable index or a browsing interface. That is a real fork in this
+stage.
+
+---
+
+## 12. Open questions
+
+Live list with owners: [`docs/stakeholders/open-questions.md`](../stakeholders/open-questions.md).
+Everything answered so far: [`answers-2026-08.md`](../stakeholders/answers-2026-08.md).
+
+Blocking work right now:
+
+1. **Read access to the Archives network share** — replaces the old "remote access to a real
+   drive" ask, which was solving the wrong problem
+2. **What Tracy Popp's preservation processing produces** — may remove work from stage 01
+   rather than add to it
+3. **Where the PII mapping store lives** — Brent, unanswered, blocks stage 04 and blocks
+   freezing the manifest schema
+4. **A labelled sample** — 50 files, two archivists independently. We can now draft the ruleset
+   from answers 3.2 and 3.3 first, which makes this a check rather than a blank-page request
+5. **Archives review capacity**, re-asked in concrete units
+
+No longer blocking, resolved 12 Aug: which software the University licenses (answer 4.1);
+accession numbering (2.1–2.3); oversight thresholds (6.3); access levels (7.3); retention
+obligations (6.4, 5.7); clearance to see unredacted content (7.5).
+
+Data Privacy sign-off on local model processing is not re-litigated — it was granted for the
+POCs and the position has not changed.

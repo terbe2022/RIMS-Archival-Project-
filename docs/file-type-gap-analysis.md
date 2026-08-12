@@ -1,5 +1,16 @@
 # File Type Coverage — What POC 2 Handled, What It Didn't, and How to Close the Gaps
 
+> **Update, 12 Aug 2026 — the Archives has told us the actual format mix.**
+> Answer 1.7: `.xls` `.doc` `.pdf` `.txt` `.csv` `.mov` `.jpg` `.mp4` `.eml` `.pst`.
+> Five lanes cover it — document, tabular, image, av, email — and those should be built first.
+> Two consequences for what follows: **`.pst` and `.eml` are inside personal-papers accessions**,
+> so email is main-line rather than a later phase; and specialist scientific and geospatial
+> formats are the tail rather than the body, so they should **route to human attention rather
+> than fail**. Answer 8.4 confirms the disciplines are represented, but the list above is
+> office-typical.
+> See [`../stakeholders/answers-2026-08.md`](../stakeholders/answers-2026-08.md).
+
+
 Derived from `Working_Scratch_for_Archiving_Work.ipynb`, the Box SDK notebooks, and the
 progress-update document's own file-type table.
 

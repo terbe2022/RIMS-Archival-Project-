@@ -1,5 +1,12 @@
 # Run the inventory today
 
+> **Scope note, 12 Aug 2026 — Box is pilot infrastructure, not the ingest path.**
+> Real accessions live on an Archives network share, already preservation-processed
+> ([answers §1.2](../stakeholders/answers-2026-08.md)). The six Box folders are hand-picked
+> extracts. Everything below is still correct and still worth doing — it unblocks the first
+> real measurements — but it is not how production material will reach us.
+
+
 You do not need the admin. The developer token authenticates as you, and you already
 have access to the folder.
 
