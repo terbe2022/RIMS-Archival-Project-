@@ -1,5 +1,12 @@
 # Working with the Box Sample Data
 
+> **Scope note, 12 Aug 2026 — Box is pilot infrastructure, not the ingest path.**
+> Real accessions live on an Archives network share, already preservation-processed
+> ([answers §1.2](../stakeholders/answers-2026-08.md)). The six Box folders are hand-picked
+> extracts. Everything below is still correct and still worth doing — it unblocks the first
+> real measurements — but it is not how production material will reach us.
+
+
 **Gauri — this covers getting into Box, what's actually in there, and what to run first.**
 From Tayler.
 

@@ -1,5 +1,12 @@
 # Box Integration — Access, Extraction, and Batch Processing
 
+> **Scope note, 12 Aug 2026 — Box is pilot infrastructure, not the ingest path.**
+> Real accessions live on an Archives network share, already preservation-processed
+> ([answers §1.2](../stakeholders/answers-2026-08.md)). The six Box folders are hand-picked
+> extracts. Everything below is still correct and still worth doing — it unblocks the first
+> real measurements — but it is not how production material will reach us.
+
+
 Target folder: `File_Archiving Project` — https://uofi.app.box.com/folder/318345592147
 
 ---

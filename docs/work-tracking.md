@@ -145,3 +145,25 @@ https://terbe2022.github.io/RIMS-Archival-Project-/site/
 Its internal links are repo-relative (`../docs/`, `../worksheets/`), so they resolve correctly
 from that path. Send that link to Joanne and Brent rather than a document attachment — it
 updates when we commit.
+
+
+---
+
+## Bulk issue creation
+
+Creating issues by hand does not scale past about three. `.github/new-issues.json` holds issue
+definitions — title, body, labels, milestone, assignees — and the **Bulk create issues**
+workflow in the Actions tab creates them.
+
+Run it with `dry_run` left on first: it prints exactly what it would create and changes nothing.
+It skips any issue whose exact title already exists, so a re-run after a partial failure is safe.
+
+One limitation worth knowing: **`GITHUB_TOKEN` cannot write to Projects v2.** Issues get created
+in the repo but not added to the board unless a PAT with `project` scope is stored as the
+`PROJECT_TOKEN` secret. Without it, add them to the board by hand or with `gh project item-add`.
+
+## Where the docs live
+
+Reorganised 12 Aug 2026 — see [`docs/README.md`](README.md) for the map. Short version:
+`design/` is what we are building, `stakeholders/` is what the Archives told us, `setup/` is
+Gauri's onboarding, `superseded/` is kept for provenance and should not be worked from.
