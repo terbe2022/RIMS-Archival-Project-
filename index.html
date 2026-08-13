@@ -910,18 +910,21 @@ cross: [
    MERMAID SOURCE — also copyable for pasting into GitHub markdown
    ========================================================================== */
 const MERMAID_SRC = `flowchart TD
-  SRC[/"Hard drive &nbsp;·&nbsp; Box &nbsp;·&nbsp; SMB share"/]:::term
+  SRC[/"Archives network share &nbsp;·&nbsp; disk image &nbsp;·&nbsp; Box (pilot)"/]:::term
   SRC --> S00
-  S00["<b>00</b> &nbsp; Source &amp; access<br/><small>make the bytes reachable</small>"]:::blocked
+  S00["<b>00</b> &nbsp; Source &amp; access<br/><small>read permission on the share</small>"]:::decide
   S00 --> S01["<b>01</b> &nbsp; Inventory &amp; identify<br/><small>walk · hash · PRONOM format ID</small>"]:::ready
-  S01 --> S02{"<b>02</b> &nbsp; First-pass triage<br/><small>cheap signals · narrow the set</small>"}:::decide
-  S02 -->|not selected| QR[("Layers 0-1<br/><small>retained, never deleted</small>")]:::quiet
+  S01 --> S02{"<b>02</b> &nbsp; Triage &amp; appraisal<br/><small>branches on accession type</small>"}:::decide
+  S02 -->|sensitive| SENS[("Restricted review<br/><small>never auto-discarded</small>")]:::blocked
+  S02 -->|not selected| QR[("Layers 0-1<br/><small>retained, queryable</small>")]:::quiet
   S02 -->|selected| S03["<b>03</b> &nbsp; Extraction &amp; routing<br/><small>one lane per format class</small>"]:::active
   S03 --> S04["<b>04</b> &nbsp; Enrichment<br/><small>PII · summary · description</small>"]:::active
   S04 --> S05{"<b>05</b> &nbsp; Second-pass triage<br/>+ metadata<br/><small>re-rank on richer signal</small>"}:::decide
   S05 -->|lower value| QR
-  S05 --> S06["<b>06</b> &nbsp; Index &amp; delivery<br/><small>vector search · finding aids</small>"]:::later
-  S06 --> OUT[/"Archives team"/]:::term
+  S05 --> S06["<b>06</b> &nbsp; Index &amp; delivery<br/><small>vector search · description</small>"]:::later
+  SENS --> S06
+  S06 --> OUT[/"Medusa &nbsp;·&nbsp; Digital Library &nbsp;·&nbsp; ArchivesSpace"/]:::term
+  QR -.->|selection complete| CLK[("Retention clock<br/><small>disposal, approved &amp; recorded</small>")]:::quiet
   XC["<b>C</b> &nbsp; Governance &amp; oversight"]:::decide
   XC -.- S02
   QR -.->|audit sample| XC
@@ -929,7 +932,7 @@ const MERMAID_SRC = `flowchart TD
   XA -.- S03
   XB["<b>B</b> &nbsp; Model selection"]:::decide
   XB -.- S04
-  S07["<b>07</b> &nbsp; Scale &amp; scheduling"]:::later
+  S07["<b>07</b> &nbsp; Throughput &amp; cost"]:::later
   S07 -.- S04
   classDef blocked fill:#F7E5E1,stroke:#A8321F,stroke-width:1.5px,color:#161A18
   classDef ready fill:#DFEBE7,stroke:#2C6A5C,stroke-width:1.5px,color:#161A18
