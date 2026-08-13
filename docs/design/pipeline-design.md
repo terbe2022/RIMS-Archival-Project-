@@ -168,42 +168,55 @@ that generated metadata is far richer than anything the first pass had. The seco
 it to rank importance properly. The reviewer sees only the final layer, but can drill back
 into any earlier one.
 
-Nothing is deleted at any point. Each pass adds a layer of context rather than removing
-files.
+**No stage deletes anything.** Each pass adds a layer of context rather than removing files,
+and every layer stays queryable. Disposal is a separate, human-approved action at the end of
+the lifecycle — see §6 — and even then the manifest row survives the content.
 
 ```mermaid
 flowchart TD
     SRC[/"Archives network share · disk image · Box (pilot)"/] --> S00
 
-    S00["<b>00 · SOURCE &amp; ACCESS</b><br/>make the bytes reachable"]
-    S00 --> S01["<b>01 · INVENTORY &amp; IDENTIFY</b><br/>walk · SHA-256 · PRONOM format ID<br/><i>no file is opened for content</i>"]
+    S00["<b>00 · SOURCE &amp; ACCESS</b><br/>read permission on the share"]
+    S00 --> S01["<b>01 · INVENTORY &amp; IDENTIFY</b><br/>walk · SHA-256 · PRONOM format ID<br/><i>check upstream metadata first</i>"]
 
     S01 --> T0{"<b>02a · FREE FILTERS</b><br/>duplicates · NSRL known files<br/>zero-byte · temp · cache"}
     T0 -->|excluded| L0[["LAYER 0<br/>excluded, retained in manifest"]]
     T0 --> T1["<b>02b · CHEAP SIGNALS</b><br/>smart peek · header facts<br/>path features · embedding"]
 
-    T1 --> T2["<b>02c · FIRST-PASS SCORE</b><br/>+ folder context weighting"]
-    T2 -->|low| L1[["LAYER 1<br/>not selected"]]
-    T2 -->|selected| S03
+    T1 --> T2{"<b>02c · APPRAISAL RULES</b><br/>branches on accession type<br/>personal papers | administrative"}
 
-    S03["<b>03 · EXTRACTION &amp; ROUTING</b><br/>one lane per format class"]
+    T2 -->|sensitive| SENS[["RESTRICTED REVIEW<br/><b>never auto-discarded</b>"]]
+    T2 -->|discard rule| L0
+    T2 -->|no rule matched| L1[["LAYER 1<br/>not selected"]]
+    T2 -->|retain rule| S03
+
+    S03["<b>03 · EXTRACTION &amp; ROUTING</b><br/>document · email · image<br/>tabular · av · scientific"]
     S03 --> S04["<b>04 · ENRICHMENT</b><br/>PII masking · summary<br/>description · sensitivity"]
 
     S04 --> T3{"<b>05a · SECOND-PASS TRIAGE</b><br/>re-rank using generated metadata<br/><i>much richer signal than 02c had</i>"}
     T3 -->|lower value| L2[["LAYER 2<br/>described, not prioritised"]]
     T3 -->|high value| S05
 
-    S05["<b>05b · METADATA</b><br/>Dublin Core · IPTC · provenance<br/><i>generated fields marked as generated</i>"]
-    S05 --> REV{{"<b>HUMAN REVIEW</b><br/>sees Layer 3 by default<br/>can open any layer below"}}
-    REV --> S06["<b>06 · INDEX &amp; DELIVERY</b><br/>vector search · description<br/>Medusa · Digital Library · ArchivesSpace"]
-    S06 --> OUT[/"Archives team"/]
+    S05["<b>05b · METADATA</b><br/>Dublin Core · PREMIS · provenance<br/><i>generated fields marked as generated</i>"]
 
-    L0 -.-> DRILL[("All layers remain<br/>queryable · nothing deleted")]
+    S05 --> REV{{"<b>ACCESSIONING ARCHIVIST</b><br/>appraisal review · Layer 3 by default<br/>holds deletion authority"}}
+    SENS --> SUP{{"<b>SUPERVISING ARCHIVIST</b><br/>sensitive review"}}
+    SUP --> REV
+
+    REV --> S06["<b>06 · INDEX &amp; DELIVERY</b><br/>vector search · description"]
+    S06 --> MED[/"Medusa<br/>preservation copies"/]
+    S06 --> DL[/"Digital Library<br/>access copies, unrestricted"/]
+    S06 --> ASP[/"ArchivesSpace<br/>description, links out"/]
+
+    L0 -.-> DRILL[("All layers remain queryable<br/>no stage deletes anything")]
     L1 -.-> DRILL
     L2 -.-> DRILL
     DRILL -.->|drill down on demand| REV
 
-    S07["<b>07 · SCALE &amp; SCHEDULING</b>"] -.- S03
+    REV -.->|selection complete| CLOCK{{"<b>RETENTION CLOCK</b><br/>unselected material becomes<br/>eligible after the window"}}
+    CLOCK -.->|batched, approved, recorded| DISP[["DISPOSAL<br/><i>manifest row survives</i>"]]
+
+    S07["<b>07 · THROUGHPUT &amp; COST</b>"] -.- S03
     S07 -.- S04
 ```
 
