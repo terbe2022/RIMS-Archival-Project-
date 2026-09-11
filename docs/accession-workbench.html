@@ -1,0 +1,2081 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Accession Workbench — RIMS Backlog Processing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   Accession Workbench — design tokens
+   Palette: blueprint slate + shelf ochre + stamp red.
+   Type: Archivo (interface chrome), Source Serif 4 (machine-written
+   prose, so generated text always reads differently from UI text),
+   IBM Plex Mono (paths, accession numbers, hashes only).
+   ============================================================ */
+:root{
+  --paper:#E9ECEE;
+  --paper-2:#DFE4E7;
+  --surface:#FFFFFF;
+  --ink:#15222B;
+  --ink-2:#3C4A54;
+  --ink-3:#6B7A85;
+  --rule:#C3CCD2;
+  --rule-2:#D9E0E4;
+  --signal:#17527D;
+  --signal-soft:#E4EDF4;
+  --keep:#1B6144;
+  --keep-soft:#E2EFE9;
+  --archive:#8A6420;
+  --archive-soft:#F6EDDC;
+  --drop:#9E2B22;
+  --drop-soft:#F8E5E2;
+  --flag:#9E2B22;
+  --focus:#B8862A;
+  --sans:"Archivo","Helvetica Neue",Arial,sans-serif;
+  --serif:"Source Serif 4",Georgia,serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --rail-w:250px;
+  --shadow:0 1px 0 rgba(21,34,43,.06), 0 8px 24px -18px rgba(21,34,43,.5);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:14px;
+  line-height:1.45;
+  -webkit-font-smoothing:antialiased;
+}
+button,input,select,textarea{font:inherit;color:inherit}
+a{color:var(--signal)}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ---------- layout ---------- */
+.app{display:flex;min-height:100vh}
+.rail{
+  width:var(--rail-w);flex:0 0 var(--rail-w);
+  background:var(--ink);color:#DCE4E9;
+  display:flex;flex-direction:column;
+  position:sticky;top:0;height:100vh;
+}
+.brand{padding:20px 18px 16px;border-bottom:1px solid rgba(255,255,255,.1)}
+.brand h1{font-size:15px;font-weight:600;margin:0;letter-spacing:-.01em;color:#fff}
+.brand p{margin:3px 0 0;font-size:11.5px;color:#8FA3AF;letter-spacing:.01em}
+.nav{padding:10px 8px;flex:1;overflow:auto}
+.nav-group{margin:0 0 14px}
+.nav-group > span{display:block;padding:6px 10px 4px;font-size:11px;color:#78909C;letter-spacing:.02em}
+.nav button{
+  display:flex;align-items:baseline;gap:8px;width:100%;
+  background:none;border:0;border-radius:3px;
+  padding:7px 10px;text-align:left;color:#C9D5DC;cursor:pointer;font-size:13.5px;
+}
+.nav button:hover{background:rgba(255,255,255,.06);color:#fff}
+.nav button[aria-current="true"]{background:var(--signal);color:#fff;font-weight:500}
+.nav button .n{margin-left:auto;font-family:var(--mono);font-size:11px;opacity:.75}
+.rail-foot{padding:14px 18px;border-top:1px solid rgba(255,255,255,.1);font-size:11.5px;color:#8FA3AF}
+.rail-foot strong{display:block;color:#fff;font-weight:500;font-size:12.5px;margin-bottom:2px}
+.rail-foot .dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:#5FB98A;margin-right:6px;vertical-align:1px}
+
+main{flex:1;min-width:0}
+.topbar{
+  display:flex;align-items:flex-end;gap:16px;
+  padding:22px 28px 14px;border-bottom:1px solid var(--rule);
+  background:var(--paper);position:sticky;top:0;z-index:20;
+}
+.topbar h2{margin:0;font-size:22px;font-weight:600;letter-spacing:-.02em}
+.topbar p{margin:2px 0 0;color:var(--ink-3);font-size:13px;max-width:62ch}
+.topbar .spacer{flex:1}
+.view{padding:24px 28px 64px;max-width:1440px}
+.hidden{display:none!important}
+
+/* ---------- primitives ---------- */
+.btn{
+  white-space:nowrap;border:1px solid var(--rule);background:var(--surface);
+  padding:7px 13px;border-radius:3px;cursor:pointer;font-size:13px;font-weight:500;
+}
+.btn:hover{border-color:var(--ink-3)}
+.btn-primary{background:var(--signal);border-color:var(--signal);color:#fff}
+.btn-primary:hover{background:#123F60;border-color:#123F60}
+.btn-ghost{background:none;border-color:transparent;color:var(--signal)}
+.btn-ghost:hover{background:var(--signal-soft);border-color:transparent}
+.btn-sm{padding:4px 9px;font-size:12px}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.panel{background:var(--surface);border:1px solid var(--rule);border-radius:4px;box-shadow:var(--shadow)}
+.panel-h{padding:13px 16px;border-bottom:1px solid var(--rule-2);display:flex;align-items:center;gap:10px}
+.panel-h h3{margin:0;font-size:14px;font-weight:600}
+.panel-h .spacer{flex:1}
+.panel-b{padding:16px}
+.tag{
+  display:inline-flex;align-items:center;gap:5px;
+  border-radius:2px;padding:2px 7px;font-size:11.5px;font-weight:500;
+  border:1px solid transparent;white-space:nowrap;
+}
+.t-keep{background:var(--keep-soft);color:var(--keep);border-color:#BCD9CB}
+.t-arch{background:var(--archive-soft);color:var(--archive);border-color:#E4D2AC}
+.t-drop{background:var(--drop-soft);color:var(--drop);border-color:#EFC6C0}
+.t-sig{background:var(--signal-soft);color:var(--signal);border-color:#BFD5E5}
+.t-mute{background:var(--paper-2);color:var(--ink-2);border-color:var(--rule)}
+.t-flag{background:#fff;color:var(--flag);border-color:var(--flag)}
+.mono{font-family:var(--mono);font-size:12px}
+.gen{font-family:var(--serif);font-size:14.5px;line-height:1.55}
+.muted{color:var(--ink-3)}
+.field{margin-bottom:16px}
+.field > label{display:block;font-size:12.5px;font-weight:600;margin-bottom:4px}
+.field .help{font-size:12px;color:var(--ink-3);margin:0 0 6px;max-width:70ch}
+.field input[type=text],.field input[type=url],.field input[type=number],.field select,.field textarea{
+  width:100%;padding:8px 10px;border:1px solid var(--rule);border-radius:3px;background:var(--surface);
+}
+.field textarea{min-height:86px;resize:vertical;font-family:var(--serif);font-size:14px;line-height:1.5}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--signal);outline:none;box-shadow:0 0 0 3px var(--signal-soft)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 20px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.checks{display:flex;flex-wrap:wrap;gap:8px}
+.checks label{
+  display:flex;align-items:center;gap:7px;border:1px solid var(--rule);border-radius:3px;
+  padding:7px 11px;background:var(--surface);cursor:pointer;font-size:13px;
+}
+.checks input{accent-color:var(--signal)}
+.checks label:has(input:checked){border-color:var(--signal);background:var(--signal-soft);color:var(--signal);font-weight:500}
+
+/* ---------- dashboard: the shelf ---------- */
+.shelf{
+  display:grid;grid-template-columns:1fr 34px 1fr 34px 1fr;align-items:stretch;gap:0;
+  background:var(--surface);border:1px solid var(--rule);border-radius:4px;box-shadow:var(--shadow);
+  overflow:hidden;
+}
+.bin{padding:18px 18px 16px;position:relative}
+.bin + .arrow{display:flex;align-items:center;justify-content:center;color:var(--ink-3);background:var(--paper-2);font-size:16px}
+.bin h4{margin:0;font-size:13px;font-weight:600}
+.bin .path{font-family:var(--mono);font-size:11px;color:var(--ink-3);margin:3px 0 12px;word-break:break-all}
+.bin .count{font-size:38px;font-weight:600;letter-spacing:-.03em;line-height:1;font-feature-settings:"tnum"}
+.bin .count small{font-size:13px;font-weight:400;color:var(--ink-3);letter-spacing:0;margin-left:6px}
+.bin .stack{display:flex;gap:2px;margin-top:12px;height:38px;align-items:flex-end}
+.bin .stack i{flex:1;background:var(--paper-2);border-top:2px solid var(--rule);display:block}
+.bin.b-in .stack i{background:var(--signal-soft);border-top-color:var(--signal)}
+.bin.b-orig .stack i{background:var(--archive-soft);border-top-color:var(--archive)}
+.bin.b-out .stack i{background:var(--keep-soft);border-top-color:var(--keep)}
+.bin .note{font-size:12px;color:var(--ink-3);margin-top:10px;font-family:var(--serif);line-height:1.4}
+
+.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:16px}
+.stat{background:var(--surface);border:1px solid var(--rule);border-radius:4px;padding:14px 16px}
+.stat .k{font-size:12px;color:var(--ink-3)}
+.stat .v{font-size:26px;font-weight:600;letter-spacing:-.02em;font-feature-settings:"tnum";margin-top:2px}
+.stat .sub{font-size:12px;color:var(--ink-3);margin-top:2px}
+.bar{height:6px;background:var(--paper-2);border-radius:2px;overflow:hidden;margin-top:9px;display:flex}
+.bar i{display:block;height:100%}
+
+.window-card{display:flex;gap:0;align-items:stretch;overflow:hidden}
+.window-card .when{padding:16px 18px;border-right:1px solid var(--rule-2);min-width:210px}
+.window-card .when .cd{font-size:30px;font-weight:600;letter-spacing:-.02em;font-feature-settings:"tnum"}
+.window-card .load{padding:16px 18px;flex:1}
+
+/* ---------- tables / ledger ---------- */
+.ledger{width:100%;border-collapse:collapse;font-size:13px}
+.ledger.fixed{table-layout:fixed}
+.ledger th{
+  text-align:left;font-size:11.5px;font-weight:600;color:var(--ink-2);
+  padding:9px 10px;border-bottom:1px solid var(--rule);background:var(--paper);
+  position:sticky;top:0;z-index:2;white-space:nowrap;
+}
+.ledger td{padding:9px 10px;border-bottom:1px solid var(--rule-2);vertical-align:top}
+.ledger tbody tr:hover{background:#F6F9FA}
+.ledger tbody tr.sel{background:var(--signal-soft)}
+.ledger .rsnip{display:block;font-size:12.5px;color:var(--ink-3);margin-top:3px;max-width:62ch;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rtitle{font-weight:600;font-size:13.5px;cursor:pointer;display:block;text-align:left;background:none;border:0;padding:0;color:var(--ink)}
+.ledger .rtitle:hover{color:var(--signal);text-decoration:underline}
+.ledger .fname{font-family:var(--mono);font-size:11px;color:var(--ink-3);margin-top:3px;display:block;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ledger .why{font-family:var(--serif);font-size:13.5px;color:var(--ink-2);line-height:1.4;
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.ledger .rtitle{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.ledger td.num{font-feature-settings:"tnum";white-space:nowrap}
+.kind{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--ink-2);white-space:nowrap}
+.kind b{width:20px;height:20px;border-radius:2px;display:grid;place-items:center;font-size:10px;font-weight:600;color:#fff;font-family:var(--sans)}
+.k-image b{background:#2F6E8F}.k-email b{background:#6A5AA8}.k-document b{background:#4E6A58}.k-media b{background:#8A6420}
+.imp{display:flex;align-items:center;gap:7px}
+.imp .pip{display:flex;gap:2px}
+.imp .pip i{width:5px;height:14px;background:var(--paper-2);display:block;border-radius:1px}
+.imp.high .pip i:nth-child(-n+3){background:var(--drop)}
+.imp.medium .pip i:nth-child(-n+2){background:var(--archive)}
+.imp.low .pip i:nth-child(-n+1){background:var(--ink-3)}
+.conf{font-family:var(--mono);font-size:11px;color:var(--ink-3)}
+.dispo{display:flex;gap:4px}
+.dispo button{
+  width:30px;height:28px;border:1px solid var(--rule);background:var(--surface);
+  border-radius:3px;cursor:pointer;display:grid;place-items:center;color:var(--ink-3);
+}
+.dispo button:hover{border-color:var(--ink-2);color:var(--ink)}
+.dispo button.on[data-d=keep]{background:var(--keep);border-color:var(--keep);color:#fff}
+.dispo button.on[data-d=archive]{background:var(--archive);border-color:var(--archive);color:#fff}
+.dispo button.on[data-d=delete]{background:var(--drop);border-color:var(--drop);color:#fff}
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:12px 16px;border-bottom:1px solid var(--rule-2);background:var(--paper)}
+.toolbar select,.toolbar input[type=search]{padding:6px 9px;border:1px solid var(--rule);border-radius:3px;background:var(--surface);font-size:13px}
+.toolbar input[type=search]{min-width:230px}
+.seg{display:flex;border:1px solid var(--rule);border-radius:3px;overflow:hidden;background:var(--surface)}
+.seg button{border:0;background:none;padding:6px 11px;cursor:pointer;font-size:12.5px;border-right:1px solid var(--rule-2)}
+.seg button:last-child{border-right:0}
+.seg button[aria-pressed="true"]{background:var(--ink);color:#fff;font-weight:500}
+.empty{padding:56px 20px;text-align:center;color:var(--ink-3)}
+.empty p{font-family:var(--serif);font-size:15px;max-width:46ch;margin:0 auto 14px}
+
+/* ---------- drawer ---------- */
+.scrim{position:fixed;inset:0;background:rgba(21,34,43,.35);z-index:60;opacity:0;pointer-events:none;transition:opacity .18s}
+.scrim.on{opacity:1;pointer-events:auto}
+.drawer{
+  position:fixed;top:0;right:0;bottom:0;width:min(680px,94vw);background:var(--surface);
+  z-index:61;transform:translateX(100%);transition:transform .22s cubic-bezier(.4,0,.2,1);
+  display:flex;flex-direction:column;border-left:1px solid var(--rule);
+}
+.drawer.on{transform:none}
+.drawer-h{padding:16px 20px;border-bottom:1px solid var(--rule);display:flex;gap:12px;align-items:flex-start}
+.drawer-h h3{margin:0;font-size:17px;font-weight:600;letter-spacing:-.01em}
+.drawer-b{overflow:auto;padding:20px;flex:1}
+.drawer-f{padding:14px 20px;border-top:1px solid var(--rule);display:flex;gap:8px;align-items:center;background:var(--paper)}
+.dl{display:grid;grid-template-columns:150px 1fr;gap:8px 14px;font-size:13px;margin:0 0 20px}
+.dl dt{color:var(--ink-3)}
+.dl dd{margin:0}
+.sect{margin:0 0 22px}
+.sect > h4{margin:0 0 8px;font-size:12.5px;font-weight:600;padding-bottom:5px;border-bottom:1px solid var(--rule-2)}
+.thumb{width:100%;aspect-ratio:4/3;border:1px solid var(--rule);border-radius:3px;background:var(--paper-2);display:grid;place-items:center;overflow:hidden;position:relative}
+.thumb svg{width:100%;height:100%}
+.redact{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.rbox{border:1px solid var(--rule);border-radius:3px;overflow:hidden}
+.rbox > header{padding:7px 10px;background:var(--paper);border-bottom:1px solid var(--rule-2);font-size:12px;font-weight:600;display:flex;gap:8px;align-items:center}
+.rbox .body{padding:12px;font-family:var(--serif);font-size:13.5px;line-height:1.6;white-space:pre-wrap;max-height:280px;overflow:auto}
+.rd{background:var(--ink);color:var(--ink);border-radius:2px;padding:0 3px;font-family:var(--mono);font-size:12px}
+.rd.lbl{background:#2B3A45;color:#CFE0EA}
+.pii-list{display:flex;flex-wrap:wrap;gap:6px}
+.toasts{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);z-index:90;display:flex;flex-direction:column;gap:8px;align-items:center}
+.toast{
+  background:var(--ink);color:#fff;padding:9px 15px;border-radius:3px;font-size:13px;
+  box-shadow:0 10px 30px -12px rgba(0,0,0,.6);animation:rise .2s ease-out;
+}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.progress{height:8px;background:var(--paper-2);border-radius:2px;overflow:hidden}
+.progress i{display:block;height:100%;background:var(--signal);transition:width .3s}
+.log{font-family:var(--mono);font-size:11.5px;line-height:1.7;max-height:190px;overflow:auto;color:var(--ink-2)}
+.log b{color:var(--keep);font-weight:500}
+.tree{font-family:var(--mono);font-size:12px;line-height:1.75;white-space:pre;color:var(--ink-2);overflow:auto}
+.facets{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.facets button{border:1px solid var(--rule);background:var(--surface);border-radius:12px;padding:3px 10px;font-size:12px;cursor:pointer}
+.facets button[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.hit{border-bottom:1px solid var(--rule-2);padding:13px 0}
+.hit h5{margin:0 0 3px;font-size:14px;font-weight:600}
+.hit h5 button{background:none;border:0;padding:0;font:inherit;color:var(--signal);cursor:pointer;text-align:left}
+.callout{border-left:3px solid var(--signal);background:var(--signal-soft);padding:11px 14px;border-radius:0 3px 3px 0;font-family:var(--serif);font-size:13.5px;line-height:1.5}
+.callout.warn{border-color:var(--archive);background:var(--archive-soft)}
+.steps{display:flex;gap:0;border:1px solid var(--rule);border-radius:4px;overflow:hidden;background:var(--surface);margin-bottom:20px}
+.steps div{flex:1;padding:11px 14px;border-right:1px solid var(--rule-2);font-size:12.5px;color:var(--ink-3)}
+.steps div:last-child{border-right:0}
+.steps div.on{background:var(--ink);color:#fff;font-weight:500}
+.steps div.done{background:var(--signal-soft);color:var(--signal)}
+@media (max-width:1100px){
+  .grid3,.stat-row{grid-template-columns:1fr 1fr}
+  .shelf{grid-template-columns:1fr}
+  .bin + .arrow{display:none}
+  .bin + .bin{border-top:1px solid var(--rule-2)}
+  .redact{grid-template-columns:1fr}
+  .ledger.fixed{table-layout:auto}
+}
+@media (max-width:820px){
+  .app{flex-direction:column}
+  .rail{width:100%;flex:none;height:auto;position:static}
+  .rail-foot,.nav-group > span{display:none}
+  .nav{display:flex;overflow-x:auto;padding:8px}
+  .nav-group{margin:0;display:flex}
+  .nav button{white-space:nowrap}
+  .grid2{grid-template-columns:1fr}
+  .stat-row,.grid3{grid-template-columns:1fr}
+  .view,.topbar{padding-left:16px;padding-right:16px}
+}
+
+.fgroups{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.fgroup{border:1px solid var(--rule);background:var(--paper,#fff);min-width:170px}
+.fgroup summary{padding:7px 11px;cursor:pointer;font-size:13px;list-style:none}
+.fgroup summary::-webkit-details-marker{display:none}
+.fgroup summary::before{content:"\25B8 ";color:var(--ink-3)}
+.fgroup[open] summary::before{content:"\25BE "}
+.fgroup label{display:block;padding:4px 11px 4px 22px;font-size:12.5px;cursor:pointer}
+.fgroup label:last-child{padding-bottom:9px}
+.fgroup input{margin-right:6px}
+.sresult:hover{background:var(--paper-2,#f6f6f4)}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="rail">
+    <div class="brand">
+      <h1>Accession Workbench</h1>
+      <p>RIMS backlog processing · prototype</p>
+    </div>
+    <nav class="nav" id="nav">
+      <div class="nav-group">
+        <span>Processing</span>
+        <button data-view="dash">How the pipeline works</button>
+        <button data-view="forms">Accession forms</button>
+        <button data-view="intake">New accession</button>
+        <button data-view="queue">Scheduled queue <span class="n" id="nav-queue"></span></button>
+      </div>
+      <div class="nav-group">
+        <span>Review</span>
+        <button data-view="triage">Triage ledger <span class="n" id="nav-triage"></span></button>
+        <button data-view="search">Search dataset</button>
+        <button data-view="publish">Publish &amp; export</button>
+      </div>
+      <div class="nav-group">
+        <span>Background</span>
+        
+        <button data-view="built">What exists now</button>
+        <button data-view="poc1">Image intelligence</button>
+        <button data-view="poc2">Smart file search</button>
+        <button data-view="poc3">Email archiving</button>
+      </div>
+    </nav>
+    <div class="rail-foot">
+      <strong><span class="dot"></span>Box connected</strong>
+      <span id="rail-conn">uillinois.app.box.com · svc-rims</span>
+    </div>
+  </aside>
+
+  <main>
+    <div class="topbar">
+      <div>
+        <h2 id="vt">Pipeline</h2>
+        <p id="vs"></p>
+      </div>
+      <div class="spacer"></div>
+      <div id="vactions"></div>
+    </div>
+
+    <!-- PIPELINE -->
+    <section class="view hidden" id="v-dash"></section>
+    <!-- INTAKE -->
+    <section class="view hidden" id="v-intake"></section>
+    <!-- QUEUE -->
+    <section class="view hidden" id="v-queue"></section>
+    <!-- TRIAGE -->
+    <section class="view hidden" id="v-triage"></section>
+    <!-- SEARCH -->
+    <section class="view hidden" id="v-search"></section>
+    <!-- PUBLISH -->
+    <section class="view hidden" id="v-publish"></section>
+    <!-- CAPACITY -->
+    <section class="view hidden" id="v-capacity"></section>
+    <!-- ABOUT -->
+    <section class="view hidden" id="v-forms"></section>
+    <section class="view hidden" id="v-built"></section>
+    <section class="view hidden" id="v-poc1"></section>
+    <section class="view hidden" id="v-poc2"></section>
+    <section class="view hidden" id="v-poc3"></section>
+  </main>
+</div>
+
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Record detail"></aside>
+<div class="toasts" id="toasts"></div>
+<script>
+/* ============================================================
+   Accession Workbench — prototype application
+   Three earlier proofs of concept, joined into one pipeline:
+     1. image metadata generation      (titles, descriptions, content flags)
+     2. email PII redaction            (two release tiers)
+     3. retention triage               (importance + confidence + rationale)
+   The model never disposes of anything. It surfaces; a person decides.
+   ============================================================ */
+
+/* ---------- Box adapter -------------------------------------
+   Every call the production build needs is stubbed in one place.
+   Swap MODE to 'live', supply a downscoped token, and the rest of
+   the app is unchanged: it only ever talks to these six functions.
+   ------------------------------------------------------------ */
+const Box = {
+  MODE: 'demo',
+  root: 'https://uillinois.app.box.com/folder/0',
+  folders: {
+    inbox:      { id: '284410093771', name: '01_TO_PROCESS' },
+    originals:  { id: '284410094882', name: '02_PROCESSED_ORIGINALS' },
+    transformed:{ id: '284410095993', name: '03_TRANSFORMED_OUTPUT' }
+  },
+  // GET /2.0/folders/:id/items?fields=name,size,created_at,sha1
+  async list(folderId){ return demoList(folderId); },
+  // GET /2.0/files/:id/content
+  async download(fileId){ return null; },
+  // POST /2.0/files/:id/copy   { parent:{id} }
+  async copy(fileId, toFolder){ return true; },
+  // PUT /2.0/files/:id  { parent:{id} }   — the move that empties 01_TO_PROCESS
+  async move(fileId, toFolder){ return true; },
+  // POST /2.0/files/content  (upload sidecar JSON + derivatives)
+  async upload(folderId, name, blob){ return true; },
+  // Deep link an archivist can open to inspect the original
+  fileUrl(rec){ return 'https://uillinois.app.box.com/file/' + rec.boxFileId; },
+  folderUrl(id){ return 'https://uillinois.app.box.com/folder/' + id; }
+};
+function demoList(){ return []; }
+
+/* ---------- state ---------- */
+const S = {
+  view: 'dash',
+  jobs: [],
+  records: [],
+  sel: new Set(),
+  drawerId: null,
+  filters: { job:'all', kind:'all', imp:'all', flag:'all', dispo:'all', q:'', folder:null },
+  sort: 'imp',
+  search: { q:'', facets:new Set() },
+  running: false,
+  log: [],
+  settings: {
+    day: 3,                 // 0=Sun … 3=Wednesday
+    start: 18,              // 18:00 local
+    hours: 6,
+    rates: { image: 140, email: 320, document: 90, media: 8 }, // files per hour, measured
+    maxFiles: 1200,
+    maxGB: 40,
+    backlog: 214000   // committee's standing estimate of unprocessed files across the silos
+  },
+  intakeDraft: null
+};
+
+/* ---------- helpers ---------- */
+const $  = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>Array.from(r.querySelectorAll(s));
+const esc = s => String(s==null?'':s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const n = x => x.toLocaleString('en-US');
+const pct = x => Math.round(x*100) + '%';
+const kb = x => x > 1048576 ? (x/1048576).toFixed(1)+' GB' : x > 1024 ? (x/1024).toFixed(1)+' MB' : x+' KB';
+function toast(msg){
+  const t = document.createElement('div');
+  t.className='toast'; t.textContent=msg; $('#toasts').appendChild(t);
+  setTimeout(()=>t.remove(), 3200);
+}
+function nextWindow(){
+  const now = new Date(), d = new Date(now);
+  d.setHours(S.settings.start,0,0,0);
+  let delta = (S.settings.day - d.getDay() + 7) % 7;
+  if (delta===0 && now > d) delta = 7;
+  d.setDate(d.getDate()+delta);
+  return d;
+}
+function untilStr(target){
+  let ms = target - new Date();
+  if (ms < 0) return 'in progress';
+  const dd = Math.floor(ms/864e5), hh = Math.floor(ms%864e5/36e5), mm = Math.floor(ms%36e5/6e4);
+  return dd ? dd+'d '+hh+'h' : hh ? hh+'h '+mm+'m' : mm+'m';
+}
+const DAYS=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+function windowLabel(){
+  const s=S.settings, e=(s.start+s.hours)%24;
+  const h=x=>String(x).padStart(2,'0')+':00';
+  return DAYS[s.day]+' '+h(s.start)+'–'+h(e);
+}
+
+/* ---------- redaction engine (POC 2) -------------------------
+   Tier 1 = direct identifiers. Removed from both release versions.
+   Tier 2 = indirect / quasi identifiers. Removed only from the
+   open-web version, because in combination they re-identify.
+   ------------------------------------------------------------ */
+const PII_LABELS = {
+  ssn:'SSN', phone:'PHONE', address:'HOME ADDRESS', dob:'DATE OF BIRTH',
+  account:'ACCOUNT NO', health:'HEALTH INFO', uin:'STUDENT ID', salary:'COMPENSATION',
+  person:'NAME', email:'EMAIL', title:'JOB TITLE', org:'AFFILIATION', money:'AMOUNT'
+};
+const TIER1 = new Set(['ssn','phone','address','dob','account','health','uin','salary']);
+const reEsc = s => s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+function redact(body, entities, level){
+  let out = body;
+  const use = entities.filter(e => level==='full' ? true : TIER1.has(e.type));
+  // Build the target list longest-first so overlapping spans replace cleanly.
+  // Names also get their individual tokens, because correspondence switches to
+  // first names two lines in and a full-string match would sail past that.
+  const targets = [];
+  use.forEach(e=>{
+    targets.push([e.value, e.type]);
+    if(e.type==='person') e.value.split(/\s+/).forEach(tok=>{ if(tok.length>=3) targets.push([tok,'person']); });
+  });
+  targets.sort((a,b)=>b[0].length-a[0].length).forEach(([v,type])=>{
+    const pre = /^\w/.test(v) ? '\\b' : '', post = /\w$/.test(v) ? '\\b' : '';
+    out = out.replace(new RegExp(pre + reEsc(v) + post, 'g'), '[' + PII_LABELS[type] + ' REDACTED]');
+  });
+  return out;
+}
+function markRedactions(text){
+  return esc(text).replace(/\[([A-Z ]+) REDACTED\]/g, (m,g)=>'<span class="rd lbl">['+g+']</span>');
+}
+
+/* ---------- deterministic pseudo-random ---------- */
+let _seed = 20260903;
+function rnd(){ _seed = (_seed*1103515245 + 12345) & 0x7fffffff; return _seed/0x7fffffff; }
+const pick = a => a[Math.floor(rnd()*a.length)];
+const between = (a,b) => a + rnd()*(b-a);
+
+/* ---------- jobs ---------- */
+
+/* ============================================================
+   Real data
+   ------------------------------------------------------------
+   The generated corpus that used to sit here has been replaced by the actual
+   manifest. Everything below this block — every view, every render function —
+   is unchanged; only the source of `S.jobs` and `S.records` differs.
+
+   `dispo` arrives null on every record on purpose. The pipeline proposes; it
+   does not decide. What it proposes travels in `importance` and `rationale`
+   where a reviewer can read it and disagree.
+   ============================================================ */
+S.jobs = [];
+S.records = [];
+S.rates = {};
+S.loadError = null;
+
+// Lost when the generated-corpus block was removed, which is why Read and
+// Correct & reprocess silently did nothing: openJobDrawer threw on its first
+// line and the click handler swallowed it.
+function jobById(id){ return S.jobs.find(j => j.id === id); }
+function recById(id){ return S.records.find(r => r.id === id); }
+
+async function loadData(){
+  try{
+    const res = await fetch('prototype-data.json');
+    if(!res.ok) throw new Error('prototype-data.json returned ' + res.status);
+    const d = await res.json();
+    S.jobs = d.jobs || [];
+    S.records = d.records || [];
+    S.rates = d.rates || {};
+    // Normalise once, here. The views assume these fields exist and call
+    // .length on them; a single record missing one throws inside a render and
+    // takes the whole page down, which looks to a user like "nothing is
+    // clickable" rather than like an error.
+    S.records.forEach(r => {
+      r.flags = Array.isArray(r.flags) ? r.flags : [];
+      r.keywords = Array.isArray(r.keywords) ? r.keywords : [];
+      r.generated = Array.isArray(r.generated) ? r.generated : [];
+      r.entities = Array.isArray(r.entities) ? r.entities : [];
+      r.title = r.title || r.filename || '(untitled)';
+      r.description = r.description || '';
+      r.rationale = r.rationale || '';
+      r.folder = r.folder || '(root)';
+      r.importance = r.importance || 'low';
+      r.kind = r.kind || 'other';
+    });
+    S.jobs.forEach(j => {
+      j.counts = j.counts || {};
+      j.intake = j.intake || {};
+      j.folders = Array.isArray(j.folders) ? j.folders : [];
+      j.files = j.files || 0;
+    });
+  }catch(err){
+    S.loadError = err.message;
+  }
+}
+
+
+/* ============================================================
+   Views
+   ============================================================ */
+const VIEWS = {
+  dash:    ['How the pipeline works','What happens to a folder of files between an intake form being submitted and a described, appraised collection coming out.'],
+  forms:   ['Accession forms','Every form submitted so far. Open one to read it, correct it, or send its accession back for reprocessing.'],
+  built:   ['What exists now','The prototype running on the server today, and how it differs from the three proofs of concept it came from.'],
+  poc1:    ['Image intelligence','Sensitive content detection and description across 12,125 archival scans.'],
+  poc2:    ['Smart file search','Extraction and semantic search across seventeen format families.'],
+  poc3:    ['Email archiving','Thread decomposition, personal information detection, two-tier release.'],
+  intake:  ['New accession','What you write here is what the models are told. Provenance and retention priorities drive every ranking downstream.'],
+  queue:   ['Scheduled queue','What is waiting, what it will cost, and in what order it runs. Drag the order to change what goes first.'],
+  triage:  ['Triage ledger','Every file with its description and the reason it ranked where it did. Decide one at a time, or take a whole band at once.'],
+  search:  ['Search dataset','The public-facing view of what survives review. Restricted records are withheld until a reviewer routes them.'],
+  publish: ['Publish & export','Two deliverables from the same decisions: a folder structure for Box and a searchable dataset.'],
+  capacity:['Server window','One evening a week on the current hardware. Set the window and the throughput assumptions here.'],
+  about:   ['How this works','superseded']
+};
+function bins(){
+  const inbox = S.jobs.filter(j=>['queued','locked','processing'].includes(j.status)).reduce((a,j)=>a+(j.files||0),0);
+  const done  = S.jobs.filter(j=>j.status==='complete').reduce((a,j)=>a+(j.files||0),0);
+  return { inbox, originals:done, transformed:done };
+}
+function stacks(count, cap){
+  let out='';
+  const bars = 14, fill = Math.min(bars, Math.ceil(count/cap*bars));
+  for(let i=0;i<bars;i++) out += '<i style="height:'+(i<fill? Math.round(between(45,100)) : 8)+'%"></i>';
+  return out;
+}
+function estHours(job){
+  const r = S.settings.rates;
+  const rate = job.type==='email' ? r.email : job.type==='images' ? r.image : (r.document+r.image)/2;
+  return (job.files||0)/rate;
+}
+function go(v){
+  S.view = v;
+  $$('#nav button').forEach(b=>b.setAttribute('aria-current', String(b.dataset.view===v)));
+  $$('.view').forEach(s=>s.classList.add('hidden'));
+  $('#v-'+v).classList.remove('hidden');
+  $('#vt').textContent = VIEWS[v][0];
+  $('#vs').textContent = VIEWS[v][1];
+  $('#vactions').innerHTML = actionsFor(v);
+  render(v);
+  window.scrollTo(0,0);
+}
+function actionsFor(v){
+  if(v==='dash')  return '<button class="btn btn-primary" data-act="goto" data-v="intake">Start an accession</button>';
+  if(v==='queue') return '<button class="btn btn-primary" data-act="run">Run the window now</button>';
+  if(v==='triage')return '<button class="btn" data-act="goto" data-v="publish">Review decisions</button>';
+  if(v==='publish')return '<button class="btn btn-primary" data-act="dl-json">Download dataset</button>';
+  return '';
+}
+function render(v){
+  ({dash:renderDash, intake:renderIntake, queue:renderQueue, triage:renderTriage,
+    search:renderSearch, publish:renderPublish, forms:renderForms,
+     built:renderBuilt, poc1:renderPOC1, poc2:renderPOC2, poc3:renderPOC3}[v])();
+  const undec = S.records.filter(r=>!r.dispo).length;
+  $('#nav-queue').textContent = S.jobs.filter(j=>['queued','locked'].includes(j.status)).length || '';
+  $('#nav-triage').textContent = undec || '';
+}
+
+/* ---------- pipeline ---------- */
+function renderDash(){
+  // The stage diagram from the scope document, drawn inline so the prototype
+  // and the design document are one artefact rather than two that drift.
+  const stages = [
+    ["00","Source &amp; access","A folder on the Archives share, or Box. Read-only — the pipeline never writes to the source.","done"],
+    ["01","Inventory &amp; identify","Walk the tree, hash every file, identify formats by content signature rather than by extension.","done"],
+    ["02","Triage &amp; appraisal","Remove duplicates and machine noise. Apply the appraisal ruleset. Branches on accession type.","done"],
+    ["03","Extraction &amp; routing","One lane per format class. Read the text out of documents, spreadsheets and mail.","done"],
+    ["04","Enrichment","Describe what was read. Detect personal information and write pseudonymised versions.","part"],
+    ["05","Metadata &amp; ranking","Dublin Core, and a rank against the intake form's own criteria with the reason quoted.","done"],
+    ["06","Release &amp; delivery","Which version publishes, and where it goes: preservation, access copy, catalogue.","part"]
+  ];
+  const stateLabel = {done:"running", part:"partly built", todo:"not built"};
+  $('#v-dash').innerHTML = `
+  <div class="panel"><div class="panel-h"><h3>What happens to an accession</h3><div class="spacer"></div>
+    <span class="muted" style="font-size:12.5px">Every stage writes to the same manifest — one row per file, columns added as it moves</span></div>
+    <div class="panel-b">
+      <div style="display:grid;grid-template-columns:56px 1fr 96px;gap:0">
+        ${stages.map(([n,t,d,st],k)=>`
+          <div style="padding:14px 0 14px;border-top:${k?'1px solid var(--rule)':'none'};
+                      font-family:var(--mono,monospace);color:var(--ink-3)">${n}</div>
+          <div style="padding:14px 16px 14px 0;border-top:${k?'1px solid var(--rule)':'none'}">
+            <strong>${t}</strong>
+            <div class="muted" style="font-size:13.5px;margin-top:2px">${d}</div></div>
+          <div style="padding:14px 0;border-top:${k?'1px solid var(--rule)':'none'};text-align:right">
+            <span class="tag ${st==='done'?'t-keep':'t-archive'}">${stateLabel[st]}</span></div>`).join('')}
+      </div>
+    </div></div>
+
+  <div class="grid2" style="margin-top:16px">
+    <div class="panel"><div class="panel-h"><h3>Two rules that hold everywhere</h3></div><div class="panel-b">
+      <p class="gen" style="margin-top:0"><b>Sensitivity outranks ranking.</b> Anything flagged
+      goes to a supervising archivist whatever it scored. A high-value file and a sensitive one
+      are different outcomes and the system never collapses them.</p>
+      <p class="gen"><b>Nothing is deleted.</b> The lowest outcome is "not selected", which means
+      retained through the review window. Disposal is a separate act, by a named person, recorded.</p>
+    </div></div>
+    <div class="panel"><div class="panel-h"><h3>Where the form does the work</h3></div><div class="panel-b">
+      <p class="gen" style="margin-top:0">The intake form is the only thing in the system carrying
+      an archivist's judgement about a specific collection. Its descriptive fields tell the models
+      what they are looking at. Its <code>valuable</code> and <code>exclude</code> fields are never
+      shown to a model — they are what the ranking is scored against, and a model told what you
+      value will describe everything in those words.</p>
+      <p class="gen">So correcting a bad result means editing the form and re-running, not
+      overruling the machine one file at a time.</p>
+    </div></div>
+  </div>`;
+}
+function jobTypeTag(t){
+  const m = { images:['Images','t-sig'], email:['Email','t-sig'], mixed:['Mixed folder','t-mute'] };
+  return '<span class="tag '+m[t][1]+'">'+m[t][0]+'</span>';
+}
+function statusTag(s){
+  const m = { complete:['Processed','t-keep'], queued:['Queued','t-sig'], locked:['Locked for run','t-arch'],
+              processing:['Processing','t-arch'], draft:['Draft — not submitted','t-mute'] };
+  return '<span class="tag '+m[s][1]+'">'+m[s][0]+'</span>';
+}
+
+/* ---------- intake form (POC funnel) ---------- */
+const INTAKE_FIELDS = [
+  ['source','Where did this come from?','Physical location, drive, mailbox, or transfer. Write it the way you would in an accession record.','area'],
+  ['owner','Whose material is it?','Person, office, or unit of record. Say so if provenance is uncertain — the models will hedge accordingly.','text'],
+  ['role','Their role and dates','e.g. Professor of Civil Engineering, 1971–1996.','text'],
+  ['scope','Scope of their work','What they were responsible for. This is what lets the model tell a field photograph from a holiday photograph.','area'],
+  ['research','Type of research or function','Discipline, method, or administrative function.','text'],
+  ['bio','Background and context','Anything a new archivist would need to make sense of the folder. Longer is better here; this is the single biggest influence on ranking quality.','area'],
+  ['valuable','What is most valuable to keep?','Be concrete. Name the things that make a file worth retaining — a legible gauge, a written agency determination, a signed set of minutes.','area'],
+  ['exclude','What can go?','Categories you already know are out of scope.','area'],
+  ['access','Access and sensitivity','Known restrictions, populations to protect, anything that must be redacted before release.','area']
+];
+function renderIntake(){
+  const d = S.intakeDraft || (S.intakeDraft = { type:'mixed', boxFolder:'https://uillinois.app.box.com/folder/284410093771',
+    filters:['images','email','documents'], name:'', source:'', owner:'', role:'', scope:'', research:'', bio:'', valuable:'', exclude:'', access:'' });
+  $('#v-intake').innerHTML = `
+  ${(()=>{ const s1 = !!(d.boxFolder&&d.name), s2 = !!(d.owner&&d.scope&&d.valuable);
+    return `<div class="steps">
+      <div class="${s1?'done':'on'}">1 · Point at a Box folder${s1?' ✓':''}</div>
+      <div class="${s2?'done':(s1?'on':'')}">2 · Describe the material${s2?' ✓':''}</div>
+      <div class="${s1&&s2?'on':''}">3 · Submit for the next window</div>
+    </div>`; })()}
+  <div class="grid2" style="align-items:start;gap:0 22px">
+    <div>
+      <div class="panel"><div class="panel-h"><h3>Source folder</h3></div><div class="panel-b">
+        <div class="field">
+          <label for="f-box">Box folder to process</label>
+          <p class="help">Must be the staging folder. Everything in it is copied to 02, described into 03, and then removed from here.</p>
+          <input type="url" id="f-box" value="${esc(d.boxFolder)}">
+        </div>
+        <div class="field">
+          <label for="f-name">Accession name</label>
+          <input type="text" id="f-name" placeholder="e.g. Hanratty Office Computer, recovered 2017" value="${esc(d.name)}">
+        </div>
+        <div class="field">
+          <label>Job type</label>
+          <p class="help">This routes the folder to one of the three pipelines. A mixed folder is sorted by file type first, then each part takes the matching route.</p>
+          <div class="checks" id="f-type">
+            ${[['images','Images only'],['email','Email only'],['mixed','Mixed folder']].map(([v,l])=>
+              `<label><input type="radio" name="jt" value="${v}" ${d.type===v?'checked':''}>${l}</label>`).join('')}
+          </div>
+        </div>
+        <div class="field">
+          <label>Process which file types</label>
+          <p class="help">Anything unchecked is copied to 02 and left undescribed, so nothing is lost by narrowing a run.</p>
+          <div class="checks" id="f-filters">
+            ${[['images','Images'],['email','Email and attachments'],['documents','Documents'],['media','Audio and video'],['other','Everything else']].map(([v,l])=>
+              `<label><input type="checkbox" value="${v}" ${d.filters.includes(v)?'checked':''}>${l}</label>`).join('')}
+          </div>
+        </div>
+      </div></div>
+      <div class="callout" style="margin-top:16px">Nothing here is a disposal instruction. The intake form only changes what the models surface first and how confident they are; every keep, archive, and delete is still a person clicking a button in the ledger.</div>
+    </div>
+    <div>
+      <div class="panel"><div class="panel-h"><h3>Context for the models</h3></div><div class="panel-b">
+        ${INTAKE_FIELDS.map(([k,label,help,kind])=>`
+          <div class="field">
+            <label for="f-${k}">${label}</label>
+            <p class="help">${help}</p>
+            ${kind==='area' ? `<textarea id="f-${k}">${esc(d[k])}</textarea>`
+                            : `<input type="text" id="f-${k}" value="${esc(d[k])}">`}
+          </div>`).join('')}
+      </div>
+      <div class="panel-b" style="border-top:1px solid var(--rule-2);display:flex;gap:8px;align-items:center">
+        <button class="btn btn-primary" data-act="submit-intake">Submit for the next window</button>
+        <button class="btn" data-act="prefill">Fill from a processed accession</button>
+        <span class="muted" style="font-size:12.5px;margin-left:auto">Editable for another ${untilStr(new Date(nextWindow()-36e5))} after submitting</span>
+      </div></div>
+    </div>
+  </div>`;
+}
+
+/* ---------- scheduled queue ---------- */
+function renderQueue(){
+  const w = nextWindow(), lockAt = new Date(w - 36e5);
+  const queued = S.jobs.filter(j=>j.status!=='complete');
+  const done   = S.jobs.filter(j=>j.status==='complete');
+  const load = queued.filter(j=>j.status!=='draft').reduce((a,j)=>a+estHours(j),0);
+  $('#v-queue').innerHTML = `
+  <div class="panel window-card">
+    <div class="when">
+      <div class="muted" style="font-size:12.5px">Window opens in</div>
+      <div class="cd" id="cd">${untilStr(w)}</div>
+      <div class="muted" style="font-size:12.5px">${windowLabel()}<br>${w.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'})}</div>
+    </div>
+    <div class="load">
+      <div style="display:flex;gap:14px;align-items:baseline">
+        <div><strong style="font-size:15px">${load.toFixed(1)} hours</strong> <span class="muted">estimated against a ${S.settings.hours} hour budget</span></div>
+        <div style="margin-left:auto"><span class="tag ${load>S.settings.hours?'t-drop':'t-keep'}">${load>S.settings.hours?'Will not finish':'Fits the window'}</span></div>
+      </div>
+      <div class="bar" style="margin-top:10px;height:10px"><i style="width:${Math.min(100,load/S.settings.hours*100)}%;background:${load>S.settings.hours?'var(--drop)':'var(--signal)'}"></i></div>
+      <p class="muted" style="font-size:12.5px;margin:9px 0 0">Forms lock at ${lockAt.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'})}, one hour before the run. Anything submitted after that waits a week.</p>
+    </div>
+  </div>
+
+  <div class="panel" style="margin-top:16px">
+    <div class="panel-h"><h3>In the queue</h3><div class="spacer"></div>
+      <span class="muted" style="font-size:12px">Estimates learned from ${
+        (S.rates&&S.rates.reports_read)||0} completed run(s) on this hardware</span>
+      <button class="btn btn-sm" data-act="goto" data-v="intake">Add an accession</button></div>
+    ${queued.length? `<table class="ledger">
+      <thead><tr><th style="width:78px">Order</th><th>Accession</th><th>Type</th><th>Files</th>
+        <th>Estimated run</th><th>Status</th><th>Intake form</th></tr></thead>
+      <tbody>${queued.map((j,qi)=>`
+        <tr>
+          <td style="white-space:nowrap">
+            <button class="btn btn-sm" data-act="qup" data-id="${j.id}" ${qi===0?'disabled style="opacity:.35"':''} title="Run earlier">&uarr;</button>
+            <button class="btn btn-sm" data-act="qdn" data-id="${j.id}" ${qi===queued.length-1?'disabled style="opacity:.35"':''} title="Run later">&darr;</button></td>
+          <td><button class="rtitle" data-act="job" data-id="${j.id}">${esc(j.name)}</button><span class="fname">${j.id}</span></td>
+          <td>${jobTypeTag(j.type)}</td>
+          <td class="num">${j.files? n(j.files):'—'}</td>
+          <td class="num" title="${j.estMeasured&&j.estMeasured.length
+              ? 'Rates measured on this hardware for: '+j.estMeasured.join(', ')
+              : 'No measured rates yet — defaults'}">
+            ${j.estCpuSeconds!=null
+              ? (j.estCpuSeconds<90 ? j.estCpuSeconds+'s' : (j.estCpuSeconds/60).toFixed(1)+'m')
+                + (j.estDescribeHours ? `<span class="fname">+ ${j.estDescribeHours}h describe</span>` : '')
+              : '—'}</td>
+          <td class="num">${j.status==='draft'?'—':estHours(j).toFixed(1)+'h'}</td>
+          <td>${statusTag(j.status)}</td>
+          <td>${j.status==='draft'
+            ? '<button class="btn btn-sm" data-act="job" data-id="'+j.id+'">Finish the form</button>'
+            : '<button class="btn btn-sm" data-act="job" data-id="'+j.id+'">Open and edit</button> <span class="muted" style="font-size:12px">locks in '+untilStr(lockAt)+'</span>'}</td>
+        </tr>`).join('')}</tbody></table>`
+      : '<div class="empty"><p>Nothing is queued. Point an intake form at the staging folder to add a run.</p><button class="btn btn-primary" data-act="goto" data-v="intake">Start an accession</button></div>'}
+  </div>
+
+  <!-- Accessions already through the pipeline. Previously the queue showed
+       only what was pending, so a completed run vanished from this view and
+       there was nowhere to see what it had cost. -->
+  <div class="panel" style="margin-top:16px">
+    <div class="panel-h"><h3>Processed</h3><div class="spacer"></div>
+      <span class="muted" style="font-size:12.5px">${done.length} accession${done.length===1?'':'s'} through the pipeline</span></div>
+    ${done.length? `<table class="ledger">
+      <thead><tr><th>Accession</th><th>Type</th><th>Files</th><th>Run time</th>
+        <th>Rate</th><th>Described</th><th>Needs a person</th><th></th></tr></thead>
+      <tbody>${done.map(j=>{
+        const recs = S.records.filter(r=>r.jobId===j.id);
+        const described = recs.filter(r=>r.generated && r.generated.length).length;
+        const flagged = recs.filter(r=>r.importance==='high').length;
+        return `<tr>
+          <td><button class="rtitle" data-act="job" data-id="${j.id}">${esc(j.name)}</button>
+              <span class="fname">${j.id}${j.provisional?' · provisional identity':''}</span></td>
+          <td>${jobTypeTag(j.type)}</td>
+          <td class="num">${n(j.files)}</td>
+          <td class="num">${j.seconds!=null? (j.seconds<90? j.seconds.toFixed(1)+'s' : (j.seconds/60).toFixed(1)+'m') : '—'}</td>
+          <td class="num">${j.seconds? Math.round(j.files/j.seconds)+'/s' : '—'}</td>
+          <td class="num">${n(described)}</td>
+          <td class="num">${flagged? '<span class="tag t-drop">'+n(flagged)+'</span>' : '0'}</td>
+          <td><button class="btn btn-sm" data-act="filter-job" data-id="${j.id}">Review</button></td>
+        </tr>`;}).join('')}</tbody></table>`
+      : '<div class="empty"><p>Nothing has been processed yet.</p></div>'}
+  </div>
+
+  <div class="panel" style="margin-top:16px" id="runpanel">
+    <div class="panel-h"><h3>Run log</h3><div class="spacer"></div>
+      <span class="muted" style="font-size:12.5px">${S.running? 'Running now' : S.log.length? 'Last run finished' : 'Idle'}</span></div>
+    <div class="panel-b">
+      <div class="progress"><i id="prog" style="width:0%"></i></div>
+      <div class="log" id="log" style="margin-top:12px">${S.log.length? S.log.join('<br>') : '<span class="muted">Idle. The demo run does what the scheduled job does: list the staging folder, checksum, copy originals, describe, score, write sidecars, then move the files out.</span>'}</div>
+    </div>
+  </div>`;
+}
+
+/* ---------- server window ---------- */
+function renderCapacity(){
+  const s = S.settings;
+  const queued = S.jobs.filter(j=>['queued','locked'].includes(j.status));
+  const load = queued.reduce((a,j)=>a+estHours(j),0);
+  const mixedRate = (s.rates.image+s.rates.email+s.rates.document)/3;
+  const capFiles = Math.min(s.maxFiles, Math.round(s.hours * mixedRate));
+  const weeks = Math.ceil(s.backlog / capFiles);
+  const years = (weeks/52).toFixed(1);
+  $('#v-capacity').innerHTML = `
+  <div class="grid2" style="gap:0 22px;align-items:start">
+    <div class="panel"><div class="panel-h"><h3>When the server is ours</h3></div><div class="panel-b">
+      <div class="field"><label for="s-day">Day of the week</label>
+        <select id="s-day">${DAYS.map((d,i)=>`<option value="${i}" ${i===s.day?'selected':''}>${d}</option>`).join('')}</select></div>
+      <div class="grid2">
+        <div class="field"><label for="s-start">Start hour</label>
+          <select id="s-start">${Array.from({length:24},(_,h)=>`<option value="${h}" ${h===s.start?'selected':''}>${String(h).padStart(2,'0')}:00</option>`).join('')}</select></div>
+        <div class="field"><label for="s-hours">Hours available</label>
+          <input type="number" id="s-hours" min="1" max="24" value="${s.hours}"></div>
+      </div>
+      <div class="field"><label for="s-maxf">Files per run, ceiling</label>
+        <p class="help">A hard stop so a single oversized folder cannot consume a window that other units are waiting on.</p>
+        <input type="number" id="s-maxf" value="${s.maxFiles}"></div>
+      <div class="field"><label for="s-maxg">Gigabytes per run, ceiling</label>
+        <input type="number" id="s-maxg" value="${s.maxGB}"></div>
+      <button class="btn btn-primary" data-act="save-settings">Save the window</button>
+    </div>
+    <div class="panel-h" style="border-top:1px solid var(--rule);border-bottom:0"><h3>What that buys</h3></div>
+    <div class="panel-b" style="padding-top:0">
+      <dl class="dl" style="margin:0">
+        <dt>Window</dt><dd>${windowLabel()}, ${s.hours} hours</dd>
+        <dt>Capacity per run</dt><dd>roughly ${n(capFiles)} files, mixed</dd>
+        <dt>Currently queued</dt><dd>${n(queued.reduce((a,j)=>a+j.files,0))} files, ${load.toFixed(1)}h</dd>
+        <dt>Verdict</dt><dd>${load>s.hours
+          ? '<span class="tag t-drop">Split across two windows</span>'
+          : '<span class="tag t-keep">Fits with '+(s.hours-load).toFixed(1)+'h spare</span>'}</dd>
+      </dl>
+    </div></div>
+    <div>
+      <div class="panel"><div class="panel-h"><h3>Throughput assumptions</h3></div><div class="panel-b">
+        <p class="muted" style="font-size:13px;margin:0 0 14px;max-width:60ch">Measured across the three proofs of concept on the current box. Email is fastest because redaction is mostly deterministic; audio and video are slowest and are the reason a mixed folder is hard to estimate.</p>
+        ${[['image','Images — caption, describe, flag'],['email','Email — parse, redact at two tiers, score'],['document','Documents — extract, summarise, score'],['media','Audio and video — transcribe, score']].map(([k,l])=>`
+          <div class="field"><label for="s-r-${k}">${l}</label>
+            <div style="display:flex;gap:10px;align-items:center">
+              <input type="number" id="s-r-${k}" value="${s.rates[k]}" style="max-width:130px">
+              <span class="muted" style="font-size:12.5px">files per hour</span>
+            </div></div>`).join('')}
+      </div></div>
+      <div class="panel" style="margin-top:16px"><div class="panel-h"><h3>Against the standing backlog</h3></div><div class="panel-b">
+        <dl class="dl" style="margin:0">
+          <dt>Committee estimate</dt><dd>${n(s.backlog)} files sitting in unit silos</dd>
+          <dt>Cleared per window</dt><dd>about ${n(capFiles)} files</dd>
+          <dt>Windows required</dt><dd>${n(weeks)} — roughly ${years} years at one evening a week</dd>
+        </dl>
+        <div class="callout warn" style="margin-top:14px">This number is the argument, not the model quality. One evening a week clears about ${n(capFiles)} files while the backlog is ${n(s.backlog)}. Raising the ceiling means either an NCSA allocation, which keeps the data on campus, or a hybrid tier that bursts only the large image runs to cloud inference — cheaper to start, but it needs a data agreement first.</div>
+      </div></div>
+    </div>
+  </div>`;
+}
+
+/* ---------- documentation ---------- */
+function renderForms(){
+  // The submitted forms live here rather than buried inside the blank
+  // new-accession form. They are the documents every ranking was scored
+  // against, so they are a thing you go and read, not a footnote.
+  $('#v-forms').innerHTML = `
+  <div class="panel"><div class="panel-h"><h3>Submitted forms</h3><div class="spacer"></div>
+    <button class="btn btn-sm" data-act="goto" data-v="intake">Start a new one</button></div>
+    ${S.jobs.length? `<table class="ledger"><thead><tr>
+      <th>Accession</th><th>Type</th><th>Status</th><th>Answered</th><th>Files</th><th></th>
+    </tr></thead><tbody>${S.jobs.map(j=>{
+      const answered = INTAKE_FIELDS.filter(([k])=>j.intake && j.intake[k]).length;
+      return `<tr>
+        <td><button class="rtitle" data-act="job" data-id="${j.id}">${esc(j.name)}</button>
+            <span class="fname">${j.id}${j.provisional?' · provisional identity':''}</span></td>
+        <td>${jobTypeTag(j.type)}</td><td>${statusTag(j.status)}</td>
+        <td class="num">${answered}/${INTAKE_FIELDS.length}</td>
+        <td class="num">${n(j.files)}</td>
+        <td style="white-space:nowrap">
+          <button class="btn btn-sm" data-act="job" data-id="${j.id}">Read</button>
+          <button class="btn btn-sm" data-act="reprocess" data-id="${j.id}">Correct &amp; reprocess</button>
+        </td></tr>`;}).join('')}</tbody></table>` : '<div class="empty"><p>No forms yet.</p></div>'}
+  </div>
+  <div class="panel" style="margin-top:16px"><div class="panel-b">
+    <p class="muted" style="font-size:13px;margin:0">Correcting a form and reprocessing is the
+    intended way to fix a bad result. The ranking is scored against what the form says, so a wrong
+    ranking usually means the form said the wrong thing — not that the machine needs overruling one
+    file at a time. Reprocessing keeps the previous run; nothing is overwritten.</p>
+  </div></div>`;
+}
+
+function renderBuilt(){
+  $('#v-built').innerHTML = `
+  <div class="panel"><div class="panel-h"><h3>Two different things are described in this section</h3></div>
+  <div class="panel-b">
+    <p class="gen" style="margin-top:0">The three pages below — image intelligence, smart file
+    search, email archiving — describe <b>work completed earlier in the year</b>. Each was a
+    separate program with its own corpus, and each proved something and left a defect. They are
+    the evidence base, not the system.</p>
+    <p class="gen">This page describes <b>what is running on the server now</b>: one pipeline that
+    took the three apart and rebuilt them around a single manifest. Where a number here disagrees
+    with a number there, this page is the current one.</p>
+  </div></div>
+
+  <div class="grid2" style="margin-top:16px">
+    <div class="panel"><div class="panel-h"><h3>What changed in the rebuild</h3></div><div class="panel-b">
+      <p class="gen" style="margin-top:0"><b>One manifest.</b> An email row and an image row are
+      the same row shape with different columns populated. Three programs became one.</p>
+      <p class="gen"><b>Routing by content signature, not extension.</b> The smart-search corpus
+      contained <code>.d1</code>, <code>.career2</code> and <code>net3852448d</code> — none of
+      which are formats.</p>
+      <p class="gen"><b>Description and classification separated.</b> The image work found a model
+      describing racialised content correctly while returning <code>offensive: false</code>.</p>
+      <p class="gen"><b>Labels allocated per accession, not per document.</b> The email work
+      restarted numbering per message, so the same placeholder meant different people.</p>
+      <p class="gen"><b>Extraction off Windows COM.</b> Pure Python, so it runs on the Linux
+      server and can be parallelised.</p>
+    </div></div>
+    <div class="panel"><div class="panel-h"><h3>What is new, with no POC behind it</h3></div><div class="panel-b">
+      <p class="gen" style="margin-top:0"><b>The intake form conditioning the pipeline.</b> An
+      archivist's written appraisal criteria are what every file is scored against, with the
+      deciding sentence quoted on the record.</p>
+      <p class="gen"><b>Retained by association.</b> A file kept because of its neighbours is
+      marked as such and says so. The competitive review found no tool that records this
+      distinction.</p>
+      <p class="gen"><b>Folder-level appraisal.</b> Where most of a folder is worth keeping, the
+      folder is kept as a unit and the share that decided it is shown.</p>
+      <p class="gen"><b>Two-tier release with a stored vault</b>, and a decision record that
+      captures whether a person agreed with the machine or overrode it.</p>
+    </div></div>
+  </div>
+
+  <div class="panel" style="margin-top:16px"><div class="panel-h"><h3>Measured on this server</h3></div>
+  <div class="panel-b">
+    <p class="gen" style="margin-top:0">2,375 files across three accessions. The CPU pass — crawl,
+    format identification, duplicate and machine-traffic exclusion, appraisal rules, routing,
+    extraction, identifier detection, Dublin Core and ranking — takes about <b>21 seconds</b> on
+    4 vCPU. Description needs the GPU and is separate.</p>
+    <p class="gen">The figure worth watching: 990 of 993 images were marked <em>kept because of
+    their neighbours</em>. Once a local model could read them that fell to <b>502</b>. The system
+    reports what it does not know, and the number moves when the knowledge arrives.</p>
+  </div></div>
+
+  <div class="panel" style="margin-top:16px"><div class="panel-h"><h3>Not built</h3></div><div class="panel-b">
+    <p class="gen" style="margin-top:0">Nothing writes back to Medusa, ArchivesSpace or the Digital
+    Library. Decisions live in the browser, not a database. There is no authentication. No OCR, so
+    scanned PDFs read as empty. Email threads are not reconstructed. The appraisal rules have never
+    been ratified by the Archives, and there is no labelled set to measure accuracy against.</p>
+  </div></div>`;
+}
+
+function renderPOC1(){
+  $('#v-poc1').innerHTML = `
+  <div class="panel"><div class="panel-h"><h3>What it does</h3></div><div class="panel-b">
+    <p class="gen" style="margin-top:0">Detects sensitive and culturally significant content in
+    historical image collections, and describes what is in each frame. Built across
+    <b>12,125 archival scans</b> against a nine-category taxonomy grounded in FERPA, HIPAA and
+    NAGPRA — not general-purpose content moderation, which does not understand why a photograph
+    of ceremonial regalia matters.</p>
+    <p class="gen">Two methods were built and compared. <b>Semantic similarity</b> generates a
+    description, embeds it, and matches against taxonomy keywords by cosine similarity —
+    1,000 images in about nine minutes. <b>Direct classification</b> sends each image to the model
+    with a structured moderation prompt and parses JSON.</p>
+  </div></div>
+
+  <div class="grid2" style="margin-top:16px">
+    <div class="panel"><div class="panel-h"><h3>What was learned</h3></div><div class="panel-b">
+      <p class="gen" style="margin-top:0">Direct classification flagged <b>nothing</b> across
+      1,000 images — while correctly describing racialised content in its own rationale text and
+      still returning <code>offensive: false</code>. The description was right and the judgement
+      was wrong, which is why description and classification are now separate steps.</p>
+      <p class="gen">Semantic similarity flagged 79 of 1,000. Thirteen were clearly correct, eight
+      clearly wrong, and <b>58 were genuinely ambiguous</b>. That 73% is not a model failure — it
+      is what happens when criteria were never defined tightly enough for anyone, person or
+      machine, to apply consistently.</p>
+      <p class="gen">The true sensitive rate on manual review was about <b>1%</b>. At that
+      prevalence even an accurate model produces more false positives than true ones, which is the
+      context any accuracy claim has to be read in.</p>
+    </div></div>
+    <div class="panel"><div class="panel-h"><h3>The throughput finding</h3></div><div class="panel-b">
+      <p class="gen" style="margin-top:0">The pipeline ran at 9 images a minute — 22 hours for the
+      corpus. GPU utilisation was 28–31% while latency inflated 8× under concurrency: the signature
+      of requests being serialised at the daemon, not of hardware limits.</p>
+      <p class="gen">Moving to vLLM with continuous batching, <b>same model, same GPU</b>, gave
+      55.4 images a minute at 97% utilisation. <b>6.22× on identical hardware</b>, of which 3.6× was
+      the serving stack alone.</p>
+      <p class="gen">That is not an academic win. A 22-hour pipeline gets run once. A 3.7-hour
+      pipeline gets used as a working tool — which is what makes prompt refinement and taxonomy
+      changes affordable at all.</p>
+    </div></div>
+  </div>
+
+  <div class="panel" style="margin-top:16px"><div class="panel-h"><h3>Also produced</h3></div><div class="panel-b">
+    <p class="gen" style="margin-top:0">A standalone EXIF/TIFF/IPTC extraction pipeline across all
+    12,125 images, mapped to IPTC Core and Dublin Core so the output moves into ArchivesSpace,
+    Alma or CONTENTdm without transformation work.</p>
+  </div></div>`;
+}
+
+function renderPOC2(){
+  $('#v-poc2').innerHTML = `
+  <div class="panel"><div class="panel-h"><h3>What it does</h3></div><div class="panel-b">
+    <p class="gen" style="margin-top:0">Takes a folder of mixed material and makes it searchable by
+    meaning rather than by filename. Extraction across roughly seventeen format families, a
+    generated summary per file, embeddings over those summaries, and a vector index with recursive
+    topic clustering that names its own clusters.</p>
+    <p class="gen">This is the part stakeholders responded to most strongly, and it is the reason
+    the whole project has a second measure of success: clearing the backlog first, but
+    <em>researchers being able to find things</em> as the long-term goal.</p>
+  </div></div>
+
+  <div class="grid2" style="margin-top:16px">
+    <div class="panel"><div class="panel-h"><h3>What it proved</h3></div><div class="panel-b">
+      <p class="gen" style="margin-top:0">That a mixed, unsorted folder can be made navigable
+      without anyone opening the files. It also produced the format-tail evidence: real filenames in
+      the corpus included <code>.d1</code>, <code>.career2</code>, <code>net3852448d</code> and
+      <code>00361-00850</code> — none of which are formats. Routing on extension cannot work, and
+      that finding shaped the current design.</p>
+    </div></div>
+    <div class="panel"><div class="panel-h"><h3>What had to change</h3></div><div class="panel-b">
+      <p class="gen" style="margin-top:0">Extraction drove Microsoft Office through Windows COM
+      automation. It could not run on the Linux server, could not be parallelised, and hung on
+      malformed files. That is now replaced with pure-Python extraction that reads Word 97 through
+      its piece table rather than the shortcut that returns deleted text alongside real text.</p>
+      <p class="gen">The index embedded generated summaries rather than document text, so anything
+      a summary omitted was unfindable. And the persisted index used Euclidean distance on
+      unnormalised vectors where cosine was intended. Both are corrected.</p>
+    </div></div>
+  </div>`;
+}
+
+function renderPOC3(){
+  $('#v-poc3').innerHTML = `
+  <div class="panel"><div class="panel-h"><h3>What it does</h3></div><div class="panel-b">
+    <p class="gen" style="margin-top:0">Treats mail as mail. Decomposes threads into individual
+    messages, parses headers, detects personal information with Presidio, and produces
+    <b>two release versions from the same message</b>: direct identifiers removed for the reading
+    room, indirect identifiers removed as well for open publication.</p>
+    <p class="gen">The two-tier release is the part nothing else in the field does. Most tools
+    produce one redacted copy and leave the archivist to decide whether it is safe enough for the
+    open web.</p>
+  </div></div>
+
+  <div class="grid2" style="margin-top:16px">
+    <div class="panel"><div class="panel-h"><h3>What was learned</h3></div><div class="panel-b">
+      <p class="gen" style="margin-top:0">Thread decomposition was the strongest piece and the
+      least expected. The folder a message was filed in carries the creator's own judgement about
+      what it related to, which is why mailboxes are kept as mailboxes rather than exploded into
+      loose messages.</p>
+      <p class="gen">Summarisation ran at 34.8 seconds a row — about forty days for 100,000 rows.
+      That was an implementation artefact, not a model limit: the code called the Ollama CLI, which
+      reloads the model weights on every single call.</p>
+    </div></div>
+    <div class="panel"><div class="panel-h"><h3>The defect that mattered most</h3></div><div class="panel-b">
+      <p class="gen" style="margin-top:0">Placeholder numbering restarted per document, so
+      <code>&lt;PERSON1&gt;</code> meant a different person in every message. Masked output produced
+      that way <em>looks</em> correctly redacted, which makes it more dangerous than output that is
+      obviously broken.</p>
+      <p class="gen">Labels are now allocated once per accession and held in a vault stored
+      separately from the manifest, so the same person is the same label in message four and
+      message four hundred — and the re-identification key is access-controlled independently of
+      the description.</p>
+    </div></div>
+  </div>`;
+}
+
+/* ============================================================
+   Triage ledger — the working surface
+   ============================================================ */
+const IMP_ORDER = { high:0, medium:1, low:2 };
+function filtered(){
+  const f = S.filters, q = f.q.trim().toLowerCase();
+  let out = S.records.filter(r=>{
+    if(f.job!=='all' && r.jobId!==f.job) return false;
+    if(f.kind!=='all' && r.kind!==f.kind) return false;
+    if(f.imp!=='all' && r.importance!==f.imp) return false;
+    if(f.flag!=='all' && !r.flags.some(x=>String(x).toLowerCase().includes(f.flag))) return false;
+    if(f.folder && (r.folder||'(root)') !== f.folder) return false;
+    if(f.dispo==='none' && r.dispo) return false;
+    if(f.dispo!=='all' && f.dispo!=='none' && r.dispo!==f.dispo) return false;
+    if(q && !(r.title+' '+r.description+' '+r.filename+' '+r.keywords.join(' ')+' '+r.rationale).toLowerCase().includes(q)) return false;
+    return true;
+  });
+  const s = S.sort;
+  out.sort((a,b)=>
+    s==='imp'   ? (IMP_ORDER[a.importance]-IMP_ORDER[b.importance]) || ((b.confidence||0)-(a.confidence||0))
+  : s==='conf'  ? (a.confidence||0)-(b.confidence||0)
+  : s==='flag'  ? b.flags.length-a.flags.length
+  : s==='name'  ? a.filename.localeCompare(b.filename)
+  : 0);
+  return out;
+}
+function flagTag(f){
+  // Render the flag the pipeline actually emitted. The previous version looked
+  // the string up in a fixed table built for the generated corpus, so every
+  // real flag — "needs a person", "kept by association", "3 identifiers",
+  // and every sensitivity category — rendered as "undefined".
+  const s = String(f||'');
+  const serious = /needs a person|identifier|sensitiv|restricted|remains|nudity|violence|hate|medical|student|racialis|racializ|native american/i.test(s);
+  const quiet   = /duplicate|not read|structural|near_duplicate|system/i.test(s);
+  const cls = serious ? 't-flag' : (quiet ? 't-mute' : 't-archive');
+  return '<span class="tag '+cls+'" title="'+esc(s)+'">'+esc(s)+'</span>';
+}
+function impCell(r){
+  const label = { high:'High', medium:'Medium', low:'Low' }[r.importance];
+  return '<div class="imp '+r.importance+'"><span class="pip"><i></i><i></i><i></i></span>'
+       + '<span>'+label+'</span></div>'
+       // A lexical run has no calibrated confidence. Printing "0%" reads as
+       // "the model is certain this is worthless", which is the opposite of
+       // what a null means.
+       + (r.confidence == null
+          ? '<span class="conf" title="scored lexically; no calibrated confidence">not scored</span>'
+          : '<span class="conf">confidence '+pct(r.confidence)+'</span>');
+}
+function dispoCell(r){
+  // An auto-applied proposal is not a decision. Showing it as one would make
+  // the decision record — the thing that answers "who decided this" in five
+  // years — worthless.
+  // An auto-applied proposal is labelled as one, but the buttons MUST stay:
+  // returning a static tag here removed every control from 1,282 rows, which
+  // made the ledger unusable for exactly the files most in need of review.
+  const stamp = r.autoApplied
+    ? '<div><span class="tag" style="border-color:var(--ochre,#8E6410);'
+      + 'color:var(--ochre,#8E6410)" title="Applied from the pipeline\'s own '
+      + 'proposal. No person has reviewed this.">unreviewed</span></div>'
+    : (r.decidedBy
+       ? '<div class="fname" style="margin-bottom:3px">' + esc(r.decidedBy) + '</div>'
+       : '');
+  const b = d => '<button data-act="dispo" data-id="'+r.id+'" data-d="'+d+'" class="'+(r.dispo===d?'on':'')+'"'
+    + ' title="'+({selected:'Selected — matched a retention criterion',restricted_review:'Send to a supervising archivist — sensitivity outranks ranking',discard_candidate:'Discard candidate — proposed for disposal after the retention window; never removed here'}[d])+'"'
+    + ' aria-label="'+d+' '+esc(r.filename)+'">'+({selected:'✓',restricted_review:'⚑',discard_candidate:'◌'}[d])+'</button>';
+  return stamp + '<div class="dispo">'+b('selected')+b('restricted_review')+b('discard_candidate')+'</div>';
+}
+function renderTriage(){
+  const rows = filtered();
+  const folderRows = (()=>{
+    if(S.filters.job==='all') return null;
+    // Prefer the rollup computed in the pipeline — it carries the keep-whole
+    // decision and the share that produced it, which the UI cannot re-derive
+    // because it does not know the threshold.
+    const j0 = jobById(S.filters.job);
+    if(j0 && j0.folders) return j0.folders.map(f=>({
+      folder:f.folder, files:f.files, high:f.high+f.medium, assoc:0,
+      read:f.read, share:f.share, keepWhole:f.keepWhole,
+      kinds:[], subjects:[]
+    }));
+    const rs = S.records.filter(r=>r.jobId===S.filters.job);
+    const by = {};
+    rs.forEach(r=>{ const f = r.folder||'(root)'; (by[f]=by[f]||[]).push(r); });
+    return Object.entries(by).map(([folder,g])=>({
+      folder, files:g.length,
+      high: g.filter(x=>x.importance==='high').length,
+      assoc: g.filter(x=>x.flags.includes('kept by association')).length,
+      read: g.filter(x=>x.body).length,
+      kinds: [...new Set(g.map(x=>x.kind))].sort(),
+      subjects: [...new Set(g.flatMap(x=>x.keywords))].slice(0,8)
+    })).sort((a,b)=>b.high-a.high || b.files-a.files);
+  })();
+  const jobOpts = ['<option value="all">All accessions</option>']
+    .concat(S.jobs.map(j=>'<option value="'+j.id+'" '+(S.filters.job===j.id?'selected':'')+'>'+esc(j.id)+' — '+esc(j.name)+(j.status==='draft'?' (form is draft)':'')+'</option>')).join('');
+  const sel = S.sel.size;
+  // Bulk decide by band. An archivist who trusts the high band can clear it in
+  // one action and spend the time saved on the uncertain middle, which is the
+  // only part where their judgement is actually needed.
+  const inView = filtered();
+  const bandCounts = {high:0, medium:0, low:0};
+  inView.forEach(r=>{ if(!r.dispo) bandCounts[r.importance]++; });
+  $('#v-triage').innerHTML = `
+  ${folderRows && folderRows.length>1 ? `
+  <!-- Folder-level view. In a working research computer the folder a file sits
+       in carries the creator's own judgement about what it relates to, so it is
+       a more useful unit than the file for deciding what to look at first.
+       Only shown once a single accession is selected. -->
+  <div class="panel" style="margin-bottom:14px">
+    <div class="panel-h"><h3>By folder</h3><div class="spacer"></div>
+      <span class="muted" style="font-size:12.5px">${folderRows.length} folders · ranked by how much needs a person</span></div>
+    <div style="max-height:260px;overflow:auto">
+    <table class="ledger"><thead><tr>
+      <th>Folder</th><th>Files</th><th>Worth keeping</th><th>Share</th>
+      <th>Read</th><th>Folder decision</th></tr></thead>
+    <tbody>${folderRows.slice(0,60).map(f=>`<tr data-act="folder" data-f="${esc(f.folder)}"
+        style="cursor:pointer" class="${S.filters.folder===f.folder?'on':''}">
+      <td class="mono" style="font-size:12px">${
+        S.filters.folder===f.folder?'▸ ':''}${esc(f.folder)}</td>
+      <td class="num">${f.files}</td>
+      <td class="num">${f.high||'0'}</td>
+      <td class="num">${f.share!=null? Math.round(f.share*100)+'%' : '—'}</td>
+      <td class="num">${f.read}</td>
+      <td>${f.keepWhole
+          ? '<span class="tag t-keep">keep as a unit</span>'
+          : '<span class="muted" style="font-size:12px">file by file</span>'}</td>
+    </tr>`).join('')}</tbody></table></div>
+    <p class="muted" style="font-size:12.5px;padding:10px 16px 2px;margin:0">
+      A folder where 60% or more of the files rank medium or high is kept as a
+      unit, and the low-ranked files inside it are marked <em>kept by
+      association</em> — kept because of their neighbours, not because we
+      understand them. The threshold is a starting position, not a finding.</p>
+  </div>`:''}
+  <div class="panel">
+    <div class="toolbar" style="border-bottom:1px solid var(--rule)">
+      <span class="muted" style="font-size:12.5px">Undecided in this view —</span>
+      ${['high','medium','low'].map(b=>`<button class="btn btn-sm" data-act="bulkband" data-b="${b}"
+         ${bandCounts[b]?'':'disabled style="opacity:.4"'}>Keep all ${b} (${bandCounts[b]})</button>`).join('')}
+      ${S.filters.folder ? `<button class="btn btn-sm btn-primary" data-act="folder"
+        data-f="${esc(S.filters.folder)}">In ${esc(S.filters.folder)} — clear</button>` : ''}
+      <span class="spacer"></span>
+      <span class="muted" style="font-size:12px">Sensitive files are never included in a bulk action —
+        they stay for individual review.</span>
+    </div>
+    <div class="toolbar">
+      <select data-f="job">${jobOpts}</select>
+      <select data-f="kind">${[['all','Every file type'],['image','Images'],['email','Email'],['document','Documents'],['media','Audio and video']].map(([v,l])=>`<option value="${v}" ${S.filters.kind===v?'selected':''}>${l}</option>`).join('')}</select>
+      <select data-f="imp">${[['all','Any ranking'],['high','Ranked high'],['medium','Ranked medium'],['low','Ranked low']].map(([v,l])=>`<option value="${v}" ${S.filters.imp===v?'selected':''}>${l}</option>`).join('')}</select>
+      <select data-f="flag">${[['all','Any flag'],['needs a person','Needs a person'],['kept by association','Kept by association'],['identifiers','Personal information found'],['duplicate','Duplicate'],['not read','Not read']].map(([v,l])=>`<option value="${v}" ${S.filters.flag===v?'selected':''}>${l}</option>`).join('')}</select>
+      <select data-f="dispo">${[['all','Decided and not'],['none','Not yet decided'],['selected','Selected'],['restricted_review','Needs a person'],['discard_candidate','Discard candidate']].map(([v,l])=>`<option value="${v}" ${S.filters.dispo===v?'selected':''}>${l}</option>`).join('')}</select>
+      <input type="search" data-f="q" value="${esc(S.filters.q)}" placeholder="Search titles, descriptions, reasoning">
+      <div class="spacer" style="flex:1"></div>
+      <div class="seg">${[['imp','Ranking'],['conf','Least confident'],['flag','Flagged'],['name','Filename']].map(([v,l])=>`<button data-sort="${v}" aria-pressed="${S.sort===v}">${l}</button>`).join('')}</div>
+    </div>
+    ${sel? `<div class="toolbar" style="background:var(--signal-soft);border-bottom-color:#BFD5E5">
+      <strong>${sel} selected</strong>
+      <button class="btn btn-sm" data-act="bulk" data-d="selected">Keep all</button>
+      <button class="btn btn-sm" data-act="bulk" data-d="restricted_review">Archive all</button>
+      <button class="btn btn-sm" data-act="bulk" data-d="discard_candidate">Delete all</button>
+      <button class="btn btn-sm btn-ghost" data-act="clearsel">Clear selection</button>
+    </div>`:''}
+    ${rows.length? `<div style="overflow-x:auto"><table class="ledger fixed" style="min-width:1080px">
+      <colgroup><col style="width:34px"><col style="width:62px"><col style="width:27%"><col style="width:136px"><col style="width:124px"><col><col style="width:118px"></colgroup>
+      <thead><tr>
+        <th><input type="checkbox" data-act="selall" ${sel&&sel===rows.length?'checked':''} aria-label="Select all rows"></th>
+        <th>Type</th><th>Generated title</th><th>Flags</th><th>Ranking</th><th>Why the model ranked it there</th><th>Decision</th>
+      </tr></thead>
+      <tbody>${rows.map(r=>`
+        <tr class="${S.sel.has(r.id)?'sel':''}" data-act="open" data-id="${r.id}"
+            style="cursor:pointer">
+          <td><input type="checkbox" data-act="sel" data-id="${r.id}" ${S.sel.has(r.id)?'checked':''} aria-label="Select ${esc(r.filename)}"></td>
+          <td><span class="kind k-${r.kind}"><b>${({image:'IMG',email:'EML',document:'DOC',media:'A/V'}[r.kind])}</b></span></td>
+          <td>${r.thumb ? `<img src="${esc(r.thumb)}" alt="" loading="lazy"
+                style="float:left;width:52px;height:52px;object-fit:cover;
+                       margin:2px 10px 4px 0;border:1px solid var(--rule)">` : ''}
+              <button class="rtitle" data-act="open" data-id="${r.id}">${esc(r.title)}</button>
+              <span class="fname">${esc(r.filename)}</span>
+              ${(r.kind === 'image' && (!r.description || /Not read/.test(r.description)))
+                ? `<span class="rsnip" style="color:var(--ochre,#8E6410)">No description yet —
+                   this accession has not been through the image lane.</span>`
+                : (r.description && r.description.length > 12)
+                // Two sentences, not a wall of extracted text. An archivist
+                // scanning 900 rows needs to know what a thing is, not to read
+                // the opening of it.
+                ? `<span class="rsnip">${esc(
+                    (r.description.match(/[^.!?]+[.!?]+/g)||[r.description])
+                      .slice(0,2).join(' ').trim().slice(0,190))}</span>` : ''}
+              ${r.folder ? `<span class="rsnip" style="opacity:.75">${esc(r.folder)}</span>` : ''}</td>
+          <td>${r.flags.length? r.flags.map(flagTag).join(' ') : '<span class="muted" style="font-size:12px">—</span>'}</td>
+          <td>${impCell(r)}</td>
+          <td><span class="why">${esc(r.rationale)}</span></td>
+          <td>${dispoCell(r)}</td>
+        </tr>`).join('')}</tbody>
+    </table></div>`
+    : `<div class="empty"><p>No files match these filters. Widen the ranking or clear the search to see the rest of the accession.</p>
+       <button class="btn" data-act="resetfilters">Clear all filters</button></div>`}
+    <div class="panel-b" style="border-top:1px solid var(--rule-2);display:flex;gap:14px;align-items:center;flex-wrap:wrap">
+      <span class="muted" style="font-size:12.5px">${n(rows.length)} of ${n(S.records.length)} files · ${n(rows.filter(r=>!r.dispo).length)} still undecided in this view</span>
+      <span class="spacer" style="flex:1"></span>
+      <span class="tag t-keep">✓ keep</span><span class="tag t-arch">▣ archive</span><span class="tag t-drop">✕ discard candidate</span>
+    </div>
+  </div>`;
+}
+
+/* ============================================================
+   Record drawer
+   ============================================================ */
+function proxySVG(r){
+  let h=0; for(const c of r.filename) h = (h*31 + c.charCodeAt(0)) & 0xffff;
+  const hz = 45 + (h%30), a = h%7, b = (h>>3)%5;
+  return `<svg viewBox="0 0 400 300" role="img" aria-label="Placeholder for ${esc(r.filename)}">
+    <rect width="400" height="300" fill="#DFE4E7"/>
+    <rect y="${hz*2}" width="400" height="${300-hz*2}" fill="#CBD5DA"/>
+    <g fill="#B6C3CA">${Array.from({length:3+a},(_,i)=>`<rect x="${20+i*47}" y="${hz*2-14-((i*13+b*7)%46)}" width="${16+b*3}" height="${20+((i*11)%50)}"/>`).join('')}</g>
+    <line x1="0" y1="${hz*2}" x2="400" y2="${hz*2}" stroke="#8FA0A9" stroke-width="1.5"/>
+    <g fill="#8FA0A9" font-family="IBM Plex Mono, monospace" font-size="11">
+      <text x="14" y="24">${esc(r.filename)}</text>
+      <text x="14" y="288">preview not fetched in demo — open in Box</text>
+    </g>
+    <rect x="1" y="1" width="398" height="298" fill="none" stroke="#8FA0A9" stroke-dasharray="3 4"/>
+  </svg>`;
+}
+function openDrawer(id){
+  const r = S.records.find(x=>x.id===id); if(!r) return;
+  S.drawerId = id;
+  const j = jobById(r.jobId);
+  const list = filtered(), i = list.findIndex(x=>x.id===id);
+  let body = '';
+
+  if(r.kind==='image'){
+    body += '<div class="sect"><div class="thumb">' + (r.thumb ? '<a href="'+esc(r.view||r.thumb)+'" target="_blank" rel="noopener" title="Open the full-size copy"><img src="'+esc(r.thumb)+'" alt="" style="max-width:100%;display:block;cursor:zoom-in"></a><p class="muted" style="font-size:12px;margin:6px 0 0">Click to open the full-size copy.</p>'            : proxySVG(r)) + '</div></div>';
+    body += '<div class="sect"><h4>Generated description</h4><p class="gen" style="margin:0">'+esc(r.description)+'</p></div>';
+    if(r.exif) body += '<div class="sect"><h4>Technical</h4><dl class="dl" style="margin:0">'
+      + '<dt>Capture</dt><dd>'+esc(r.exif.cam)+'</dd><dt>Pixel dimensions</dt><dd class="mono">'+esc(r.exif.dims)+'</dd>'
+      + '<dt>Location data</dt><dd>'+esc(r.exif.gps)+'</dd><dt>Carrier note</dt><dd>'+esc(r.exif.note)+'</dd></dl></div>';
+  }
+  else if(r.kind==='document' || r.kind==='tabular' || r.kind==='other'){
+    if(r.description) body += '<div class="sect"><h4>Description</h4>'
+      + '<p class="gen" style="margin:0">'+esc(r.description)+'</p></div>';
+    if(r.body) body += '<div class="sect"><h4>Opening text of the original</h4>'
+      + '<p class="gen" style="margin:0;white-space:pre-wrap;max-height:280px;overflow:auto">'
+      + esc(r.body)+'</p>'
+      + '<p class="muted" style="font-size:12px;margin:8px 0 0">Extracted text, not a '
+      + 'summary. '+(r.format? esc(r.format)+' · ':'')+esc(r.boxPath||'')+'</p></div>';
+  }
+  else if(r.kind==='email'){
+    const m = r.email||{};
+    // The generated corpus carried a structured `email` object. Real records
+    // carry the parsed body in `body`, so show that when the object is absent
+    // rather than four em-dashes.
+    if(!r.email && r.body){
+      body += '<div class="sect"><h4>Message</h4>'
+        + '<p class="gen" style="margin:0;white-space:pre-wrap">'+esc(r.body)+'</p>'
+        + '<p class="muted" style="font-size:12px;margin:8px 0 0">Quoted reply '
+        + 'chains are stripped: this is what this correspondent wrote.</p></div>';
+    }
+    body += '<div class="sect"><h4>Message</h4><dl class="dl" style="margin:0">'
+      + '<dt>From</dt><dd>'+esc(m.from||'—')+'</dd><dt>To</dt><dd>'+esc(m.to||'—')+'</dd>'
+      + '<dt>Subject</dt><dd>'+esc(m.subject||'—')+'</dd><dt>Sent</dt><dd>'+esc(m.sent||'—')+'</dd>'
+      + '<dt>Messages in thread</dt><dd>'+(m.thread||1)+'</dd></dl></div>';
+    body += '<div class="sect"><h4>Generated description</h4><p class="gen" style="margin:0">'+esc(r.description)+'</p></div>';
+    if(r.entities.length){
+      body += '<div class="sect"><h4>Personal information located — '+r.entities.length+' items</h4>'
+        + '<div class="pii-list">'+r.entities.map(e=>'<span class="tag '+(TIER1.has(e.type)?'t-flag':'t-mute')+'">'+PII_LABELS[e.type]+(TIER1.has(e.type)?' · direct':' · indirect')+'</span>').join('')+'</div>'
+        + '<p class="muted" style="font-size:12.5px;margin:9px 0 0">Direct identifiers come out of both release versions. Indirect ones stay in the reading-room copy, where a researcher is already identified, and come out of the open-web copy because in combination they re-identify people.</p></div>';
+    }
+    if(r.body){
+      body += '<div class="sect"><h4>Release versions</h4><div class="redact">'
+        + '<div class="rbox"><header>Reading room <span class="tag t-arch">direct identifiers out</span></header>'
+        + '<div class="body">'+markRedactions(redact(r.body, r.entities, 'light'))+'</div></div>'
+        + '<div class="rbox"><header>Open web <span class="tag t-keep">direct and indirect out</span></header>'
+        + '<div class="body">'+markRedactions(redact(r.body, r.entities, 'full'))+'</div></div>'
+        + '</div>'
+        + '<details style="margin-top:10px"><summary style="cursor:pointer;font-size:12.5px;color:var(--signal)">Show the unredacted original</summary>'
+        + '<div class="rbox" style="margin-top:8px"><header>Original <span class="tag t-flag">restricted</span></header>'
+        + '<div class="body">'+esc(r.body)+'</div></div></details></div>';
+    }
+  }
+  else {
+    body += '<div class="sect"><h4>Generated description</h4><p class="gen" style="margin:0">'+esc(r.description)+'</p></div>';
+    if(r.kind==='media') body += '<div class="callout" style="margin-bottom:22px">No transcript exists for this recording. Transcription is not part of the current run; a reviewer should decide whether it is warranted before the file is described for publication.</div>';
+  }
+
+  body += '<div class="sect"><h4>Why this ranking</h4>'
+    + '<div class="callout">'+esc(r.rationale)+'</div>'
+    + '<dl class="dl" style="margin:14px 0 0"><dt>Ranking</dt><dd>'+({high:'High',medium:'Medium',low:'Low'}[r.importance])+'</dd>'
+    + '<dt>Model confidence</dt><dd>'+pct(r.confidence)+(r.confidence<.7?' — low, worth a closer look':'')+'</dd>'
+    + '<dt>Informed by</dt><dd>The intake form for '+esc(r.jobId)+'</dd></dl></div>';
+
+  body += '<div class="sect"><h4>Subjects</h4><div class="pii-list">'+r.keywords.map(k=>'<span class="tag t-mute">'+esc(k)+'</span>').join('')+'</div></div>';
+
+  body += '<div class="sect"><h4>The original file</h4><dl class="dl" style="margin:0">'
+    + '<dt>Accession</dt><dd>'+esc(j.id)+' — '+esc(j.name)+'</dd>'
+    + '<dt>Box path</dt><dd class="mono" style="word-break:break-all">'+esc(r.boxPath)+'</dd>'
+    + '<dt>File ID</dt><dd class="mono">'+esc(r.boxFileId)+'</dd>'
+    + '<dt>Size</dt><dd>'+kb(r.sizeKB)+'</dd>'
+    + '<dt>Date on the file</dt><dd>'+(r.date? esc(r.date) : 'none recorded')+'</dd></dl>'
+    + '<a class="btn btn-sm" style="display:inline-block;margin-top:12px;text-decoration:none" href="'+Box.fileUrl(r)+'" target="_blank" rel="noopener">Open the original in Box</a></div>';
+
+  $('#drawer').innerHTML = `
+    <div class="drawer-h">
+      <div style="flex:1">
+        <div style="display:flex;gap:8px;align-items:center;margin-bottom:5px">
+          <span class="kind k-${r.kind}"><b>${({image:'IMG',email:'EML',document:'DOC',media:'A/V'}[r.kind])}</b>${r.kind}</span>
+          ${r.flags.map(flagTag).join(' ')}
+        </div>
+        <h3>${esc(r.title)}</h3>
+        <div class="mono muted" style="margin-top:4px">${esc(r.filename)}</div>
+      </div>
+      <button class="btn btn-sm" data-act="close">Close</button>
+    </div>
+    <div class="drawer-b">${body}</div>
+    <div class="drawer-f">
+      <button class="btn btn-sm" data-act="step" data-i="${i-1}" ${i<=0?'disabled':''}>Previous</button>
+      <button class="btn btn-sm" data-act="step" data-i="${i+1}" ${i>=list.length-1?'disabled':''}>Next</button>
+      <span class="muted" style="font-size:12.5px">${i+1} of ${list.length}</span>
+      <span style="flex:1"></span>
+      <button class="btn btn-sm ${r.dispo==='selected'?'btn-primary':''}" data-act="dispo" data-id="${r.id}" data-d="selected">Selected</button>
+      <button class="btn btn-sm ${r.dispo==='archive'?'btn-primary':''}" data-act="dispo" data-id="${r.id}" data-d="restricted_review">Archive</button>
+      <button class="btn btn-sm ${r.dispo==='discard_candidate'?'btn-primary':''}" data-act="dispo" data-id="${r.id}" data-d="discard_candidate">Discard candidate</button>
+    </div>`;
+  $('#drawer').classList.add('on'); $('#scrim').classList.add('on');
+}
+function openJobDrawer(id){
+  const j = jobById(id); if(!j) return;
+  const rows = INTAKE_FIELDS.map(([k,label])=>'<dt>'+label.replace(/\?$/,'')+'</dt><dd>'+(j.intake[k]? esc(j.intake[k]) : '<span class="muted">not answered</span>')+'</dd>').join('');
+  $('#drawer').innerHTML = `
+    <div class="drawer-h">
+      <div style="flex:1">
+        <div style="margin-bottom:5px">${jobTypeTag(j.type)} ${statusTag(j.status)}</div>
+        <h3>${esc(j.name)}</h3>
+        <div class="mono muted" style="margin-top:4px">${j.id}</div>
+      </div>
+      <button class="btn btn-sm" data-act="close">Close</button>
+    </div>
+    <div class="drawer-b">
+      <div class="sect"><h4>Run</h4><dl class="dl" style="margin:0">
+        <dt>Source folder</dt><dd class="mono" style="word-break:break-all">${esc(j.intake.boxFolder||'not set')}</dd>
+        <dt>Files</dt><dd>${j.files? n(j.files):'—'}</dd>
+        <dt>Volume</dt><dd>${j.sizeKB? kb(j.sizeKB):'—'}</dd>
+        <dt>Estimate</dt><dd>${estHours(j).toFixed(1)} hours</dd>
+        <dt>Processed</dt><dd>${j.ranAt? esc(j.ranAt)+' in '+j.minutes+' minutes' : 'not yet'}</dd>
+      </dl></div>
+      <div class="sect"><h4>Intake form as submitted</h4><dl class="dl" style="margin:0">${rows}</dl></div>
+      <div class="callout">Everything in the second panel is prepended to the models as context. When a reviewer disagrees with a ranking, this is usually where the fix belongs — sharpen the retention priorities and rerun the folder.</div>
+    </div>
+    <div class="drawer-f">
+      ${j.status==='complete'
+        ? '<button class="btn btn-sm btn-primary" data-act="filter-job" data-id="'+j.id+'">See the '+n(j.files)+' files in the ledger</button>'
+        : '<button class="btn btn-sm btn-primary" data-act="edit-intake" data-id="'+j.id+'">Edit this form</button><span class="muted" style="font-size:12.5px">locks one hour before the window</span>'}
+    </div>`;
+  $('#drawer').classList.add('on'); $('#scrim').classList.add('on');
+}
+function closeDrawer(){ S.drawerId=null; $('#drawer').classList.remove('on'); $('#scrim').classList.remove('on'); }
+
+/* ============================================================
+   Public dataset search
+   ============================================================ */
+function renderSearch(){
+  const q = S.search.q.trim().toLowerCase();
+  const f = S.search.facets;
+
+  // File-type groups, built from what is actually in the data rather than a
+  // fixed list. Anything the pipeline saw that does not fall into a known
+  // group appears under "Other" and stays selectable — an ArcGIS file nobody
+  // anticipated must not become invisible.
+  const GROUPS = {
+    "Images":      ["jpg","jpeg","png","tif","tiff","gif","bmp","heic"],
+    "Text documents":["pdf","doc","docx","txt","rtf","odt","ppt","pptx","htm","html"],
+    "Email":       ["eml","msg","mbox","pst"],
+    "Spreadsheets and data":["xls","xlsx","csv","tsv","mdb","accdb","db"],
+    "Audio and video":["mp4","mov","avi","mp3","wav","m4a","wmv","mkv"]
+  };
+  const extOf = r => (r.filename||"").split(".").pop().toLowerCase();
+  const seen = {};
+  S.records.forEach(r=>{ const e = extOf(r); seen[e] = (seen[e]||0)+1; });
+  const known = new Set(Object.values(GROUPS).flat());
+  const others = Object.keys(seen).filter(e => !known.has(e) && e && e.length <= 8).sort();
+  if(others.length) GROUPS["Other"] = others;
+
+  const acc = S.search.job || "";
+  // The search dataset is a REVIEW surface, not an archive. It holds what is
+  // waiting on a person. Once a file has a recorded decision it has left the
+  // review stage and belongs in the delivered package, not here — otherwise
+  // this view grows without bound and an archivist searching it is searching
+  // years of already-settled material.
+  const SEARCH_CAP = 2000;
+  let pool = S.records.filter(r => r.dispo !== 'restricted_review'
+                                && !r.flags.includes('needs a person')
+                                && !(r.dispo && !r.autoApplied));
+  const settled = S.records.filter(r => r.dispo && !r.autoApplied).length;
+  if(acc) pool = pool.filter(r => r.jobId === acc);
+
+  const chosenExt = [...f].filter(x => x.startsWith("e:")).map(x => x.slice(2));
+  const chosenImp = [...f].filter(x => x.startsWith("i:")).map(x => x.slice(2));
+  if(chosenExt.length) pool = pool.filter(r => chosenExt.includes(extOf(r)));
+  if(chosenImp.length) pool = pool.filter(r => chosenImp.includes(r.importance));
+  if(q) pool = pool.filter(r =>
+    (r.title+' '+r.description+' '+r.keywords.join(' ')).toLowerCase().includes(q));
+
+  const withheld = S.records.filter(r => r.dispo === 'restricted_review'
+                                      || r.flags.includes('needs a person')).length;
+
+  const groupUI = Object.entries(GROUPS).map(([g,exts])=>{
+    const present = exts.filter(e=>seen[e]);
+    if(!present.length) return "";
+    const n = present.reduce((a,e)=>a+seen[e],0);
+    const allOn = present.every(e=>f.has("e:"+e));
+    return `<details class="fgroup"><summary>${esc(g)} <span class="muted">${n}</span>${
+      allOn?' <span class="tag t-keep">all</span>':''}</summary>
+      <label><input type="checkbox" data-fx="group" data-g="${esc(g)}" ${allOn?'checked':''}> All ${esc(g.toLowerCase())}</label>
+      ${present.map(e=>`<label><input type="checkbox" data-fx="ext" data-e="${esc(e)}"
+        ${f.has("e:"+e)?'checked':''}> .${esc(e)} <span class="muted">${seen[e]}</span></label>`).join('')}
+    </details>`;}).join('');
+
+  $('#v-search').innerHTML = `
+  <div class="panel">
+    <div class="panel-b" style="padding-bottom:10px">
+      <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px">
+        <label style="font-size:12.5px;color:var(--ink-3);align-self:center">Select accession file</label>
+        <select id="s-acc" style="min-width:280px">
+          <option value="">All processed accessions</option>
+          ${S.jobs.filter(j=>j.status==='complete').map(j=>
+            `<option value="${j.id}" ${acc===j.id?'selected':''}>${esc(j.id)} — ${esc(j.name)}</option>`).join('')}
+        </select>
+        ${['high','medium','low'].map(b=>`<button class="btn btn-sm ${f.has('i:'+b)?'btn-primary':''}"
+          data-fx="imp" data-i="${b}">Ranked ${b}</button>`).join('')}
+        <button class="btn btn-sm" data-fx="clear">Clear</button>
+      </div>
+      <input type="search" id="s-q" value="${esc(S.search.q)}" style="width:100%"
+        placeholder="Search generated titles, descriptions and subjects">
+      <div class="fgroups">${groupUI}</div>
+    </div>
+  </div>
+
+  <div class="panel" style="margin-top:14px">
+    <div class="panel-h"><h3>${n(pool.length)} records</h3><div class="spacer"></div>
+      <span class="muted" style="font-size:12.5px">${n(withheld)} withheld for a person
+        · ${n(settled)} reviewed and moved out${
+        pool.length > SEARCH_CAP ? ' · showing the first '+n(SEARCH_CAP) : ''}</span></div>
+    ${pool.length ? `<div style="max-height:64vh;overflow:auto">${pool.slice(0,SEARCH_CAP).slice(0,300).map(r=>`
+      <div class="sresult" style="padding:13px 18px;border-bottom:1px solid var(--rule)">
+        <button class="rtitle" data-act="open" data-id="${r.id}">${esc(r.title)}</button>
+        <div class="muted" style="font-size:12px;margin:2px 0 5px">${esc(r.jobId)} ·
+          ${esc(r.kind)}${r.date?' · '+esc(r.date):''} · ${r.dispo?esc(r.dispo):'undecided'}</div>
+        ${(r.flags||[]).length ? `<div style="margin:3px 0 5px">${
+          r.flags.map(flagTag).join(' ')}</div>` : ''}
+        <div style="font-size:13.5px;color:var(--ink-2)">${esc(
+          // Two sentences. An archivist scanning results needs to know what a
+          // thing is, not to read the opening of it.
+          ((r.description||'').match(/[^.!?]+[.!?]+/g) || [r.description||''])
+            .slice(0,2).join(' ').trim().slice(0,260))}</div>
+        ${r.keywords.length?`<div class="muted" style="font-size:12px;margin-top:4px">${
+          esc(r.keywords.slice(0,8).join(' · '))}</div>`:''}
+      </div>`).join('')}</div>`
+      : `<div class="empty"><p>Nothing matches. The dataset is indexed on generated description
+         and subjects, not on original filenames.</p></div>`}
+  </div>`;
+
+  const qi = document.getElementById('s-q');
+  qi.addEventListener('input', e=>{ S.search.q = e.target.value; render('search'); });
+  qi.setSelectionRange(qi.value.length, qi.value.length); qi.focus();
+  document.getElementById('s-acc').addEventListener('change', e=>{
+    S.search.job = e.target.value; render('search'); });
+  document.querySelectorAll('[data-fx]').forEach(el=>{
+    const kind = el.dataset.fx;
+    const fire = () => {
+      if(kind === 'clear'){ S.search.facets.clear(); S.search.job=''; }
+      if(kind === 'imp'){ const k='i:'+el.dataset.i;
+        S.search.facets.has(k) ? S.search.facets.delete(k) : S.search.facets.add(k); }
+      if(kind === 'ext'){ const k='e:'+el.dataset.e;
+        S.search.facets.has(k) ? S.search.facets.delete(k) : S.search.facets.add(k); }
+      if(kind === 'group'){
+        // Whole-group toggle. Checking "All images" should behave the same as
+        // ticking every extension inside it, so the two stay consistent.
+        const exts = GROUPS[el.dataset.g] || [];
+        const on = exts.every(e => !seen[e] || S.search.facets.has('e:'+e));
+        exts.filter(e=>seen[e]).forEach(e =>
+          on ? S.search.facets.delete('e:'+e) : S.search.facets.add('e:'+e));
+      }
+      render('search');
+    };
+    el.addEventListener(el.tagName === 'BUTTON' ? 'click' : 'change', fire);
+  });
+}
+function sample(){
+  const r = S.records.find(x=>x.kind==='image') || S.records[0];
+  return { accession:r.jobId, file_id:r.boxFileId, box_path:r.boxPath, filename:r.filename,
+    kind:r.kind, date:r.date||null, generated_title:r.title,
+    generated_description:r.description.slice(0,90)+'…', subjects:r.keywords,
+    flags:r.flags, importance:r.importance, confidence:r.confidence,
+    rationale:r.rationale.slice(0,70)+'…', decision:r.dispo, decided_at:r.decidedAt };
+}
+
+/* ============================================================
+   Publish & export
+   ============================================================ */
+function renderPublish(){
+  // Organised by DESTINATION, not by decision. What an archivist needs here is
+  // "where does this end up", and the answer forks three ways: preserved and
+  // open, preserved and closed, or not selected. Preservation is not
+  // conditional on access — restricted material is still preserved, it simply
+  // has no access copy. Conflating those is how closed material ends up
+  // unpreserved.
+  const DEST = {
+    medusa_open:   {label:'Medusa + Digital Library', sub:'preserved and openly available', c:'var(--keep)'},
+    medusa_closed: {label:'Medusa only',              sub:'preserved, closed pending review', c:'var(--archive)'},
+    supervisor:    {label:'Supervising archivist',    sub:'not released until a person decides', c:'var(--drop)'},
+    not_selected:  {label:'Not selected',             sub:'retained through the review window', c:'var(--ink-3)'},
+    excluded:      {label:'Excluded at triage',       sub:'duplicates and structural noise', c:'var(--ink-3)'}
+  };
+  const destOf = r =>
+      r.flags.includes('duplicate') || r.flags.some(f=>/exclusion|structural/.test(f)) ? 'excluded'
+    : r.dispo === 'restricted_review' || r.importance === 'high' ? 'supervisor'
+    : r.dispo === 'discard_candidate' ? 'not_selected'
+    : r.dispo === 'selected' ? (r.flags.some(f=>/identifier/.test(f)) ? 'medusa_closed' : 'medusa_open')
+    : 'not_selected';
+
+  const g = {};
+  Object.keys(DEST).forEach(k=>g[k]=[]);
+  S.records.forEach(r=>g[destOf(r)].push(r));
+  const decided = S.records.filter(r=>r.dispo).length;
+
+  const tree = S.jobs.map(j=>{
+    const own = k => g[k].filter(r=>r.jobId===j.id).length;
+    return '/RIMS/RELEASE/'+j.id+'/\n'
+      + '  ├── medusa/\n'
+      + '  │     ├── open/            '+String(own('medusa_open')).padStart(5)+' files, access copy to the Digital Library\n'
+      + '  │     └── closed/          '+String(own('medusa_closed')).padStart(5)+' files, preserved with no access copy\n'
+      + '  ├── supervising_review/    '+String(own('supervisor')).padStart(5)+' files, nothing leaves until a person decides\n'
+      + '  ├── not_selected/          '+String(own('not_selected')).padStart(5)+' files, held through the retention window\n'
+      + '  ├── redacted/\n'
+      + '  │     ├── reading_room/    direct identifiers replaced\n'
+      + '  │     └── open_web/        indirect identifiers replaced as well\n'
+      + '  ├── manifest.parquet       one row per file, every decision and its reason\n'
+      + '  ├── decisions.csv          who decided what, when, and whether they agreed\n'
+      + '  └── pii_map.json           re-identification key — stored separately, access controlled';
+  }).join('\n\n');
+
+  $('#v-publish').innerHTML = `
+  <div class="stat-row">
+    <div class="stat"><div class="k">Reviewed by a person</div>
+      <div class="v">${n(decided)} <span style="font-size:15px;color:var(--ink-3)">/ ${n(S.records.length)}</span></div>
+      <div class="bar"><i style="width:${decided/Math.max(1,S.records.length)*100}%;background:var(--signal)"></i></div>
+      <div class="sub">${n(S.records.length-decided)} still carry only the pipeline's proposal</div></div>
+    ${Object.entries(DEST).slice(0,4).map(([k,v])=>`
+    <div class="stat"><div class="k">${esc(v.label)}</div>
+      <div class="v" style="color:${v.c}">${n(g[k].length)}</div>
+      <div class="sub">${esc(v.sub)}</div></div>`).join('')}
+  </div>
+
+  <div class="grid2" style="margin-top:16px">
+    <div class="panel"><div class="panel-h"><h3>Where each file goes</h3></div><div class="panel-b">
+      ${Object.entries(DEST).map(([k,v])=>`
+        <div style="display:flex;gap:12px;align-items:baseline;padding:9px 0;border-bottom:1px solid var(--rule)">
+          <div style="width:9px;height:9px;background:${v.c};border-radius:2px;flex:none"></div>
+          <div style="flex:1"><strong>${esc(v.label)}</strong>
+            <div class="muted" style="font-size:12.5px">${esc(v.sub)}</div></div>
+          <div class="mono">${n(g[k].length)}</div>
+        </div>`).join('')}
+      <p class="muted" style="font-size:12.5px;margin:12px 0 0">Nothing is deleted at
+      this step. "Not selected" means retained through the review window while a
+      person decides; disposal is a later, separate, deliberate act.</p>
+    </div></div>
+
+    <div class="panel"><div class="panel-h"><h3>What gets written</h3></div><div class="panel-b">
+      <div class="tree">${esc(tree)}</div>
+    </div></div>
+  </div>
+
+  <div class="panel" style="margin-top:16px"><div class="panel-h"><h3>Package for delivery</h3></div>
+    <div class="panel-b">
+      <p class="muted" style="font-size:13px;margin-top:0">Choose which version of each file
+      leaves. All three are stored — the archivist always keeps access to the original, whatever
+      is released.</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 14px">
+        ${[["reading_room","Reading room","direct identifiers replaced — for a researcher on site"],
+           ["open_web","Open web","direct and indirect identifiers replaced — for publication"],
+           ["original","Original only","no release; archivist access alone"]].map(([v,l,d])=>`
+          <label style="flex:1;min-width:210px;border:1px solid var(--rule);padding:11px 13px;cursor:pointer">
+            <input type="radio" name="rel" value="${v}" ${v==='reading_room'?'checked':''}>
+            <b>${l}</b><div class="muted" style="font-size:12.5px;margin-top:2px">${d}</div></label>`).join('')}
+      </div>
+      <p class="muted" style="font-size:13px;margin:14px 0 6px">What goes in</p>
+      <div style="display:flex;gap:14px;flex-wrap:wrap;margin-bottom:12px">
+        ${Object.entries(DEST).filter(([k])=>k!=='supervisor').map(([k,v])=>`
+          <label style="font-size:13.5px"><input type="checkbox" data-inc="${k}"
+            ${k==='medusa_open'||k==='medusa_closed'?'checked':''}>
+            ${esc(v.label)} <span class="muted">${n(g[k].length)}</span></label>`).join('')}
+        <label style="font-size:13.5px;color:var(--drop)" title="Never included">
+          <input type="checkbox" disabled> Supervising archivist
+          <span class="muted">${n(g.supervisor.length)}</span> — never packaged</label>
+      </div>
+      <button class="btn btn-primary" data-act="package">Build the delivery package</button>
+      <span class="muted" style="font-size:12.5px;margin-left:10px">${n(decided)} of
+        ${n(S.records.length)} files have a recorded decision. Undecided files are packaged as
+        not selected and stay retained.</span>
+      <div id="pkg" style="margin-top:14px"></div>
+    </div></div>
+
+  <div class="panel" style="margin-top:16px"><div class="panel-h"><h3>Export</h3><div class="spacer"></div>
+    <button class="btn btn-sm" data-act="export-ledger">Ledger CSV</button>
+    <button class="btn btn-sm" data-act="export-decisions">Decisions CSV</button>
+    <button class="btn btn-sm" data-act="export-dataset">Dataset JSON</button></div>
+    <div class="panel-b"><p class="muted" style="font-size:12.5px;margin:0">The
+    decisions export is the defensibility record: every action, who took it, when,
+    and whether it confirmed the pipeline or overrode it. It is the thing to keep
+    when someone asks in five years why a file was not kept.</p></div></div>`;
+}
+
+/* ---------- exports ---------- */
+function dl(name, text, mime){
+  const b = new Blob([text], {type:mime});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(b); a.download = name; a.click();
+  setTimeout(()=>URL.revokeObjectURL(a.href), 2000);
+  toast('Downloaded ' + name);
+}
+const csvCell = v => '"' + String(v==null?'':v).replace(/"/g,'""').replace(/\r?\n/g,' ') + '"';
+function exportLedgerCSV(){
+  const head = ['accession','file_id','box_path','filename','kind','date','generated_title','generated_description','subjects','flags','importance','confidence','rationale','decision','decided_at'];
+  const rows = S.records.map(r=>[r.jobId,r.boxFileId,r.boxPath,r.filename,r.kind,r.date,r.title,r.description,r.keywords.join('; '),r.flags.join('; '),r.importance,r.confidence,r.rationale,r.dispo||'',r.decidedAt||'']);
+  dl('accession-ledger.csv', [head].concat(rows).map(r=>r.map(csvCell).join(',')).join('\n'), 'text/csv');
+}
+function exportDecisions(){
+  const head = ['file_id','filename','accession','model_ranking','model_confidence','flags','human_decision','decided_at','agrees_with_model'];
+  const rows = S.records.filter(r=>r.dispo).map(r=>{
+    // Agreement is measured against the pipeline's own proposal, not inferred
+    // from the importance band. A reviewer who marks a low-ranked file as
+    // selected has overridden something specific, and the record should say
+    // which thing.
+    const proposed = r.importance==='high' ? 'restricted_review' : 'selected';
+    const agree = r.dispo === proposed;
+    return [r.boxFileId,r.filename,r.jobId,r.importance,r.confidence,r.flags.join('; '),r.dispo,r.decidedAt,agree?'yes':'no'];
+  });
+  dl('decisions-manifest.csv', [head].concat(rows).map(r=>r.map(csvCell).join(',')).join('\n'), 'text/csv');
+}
+function exportDataset(){
+  const recs = S.records.filter(r=>r.dispo && r.dispo!=='discard_candidate' && !r.flags.includes('restricted'));
+  const out = {
+    generated: new Date().toISOString(),
+    generator: 'Accession Workbench prototype',
+    note: 'Every record was ranked by a model and disposed of by a person. The rationale field is the model\u2019s reasoning, retained for audit.',
+    accessions: S.jobs.filter(j=>j.status==='complete').map(j=>({ id:j.id, name:j.name, type:j.type, files:j.files, intake:j.intake })),
+    records: recs.map(r=>({
+      accession:r.jobId, file_id:r.boxFileId, box_path:r.boxPath, box_url:Box.fileUrl(r),
+      filename:r.filename, kind:r.kind, date:r.date||null, size_kb:r.sizeKB,
+      generated_title:r.title, generated_description:r.description, subjects:r.keywords,
+      flags:r.flags, content_note_required:r.flags.includes('sensitive'),
+      importance:r.importance, confidence:r.confidence, rationale:r.rationale,
+      redaction: r.entities.length? { identifiers_found:r.entities.length,
+        direct:r.entities.filter(e=>TIER1.has(e.type)).map(e=>PII_LABELS[e.type]),
+        indirect:r.entities.filter(e=>!TIER1.has(e.type)).map(e=>PII_LABELS[e.type]),
+        reading_room_text: redact(r.body||'', r.entities, 'light'),
+        open_web_text: redact(r.body||'', r.entities, 'full') } : null,
+      decision:r.dispo, decided_at:r.decidedAt
+    }))
+  };
+  dl('accession-dataset.json', JSON.stringify(out, null, 2), 'application/json');
+}
+
+/* ============================================================
+   Run simulation
+   ============================================================ */
+function synthesize(job){
+  const pool = [
+    ['Apparatus on an optical bench, unlabelled','A bench-top optical arrangement with mounts, a laser tube, and cabling. No labels or scale in frame.',['apparatus','optical bench','laboratory'],'medium',.72,[]],
+    ['Accelerator hall interior during a shutdown','A wide view of an accelerator hall with access panels open and equipment on the floor, apparently mid-maintenance.',['accelerator','maintenance','laboratory interior'],'high',.85,[]],
+    ['Lecture demonstration in progress, students visible','An instructor operating a demonstration apparatus at the front of a raked lecture theatre with students seated behind.',['teaching','demonstration','lecture theatre'],'high',.81,[]],
+    ['Blank frame, no image content','A blank or near-blank exposure with no recoverable content.',['illegible','blank'],'low',.95,['illegible']],
+    ['Instrument rack with hand-lettered labels','A rack of electronics with hand-lettered paper labels on each module, several legible.',['instrumentation','electronics','labels'],'high',.83,[]],
+    ['Group of staff outside a laboratory building','An informal line-up of about ten people outside an entrance. No names on the mount.',['group portrait','staff','unidentified'],'medium',.66,[]],
+    ['Duplicate exposure of the preceding frame','A near-identical second exposure of the same subject.',['duplicate'],'low',.92,['duplicate']],
+    ['Chalkboard with a partial derivation','A chalkboard photographed straight on with a derivation running to the lower edge, mostly legible.',['chalkboard','derivation','teaching'],'medium',.74,[]],
+    ['Departmental party with a costumed performance','A crowded room at a departmental party with two people performing in costume. One costume uses an ethnic caricature.',['social','costume','content note required'],'low',.68,['sensitive']]
+  ];
+  const out = [];
+  for(let i=0;i<job.files;i++){
+    const p = pool[i % pool.length], y = Math.floor(between(1961,1985));
+    out.push(rec({ jobId:job.id, kind:'image', folder:'carousel_'+String(1+(i%12)).padStart(2,'0'),
+      filename:'PHYS_B2_'+String(i+1).padStart(4,'0')+'.tif', date:y+'-01-01',
+      sizeKB:Math.round(between(30000,52000)),
+      title:p[0], description:p[1], keywords:p[2], importance:p[3],
+      confidence:+(p[4]+between(-.05,.04)).toFixed(2), flags:p[5],
+      exif:{cam:'Kodachrome carousel scan', dims:'4096 × 2731', gps:'not embedded', note:'Carousel label illegible'},
+      rationale: p[5].length
+        ? 'Blank, duplicate, or unreadable. The intake form excludes these by name, so it is surfaced for deletion.'
+        : p[3]==='high'
+        ? 'Shows apparatus, a laboratory interior, or people at work — the three things the intake form names for this batch. Equipment of this period is largely gone, which raises the value of the frame.'
+        : 'Plausibly in scope but under-identified. No carousel label survived for this tray, so nothing establishes the date or the room beyond the visual evidence.'
+    }));
+  }
+  return out;
+}
+function runWindow(){
+  if(S.running) return;
+  const jobs = S.jobs.filter(j=>['queued','locked'].includes(j.status));
+  if(!jobs.length){ toast('Nothing is queued for this window'); return; }
+  S.running = true; S.log = [];
+  go('queue');
+  const steps = [];
+  jobs.forEach(j=>{
+    steps.push(['Connecting to Box as svc-rims — folder '+Box.folders.inbox.name, 0]);
+    steps.push([j.id+' · listing '+n(j.files)+' items, '+kb(j.sizeKB), 0]);
+    steps.push([j.id+' · sha1 recorded for '+n(j.files)+' files', 0]);
+    steps.push([j.id+' · copy → '+Box.folders.originals.name, 1]);
+    steps.push([j.id+' · reading the intake form: '+(j.intake.owner||'unknown owner'), 0]);
+    steps.push([j.id+' · generating titles and descriptions', 0]);
+    steps.push([j.id+' · content and personal-material flags', 0]);
+    if(j.type!=='images') steps.push([j.id+' · locating personal information, writing two release versions', 0]);
+    steps.push([j.id+' · triage scoring against the retention priorities', 0]);
+    steps.push([j.id+' · writing sidecars → '+Box.folders.transformed.name, 1]);
+    steps.push([j.id+' · moving originals out of '+Box.folders.inbox.name, 1]);
+    steps.push([Box.folders.inbox.name+' is empty for '+j.id, 2]);
+  });
+  let i = 0;
+  const tick = setInterval(()=>{
+    if(i>=steps.length){
+      clearInterval(tick);
+      jobs.forEach(j=>{
+        if(!S.records.some(r=>r.jobId===j.id)) S.records = S.records.concat(synthesize(j));
+        j.status='complete';
+        j.ranAt = new Date().toLocaleString('en-US',{year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'});
+        j.minutes = Math.round(estHours(j)*60);
+      });
+      S.running = false;
+      S.log.push('<b>Run complete. '+n(jobs.reduce((a,j)=>a+j.files,0))+' files described and waiting for review.</b>');
+      render('queue');
+      toast('Run complete — '+n(jobs.reduce((a,j)=>a+j.files,0))+' files ready to triage');
+      return;
+    }
+    const [msg, kind] = steps[i++];
+    S.log.push(kind===2? '<b>'+msg+'</b>' : msg);
+    const el = $('#log'); if(el){ el.innerHTML = S.log.join('<br>'); el.scrollTop = el.scrollHeight; }
+    const p = $('#prog'); if(p) p.style.width = Math.round(i/steps.length*100)+'%';
+  }, 320);
+}
+
+/* ============================================================
+   Events
+   ============================================================ */
+document.addEventListener('click', e=>{
+  const nav = e.target.closest('#nav button');
+  if(nav){ go(nav.dataset.view); return; }
+  const facet = e.target.closest('[data-facet]');
+  if(facet){
+    const f = facet.dataset.facet;
+    if(f==='clear') S.search.facets.clear();
+    else S.search.facets.has(f) ? S.search.facets.delete(f) : S.search.facets.add(f);
+    render('search'); return;
+  }
+  const sortB = e.target.closest('[data-sort]');
+  if(sortB){ S.sort = sortB.dataset.sort; render('triage'); return; }
+  const a = e.target.closest('[data-act]');
+  if(!a) return;
+  // A row is clickable, but the controls inside it are their own actions.
+  // Without this, ticking a checkbox or recording a decision also opens the
+  // drawer, which makes bulk work impossible.
+  if(a.dataset.act === 'open' && e.target.closest('input,button,select,label')
+     && !e.target.closest('.rtitle')) return;
+  const act = a.dataset.act, id = a.dataset.id;
+  switch(act){
+    case 'goto': go(a.dataset.v); break;
+    case 'open': openDrawer(id); break;
+    case 'close': closeDrawer(); break;
+    case 'job': openJobDrawer(id); break;
+    case 'filter-job': closeDrawer(); S.filters = {job:id,kind:'all',imp:'all',flag:'all',dispo:'all',q:''}; go('triage'); break;
+    case 'resetfilters': S.filters = {job:'all',kind:'all',imp:'all',flag:'all',dispo:'all',q:''}; render('triage'); break;
+    case 'review-undecided': S.filters = {job:'all',kind:'all',imp:'all',flag:'all',dispo:'none',q:''}; go('triage'); break;
+    case 'dispo': {
+      const r = S.records.find(x=>x.id===id); if(!r) break;
+      const d = a.dataset.d;
+      r.dispo = r.dispo===d ? null : d;
+      r.decidedAt = r.dispo ? new Date().toISOString().slice(0,16).replace('T',' ') : null;
+      if(S.view==='triage') render('triage'); else if(S.view==='publish') render('publish'); else if(S.view==='search') render('search');
+      if(S.drawerId===id) openDrawer(id);
+      break;
+    }
+    case 'qup': case 'qdn': {
+      // Queue order is the archivist's call, not the system's. A collection
+      // with a researcher waiting on it should be able to jump ahead of a
+      // larger one that nobody is asking for.
+      const i = S.jobs.findIndex(x=>x.id===id);
+      const to = act==='qup' ? i-1 : i+1;
+      if(i>=0 && to>=0 && to<S.jobs.length){
+        const [m] = S.jobs.splice(i,1); S.jobs.splice(to,0,m); render('queue');
+      }
+      break;
+    }
+    case 'package': {
+      const lvl = (document.querySelector('input[name=rel]:checked')||{}).value || 'reading_room';
+      const inc = [...document.querySelectorAll('[data-inc]:checked')].map(x=>x.dataset.inc);
+      const g = {}; S.records.forEach(r=>{ const k = r.dispo||'not_selected'; (g[k]=g[k]||[]).push(r); });
+      const stamp = new Date().toISOString().slice(0,19).replace(/[:T]/g,'-');
+      document.getElementById('pkg').innerHTML =
+        '<div class="callout" style="border:1px solid var(--rule);padding:12px 14px">'
+        + '<b>Package ready</b> — release level <code>'+esc(lvl)+'</code>, built '+stamp+'.'
+        + '<div style="font-size:13px;margin-top:6px">Includes: '
+        + (inc.length ? inc.map(k=>esc(k.replace(/_/g," "))+' ('+((g[k]||[]).length)+')').join(', ')
+                      : '<i>nothing selected</i>') + '</div>'
+        + '<div class="muted" style="font-size:12.5px;margin:6px 0 10px">Contains the selected '
+        + 'files at the chosen release level, the manifest, the decision record, and the '
+        + 'PII map as a separate access-controlled file. Nothing flagged for a supervising '
+        + 'archivist is included.</div>'
+        + '<button class="btn btn-sm" data-act="export-dataset">Download dataset JSON</button> '
+        + '<button class="btn btn-sm" data-act="export-decisions">Download decision record</button> '
+        + '<button class="btn btn-sm" data-act="export-ledger">Download full ledger</button>'
+        + '</div>';
+      toast('Package built at ' + lvl + ' — ' + ((g.selected||[]).length) + ' files');
+      break;
+    }
+    case 'reprocess': {
+      // Correcting a form and re-running is the intended repair path. The
+      // previous run is kept: a re-run produces a new manifest rather than
+      // overwriting the record of what was decided last time.
+      const j2 = jobById(id); if(!j2) break;
+      j2.status = 'queued'; j2.reprocess = true;
+      openJobDrawer(id);
+      toast(id + ' returned to the queue for reprocessing — the previous run is kept');
+      break;
+    }
+    case 'folder': {
+      // Selecting a folder narrows the ledger to it. Walking the tree is the
+      // point of the folder view — reading counts without being able to open
+      // the folder they describe is a report, not a tool.
+      const f = a.dataset.f;
+      S.filters.folder = (S.filters.folder === f) ? null : f;
+      render('triage');
+      break;
+    }
+    case 'sfacet': break;
+    case 'bulkband': {
+      // Everything undecided in the current view at this band, EXCEPT anything
+      // flagged for a person. A bulk action that swept up sensitive material
+      // would defeat the one rule the whole design rests on.
+      const band = a.dataset.b, now = new Date().toISOString().slice(0,16).replace('T',' ');
+      let c = 0, held = 0;
+      filtered().forEach(r=>{
+        if(r.dispo || r.importance !== band) return;
+        if(r.importance === 'high' || r.flags.includes('needs a person')){ held++; return; }
+        r.dispo = 'selected'; r.decidedAt = now; r.bulk = true; c++;
+      });
+      render('triage');
+      toast(c + ' marked selected' + (held ? ' · ' + held + ' held back for individual review' : ''));
+      break;
+    }
+    case 'bulk': {
+      const d = a.dataset.d, now = new Date().toISOString().slice(0,16).replace('T',' ');
+      let c=0;
+      S.records.forEach(r=>{ if(S.sel.has(r.id)){ r.dispo=d; r.decidedAt=now; c++; }});
+      S.sel.clear(); render('triage'); toast(c+' files marked '+d);
+      break;
+    }
+    case 'clearsel': S.sel.clear(); render('triage'); break;
+    case 'step': {
+      const list = filtered(), i = +a.dataset.i;
+      if(list[i]) openDrawer(list[i].id);
+      break;
+    }
+    case 'run': runWindow(); break;
+    case 'save-settings': {
+      S.settings.day = +$('#s-day').value; S.settings.start = +$('#s-start').value;
+      S.settings.hours = Math.max(1,+$('#s-hours').value);
+      S.settings.maxFiles = +$('#s-maxf').value; S.settings.maxGB = +$('#s-maxg').value;
+      ['image','email','document','media'].forEach(k=> S.settings.rates[k] = Math.max(1,+$('#s-r-'+k).value));
+      render('capacity'); toast('Window saved — ' + windowLabel());
+      break;
+    }
+    case 'prefill': {
+      const k = jobById('ACC-2026-014');
+      S.intakeDraft = Object.assign({}, k.intake, { type:'images', name:k.name, filters:['images'], boxFolder:k.intake.boxFolder });
+      render('intake'); toast('Filled from ACC-2026-014');
+      break;
+    }
+    case 'edit-intake': {
+      const j = jobById(id);
+      S.intakeDraft = Object.assign({}, j.intake, { type:j.type, name:j.name, filters:['images','email','documents'] });
+      S.intakeDraft._job = id;
+      closeDrawer(); go('intake'); toast('Editing ' + id + ' — locks one hour before the window');
+      break;
+    }
+    case 'submit-intake': submitIntake(); break;
+    case 'dl-json': exportDataset(); break;
+    case 'dl-csv': exportLedgerCSV(); break;
+    case 'dl-dec': exportDecisions(); break;
+  }
+});
+document.addEventListener('change', e=>{
+  const t = e.target;
+  if(t.dataset.act==='sel'){
+    t.checked ? S.sel.add(t.dataset.id) : S.sel.delete(t.dataset.id);
+    render('triage'); return;
+  }
+  if(t.dataset.act==='selall'){
+    const rows = filtered();
+    t.checked ? rows.forEach(r=>S.sel.add(r.id)) : S.sel.clear();
+    render('triage'); return;
+  }
+  if(t.dataset.f){ S.filters[t.dataset.f] = t.value; S.sel.clear(); render('triage'); return; }
+});
+document.addEventListener('input', e=>{
+  const t = e.target;
+  if(t.dataset.f==='q'){ S.filters.q = t.value; clearTimeout(window._d);
+    window._d = setTimeout(()=>{ render('triage'); const el=$('#v-triage [data-f=q]'); if(el){el.focus();el.setSelectionRange(el.value.length,el.value.length);} }, 250); return; }
+  if(t.id==='q'){ S.search.q = t.value; clearTimeout(window._d2);
+    window._d2 = setTimeout(()=>{ render('search'); const el=$('#q'); if(el){el.focus();el.setSelectionRange(el.value.length,el.value.length);} }, 250); return; }
+  if(t.id && t.id.startsWith('f-')){
+    const k = t.id.slice(2);
+    if(k==='box') S.intakeDraft.boxFolder = t.value;
+    else if(k==='name') S.intakeDraft.name = t.value;
+    else S.intakeDraft[k] = t.value;
+  }
+  if(t.name==='jt') S.intakeDraft.type = t.value;
+});
+$('#scrim').addEventListener('click', closeDrawer);
+document.addEventListener('keydown', e=>{
+  if(e.key==='Escape') closeDrawer();
+  if(!S.drawerId) return;
+  if(e.key==='ArrowDown'||e.key==='ArrowUp'){
+    const list = filtered(), i = list.findIndex(x=>x.id===S.drawerId);
+    const j = e.key==='ArrowDown'? i+1 : i-1;
+    if(list[j]){ e.preventDefault(); openDrawer(list[j].id); }
+  }
+});
+function submitIntake(){
+  const d = S.intakeDraft;
+  d.boxFolder = $('#f-box').value; d.name = $('#f-name').value;
+  INTAKE_FIELDS.forEach(([k])=>{ const el = $('#f-'+k); if(el) d[k] = el.value; });
+  d.filters = $$('#f-filters input:checked').map(i=>i.value);
+  const jt = $('#f-type input:checked'); if(jt) d.type = jt.value;
+  if(!d.name.trim()){ toast('Give the accession a name so it can be found later'); $('#f-name').focus(); return; }
+  if(!d.boxFolder.trim()){ toast('Point the form at a Box folder'); $('#f-box').focus(); return; }
+  if(!d.valuable.trim()){ toast('Say what is most valuable to keep — the ranking depends on it'); $('#f-valuable').focus(); return; }
+
+  const intake = {}; INTAKE_FIELDS.forEach(([k])=> intake[k] = d[k]||'');
+  intake.boxFolder = d.boxFolder;
+  if(d._job){
+    const j = jobById(d._job);
+    Object.assign(j, { name:d.name, type:d.type, intake, status:'queued' });
+    toast(j.id + ' updated and still queued');
+  } else {
+    const id = 'ACC-2026-0' + (19 + S.jobs.filter(j=>j.id>'ACC-2026-018').length);
+    const files = Math.round(between(40,240));
+    S.jobs.push({ id, name:d.name, type:d.type, status:'queued', files, sizeKB:files*Math.round(between(400,9000)), intake });
+    toast(id + ' submitted for ' + windowLabel());
+  }
+  S.intakeDraft = null;
+  go('queue');
+}
+
+/* ---------- init ---------- */
+setInterval(()=>{ const c = $('#cd'); if(c) c.textContent = untilStr(nextWindow()); }, 30000);
+loadData().then(()=>{ if(S.loadError){ document.querySelector('#main,main,.main,body').insertAdjacentHTML('afterbegin', '<div style="padding:14px 18px;border:1px solid #7B2D26;color:#7B2D26;margin:12px">Could not load prototype-data.json — '+S.loadError+'. Generate it with scripts/export_prototype.py.</div>'); } go('dash'); });
+
+</script>
+</body>
+</html>
