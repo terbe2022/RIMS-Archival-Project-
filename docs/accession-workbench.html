@@ -535,6 +535,55 @@ S.loadError = null;
 // Correct & reprocess silently did nothing: openJobDrawer threw on its first
 // line and the click handler swallowed it.
 function jobById(id){ return S.jobs.find(j => j.id === id); }
+
+// ---- decision persistence -------------------------------------------------
+// The page works with or without a backend. Served by decision_server.py the
+// decisions are written to an append-only log and survive the tab closing;
+// served by plain http.server they live in memory as before, and the banner
+// says so rather than letting someone review for an hour and lose it.
+S.persist = false;
+
+async function checkPersistence(){
+  try {
+    const res = await fetch('api/decisions');
+    if(!res.ok) return;
+    const d = await res.json();
+    S.persist = true;
+    Object.entries(d.current || {}).forEach(([uid, e]) => {
+      const r = S.records.find(x => x.id === uid);
+      if(r){
+        r.dispo = e.decision; r.decidedAt = e.at; r.decidedBy = e.reviewer;
+        r.reviewReason = e.reason; delete r.autoApplied;
+      }
+    });
+    console.log('decisions restored:', Object.keys(d.current || {}).length);
+  } catch(e) { S.persist = false; }
+}
+
+async function recordDecision(r, decision){
+  const who = (document.getElementById('who')?.value || S.reviewer || '').trim();
+  if(!who){
+    toast('Name yourself first — a decision with no reviewer is not a decision');
+    document.getElementById('who')?.focus();
+    return false;
+  }
+  S.reviewer = who;
+  if(!S.persist) return true;            // memory only; caller still applies it
+  try {
+    const res = await fetch('api/decision', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        file_uid: r.id, accession: r.jobId, decision, reviewer: who,
+        reason: r.reviewReason || null,
+        agreed_with_pipeline: decision === (r.importance === 'high'
+          ? 'restricted_review' : 'selected')
+      })});
+    if(!res.ok){ toast('Not saved: ' + (await res.json()).error); return false; }
+    const out = await res.json();
+    if(out.changed_a_previous_decision) toast('Changed a previous decision — both are kept');
+    return true;
+  } catch(e){ toast('Not saved: ' + e.message); return false; }
+}
 function recById(id){ return S.records.find(r => r.id === id); }
 
 async function loadData(){
@@ -561,6 +610,15 @@ async function loadData(){
       r.importance = r.importance || 'low';
       r.kind = r.kind || 'other';
     });
+    await checkPersistence();
+    if(!S.persist){
+      // Say it before an hour of review is lost, not after.
+      document.body.insertAdjacentHTML('afterbegin',
+        '<div id="persistwarn" style="background:#F5ECD9;border-bottom:1px solid #8E6410;'
+        + 'color:#8E6410;padding:7px 18px;font-size:13px">Decisions are held in this '
+        + 'browser tab only and will be lost when it closes. Serve with '
+        + '<code>scripts/decision_server.py</code> to record them to an append-only log.</div>');
+    }
     S.jobs.forEach(j => {
       j.counts = j.counts || {};
       j.intake = j.intake || {};
@@ -1894,7 +1952,16 @@ document.addEventListener('click', e=>{
     case 'dispo': {
       const r = S.records.find(x=>x.id===id); if(!r) break;
       const d = a.dataset.d;
-      r.dispo = r.dispo===d ? null : d;
+      if(r.dispo !== d){
+        recordDecision(r, d).then(ok => {
+          if(!ok) return;
+          r.dispo = d; r.decidedAt = new Date().toISOString().slice(0,16).replace('T',' ');
+          r.decidedBy = S.reviewer; delete r.autoApplied;
+          render(S.view); if(S.drawerId===id) openDrawer(id);
+        });
+        break;
+      }
+      r.dispo = null;
       r.decidedAt = r.dispo ? new Date().toISOString().slice(0,16).replace('T',' ') : null;
       if(S.view==='triage') render('triage'); else if(S.view==='publish') render('publish'); else if(S.view==='search') render('search');
       if(S.drawerId===id) openDrawer(id);
