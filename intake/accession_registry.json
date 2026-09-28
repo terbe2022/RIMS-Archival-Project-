@@ -1,0 +1,83 @@
+{
+  "_README": [
+    "Fields the intake forms cannot supply, because they are assigned by an",
+    "accessioning archivist rather than inferred from the material. null means",
+    "NOT YET ANSWERED and will stop that accession with a named error. Do not",
+    "fill a null in to make the pipeline run; the run is supposed to stop.",
+    "",
+    "record_series : 6-7 digits. Two digits record group, two series, the rest",
+    "                sub-series. Checked against the published classification",
+    "                list at archon.library.illinois.edu, never guessed.",
+    "accession_type: personal_papers | administrative. Selects the ruleset.",
+    "profile_field : selects the drafts rule. A humanities scholar's working",
+    "                drafts are kept; a chemist's are not. Getting this wrong",
+    "                changes outcomes, so it is evidence-backed or null."
+  ],
+  "ACC-2026-020": {
+    "record_series": null,
+    "accession_type": null,
+    "source_media": "share",
+    "source_received": "2026-09-03",
+    "profile_person": null,
+    "profile_department": null,
+    "profile_field": null,
+    "accession_archivist": null,
+    "_note": [
+      "Deliberately unfillable. The intake form is status=draft because owner,",
+      "scope, retention priorities and access are placeholders (see handoff 5).",
+      "Both required identity fields are unknown for the same underlying reason:",
+      "nobody has said what these images depict or whose collection they are.",
+      "Stage 01 will still characterise the files. Stage 02a appraisal will",
+      "refuse, which is the correct outcome and the one to demonstrate."
+    ]
+  },
+  "ACC-2026-021": {
+    "record_series": null,
+    "accession_type": "personal_papers",
+    "source_media": "share",
+    "source_received": "2026-09-03",
+    "profile_person": "Thomas J. Hanratty",
+    "profile_department": "Chemical and Biomolecular Engineering",
+    "profile_field": "chemical engineering",
+    "profile_active_years": "1999-2012",
+    "accession_archivist": null,
+    "_note": [
+      "accession_type and profile_field are PROPOSED from the intake form, not",
+      "confirmed. Both are well evidenced: a faculty office computer is personal",
+      "papers, and the department is named in the form and in the directory tree.",
+      "record_series is genuinely unknown and blocks this accession.",
+      "profile_field matters here: the drafts rule keeps working drafts for a",
+      "humanities scholar and does not for a chemist, so 'chemical engineering'",
+      "is load-bearing and should be confirmed rather than assumed."
+    ]
+  },
+  "ACC-2026-022": {
+    "record_series": "2620191",
+    "accession_type": "personal_papers",
+    "source_media": "share",
+    "source_received": "2026-09-03",
+    "profile_person": "Michael S. Hart",
+    "profile_department": null,
+    "profile_field": null,
+    "accession_archivist": null,
+    "_note": [
+      "record_series 2620191 is taken from the Box prefix 2620191_MichaelHart.",
+      "Handoff 3 warns that Box prefixes are record series numbers and NOT",
+      "accession numbers. That warning is about scoping file_uid, which v1.1",
+      "already fixed; as a record_series value this is the correct use of it.",
+      "Still worth confirming against the classification list.",
+      "accession_type is PROPOSED. The form argues the mail is operational",
+      "rather than institutional - the working correspondence of a volunteer",
+      "project, not the records of a university office - which reads as personal",
+      "papers. The form also states the folder holds at least four provenances,",
+      "one of which is 1994 university administrative correspondence. A single",
+      "accession_type is therefore wrong for part of this material, and that is",
+      "an argument for splitting the accession, not for picking a type."
+    ]
+  },
+  "ACC-2026-023": {
+    "record_series": null,
+    "received": "2026-09-11",
+    "note": "queued, never run"
+  }
+}
