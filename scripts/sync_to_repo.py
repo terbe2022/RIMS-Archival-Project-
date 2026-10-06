@@ -31,6 +31,7 @@ import re
 import shutil
 import subprocess
 import sys
+import tempfile
 from pathlib import Path
 
 # What belongs in the repository, as (source glob, destination directory).
@@ -40,7 +41,6 @@ INCLUDE = [
     ("workbench/schema/rules/*.py", "src/schema/rules"),
     ("scripts/*.py", "scripts"),
     ("web/accession-workbench.html", "web"),
-    ("docs/*.md", "docs"),
     ("intake/accession_registry.json", "intake"),
 ]
 
@@ -89,7 +89,18 @@ def main() -> int:
     ap.add_argument("--payload", default="demo/aw/prototype-data.json")
     ap.add_argument("--force", action="store_true",
                     help="copy even if a leak check fails. Think first.")
+    ap.add_argument("--include-doc", action="append", default=[],
+                    help="explicitly reviewed docs filename; repeat per file")
     args = ap.parse_args()
+    if args.force:
+        print("--force cannot bypass publication checks", file=sys.stderr)
+        return 2
+    includes = list(INCLUDE)
+    for name in args.include_doc:
+        if Path(name).name != name or not name.endswith(".md"):
+            print("--include-doc requires a plain .md filename", file=sys.stderr)
+            return 2
+        includes.append(("docs/" + name, "docs"))
 
     repo = Path(args.repo)
     if not (repo / ".git").exists():
@@ -99,8 +110,9 @@ def main() -> int:
         return 2
 
     copied, skipped, blocked, unchanged = [], [], [], []
+    public_failed = False
 
-    for pattern, dest_dir in INCLUDE:
+    for pattern, dest_dir in includes:
         for src in sorted(Path(".").glob(pattern)):
             rel = src.as_posix()
             if NEVER.search(rel) or src.name.startswith("."):
@@ -128,7 +140,11 @@ def main() -> int:
             cmd = [sys.executable, "scripts/sanitise_payload.py", str(payload),
                    "--out", str(out)]
             if args.dry_run:
-                print("  would run: " + " ".join(cmd))
+                with tempfile.TemporaryDirectory() as scratch:
+                    cmd[-1] = str(Path(scratch) / "prototype-data.json")
+                    public_failed = subprocess.call(cmd) != 0
+                print("  public sanitizer validated in temporary storage" if not public_failed
+                      else "  public sanitizer refused the dry run")
             else:
                 rc = subprocess.call(cmd)
                 if rc == 0:
@@ -136,6 +152,7 @@ def main() -> int:
                                  repo / "docs" / "accession-workbench.html")
                     copied.append("web/accession-workbench.html -> docs/ (public)")
                 else:
+                    public_failed = True
                     print("  sanitiser refused; the public build was NOT updated",
                           file=sys.stderr)
 
@@ -152,12 +169,12 @@ def main() -> int:
 
     if args.dry_run:
         print("\ndry run — nothing written")
-        return 0
+        return 1 if blocked or public_failed else 0
     if copied:
         print(f"\nNext:\n  cd {repo}\n  git status --short\n"
               f"  git add -A && git commit -m 'Sync pipeline from the server'\n"
               f"  git push")
-    return 1 if blocked and not args.force else 0
+    return 1 if blocked or public_failed else 0
 
 
 if __name__ == "__main__":

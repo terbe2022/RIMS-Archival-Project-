@@ -9,6 +9,13 @@ Major = renaming, retyping, or changing meaning; needs a migration script in
 
 ---
 
+## v1.2 — 6 October 2026 · **minor**
+
+Adds nullable boolean `retained_by_association` to persist proximity retention
+evidence through manifest writing and review export. Older manifests remain
+readable; absence means unknown, not false. No migration or generation bump.
+The CPU runner no longer drops this field before schema enforcement.
+
 ## v1.1 — 12 August 2026 · **major**
 
 **Driver:** [`../stakeholders/answers-2026-08.md`](../stakeholders/answers-2026-08.md)
