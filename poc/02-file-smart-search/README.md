@@ -1,3 +1,5 @@
+> Historical POC. Centrality-based sentence selection is superseded for appraisal: preserve atypical evidence and index extracted text directly. See [current decisions](../../docs/DECISIONS.md).
+
 # POC 2 — File Smart Search
 
 > **Context note, 12 Aug 2026.** The Archives has since confirmed the real format mix:

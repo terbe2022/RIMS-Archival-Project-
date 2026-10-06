@@ -7,10 +7,13 @@ A drive arrives from a retired or deceased researcher. Somewhere in it is work w
 and no practical way to find it without opening all of it. This project builds the layer that
 answers **which of these files matter** — and then describes the ones that do.
 
-**Status:** Design phase, moving to build. Three proofs of concept complete. The Archives
-answered the outstanding scoping questions on 12 Aug 2026 — see
-[`docs/stakeholders/answers-2026-08.md`](docs/stakeholders/answers-2026-08.md), which is the
-authoritative record and supersedes earlier assumptions in several places.
+**Status:** A working pipeline is reported in historical sources; current server
+capabilities and evaluation results have not been freshly verified in this
+documentation reconciliation. See [current status](docs/PROJECT-STATUS.md).
+
+Read [AGENTS.md](AGENTS.md) for operating/data rules, then
+[HANDOFF](docs/HANDOFF.md) for orientation and [validation plan](validation/PLAN.md)
+for Gauri's evaluation lane. GitHub Issues/Project owns actionable task state.
 
 ---
 
@@ -18,10 +21,10 @@ authoritative record and supersedes earlier assumptions in several places.
 
 | If you are | Read |
 |---|---|
-| New to the project | [`docs/design/pipeline-design.md`](docs/design/pipeline-design.md) |
+| New to the project | [`docs/HANDOFF.md`](docs/HANDOFF.md) |
 | Looking for any document | [`docs/README.md`](docs/README.md) — the map |
 | Setting up your machine | [`docs/setup/onboarding-and-setup.md`](docs/setup/onboarding-and-setup.md) |
-| Wondering what was decided, and why | [`docs/design/decisions.md`](docs/design/decisions.md) |
+| Wondering what was decided, and why | [`docs/DECISIONS.md`](docs/DECISIONS.md) |
 | Wondering what the Archives said | [`docs/stakeholders/answers-2026-08.md`](docs/stakeholders/answers-2026-08.md) |
 | Building against the manifest | [`docs/design/manifest-schema.md`](docs/design/manifest-schema.md) |
 | Looking for the interactive scope doc | **[Open the scope document](https://terbe2022.github.io/RIMS-Archival-Project-/)** · source: [`index.html`](index.html) |
@@ -47,11 +50,11 @@ Docs were reorganised on 12 Aug 2026. [`docs/README.md`](docs/README.md) explain
 the conventions — date-stamp snapshots, version anything that evolves, supersede rather than
 delete.
 
-## Active worksheets
+## Historical worksheets
 
 | # | Document | Owner | Status |
 |---|---|---|---|
-| W2 | [Software evaluation](worksheets/W2_software_evaluation_task.md) | Gauri | Live — add BitCurator, it is already in use |
+| W2 | [Software evaluation](worksheets/W2_software_evaluation_task.md) | Gauri | Historical task brief; confirm current scope in Issues and validation/PLAN.md |
 | ~~W1~~ | Manifest schema worksheet | — | Superseded by [`docs/design/manifest-schema.md`](docs/design/manifest-schema.md) |
 | ~~W3~~ | Storage & ingest assessment | — | Largely answered 12 Aug — material arrives on a network share, not on media we attach |
 | ~~W4~~ | Questions by stakeholder | — | Split into [`answers-2026-08.md`](docs/stakeholders/answers-2026-08.md) and [`open-questions.md`](docs/stakeholders/open-questions.md) |

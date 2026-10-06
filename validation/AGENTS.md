@@ -43,7 +43,7 @@ The end-to-end evaluation should eventually test:
 Build a reproducible labelling protocol and measure agreement between independent human reviewers.
 
 ## Data rules
-Real accession content must not be uploaded to Colab or other unapproved cloud environments. Use synthetic fixtures for cloud-executed model experiments unless an explicitly approved data-governance decision says otherwise.
+Real accession content must not be uploaded to Colab or other unapproved cloud environments. Use synthetic fixtures for cloud-executed model experiments. This file grants no exception to the root University-only boundary for real accession content.
 
 Never commit sensitive archival material, PII, credentials, private keys, tokens, or server runtime artifacts.
 
