@@ -1,3 +1,5 @@
+> Historical workflow design. GitHub Issues/Project owns actionable work; current orientation is in [HANDOFF.md](HANDOFF.md). Older cloud/data and credential procedures do not override root AGENTS.md. This file does not establish current board fields, dates or task completion.
+
 # How We Track This Work
 
 **Recommendation:** GitHub Issues + a GitHub Project board. Not the HTML document, not Colab,
