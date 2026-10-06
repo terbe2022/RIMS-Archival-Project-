@@ -39,6 +39,7 @@ import time
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 import pyarrow.parquet as pq
 import requests
@@ -131,6 +132,10 @@ def main() -> int:
     ap.add_argument("--limit", type=int, default=0)
     args = ap.parse_args()
 
+    if not args.redacted and not args.allow_raw:
+        print("--redacted is required unless --allow-raw is explicitly authorized", file=sys.stderr)
+        return 2
+
     cols = ["file_uid", "accession_uid", "filename", "path_norm", "s03_lane",
             "s03_text_sample", "s03_text_len", "layer"]
     have = [c for c in cols if c in pq.read_schema(args.manifest).names]
@@ -194,10 +199,11 @@ def main() -> int:
                     text = cand.read_text(encoding="utf-8", errors="replace")
                     source = "redacted"
             if not text:
-                if redacted and not args.allow_raw:
-                    # No redacted version means stage 04 found no identifiers
-                    # in it, so the raw text is already clean.
-                    source = "raw (no identifiers found)"
+                if not args.allow_raw:
+                    # Missing/empty redacted output is not evidence that raw text is safe.
+                    failed += 1
+                    print(f"    {r['file_uid']}: missing or empty pseudonymized text; skipped", file=sys.stderr)
+                    continue
                 text = r.get("s03_text_sample") or ""
             text = text[:args.chars]
             rec = {"file_uid": r["file_uid"], "image_path": r.get("path_norm"),
@@ -230,14 +236,13 @@ def main() -> int:
           f"{failed} failed, {round(time.perf_counter()-t0,1)}s")
     if redacted:
         print(f"  {from_redacted} summarised from pseudonymised text, "
-              f"{ok - from_redacted} from raw text that contained no "
-              f"detected identifiers")
+              f"{ok - from_redacted} from explicitly requested raw text")
     elif ok:
         print("  WARNING: summaries were generated from RAW text. If any file "
               "contained personal information, the summary may repeat it. "
               "Pass --redacted to summarise the pseudonymised version.")
     print(f"  merge with: --image-outputs {out}")
-    return 0 if ok else 1
+    return 0 if ok and not failed else 1
 
 
 if __name__ == "__main__":
