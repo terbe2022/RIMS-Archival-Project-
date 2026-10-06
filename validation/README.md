@@ -2,6 +2,10 @@
 
 This directory is the collaboration lane for model and end-to-end pipeline validation.
 
+Start with [START-HERE.md](START-HERE.md) for the testing workspace, notebook
+entry points, experiment templates and result-report workflow. The current
+program is [PLAN.md](PLAN.md). No model comparison has been run yet.
+
 ## Why this exists
 RIMS needs evidence at two different levels:
 
