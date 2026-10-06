@@ -43,7 +43,7 @@ The end-to-end evaluation should eventually test:
 Build a reproducible labelling protocol and measure agreement between independent human reviewers.
 
 ## Data rules
-Real accession content must not be uploaded to Colab or other unapproved cloud environments. Use synthetic fixtures for cloud-executed model experiments unless an explicitly approved data-governance decision says otherwise.
+Real accession content must not be uploaded to Colab or other unapproved cloud environments. Use synthetic fixtures for cloud-executed model experiments. A proposed exception is not approval; changes to this boundary require explicit revision of the governing project rules.
 
 Never commit sensitive archival material, PII, credentials, private keys, tokens, or server runtime artifacts.
 
@@ -56,3 +56,6 @@ Do not change production pipeline behavior as a side effect of a validation expe
 Predefine metrics and comparison conditions where practical. Preserve raw non-sensitive evaluation outputs needed for reproducibility. Distinguish observed results from interpretation. Record model/version, prompt/configuration, fixture version, run date, and grading method.
 
 Do not claim pipeline accuracy before an appropriate human-labelled reference set exists.
+
+## Synthetic grading route
+Tayler selected independent frontier-model judges, not blind human grading, for synthetic model comparisons. Follow FRONTIER-JUDGING.md. Paid calls await funded access and an approved cap. Human archival reference-set work remains a separate future activity.
