@@ -1,3 +1,5 @@
+> Dated supporting evidence. Historical measurements and proposals are not current system acceptance or renewed operational approval.
+
 # File Type Coverage — What POC 2 Handled, What It Didn't, and How to Close the Gaps
 
 > **Update, 12 Aug 2026 — the Archives has told us the actual format mix.**

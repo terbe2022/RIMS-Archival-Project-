@@ -1,35 +1,25 @@
-# RIMS — Current Project Status
+# Current project status
 
-This document captures working status and priorities. It is expected to change more frequently than AGENTS.md.
+Reviewed October 7, 2026 using repository source, published branches and supplied October 6 Teams results. This is a capability snapshot; actionable work belongs in GitHub Issues and the actual Project board.
 
-## Working system
-A working pipeline has run against 2,375 real files across three accessions with a review interface. CPU processing covers crawl/hash, content-signature format identification, exclusions, appraisal rules, seven-lane routing, text extraction, identifier detection, Dublin Core metadata, and evidence-based ranking. Description and two-tier redaction are implemented.
+| Component | Evidence and current limit |
+| --- | --- |
+| Pipeline prototype | Inventory, rules, extraction, description, manifest and review code exist. Source inspection does not prove the current AITS deployment or full format coverage. |
+| GitHub coordination | Repository and issues exist; issue retrieval was demonstrated through the published Teams agent. Issue state is not proof of Project board status. |
+| Teams agent | Published and opened by Tayler; GitHub search and designated-chat retrieval were demonstrated in supplied results. Gauri is authorized and reports granting GitHub/Teams connection permissions, but the supplied launch link fails for her. Joint access remains unresolved. |
+| Chat automation | Continuous listening, persistent checkpoints, duplicate prevention and approved write execution remain unverified. |
+| Validation documentation | Consolidated onboarding, experiment, grading and results guidance is available. |
+| Validation executable kit | Published in PR #80; eight synthetic harness checks passed. No Qwen or frontier-model run is established by those checks. |
+| Pipeline repairs | Published in PR #79; 13 regression checks and 12 rule checks passed. Server deployment and browser acceptance remain unverified. |
 
-## Engineering work that can proceed
-- Fix Publish & export buttons.
-- Correct the Search dataset filter: a public/discovery view should not default to undecided material.
-- Re-run image sensitivity/classification through the evidence gate; legacy image flags predate the gate.
-- Build useful folder- and collection-level synthesis beyond counts/subject terms.
-- Port email threading from POC 1.
+The validation workspace was reported nearly ready on October 6 with an end-of-day target. That message is a delivery target, not completion evidence. Later published artifacts establish their own availability, not successful contributor setup or executed experiments.
 
-## Engineering blocked by dependencies
-- OCR: host lacks Tesseract; sysadmin assistance is required. Vision fallback has not been adequate.
-- Semantic search UI: offline TF-IDF/SVD fallback exists; MiniLM/model availability on the host remains a dependency.
-- Click-through to originals: requires a hosting/serving decision.
-- Write-back to Medusa, ArchivesSpace, and Digital Library: handoff contract is undecided.
-- Production authentication/identity and durable multi-user decision storage remain unresolved.
+Main's manifest baseline is v1.1. The nullable association change to v1.2 is proposed in PR #79 and must not be treated as already deployed. Model outputs require review; institutional policy and infrastructure decisions remain with authorized owners.
 
-## Validation / policy gap
-The appraisal rules have not yet been ratified by Archives, and there is no labelled gold set. Therefore accuracy claims are not yet established.
+## Integration references
 
-Proposed gold-set exercise: 50 files, independently labelled by two archivists, with inter-rater agreement measured.
+- [PR #79: pipeline repairs](https://github.com/terbe2022/RIMS-Archival-Project-/pull/79).
+- [PR #80: validation executable kit](https://github.com/terbe2022/RIMS-Archival-Project-/pull/80).
+- [PR #81: documentation reconciliation](https://github.com/terbe2022/RIMS-Archival-Project-/pull/81).
 
-## Immediate validation program
-1. Model comparison on synthetic fixtures.
-2. Context-block ablation: same files/model with and without intake context.
-3. Gold-set and end-to-end pipeline validation, including ranking, retained_by_association, folder threshold behavior, sensitivity/identifier detection, false positives, and false negatives.
-
-## Important known lessons
-Past defects included ZIP+4 being interpreted as SSN-like data, descriptions being merged after scoring, contradictory rationale fields, dead UI handlers, undefined flag rendering, hidden decision controls, misleading release-version comparison, and unsupported image sensitivity claims. Validation should test artifacts and behavior, not only aggregate counts.
-
-A particularly important evidence-gate lesson: sensitivity claims should contain locatable/checkable evidence rather than an unfalsifiable label.
+Current acceptance work includes Gauri's own access and first synthetic run, pipeline code integration, controlled server verification, and evidence for any automated coordination. No new deadlines, policy approvals or experiment outcomes are implied here.
