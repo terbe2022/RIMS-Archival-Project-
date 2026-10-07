@@ -71,7 +71,8 @@ also requires approved identity, storage, deployment and archival policy.
 Tayler has created and published a RIMS Program Manager in Copilot Studio and
 opened it in Teams. Supplied demonstrations show GitHub issue retrieval and
 retrieval of updates from the selected chat with Gauri. Gauri is listed as an
-authorized user; her own successful access has not yet been demonstrated.
+authorized user. She reports granting GitHub and Teams connection permissions,
+but the supplied launch link fails for her; joint access remains unresolved.
 
 The agent is intended to connect day-to-day chat coordination to the repository.
 It separates reported progress, decisions, suggestions, blockers and questions;

@@ -1,35 +1,36 @@
 # Documentation map
 
-Last reviewed: 2026-10-06. Server verification: not performed here.
+Reviewed October 7, 2026. Read active guidance below first. Historical sources support provenance; they do not establish present implementation, approval or completion.
 
-Read ../AGENTS.md first. Current maintained documentation:
+## Project and engineering
 
-| Document | Purpose |
-|---|---|
-| [HANDOFF.md](HANDOFF.md) | Architecture, boundaries, operations and orientation |
-| [PROJECT-STATUS.md](PROJECT-STATUS.md) | Current source-reviewed state, evidence limits and sequence |
-| [DECISIONS.md](DECISIONS.md) | Operating decisions, provenance and unresolved conflicts |
-| [Validation plan](../validation/PLAN.md) | Model comparison, context experiment and gold-set program |
+- [Overview](PROJECT-OVERVIEW.md): what RIMS does and how the work fits together.
+- [Status](PROJECT-STATUS.md): reported, source-inspected and demonstrated capabilities.
+- [Handoff](HANDOFF.md): engineering entry points and safety boundaries.
+- [Decisions](DECISIONS.md): current decision register and unresolved authority questions.
+- [Pipeline design](design/pipeline-design.md): present architecture.
+- [Manifest contract](design/manifest-schema.md): executable schema and pending changes.
+- [Accession context and AI](ai-and-the-accession-form.md): allowed context and model limits.
+- [Work tracking](work-tracking.md): GitHub issue and Project conventions.
 
-GitHub Issues/Project owns active tasks, assignments, dependencies and dates.
-Do not create duplicate TASKS/CALENDAR trackers. Keep edit, source/code-review
-and server-verification dates distinct.
+## Coordination and validation
 
-## Supporting and historical sources
+- [Teams program manager](TEAMS-PROGRAM-MANAGER.md): selected-chat workflow and demonstrated limits.
+- [Repository program-manager role](PROGRAM-MANAGER.md): evidence and update controls.
+- [Validation start](../validation/START-HERE.md), [Gauri onboarding](../validation/GAURI-ONBOARDING.md), [first experiment](../validation/FIRST-EXPERIMENT.md).
+- [Validation plan](../validation/PLAN.md), [grading](../validation/GRADING.md), [Colab workflow](../validation/COLAB-WORKFLOW.md).
+- [Agent roles](../validation/AGENT-ROLES.md), [API access](../validation/API-ACCESS.md), [frontier judging](../validation/FRONTIER-JUDGING.md).
+- [Experiment template](../validation/experiments/TEMPLATE.md) and [results template](../validation/results/TEMPLATE.md).
 
-- [PROJECT-OVERVIEW.md](PROJECT-OVERVIEW.md): narrative overview of engineering,
-  the Teams coordination pilot and Gauri's validation program as of 6 October.
-- design/: historical design rationale, detailed schema and email assessment.
-  The consolidated decision register above provides current guidance; do not
-  silently discard older decision evidence.
-- stakeholders/: dated human answers, preserved as source evidence.
-- setup/: historical onboarding. Current root data/authentication rules take
-  precedence over older hosted-compute or credential procedures.
-- superseded/: earlier versions retained for provenance.
-- ../worksheets/ and ../poc/: historical tasks and experiments, with limitations.
-- work-tracking.md: supporting workflow history; current Issues/Project status
-  must be read from GitHub rather than inferred from old examples.
+The executable validation files remain on the [PR #80 branch](https://github.com/terbe2022/RIMS-Archival-Project-/tree/gauri/validation-kit-recovery-2026-10-06/validation) pending code integration. Use its notebooks and harness from the same recorded commit. Documentation availability on main does not mean those executable files have merged.
 
-If sources conflict, consult DECISIONS.md and preserve the disagreement.
-Historical assertions are not current server verification. An unresolved policy
-conflict cannot be settled merely by choosing the newest implementation account.
+## Setup and institutional decisions
+
+- [Onboarding](setup/onboarding-and-setup.md) and [Colab setup](setup/colab-setup.md).
+- [Institutional questions](stakeholders/open-questions.md): policy, storage and release decisions.
+- [Draft appraisal rules](design/appraisal-rules-draft.md): proposed policy requiring ratification.
+- [August stakeholder answers](stakeholders/answers-2026-08.md): dated supporting evidence.
+
+## Historical evidence
+
+The [history index](history/README.md) preserves replaced specifications, setup plans and status snapshots. Earlier [POC 1](../poc/01-email-processing/README.md), [POC 2](../poc/02-file-smart-search/README.md) and [POC 3](../poc/03-image-classification/README.md) are provenance for the prototype; their measurements do not validate the current system. Files under `superseded/` and older worksheets are historical references.
