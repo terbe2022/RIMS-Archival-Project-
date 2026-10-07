@@ -1,3 +1,5 @@
+> Evaluation limit: 79 flagged of 1,000; 13 correct, 8 wrong, 58 ambiguous. These counts establish neither overall accuracy nor sensitive-content prevalence. See [current decisions](../../docs/DECISIONS.md).
+
 # POC 3 — Image Classification & Sensitivity Flagging
 
 > **Context note, 12 Aug 2026.** The Archives has given written appraisal guidance that the

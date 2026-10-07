@@ -1,3 +1,5 @@
+> Dated supporting evidence. Historical measurements and proposals are not current system acceptance or renewed operational approval.
+
 # Answers from the Archives — August 2026
 
 Record of the responses to `Questions for the Archives` (August 2026).

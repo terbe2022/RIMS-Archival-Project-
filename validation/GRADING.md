@@ -1,7 +1,7 @@
 # Description grading protocol
 
 Status: proposed operational rubric, 2026-10-06. Owner: Gauri. Historical source:
-[recovered rubric](../docs/description-grading-rubric.md). Selection thresholds
+[recovered rubric](../docs/history/docs/description-grading-rubric.md). Selection thresholds
 remain for pre-run human agreement; no conflicting historical threshold is
 silently adopted here.
 
@@ -13,7 +13,7 @@ grading key in the packet. Randomize candidate order with a recorded seed rather
 than consistent model order. Preserve errors separately; do not make failed
 responses disappear from the comparison. Do not select the best repeat.
 
-## Four independent dimensions (0â€“3)
+## Four independent dimensions (0-3)
 
 | Score | Accuracy: factual support | Genre: document form | Specificity: distinguishability | Restraint: uncertainty |
 |---|---|---|---|---|
