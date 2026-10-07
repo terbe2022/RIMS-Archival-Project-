@@ -1,6 +1,6 @@
 # RIMS decision register
 
-Last edited: 2026-10-06. Last source/code review: 2026-10-06. Last server verification: not performed in this reconciliation.
+Last edited: 2026-10-07. Last source/code review: 2026-10-06. Last server verification: not performed in this reconciliation.
 Current consolidated decision register. The August register remains at docs/design/decisions.md with a historical-source banner.
 
 ## Operating decisions carried from AGENTS.md
@@ -16,9 +16,9 @@ Sensitivity takes precedence over ranking; signals are resolved in order, not av
 | Image evaluation | Keep raw counts; no accuracy/prevalence inference | Later correction overrides October source's approximately 1% claim |
 | Description/classification | Separate steps; test evidence-gated claims | Architectural direction; not measured success |
 | Gauri | Validation owner, not production pipeline constructor | Root/nested agent rules |
-| Notebook sync | Explicit file entries plus stripped-output validation | Later correction; not yet implemented in sync script |
-| Task tracking | GitHub Issues/Project holds actionable work | Existing work-tracking recommendation and reconciliation direction |
-| Maintained docs | HANDOFF, PROJECT-STATUS, DECISIONS, validation/PLAN, with agent rules/navigation alongside | Proposed consolidation, not already merged |
+| Notebook sync | Explicit file entries plus stripped-output validation | Implemented on PR #79 repair branch; integration and deployment pending |
+| Task tracking | GitHub Issues/Project holds actionable work | Current coordination convention; actual Project fields must be retrieved |
+| Documentation organization | Active project, engineering, coordination and validation guides are listed in docs/README.md; replaced material is preserved under docs/history/ | Consolidated through documentation PR #81 |
 
 ## Historical decisions preserved, not silently reopened
 

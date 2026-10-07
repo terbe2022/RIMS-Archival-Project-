@@ -1,3 +1,5 @@
+> Dated supporting evidence. Historical measurements and proposals are not current system acceptance or renewed operational approval.
+
 # Email lane — build on POC 1, or adopt ePADD?
 
 **Assessment of `emails_parsed_cleaned_PII_Extracted_v3`, 12 August 2026**
