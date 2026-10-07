@@ -43,4 +43,3 @@ path. Real University follow-up is a separately approved experiment.>
 ## Deviations
 
 <Record changes after design freeze; distinguish exploratory reruns from baseline.>
-

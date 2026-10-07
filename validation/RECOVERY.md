@@ -20,6 +20,6 @@ No dedicated context-ablation runner, completed evaluation, vision-image corpus,
 gold set or schema-parquet fixture is supplied. Synthetic fixtures reproduce
 observed failure modes and provide useful screening evidence; passing them does
 not guarantee real-corpus performance. Original rubric selection thresholds conflict
-and need agreement before experiments. stage06.py remains an unintegrated proposal
+and need agreement before experiments. This is a dated recovery record, not current publication status; use docs/PROJECT-STATUS.md for integration state. stage06.py remains an unintegrated proposal
 and is excluded. Notebook sync needs an explicit per-file output-checking change;
 no sync script or server deployment is modified here.

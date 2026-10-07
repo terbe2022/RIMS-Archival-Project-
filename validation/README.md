@@ -1,35 +1,7 @@
-# RIMS Validation & Evaluation
+# Validation workspace
 
-This directory is the collaboration lane for model and end-to-end pipeline validation.
+Start with [START-HERE](START-HERE.md), [Gauri onboarding](GAURI-ONBOARDING.md) and [first experiment](FIRST-EXPERIMENT.md). Use [the plan](PLAN.md), [grading](GRADING.md), [experiment template](experiments/TEMPLATE.md) and [results template](results/TEMPLATE.md) to record synthetic evaluation evidence.
 
-Start with [START-HERE.md](START-HERE.md) for the testing workspace, notebook
-entry points, experiment templates and result-report workflow. The current
-program is [PLAN.md](PLAN.md). No model comparison has been run yet.
+These documents are consolidated on main. The [executable kit](https://github.com/terbe2022/RIMS-Archival-Project-/tree/gauri/validation-kit-recovery-2026-10-06/validation) remains in PR #80 pending separate review. Use notebooks, fixtures and harness from the same recorded branch commit. Eight synthetic harness checks passed; this does not establish a successful Qwen run or completed model evaluation.
 
-## Why this exists
-RIMS needs evidence at two different levels:
-
-1. Does a candidate model describe material reliably?
-2. Does the complete system make useful, defensible appraisal and sensitivity judgements?
-
-Those are different questions and require different experiments.
-
-## Program
-
-### Phase 1 — Model comparison
-Start with the existing synthetic corpus/validation kit. Compare schema adherence, abstention, self-consistency, resource/cost behavior, and blind description quality.
-
-### Phase 2 — Context ablation
-Run the same material through the same model with and without the intake context block. This tests whether contextual conditioning actually improves description quality.
-
-### Phase 3 — Gold set / pipeline validation
-Create a human-labelled reference set with independent archivist review. Use it to evaluate ranking, folder association behavior, sensitivity/identifier detection, false positives/negatives, abstention, escalation, and evidence quality.
-
-## Collaboration
-Gauri should use gauri/<task> branches and pull requests. Engineering changes should remain separate from experimental changes whenever possible.
-
-## Data boundary
-Synthetic fixtures may be used in approved cloud experimentation. Real accession material remains on approved University infrastructure and must not be committed to this public repository or uploaded to Colab.
-
-## Next repository task
-Inventory the validation materials already present in notebooks/, docs/, scripts/, src/, and other existing directories before moving or duplicating them. The initial setup intentionally does not reorganize existing files until that inventory is reviewed.
+Gauri owns experiments and results analysis; Tayler oversees validation and engineering integration. Real records stay out of Colab and public GitHub. Frontier judging requires later access and funding. See [agent roles](AGENT-ROLES.md), [Colab workflow](COLAB-WORKFLOW.md) and [program-manager guidance](PROGRAM-MANAGER.md).

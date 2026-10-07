@@ -36,7 +36,7 @@ Repository and Project coordination: [PROGRAM-MANAGER.md](PROGRAM-MANAGER.md).
 
    These use synthetic fixtures and a stub. Passing them is not a model result.
 5. For synthetic cloud testing, use
-   [the Colab notebook](../notebooks/colab-model-evaluation.ipynb). In Colab choose
+   [the Colab notebook](https://github.com/terbe2022/RIMS-Archival-Project-/blob/gauri/validation-kit-recovery-2026-10-06/notebooks/colab-model-evaluation.ipynb). In Colab choose
    File -> Open notebook -> GitHub, select the repository and the published
    validation branch (or main after merging), then that notebook. Confirm a GPU
    runtime and review dependency/model-download cells before running them.
@@ -57,7 +57,7 @@ Repository and Project coordination: [PROGRAM-MANAGER.md](PROGRAM-MANAGER.md).
    notebooks write to an evaluation directory; move only verified synthetic
    artifacts into local-runs/ or retain them in the experiment runtime. Review
    before exporting anything. Keep the blind grading key separate from graders.
-9. Use the [rubric](../docs/description-grading-rubric.md) for frontier-model grading.
+9. Use the [current rubric](GRADING.md) for frontier-model grading.
    Graders need the full synthetic source, not only the displayed opening.
    Record accuracy, genre, specificity and restraint separately.
 10. Complete a [result report](results/TEMPLATE.md), clear notebook outputs and
@@ -66,7 +66,7 @@ Repository and Project coordination: [PROGRAM-MANAGER.md](PROGRAM-MANAGER.md).
 
 ## University-only follow-up
 
-[The server notebook](../notebooks/model-evaluation.ipynb) can read real manifests
+[The server notebook](https://github.com/terbe2022/RIMS-Archival-Project-/blob/gauri/validation-kit-recovery-2026-10-06/notebooks/model-evaluation.ipynb) can read real manifests
 and is for approved University execution only. Check actual paths, data access,
 service ownership and run authorization first. Its Ollama startup example does
 not authorize starting a service. Do not use it in Colab with real inputs.
@@ -87,4 +87,3 @@ Current grading route: [FRONTIER-JUDGING.md](FRONTIER-JUDGING.md). No blind huma
 
 
 For the exact first smoke run, use [FIRST-EXPERIMENT.md](FIRST-EXPERIMENT.md). It distinguishes the harness contract from proposed metadata tasks.
-

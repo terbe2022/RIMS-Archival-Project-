@@ -13,7 +13,7 @@ Can Gauri open the published branch in Colab, load one Qwen candidate, generate 
 - validation/experiments/TEMPLATE.md and results/TEMPLATE.md: protocol and report formats.
 
 ## Prerequisites
-Tayler must publish the validation branch and provide its verified link/commit. Gauri creates a gauri/<experiment> branch from that reviewed base. Verify authorized Colab/account use on her University computer. No local installation, AITS access, paid API or credential sharing is needed. If GPU/model access is unavailable, report the blocker rather than buying compute or improvising credentials.
+Use the [published validation branch](https://github.com/terbe2022/RIMS-Archival-Project-/tree/gauri/validation-kit-recovery-2026-10-06) and record its exact commit; executable integration remains pending PR #80. Gauri creates a gauri/<experiment> branch from that reviewed base. Verify authorized Colab/account use on her University computer. No local installation, AITS access, paid API or credential sharing is needed. If GPU/model access is unavailable, report the blocker rather than buying compute or improvising credentials.
 
 ## Procedure
 1. Read START-HERE, root/nested AGENTS and COLAB-WORKFLOW. Open the notebook from the published branch. Set its clone cell to that same branch (it currently defaults to main) and record git rev-parse HEAD.

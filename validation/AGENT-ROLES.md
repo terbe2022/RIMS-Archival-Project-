@@ -70,4 +70,3 @@ Show diffs/tests before committing. I will approve provider/budget and publicati
 ```
 
 Current grading route: [FRONTIER-JUDGING.md](FRONTIER-JUDGING.md). No blind human grading is planned for synthetic model comparison; independent archivist policy/gold-set work remains separate.
-

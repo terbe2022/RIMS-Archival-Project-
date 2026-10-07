@@ -1,3 +1,5 @@
+> Historical POC. The recommendation below to summarize raw text before masking is superseded: use pseudonymized description inputs under current agent rules. Masking a raw-generated summary afterward does not prove it is safe. See [current decisions](../../docs/DECISIONS.md).
+
 # POC 1 — Email Processing
 
 **Status:** Complete. Proved the end-to-end email chain.
