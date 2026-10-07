@@ -1,3 +1,5 @@
+> Historical August decision register. Current guidance and unresolved conflicts are recorded in [../DECISIONS.md](../DECISIONS.md). Original entries below are preserved; unresolved conflicts are not silently superseded.
+
 # Decision log
 
 Every decision that shapes the build, with its status and who owns it. **This is the single

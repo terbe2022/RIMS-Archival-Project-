@@ -1,3 +1,5 @@
+> Dated supporting evidence. Historical measurements and proposals are not current system acceptance or renewed operational approval.
+
 # Image Classification Project — Technical Documentation
 
 This project classifies sensitive content in archival images using two methods:
