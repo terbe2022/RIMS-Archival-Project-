@@ -13,6 +13,8 @@ Reviewed October 7, 2026. Read active guidance below first. Historical sources s
 - [Accession context and AI](ai-and-the-accession-form.md): allowed context and model limits.
 - [Work tracking](work-tracking.md): GitHub issue and Project conventions.
 
+- [Data and prototype inputs](DATA-AND-PROTOTYPES.md): private storage, raw inputs versus recorded outputs, interface-specific requirements and missing exports.
+
 ## Coordination and validation
 
 - [Teams program manager](TEAMS-PROGRAM-MANAGER.md): selected-chat workflow and demonstrated limits.
