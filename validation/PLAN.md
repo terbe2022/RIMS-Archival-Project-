@@ -1,4 +1,4 @@
-# RIMS validation plan
+# Archival Accession Processing Tool validation plan
 
 Last edited: 2026-10-06. Last source/code review: 2026-10-06. Last server verification: not performed in this reconciliation.
 Owner: Gauri. Status: proposed plan; no model or production evaluation was run in this reconciliation.

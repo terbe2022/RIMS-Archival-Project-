@@ -1,6 +1,11 @@
-# RIMS Archival Project
+# Archival Accession Processing Tool
 
-RIMS is a prototype for supporting archival appraisal and description. It inventories files, records appraisal and sensitivity decisions, routes extraction and model work, and prepares metadata for human review. Human institutional owners decide policy, access, storage and release. Machine output does not itself authorize disposal or publication.
+## Tool name and origin
+
+**Archival Accession Processing Tool** is the product name. University Archivist **Joanne Kaczmarek** brought this archivist-focused tool to Tayler. It supports processing, description, appraisal and review of digital accessions. **Records and Information Management Services (RIMS)** is the supporting service context, not the tool name. Existing repository URLs, technical identifiers and historical labels retain their original names for compatibility and provenance. The Teams agent may still appear under its legacy display name until its owner updates and republishes it in Copilot Studio.
+
+
+Archival Accession Processing Tool is a prototype for supporting archival appraisal and description. It inventories files, records appraisal and sensitivity decisions, routes extraction and model work, and prepares metadata for human review. Human institutional owners decide policy, access, storage and release. Machine output does not itself authorize disposal or publication.
 
 Tayler Erbe leads engineering, integration and validation oversight. Gauri Bhasin leads validation experiments and results analysis. GitHub contains the source, project documents and actionable issues. A shared Teams program-manager agent assists coordination from the designated project chat.
 

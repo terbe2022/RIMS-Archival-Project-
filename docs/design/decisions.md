@@ -41,7 +41,7 @@ Last updated 12 August 2026, against
 |---|---|---|---|
 | **D1** | Appraisal policy in writing | **Partial, 12 Aug.** Answers 3.2 and 3.3 give retain and discard categories for both accession types — the first written guidance we have | Draft the two rulesets from it and send back for confirmation. Not a policy, but enough to build against |
 | **D2** | Which archival software the University licenses | **Full, 12 Aug.** Preservica no · Archivematica no · DROID unsure · ePADD experimented with · **BitCurator yes**. Administered by Tracy Popp | Fold BitCurator into the software evaluation; ask Tracy about DROID |
-| **D3** | ePADD — adopt for the email lane, or keep our own | **Input received.** RIMS has nothing in place (Ringtail was e-discovery, not archival). ePADD uncommitted. **Library IT may block it over Java runtime vulnerabilities** | See D3 below under Decided — we have now made this call |
+| **D3** | ePADD — adopt for the email lane, or keep our own | **Input received.** Archival Accession Processing Tool has nothing in place (Ringtail was e-discovery, not archival). ePADD uncommitted. **Library IT may block it over Java runtime vulnerabilities** | See D3 below under Decided — we have now made this call |
 | **D4** | Where selected material and its metadata end up | **Answered, 12 Aug.** Medusa for preservation, Library Digital Library for access copies, ArchivesSpace for description with links out. **Not IDEALS.** Medusa itself is due for replacement | Design the repository-neutral package + adapter layer |
 
 ---

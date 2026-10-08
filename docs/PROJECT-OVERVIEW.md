@@ -1,14 +1,14 @@
-# RIMS project overview
+# Archival Accession Processing Tool project overview
 
 Prepared 6 October 2026 from repository source, local tests and the project
 coordination evidence supplied by Tayler. Reported implementation and observed
 tool demonstrations are distinguished from deployment and acceptance evidence.
 
-RIMS is an archival appraisal, description and review project for born-digital
+Archival Accession Processing Tool is an archival appraisal, description and review project for born-digital
 collections at the University of Illinois System. Its purpose is to help
 archivists understand a large transfer, identify material that may have enduring
 value, describe it, recognize sensitive information and make traceable decisions
-about access and retention. RIMS supports professional judgement; it does not
+about access and retention. Archival Accession Processing Tool supports professional judgement; it does not
 automatically delete records or replace the institution's preservation system.
 
 Tayler is leading product development, engineering and integration while
@@ -22,7 +22,7 @@ See [People and stakeholders](STAKEHOLDERS.md) for the full participant list, ti
 
 ## GitHub as the shared project workspace
 
-The [RIMS repository](https://github.com/terbe2022/RIMS-Archival-Project-) connects
+The [Archival Accession Processing Tool repository](https://github.com/terbe2022/RIMS-Archival-Project-) connects
 the source code, architecture, notebooks, experimental protocols and project
 documentation. GitHub Issues and the Project board hold actionable work;
 branches and pull requests make changes reviewable. Engineering and validation
@@ -70,7 +70,7 @@ also requires approved identity, storage, deployment and archival policy.
 
 ## The shared Teams program-manager agent
 
-Tayler has created and published a RIMS Program Manager in Copilot Studio and
+Tayler has created and published a Archival Accession Processing Tool Program Manager in Copilot Studio and
 opened it in Teams. Supplied demonstrations show GitHub issue retrieval and
 retrieval of updates from the selected chat with Gauri. Gauri is listed as an
 authorized user. She reports granting GitHub and Teams connection permissions,
