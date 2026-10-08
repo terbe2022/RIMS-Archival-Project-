@@ -1,4 +1,4 @@
-# RIMS decision register
+# Archival Accession Processing Tool decision register
 
 Last edited: 2026-10-07. Last source/code review: 2026-10-06. Last server verification: not performed in this reconciliation.
 Current consolidated decision register. The August register remains at docs/design/decisions.md with a historical-source banner.

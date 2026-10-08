@@ -4,7 +4,7 @@ Reviewed October 7, 2026. Read active guidance below first. Historical sources s
 
 ## Project and engineering
 
-- [Overview](PROJECT-OVERVIEW.md): what RIMS does and how the work fits together.
+- [Overview](PROJECT-OVERVIEW.md): what Archival Accession Processing Tool does and how the work fits together.
 - [Status](PROJECT-STATUS.md): reported, source-inspected and demonstrated capabilities.
 - [Handoff](HANDOFF.md): engineering entry points and safety boundaries.
 - [Decisions](DECISIONS.md): current decision register and unresolved authority questions.

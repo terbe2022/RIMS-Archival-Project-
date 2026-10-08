@@ -1,6 +1,6 @@
 # Teams program-manager workflow
 
-The shared agent coordinates RIMS from the designated Tayler-Gauri project chat and GitHub evidence. Tayler demonstrated opening the published agent, GitHub issue retrieval and selected-chat retrieval in supplied October 6 results. Gauri is listed as an authorized user. She reports granting GitHub and Teams connection permissions, but the supplied launch link fails for her. Joint use remains unresolved; permission consent is not a successful launch test.
+The shared agent coordinates Archival Accession Processing Tool from the designated Tayler-Gauri project chat and GitHub evidence. Tayler demonstrated opening the published agent, GitHub issue retrieval and selected-chat retrieval in supplied October 6 results. Gauri is listed as an authorized user. She reports granting GitHub and Teams connection permissions, but the supplied launch link fails for her. Joint use remains unresolved; permission consent is not a successful launch test.
 
 ## Current interaction
 
@@ -12,7 +12,7 @@ Example update:
 
 Example request:
 
-> Read only our designated RIMS chat since <timestamp>. Summarize project updates with message IDs, match existing issues, and draft exact GitHub changes for review. Do not submit changes yet.
+> Read only our designated Archival Accession Processing Tool chat since <timestamp>. Summarize project updates with message IDs, match existing issues, and draft exact GitHub changes for review. Do not submit changes yet.
 
 After review, approve a specific proposal rather than an unspecified update. Submission requires an available authorized executor and independent validation under the update contract. GitHub search does not establish write capability. The agent must return actual tool receipts before claiming a change succeeded.
 
