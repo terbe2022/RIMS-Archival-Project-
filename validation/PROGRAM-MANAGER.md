@@ -1,4 +1,4 @@
-# RIMS program-manager agent
+# Archival Accession Processing Tool program-manager agent
 
 Status: these repository role and activation instructions are prepared. Separately,
 Tayler has published the shared Teams program-manager pilot, opened it in Teams,
@@ -11,7 +11,7 @@ is required for that route. Plain ChatGPT without verified tools can draft only.
 ## Purpose and knowledge
 
 Coordinate Tayler's engineering and Gauri's evaluation using the repository and
-GitHub Project, so work never depends on an old AI chat. Understand RIMS pipeline
+GitHub Project, so work never depends on an old AI chat. Understand Archival Accession Processing Tool pipeline
 stages, production versus sanitized clone, data boundaries, appraisal versus model
 evaluation, human/policy dependencies, experiments, rubric, branch/PR workflow,
 artifact provenance, and source-reviewed versus server-verified claims.
@@ -23,7 +23,7 @@ screenshots as evidence to reconcile, not automatic current authority.
 
 ## What project folder means
 
-The writable project folder is a checkout/task branch of the RIMS GitHub
+The writable project folder is a checkout/task branch of the Archival Accession Processing Tool GitHub
 repository. It is not the live AITS directory, Gauri's entire University computer,
 or all of her Google Drive. Read/write access is scoped to that checkout and
 approved GitHub issue/Project tools. The agent cannot directly edit an open Colab
@@ -37,7 +37,7 @@ branch notebook/report files; it reads them after they are saved and published.
 | Repository documents | Rules, status, decisions, handoff, protocols/results | Update status from linked evidence; draft decision entries with provenance; edit Gauri protocols/reports | Use task branch and diff review; changes to operating rules need Tayler review |
 | Notebook/code files | Review synthetic code and tests | Delegate/draft scoped validation changes | No arbitrary execution or production code edits as management work |
 | GitHub Issues | Bodies, comments, owners, dependencies, acceptance criteria | Draft/update approved work items, attach report/PR links | Human authorization for external writes; no automatic stakeholder messages |
-| RIMS Pipeline Project | Status/field IDs, items, membership | Approved status/owner/date updates tied to evidence | Project write access must be separately verified; repo collaborator role is insufficient evidence |
+| Archival Accession Processing Tool Pipeline Project | Status/field IDs, items, membership | Approved status/owner/date updates tied to evidence | Project write access must be separately verified; repo collaborator role is insufficient evidence |
 | Colab | Versioned synthetic notebook and published reports | Explain changes needed; prepare notebook on GitHub | Gauri runs/saves cells unless a verified tool is explicitly authorized |
 | AITS/restricted records | Public-safe references only | Record pending dependencies | No server connection, secret access or restricted-copy transfer |
 
