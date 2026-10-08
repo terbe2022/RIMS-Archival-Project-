@@ -38,3 +38,7 @@ The executable validation files remain on the [PR #80 branch](https://github.com
 ## Historical evidence
 
 The [history index](history/README.md) preserves replaced specifications, setup plans and status snapshots. Earlier [POC 1](../poc/01-email-processing/README.md), [POC 2](../poc/02-file-smart-search/README.md) and [POC 3](../poc/03-image-classification/README.md) are provenance for the prototype; their measurements do not validate the current system. Files under `superseded/` and older worksheets are historical references.
+
+## Published website
+
+GitHub Pages serves the current overview, login and accession workbench from `docs/index.html`, `docs/login.html` and `docs/app.html`. The protected backend handles password validation and private metadata retrieval. No original dataset is embedded in those pages. The previous scope page is preserved at [scope-history.html](scope-history.html).
