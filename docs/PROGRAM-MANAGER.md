@@ -1,4 +1,4 @@
-# RIMS product program manager
+# Archival Accession Processing Tool product program manager
 
 Prepared 2026-10-06. Role specification, not an activated background agent.
 
@@ -22,7 +22,7 @@ Permissions are actual tool/account permissions, never implied by this prompt. E
 5. Update existing status/decisions from evidence and prepare issue/board updates. Never mark Complete from an agent summary alone. Link a reviewed change and the task's acceptance checks.
 6. Finish with what advanced the product, what blocks it, the next concrete action and who owns it. Persist this in the appropriate repository document or authorized issue update.
 
-Proactive means self-directed work during an active session. Scheduled monitoring requires a separately configured automation with an agreed cadence and actual repository/Project access. None is active yet. The exact RIMS Pipeline Project URL and write access remain unverified.
+Proactive means self-directed work during an active session. Scheduled monitoring requires a separately configured automation with an agreed cadence and actual repository/Project access. None is active yet. The exact Archival Accession Processing Tool Pipeline Project URL and write access remain unverified.
 
 ## First product milestone: internal pilot
 The product goal is an internal AITS workflow built from the actual existing
