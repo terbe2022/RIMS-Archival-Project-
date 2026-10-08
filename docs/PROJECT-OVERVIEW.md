@@ -18,6 +18,8 @@ appraisal policy, acceptable access, protected-data storage and infrastructure
 approval. The project brings those responsibilities together without treating
 an engineering implementation as policy approval.
 
+See [People and stakeholders](STAKEHOLDERS.md) for the full participant list, titles and responsibility boundaries.
+
 ## GitHub as the shared project workspace
 
 The [RIMS repository](https://github.com/terbe2022/RIMS-Archival-Project-) connects
