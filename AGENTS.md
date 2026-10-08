@@ -1,7 +1,9 @@
-# RIMS Archival Triage Tool — Agent Instructions
+# Archival Accession Processing Tool — Agent Instructions
 
 ## Purpose
-RIMS is the appraisal and description layer for archival transfers. It decides what may be worth keeping, describes material, detects sensitive/personal information, and ranks evidence against archivist-authored criteria. It is not a preservation system; packaging, fixity, and OAIS preservation belong to Medusa.
+The Archival Accession Processing Tool is the appraisal and description layer for archival transfers. It decides what may be worth keeping, describes material, detects sensitive/personal information, and ranks evidence against archivist-authored criteria. It is not a preservation system; packaging, fixity, and OAIS preservation belong to Medusa.
+
+The tool was brought to Tayler by University Archivist Joanne Kaczmarek. Records and Information Management Services (RIMS) is the supporting service context, not the product name. Preserve repository URLs and technical identifiers.
 
 ## Authoritative locations
 - GitHub: terbe2022/RIMS-Archival-Project-
