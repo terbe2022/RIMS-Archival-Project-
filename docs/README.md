@@ -26,6 +26,8 @@ Reviewed October 7, 2026. Read active guidance below first. Historical sources s
 
 The executable validation files remain on the [PR #80 branch](https://github.com/terbe2022/RIMS-Archival-Project-/tree/gauri/validation-kit-recovery-2026-10-06/validation) pending code integration. Use its notebooks and harness from the same recorded commit. Documentation availability on main does not mean those executable files have merged.
 
+- [People and stakeholders](STAKEHOLDERS.md): the named delivery team and stakeholder register.
+
 ## Setup and institutional decisions
 
 - [Onboarding](setup/onboarding-and-setup.md) and [Colab setup](setup/colab-setup.md).
