@@ -13,6 +13,10 @@ Tayler Erbe leads engineering, integration and validation oversight. Gauri Bhasi
 - [Validation start](validation/START-HERE.md): Gauri's synthetic-first workflow.
 - [Teams coordination](docs/TEAMS-PROGRAM-MANAGER.md): chat updates, reviewed proposals and current limits.
 
+## Data and prototype inputs
+
+Use [Data and prototype guide](docs/DATA-AND-PROTOTYPES.md) to choose the correct input. [Private RIMS-data](https://github.com/terbe2022/RIMS-data) contains both the recorded metadata snapshot and a separate raw-file release for model validation. The raw archive is not included in a Git clone. Historical POC corpora and earlier screen-specific exports are not assumed to be included.
+
 ## Current scope
 
 The repository contains the pipeline prototype, appraisal rules, manifest schema, review interface and earlier proofs of concept. The first validation loop uses synthetic examples and Qwen in Colab, with results captured through GitHub review. Paid frontier judging is a later step subject to access and funding.
