@@ -21,6 +21,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 import logging
 
@@ -295,7 +296,7 @@ def main() -> int:
     df = pd.DataFrame(all_rows)
     # provenance columns are carried on the rows but are not schema columns yet
     df = df.drop(columns=["sample_reason", "sample_group",
-                          "retained_by_association", "s04_review_hint",
+                          "s04_review_hint",
                           "s02_exclusion_evidence", "mail_subject", "mail_date",
                           "mail_has_attachment", "mail_exclusion",
                           "mail_evidence"], errors="ignore")

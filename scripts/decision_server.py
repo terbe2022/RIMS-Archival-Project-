@@ -32,7 +32,9 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import threading
+from uuid import uuid4
 from datetime import datetime, timezone
 from functools import partial
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
@@ -55,20 +57,40 @@ class Handler(SimpleHTTPRequestHandler):
 
     def do_GET(self):
         if self.path.rstrip("/") == "/api/decisions":
-            return self._json(200, {"decisions": read_log(self.log_path),
-                                    "current": current_state(self.log_path)})
+            try:
+                with _LOCK:
+                    entries = read_log(self.log_path)
+            except (OSError, ValueError):
+                return self._json(500, {"error": "decision history unavailable; repair required"})
+            return self._json(200, {"decisions": entries,
+                                    "current": state_from_entries(entries)})
         return super().do_GET()
+
+    def send_head(self):
+        # Protect an explicitly configured legacy log inside the static root,
+        # including URL-encoded names and directory-listing requests.
+        requested = Path(self.translate_path(self.path)).resolve()
+        log = self.log_path.resolve()
+        if requested == log or (requested.is_dir() and log.is_relative_to(requested)):
+            self.send_error(403, "decision log is available only through the API")
+            return None
+        return super().send_head()
 
     def do_POST(self):
         if self.path.rstrip("/") != "/api/decision":
             return self._json(404, {"error": "no such endpoint"})
         try:
             n = int(self.headers.get("Content-Length") or 0)
+            if not 0 < n <= 65536:
+                return self._json(400, {"error": "body must be 1..65536 bytes"})
             d = json.loads(self.rfile.read(n) or b"{}")
         except (ValueError, json.JSONDecodeError) as exc:
             return self._json(400, {"error": f"unparseable body: {exc}"})
 
-        missing = [k for k in ("file_uid", "decision", "reviewer") if not d.get(k)]
+        if not isinstance(d, dict):
+            return self._json(400, {"error": "body must be an object"})
+        missing = [k for k in ("file_uid", "decision", "reviewer")
+                   if not isinstance(d.get(k), str) or not d[k].strip()]
         if missing:
             # A decision with no reviewer is not a decision. Refusing here is
             # what keeps "who decided this" answerable later.
@@ -78,6 +100,7 @@ class Handler(SimpleHTTPRequestHandler):
                 "error": f"{d['decision']!r} is not one of {sorted(VALID)}"})
 
         entry = {
+            "event_id": str(uuid4()),
             "file_uid": d["file_uid"],
             "accession": d.get("accession"),
             "decision": d["decision"],
@@ -86,20 +109,25 @@ class Handler(SimpleHTTPRequestHandler):
             "reason": d.get("reason"),
             "agreed_with_pipeline": d.get("agreed_with_pipeline"),
             "supersedes": None,
-            "at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+            "at": datetime.now(timezone.utc).isoformat(timespec="microseconds"),
         }
-        prior = current_state(self.log_path).get(d["file_uid"])
-        if prior:
-            entry["supersedes"] = prior.get("at")
-
         with _LOCK:
+            try:
+                prior = current_state(self.log_path).get(d["file_uid"])
+            except (OSError, ValueError):
+                return self._json(500, {"error": "decision history unavailable; no decision written"})
+            if prior:
+                entry["supersedes"] = prior.get("event_id") or prior.get("at")
+            self.log_path.parent.mkdir(parents=True, exist_ok=True)
             with open(self.log_path, "a", encoding="utf-8") as fh:
                 fh.write(json.dumps(entry) + "\n")
+                fh.flush()
+                os.fsync(fh.fileno())
         return self._json(200, {"recorded": entry,
                                 "changed_a_previous_decision": bool(prior)})
 
     def log_message(self, fmt, *a):
-        if "/api/" in (a[0] if a else ""):
+        if "/api/" in str(a[0] if a else ""):
             super().log_message(fmt, *a)
 
 
@@ -111,15 +139,21 @@ def read_log(path: Path) -> list:
         for line in fh:
             try:
                 out.append(json.loads(line))
-            except json.JSONDecodeError:
-                continue
+            except json.JSONDecodeError as exc:
+                raise ValueError("decision log contains a malformed entry") from exc
+            if not isinstance(out[-1], dict) or not isinstance(out[-1].get("file_uid"), str):
+                raise ValueError("decision log contains an invalid entry")
     return out
 
 
 def current_state(path: Path) -> dict:
     """Newest entry wins. The log stays append-only."""
+    return state_from_entries(read_log(path))
+
+
+def state_from_entries(entries: list) -> dict:
     state: dict = {}
-    for e in read_log(path):
+    for e in entries:
         state[e["file_uid"]] = e
     return state
 
@@ -129,7 +163,7 @@ def main() -> int:
     ap.add_argument("--payload", default="demo/aw",
                     help="directory holding accession-workbench.html")
     ap.add_argument("--log", default=None,
-                    help="decision log (default: <payload>/decisions.log.jsonl)")
+                    help="decision log (default: sibling <payload-name>-state directory)")
     ap.add_argument("--port", type=int, default=8899)
     ap.add_argument("--bind", default="127.0.0.1")
     args = ap.parse_args()
@@ -138,7 +172,12 @@ def main() -> int:
     if not (root / "accession-workbench.html").exists():
         print(f"no accession-workbench.html in {root}")
         return 2
-    Handler.log_path = Path(args.log) if args.log else root / "decisions.log.jsonl"
+    legacy = root / "decisions.log.jsonl"
+    if not args.log and legacy.exists():
+        print("existing decision log found; specify --log to preserve that history")
+        return 2
+    Handler.log_path = (Path(args.log).resolve() if args.log else
+                        root.parent / (root.name + "-state") / "decisions.log.jsonl")
 
     existing = current_state(Handler.log_path)
     print(f"serving {root} on http://{args.bind}:{args.port}")
