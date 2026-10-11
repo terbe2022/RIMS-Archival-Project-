@@ -36,3 +36,9 @@ models/
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# Private prototype exports must not enter public source or Pages.
+prototype-data.json
+prototype-data.json.gz
+.env.*
+!.env.example
