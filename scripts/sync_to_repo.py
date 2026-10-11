@@ -120,24 +120,8 @@ def main() -> int:
             copied.append(f"{rel} -> {dest_dir}/{src.name}")
 
     if args.public:
-        payload = Path(args.payload)
-        if not payload.exists():
-            print(f"  no payload at {payload}; skipping the public build")
-        else:
-            out = repo / "docs" / "prototype-data.json"
-            cmd = [sys.executable, "scripts/sanitise_payload.py", str(payload),
-                   "--out", str(out)]
-            if args.dry_run:
-                print("  would run: " + " ".join(cmd))
-            else:
-                rc = subprocess.call(cmd)
-                if rc == 0:
-                    shutil.copy2("web/accession-workbench.html",
-                                 repo / "docs" / "accession-workbench.html")
-                    copied.append("web/accession-workbench.html -> docs/ (public)")
-                else:
-                    print("  sanitiser refused; the public build was NOT updated",
-                          file=sys.stderr)
+        print("Public payload publication is disabled. Serve accession metadata "
+              "through the authenticated prototype backend; never copy it into docs/.")
 
     print(f"\n{len(copied)} to copy, {len(unchanged)} unchanged, "
           f"{len(skipped)} excluded by rule, {len(blocked)} blocked on content")
