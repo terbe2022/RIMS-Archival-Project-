@@ -309,7 +309,7 @@ main{flex:1;min-width:0}
 </style>
 <link rel="stylesheet" href="site.css"><script>const API_ORIGIN="https://rims-prototype-workbench.goofy-melon-6867.chatgpt.site";const TOKEN_KEY='archival-tool-session';const originalFetch=window.fetch.bind(window);window.fetch=(input,options={})=>{const target=new URL(input,location.href);if(target.pathname.endsWith('/prototype-data.json')||target.pathname.includes('/api/')){const endpoint=target.pathname.endsWith('/prototype-data.json')?'/prototype-data.json':target.pathname.slice(target.pathname.indexOf('/api/'));const headers=new Headers(options.headers||{});const token=sessionStorage.getItem(TOKEN_KEY);if(token)headers.set('Authorization','Bearer '+token);return originalFetch(API_ORIGIN+endpoint,{...options,headers,credentials:'omit'});}return originalFetch(input,options);};</script><script>if(!sessionStorage.getItem(TOKEN_KEY))location.replace('login.html');</script></head>
 <body>
-<div class="public-strip"><b>Archival Accession Processing Tool</b> · Demonstration data · Processing is simulated · Your review stays in this browser <a href="login.html" onclick="sessionStorage.removeItem(TOKEN_KEY)">Lock workspace</a></div><div class="app">
+<div class="public-strip"><b>Archival Accession Processing Tool</b> · Sanitized metadata snapshot · Processing is simulated · Your review stays in this browser <a href="login.html" onclick="sessionStorage.removeItem(TOKEN_KEY)">Lock workspace</a></div><div class="app">
   <aside class="rail">
     <div class="brand"><nav class="site-nav" aria-label="Website"><a href="./">Overview</a><a href="app.html" aria-current="page">Prototype</a><a href="login.html" onclick="sessionStorage.removeItem(TOKEN_KEY)">Sign out</a></nav>
       <h1>Accession Workbench</h1>
@@ -625,7 +625,7 @@ const VIEWS = {
   intake:  ['New accession','What you write here is what the models are told. Provenance and retention priorities drive every ranking downstream.'],
   queue:   ['Scheduled queue','What is waiting, what it will cost, and in what order it runs. Use the arrows to change the order; demonstration runs are started on demand.'],
   triage:  ['Triage ledger','Every file with its description and the reason it ranked where it did. Decide one at a time, or take a whole band at once.'],
-  search: ['Find files','Ranked lexical search over demonstration source text and descriptions. Restricted examples are withheld.'],
+  search: ['Find files','Search the imported metadata snapshot. Original titles, descriptions and source files are not included in this sanitized export.'],
   publish: ['Publish & export','Two deliverables from the same decisions: a folder structure for Box and a searchable dataset.'],
   capacity:['Server window','One evening a week on the current hardware. Set the window and the throughput assumptions here.'],
   about:   ['How this works','superseded']
@@ -1588,7 +1588,7 @@ function renderSearch(){
         <button class="btn btn-sm" data-fx="clear">Clear</button>
       </div>
       <input type="search" id="s-q" value="${esc(S.search.q)}" style="width:100%"
-        placeholder="Search source text, titles, descriptions and subjects">
+        placeholder="Search available titles, descriptions, filenames and subjects">
       <div class="fgroups">${groupUI}</div>
     </div>
   </div>
@@ -1610,7 +1610,7 @@ function renderSearch(){
           // thing is, not to read the opening of it.
           ((r.description||'').match(/[^.!?]+[.!?]+/g) || [r.description||''])
             .slice(0,2).join(' ').trim().slice(0,260))}</div>
-        ${r.keywords.length?`<div class="muted" style="font-size:12px;margin-top:4px">${
+        ${(r.keywords||[]).length?`<div class="muted" style="font-size:12px;margin-top:4px">${
           esc(r.keywords.slice(0,8).join(' · '))}</div>`:''}
       </div>`).join('')}</div>`
       : `<div class="empty"><p>Nothing matches. The dataset is searched across demonstration source text, titles, descriptions, filenames and subjects.</p></div>`}
@@ -1618,7 +1618,7 @@ function renderSearch(){
 
   const qi = document.getElementById('s-q');
   qi.addEventListener('input', e=>{ S.search.q = e.target.value; render('search'); });
-  qi.setSelectionRange(qi.value.length, qi.value.length); qi.focus();
+  qi.focus(); // Search inputs do not support setSelectionRange.
   document.getElementById('s-acc').addEventListener('change', e=>{
     S.search.job = e.target.value; render('search'); });
   document.querySelectorAll('[data-fx]').forEach(el=>{
@@ -2100,6 +2100,7 @@ async function loadData(){
         S.jobs=saved.jobs;S.records=saved.records;S.audit=saved.audit||[];S.runs=saved.runs||[];S.reviewer=saved.reviewer||'';Object.assign(S.settings,saved.settings||{});
       }
     }catch{}
+    S.records.forEach(r=>{for(const key of ['keywords','flags','entities','generated'])if(!Array.isArray(r[key]))r[key]=[];});
     S.persist=true;S.loadError=null;
   }catch(e){S.loadError=e.message;}
 }
@@ -2147,7 +2148,7 @@ function searchTerms(s){return String(s).toLowerCase().match(/[a-z0-9]+/g)||[];}
 function rankSearch(rows,q){
   const words=searchTerms(q), counts=new Map();words.forEach(w=>counts.set(w,(counts.get(w)||0)+1));
   const terms=[...counts.keys()];
-  return rows.map(r=>{const text=searchTerms([r.title,r.description,r.body,r.filename,...r.keywords].join(' '));const tf=new Map();text.forEach(t=>tf.set(t,(tf.get(t)||0)+1));
+  return rows.map(r=>{const text=searchTerms([r.title,r.description,r.body,r.filename,...(r.keywords||[])].join(' '));const tf=new Map();text.forEach(t=>tf.set(t,(tf.get(t)||0)+1));
     const score=terms.reduce((n,w)=>n+(tf.has(w)?(1+Math.log(tf.get(w)))*(1+Math.log(counts.get(w))):0),0)/Math.sqrt(Math.max(1,text.length));return {r,score};}).filter(x=>x.score>0).sort((a,b)=>b.score-a.score).map(x=>x.r);
 }
 function renderBuilt(){ $('#v-built').innerHTML=`<div class="panel"><div class="panel-h"><h3>The protected online prototype</h3></div><div class="panel-b"><p>Based on the repository’s accession workbench. The layout, intake forms, queue, folder triage, record drawers, search and release review are retained.</p><p><b>Working here:</b> the imported 2,375-record server snapshot, ranked metadata search and filters, individual and bulk review, append-only decision history on this device, saved intake forms and export packages.</p><p><b>Demonstrated, not connected:</b> inventory, AI descriptions, image classification, storage movement and delivery to preservation systems. No GPU inference or institutional storage access occurs on this website.</p><p><b>Data:</b> Imported server export: four accessions and 2,375 records, including previous review decisions. This export contains descriptions and metadata, but no original document bodies or images. Model confidence is not calibrated here.</p><p><b>Access:</b> server-side password protection gates the application and dataset. Review state is browser-local. The password does not make this an approved repository for restricted institutional records.</p><p>The background sections preserve earlier prototype findings as historical design context. They are not fresh measurements of this deployment or assertions of policy compliance.</p></div></div>`; }
