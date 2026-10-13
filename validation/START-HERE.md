@@ -1,5 +1,10 @@
 # Gauri's model testing workspace
 
+Start with the [code and evaluation guide](GAURI-CODE-EVALUATION-GUIDE.md) for
+the current implementation map, component experiments, performance work and a
+proposed server API route that does not require a GPU on your laptop. API access
+remains pending approval; Colab is an optional synthetic runtime.
+
 Owner: Gauri. Prepared 2026-10-06. Model results: not yet measured.
 
 Starting runtime approved by Tayler: Colab with synthetic open-weight fixtures.
