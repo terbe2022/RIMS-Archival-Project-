@@ -1,31 +1,16 @@
 #!/usr/bin/env python3
-"""
-export_review.py — turn a manifest parquet into the review UI's payload.
+"""Build a private review payload or a content-free public demonstration.
 
-Two modes, and the difference is the whole point.
-
-    (default)   Full payload. Real paths, filenames, extracted text. For
-                running locally or behind campus authentication. Never
-                publish this.
-
-    --public    Redacted payload for a public demo. Drops paths, filenames,
-                text samples and anything derived from file content, keeping
-                only counts, lanes, bands, decisions and the form clauses the
-                archivist wrote. Safe for GitHub Pages.
-
---public is a coarse instrument on purpose. It does not attempt to detect
-whether a given filename is sensitive; it removes all of them. Presidio's
-measured recall on this corpus is 0.69-0.81, so any redaction that decides
-field by field will leak. Dropping whole columns cannot.
-
-Even in --public mode this will refuse to write if it finds free text that
-could carry personal information, rather than trusting the column list to be
-complete.
+Private mode retains paths and text for approved internal use. Public mode uses
+only generated identities, typed statistics and fixed enums; policy prose,
+rationales and unknown fields are omitted. Source selection and publication
+still require approval. This is not the reviewed archival release workflow.
 """
 from __future__ import annotations
 
 import argparse
 import json
+import math
 import random
 import sys
 from pathlib import Path
@@ -65,6 +50,30 @@ def load(parquet: Path) -> list[dict]:
 
 
 def build(rows: list[dict], form: dict | None, public: bool) -> dict:
+    if public:
+        # No source identifiers or free-form policy/format/rationale text crosses
+        # this boundary. Publication still requires selection and human review.
+        safe = []
+        enums = {"s02_decision": {"selected", "not_selected", "restricted_review", "discard_candidate"},
+                 "s02_band": {"high", "mid", "low"},
+                 "s03_lane": {"document", "email", "image", "tabular", "scientific", "av", "code", "archive"},
+                 "s03_status": {"ok", "empty", "skipped", "failed", "partial"}}
+        for i, row in enumerate(rows, 1):
+            r = {"file_uid": f"item-{i:04d}", "accession_uid": "demo"}
+            for key in ("depth", "size_bytes", "s02_score", "s03_text_len", "layer"):
+                value = row.get(key)
+                if type(value) in (int, float) and math.isfinite(value):
+                    r[key] = value
+            for key in ("retained_by_association", "s01_ext_mismatch", "s03_needs_ocr"):
+                if type(row.get(key)) is bool:
+                    r[key] = row[key]
+            for key, allowed in enums.items():
+                value = row.get(key)
+                if isinstance(value, str) and value in allowed:
+                    r[key] = value
+            safe.append(r)
+        rows, form = safe, None
+
     out = []
     for i, r in enumerate(rows, 1):
         item = {k: r.get(k) for k in _KEEP if k in r}
@@ -78,10 +87,7 @@ def build(rows: list[dict], form: dict | None, public: bool) -> dict:
             item["text"] = (r.get("s03_text_sample") or "")[:600]
         out.append(item)
 
-    # The form's own words are what the rationales quote, so the UI shows them
-    # side by side. In public mode the prose stays: it is the archivist's
-    # appraisal policy, not anyone's personal information. Owner and scope are
-    # dropped because they name people.
+    # Intake prose is retained only in the private payload.
     criteria = {}
     if form:
         criteria = {
@@ -117,12 +123,21 @@ def build(rows: list[dict], form: dict | None, public: bool) -> dict:
 def audit(payload: dict) -> list[str]:
     """Refuse to publish if free text survived the column drop."""
     problems = []
-    for item in payload["items"]:
-        for key in ("path", "text"):
-            if item.get(key):
-                problems.append(f"{key} present on {item.get('file_uid')}")
-                break
+    if payload.get("criteria") or payload.get("name"):
+        problems.append("free-form accession or intake text present")
+    if payload.get("accession") not in (None, "demo"):
+        problems.append("source accession identifier present")
+    allowed = {"file_uid", "accession_uid", "depth", "size_bytes", "s02_score",
+               "s03_text_len", "layer", "retained_by_association", "s01_ext_mismatch",
+               "s03_needs_ocr", "s02_decision", "s02_band", "s03_lane", "s03_status",
+               "filename", "folder"}
+    for n, item in enumerate(payload["items"], 1):
+        if set(item) - allowed:
+            problems.append("unexpected item field")
+        if item.get("file_uid") != f"item-{n:04d}" or item.get("filename") != f"item-{n:04d}":
+            problems.append("source item identifier present")
     return problems[:5]
+
 
 
 def main() -> int:

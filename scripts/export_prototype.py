@@ -40,6 +40,7 @@ from pathlib import Path
 import pyarrow.parquet as pq
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 KIND = {"image": "image", "email": "email", "document": "document",
         "tabular": "document", "av": "media", "archive": "other",

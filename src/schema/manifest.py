@@ -29,7 +29,7 @@ from datetime import date, datetime, timedelta, timezone
 
 import pyarrow as pa
 
-SCHEMA_VERSION = "1.1"
+SCHEMA_VERSION = "1.2"
 MAX_ARCHIVE_DEPTH = 3
 FAT_EPOCH_FLOOR = datetime(1980, 1, 1, tzinfo=timezone.utc)
 DEFAULT_RETENTION_DAYS = 180          # provisional — Joanne has not named a period
@@ -134,6 +134,7 @@ S02 = [
     ("s02_rule_matched", _S()),          # v1.1 — which named rule fired
     ("s02_ruleset", _S()),               # v1.1 — which ruleset it came from
     ("s02_rationale", _S()), ("s02_policy_version", _S()),
+    ("retained_by_association", pa.bool_()),
 ])
 
 S03 = _stage_cols("s03", [

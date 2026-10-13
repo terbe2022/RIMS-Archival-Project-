@@ -42,3 +42,7 @@ prototype-data.json
 prototype-data.json.gz
 .env.*
 !.env.example
+
+# Evaluation outputs and local deployment material
+local-runs/
+_code_backups/

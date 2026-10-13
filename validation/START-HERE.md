@@ -87,3 +87,7 @@ Current grading route: [FRONTIER-JUDGING.md](FRONTIER-JUDGING.md). No blind huma
 
 
 For the exact first smoke run, use [FIRST-EXPERIMENT.md](FIRST-EXPERIMENT.md). It distinguishes the harness contract from proposed metadata tasks.
+
+## Shared-code integration smoke route
+
+The [shared pipeline notebook](https://colab.research.google.com/github/terbe2022/RIMS-Archival-Project-/blob/main/notebooks/shared-pipeline-colab.ipynb) imports the actual server prompts from a recorded GitHub commit. Use it first to confirm text/vision model integration on a small generated synthetic set. This does not replace the larger recovery harness or agreed grading program. See [shared runtime instructions](../docs/SHARED-SERVER-COLAB.md). Actual GPU execution is not yet verified; no real accession data belongs in this Colab runtime.

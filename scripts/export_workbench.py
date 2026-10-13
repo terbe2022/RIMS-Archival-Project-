@@ -176,6 +176,7 @@ def main() -> int:
     uid_to_form = {}
     try:
         sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+        sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
         from workbench import accessions as accmod
         reg = Path(args.intake) / "accession_registry.json"
         if reg.exists():
