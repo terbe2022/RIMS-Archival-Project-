@@ -1,65 +1,70 @@
-# Model API access plan
+# University model API access and execution plan
 
-Status: options prepared; no API access provisioned, keys created, spending
-authorized or model calls made. Account owner/budget: pending Tayler confirmation.
-All hosted-provider comparisons use synthetic cases only. No hosted API exception
-for real accessions is created by this plan.
+Updated October 13, 2026. Tayler reports current access to a University-hosted
+NVIDIA NIM service set up for this project, serving `nvidia/nemotron-3-nano` with
+an OpenAI-compatible API. More models can be requested. These are user-reported
+facts, not independent live verification. Gauri's access is unknown.
 
-Tayler selected the initial route: open-weight Colab models with synthetic data.
-Paid API funding is pending. The hosted provider entries below are future options,
-not available credentials or approval to spend. Do not create a paid account or
-make paid smoke requests until provider ownership and a cap are explicitly set.
+The exact internal HTTP address is supplied privately at the meeting. It is
+not the archival pipeline host. This public guide contains no credentials or
+internal API connection details. Current transport is reported plain HTTP;
+use synthetic inputs only during checks and get the owner's approved transport
+and authentication instructions before transmitting any credentials.
 
-| Route | What Gauri needs | How to compare | What remains pending |
-|---|---|---|---|
-| Open-weight Colab | Google account, available GPU, model licence acceptance where applicable | Existing synthetic Colab notebook, one model at a time | Runtime availability, dependency/version check, approved candidates |
-| OpenAI API | Approved API project/access and secret injection by account owner | Adapter to the existing harness; record model revision, token use and errors | Funding, project role, model access, approved request/cost ceiling, adapter implementation |
-| Claude API | Approved Anthropic account/workspace and API credential | Provider-specific adapter; same fixture/prompt semantics | Funding/access, supported parameters and adapter implementation |
-| Gemini API | Approved Google project/key and relevant model access | Provider-specific adapter; same fixture/prompt semantics | Funding/access, model/settings equivalence and adapter implementation |
-| University Ollama | Explicit host/data/run permission and confirmed local service | Existing University notebook after review | Gauri access, server state, workload authorization |
+## Permission, network, authentication and inference are separate
 
-API accounts are separate capabilities from a ChatGPT subscription or GitHub
-collaborator role. Do not assume API credits, models, write tools or GPU access
-from either. Verify actual account entitlements; this document quotes no prices
-or promised free quota. University-provided API services may be another route
-after their owner identifies the service and grants the appropriate project role.
+1. Identify the service owner and confirm Gauri is allowed to use it for bounded
+   synthetic project experiments. Tayler's access and GitHub membership do not
+   establish this; absence of a login prompt does not grant permission.
+2. From Gauri's computer on the owner-approved network/VPN, open the supplied
+   base address with `/v1/models` appended. A model-list response establishes
+   reachability/listing only; timeout/DNS failure suggests a network issue;
+   401/403 suggests authentication/authorization; 404 suggests routing/version.
+   None of these alone resolves the permission question.
+3. Verify the exact model ID in the response, authentication method, request
+   limits and approved data scope. Do not invent an API key or copy Tayler's.
+4. Once authorized, Codex/the prepared client sends one fictional text request
+   to `/v1/chat/completions`, with a small output budget, timeout and no retries.
+   Preserve status, latency, model ID and output/error. A browser GET does not
+   perform this inference test.
+5. Record whether Gauri can run and save results independently. If not, record
+   the precise blocker, owner and next action; do not call setup complete.
 
-## Account-owner setup, performed personally
+NIM endpoint conventions are documented by
+[NVIDIA](https://docs.nvidia.com/nim/large-language-models/latest/reference/api-reference.html).
+The installed deployment may differ: inspect its schema/owner guidance. An
+OpenAI-compatible interface does not mean calls go to OpenAI or require an OpenAI
+paid account. No paid provider API calls are authorized here.
 
-1. Select approved provider/project and synthetic-only scope.
-2. Grant Gauri the least project access needed; separate experiments from production.
-3. Set available spend/rate controls and a run-level maximum request/token budget.
-   Do not assume a billing alert is a hard stop. Record the approved cap in protocol.
-4. Store/inject credentials through approved secret controls outside Git. Never
-   paste keys into chat, issue bodies, notebook source, PRs or shell-history commands.
-   Agents should check whether the secret exists, not print its value.
-5. Gauri approves one synthetic smoke request, checks response/error and cost,
-   then explicitly approves the full comparison. Do not start with an unbounded loop.
+## What her laptop does
 
-## Runner implementation task
+The server holds weights and runs inference. Gauri's lightweight client prepares
+synthetic requests and evaluates returned outputs. No local GPU or model-sized
+RAM is required. Local extraction of very large files can still consume CPU/RAM,
+so start with small generated fixtures or approved server-side extraction.
+Ten stored models can be compared sequentially if the service owner provisions
+them; all ten need not fit GPU memory together. Available capacity, modality,
+model loading, queues and concurrency still constrain execution. A new model
+request is not proof of installation or access.
 
-The existing harness accepts a callable per model. Provider adapters must use
-official APIs, pass the same synthetic Case text and approved prompt, return raw
-model text, and keep secrets out of errors. Log model/version, effective settings,
-input/output tokens where available, status, latency and denominators. Document
-unsupported decoding settings rather than pretending providers are identical.
-Set timeout, bounded retry/backoff, maximum attempts and output-token limits.
-Network allow-list and credential injection must be approved in the chosen runner.
-Do not upload real data or allow a config switch to substitute real fixtures.
+## Standing experiment scope to request
 
-Implement adapters only after account/provider selection; test with mocked HTTP
-responses first. First run is a paid/synthetic smoke test only after approval.
-The recovered notebook evaluates local open-weight models; it is not already a
-multi-provider API runner. An automated judge is a distinct experimental condition.
+Named user/project and allowed endpoints/models; synthetic-only scope; permitted
+request count, input/output/context size, concurrency and run windows; queue and
+cancellation behavior; result retention and approved sharing; service/support
+owner; process for adding models. Separate server administration and original-data
+access. This is proposed scope, not an access grant or configured service.
 
-## Official setup references (checked 2026-10-06)
+## Client implementation status
 
-- [OpenAI API quickstart](https://developers.openai.com/api/docs/quickstart)
-- [Claude API overview](https://platform.claude.com/docs/en/api/overview)
-- [Gemini API keys](https://ai.google.dev/gemini-api/docs/api-key)
-- [Codex Cloud environments](https://learn.chatgpt.com/docs/cloud)
+The shared text smoke harness already has an explicit vLLM-compatible endpoint
+caller, but lacks a complete remote authentication/secret-redaction adapter,
+model-discovery workflow, quality grading and performance instrumentation.
+Codex should implement those on a gauri branch with mocked HTTP failures before
+larger runs. Do not imply the current harness provides every required capability.
+Credentials stay outside Git, notebooks and report artifacts. Reports record code
+SHA, fixture/model IDs, prompt/configuration, timing, denominators and failures.
 
-API/SDK choices and availability change; verify the official provider docs when
-implementing the selected adapter. No credential handling is needed to read them.
-
-Frontier judge candidates and Qwen implementation: [FRONTIER-JUDGING.md](FRONTIER-JUDGING.md). User-selected grading uses models; paid access/funding still pending.
+Colab is optional synthetic fallback compute. Paid provider comparisons and paid
+frontier judging remain deferred until funding, account ownership and a cap are
+approved. No new paid accounts, cloud rentals, credentials or services were created.

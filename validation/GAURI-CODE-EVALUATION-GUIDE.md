@@ -7,6 +7,10 @@ lane works. Gauri owns experiment design, model comparison and defect evidence;
 Tayler owns integration and engineering repairs; archivists own appraisal criteria
 and reference judgements. Codex can implement fixtures, adapters and fixes through PRs.
 
+Immediate next step: [meeting/access plan](MEETING-ACCESS-PLAN.md), then
+[University NIM access verification](API-ACCESS.md). Tayler reports access to
+`nvidia/nemotron-3-nano`; Gauri access remains unverified. Colab is optional.
+
 ## Your computer and independence
 
 When you call a model hosted on a University server, the server loads its weights

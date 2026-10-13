@@ -1,6 +1,11 @@
-# Gauri's integrated browser workflow
+# Optional Colab workflow
 
-Gauri writes/runs notebooks in Colab. GitHub stores versioned notebooks, helper
+Updated October 13: University NIM API access is the first route to investigate;
+Gauri's permission/connectivity remain unverified. Read [START-HERE](START-HERE.md)
+and [API-ACCESS](API-ACCESS.md) first. This page applies only when choosing Colab
+as an available synthetic fallback. GPU availability and costs are not guaranteed.
+
+For this optional route, Gauri writes/runs notebooks in Colab. GitHub stores versioned notebooks, helper
 Python code, experiment protocols and reviewed results. The program manager
 reads GitHub and proposes document/work updates. Codex Cloud can supply that
 tool-enabled role if available in her account; no local Codex installation is

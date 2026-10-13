@@ -12,3 +12,7 @@ Two registers retain authority: [Decisions](DECISIONS.md) and [Stakeholders](STA
 Specialist details remain linked from the project guide. Older overview/status/handoff/data/setup pages remain for compatibility; start with the guide's dated evidence rather than treating every page as independent current status. [History](history/README.md), superseded/ and dated snapshots preserve provenance. Historical rubrics do not set current acceptance thresholds.
 
 HTML/CSS files in this folder are the GitHub Pages application, not duplicate documentation. Their paths must stay intact. Protected metadata is fetched from the authenticated backend, not embedded in public frontend files.
+
+For Gauri onboarding, start with the [meeting/access plan](../validation/MEETING-ACCESS-PLAN.md),
+[code evaluation guide](../validation/GAURI-CODE-EVALUATION-GUIDE.md), and
+[University API access verification](../validation/API-ACCESS.md). Colab is optional.

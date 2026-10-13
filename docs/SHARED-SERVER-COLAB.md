@@ -1,5 +1,11 @@
 # One codebase for the server and Colab
 
+October 13 execution update: investigate the reported University Nemotron NIM API
+as the initial shared compute route. Gauri access is unverified. Colab is optional
+synthetic fallback, not a required setup. See [current access plan](../validation/API-ACCESS.md).
+Existing server/Colab procedures below apply only to their named environments;
+the NIM host is a separate service. No service change or access grant is implied.
+
 GitHub main is the reviewed source of pipeline code. The server deploys a recorded commit using scripts/deploy_code.py. Colab clones GitHub and checks out a commit before importing the same text and vision prompts. Data and model-serving environments remain separate.
 
 ## Current repair
