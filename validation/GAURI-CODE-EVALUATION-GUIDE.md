@@ -1,6 +1,7 @@
 # Gauri's code and evaluation guide
 
 Prepared October 13, 2026 against GitHub main `bed430ee68aa16fffa87ba87f46f2e12d20de3d6`.
+Documentation aligned with main `3c8a765` after PR #93 merged; executable code map remains based on `bed430e`.
 This is an implementation map and proposed working agreement, not proof that every
 lane works. Gauri owns experiment design, model comparison and defect evidence;
 Tayler owns integration and engineering repairs; archivists own appraisal criteria
@@ -48,7 +49,7 @@ there is no per-request provider bill.
 ## Read these documents in this order
 
 1. [Root operating rules](../AGENTS.md) and [validation rules](AGENTS.md): boundaries and authority.
-2. [Project overview](../docs/PROJECT-OVERVIEW.md) and [pipeline design](../docs/design/pipeline-design.md): purpose and proposed architecture. Compare claims with code below.
+2. [Current project guide](../docs/PROJECT-GUIDE.md), [quality/performance protocol](../docs/EVALUATION.md), [reported hardware](../docs/HARDWARE.md), then [pipeline design](../docs/design/pipeline-design.md): purpose and proposed architecture. Compare claims with code below.
 3. [Manifest contract](../docs/design/manifest-schema.md) and [executable schema](../src/schema/manifest.py): the fields each stage reads/writes.
 4. [Accession context](../docs/ai-and-the-accession-form.md), [context implementation](../src/workbench/context.py), and [draft appraisal rules](../docs/design/appraisal-rules-draft.md): descriptive context versus retention/exclusion criteria.
 5. [Grading](GRADING.md), [validation plan](PLAN.md), [frontier judging](FRONTIER-JUDGING.md), [experiment template](experiments/TEMPLATE.md), [results template](results/TEMPLATE.md): existing evaluation conventions. Historical numerical thresholds are not approved acceptance criteria.
@@ -59,9 +60,9 @@ Read the three POC READMEs for origin and known defects, after the current code:
 [file smart search](../poc/02-file-smart-search/README.md),
 [images](../poc/03-image-classification/README.md). They explain why the project
 began as different dataset-specific workflows; they are not acceptance evidence
-for the integrated tool. Documentation consolidation is in PR #93; CPU-safe
-Colab/report changes are in PR #94. Inspect their merge state before assuming
-those changes exist in main. The larger executable validation kit remains on
+for the integrated tool. Documentation consolidation merged in PR #93; CPU-safe
+Colab/report changes remain in draft PR #94. Inspect its merge state before
+assuming those executable changes exist in main. The larger executable validation kit remains on
 PR #80's branch; use its code/notebook from the same recorded commit.
 
 ## Follow the code from input to reviewed output
