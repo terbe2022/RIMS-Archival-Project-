@@ -5,7 +5,7 @@ sync_to_repo.py — put the current server code into the repository.
     # see what would move, change nothing
     python3 scripts/sync_to_repo.py --dry-run
 
-    # stage it, and build the public demonstration payload too
+    # Legacy server-only import; public payload publication is disabled
     python3 scripts/sync_to_repo.py --repo ~/RIMS-Archival-Project- --public
 
 Manual copying is how the repository fell six weeks behind the server. This
@@ -31,6 +31,7 @@ import re
 import shutil
 import subprocess
 import sys
+import tempfile
 from pathlib import Path
 
 # What belongs in the repository, as (source glob, destination directory).
@@ -40,7 +41,6 @@ INCLUDE = [
     ("workbench/schema/rules/*.py", "src/schema/rules"),
     ("scripts/*.py", "scripts"),
     ("web/accession-workbench.html", "web"),
-    ("docs/*.md", "docs"),
     ("intake/accession_registry.json", "intake"),
 ]
 
@@ -85,11 +85,25 @@ def main() -> int:
                     help="a clone of the repository")
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--public", action="store_true",
-                    help="also build docs/ from the sanitised payload")
+                    help="legacy flag; public payload publication remains disabled")
     ap.add_argument("--payload", default="demo/aw/prototype-data.json")
     ap.add_argument("--force", action="store_true",
                     help="copy even if a leak check fails. Think first.")
+    ap.add_argument("--include-doc", action="append", default=[],
+                    help="explicitly reviewed docs filename; repeat per file")
     args = ap.parse_args()
+    if Path("state/deployed-code.json").exists() or Path("src/workbench").is_dir():
+        print("Canonical checkout/deployment detected. Edit a GitHub task branch and use deploy_code.py; legacy reverse sync is disabled.", file=sys.stderr)
+        return 2
+    if args.force:
+        print("--force cannot bypass publication checks", file=sys.stderr)
+        return 2
+    includes = list(INCLUDE)
+    for name in args.include_doc:
+        if Path(name).name != name or not name.endswith(".md"):
+            print("--include-doc requires a plain .md filename", file=sys.stderr)
+            return 2
+        includes.append(("docs/" + name, "docs"))
 
     repo = Path(args.repo)
     if not (repo / ".git").exists():
@@ -99,8 +113,9 @@ def main() -> int:
         return 2
 
     copied, skipped, blocked, unchanged = [], [], [], []
+    public_failed = False
 
-    for pattern, dest_dir in INCLUDE:
+    for pattern, dest_dir in includes:
         for src in sorted(Path(".").glob(pattern)):
             rel = src.as_posix()
             if NEVER.search(rel) or src.name.startswith("."):
@@ -120,8 +135,7 @@ def main() -> int:
             copied.append(f"{rel} -> {dest_dir}/{src.name}")
 
     if args.public:
-        print("Public payload publication is disabled. Serve accession metadata "
-              "through the authenticated prototype backend; never copy it into docs/.")
+        print("Public payload publication is disabled. Use the authenticated backend.")
 
     print(f"\n{len(copied)} to copy, {len(unchanged)} unchanged, "
           f"{len(skipped)} excluded by rule, {len(blocked)} blocked on content")
@@ -136,12 +150,12 @@ def main() -> int:
 
     if args.dry_run:
         print("\ndry run — nothing written")
-        return 0
+        return 1 if blocked or public_failed else 0
     if copied:
         print(f"\nNext:\n  cd {repo}\n  git status --short\n"
               f"  git add -A && git commit -m 'Sync pipeline from the server'\n"
               f"  git push")
-    return 1 if blocked and not args.force else 0
+    return 1 if blocked or public_failed else 0
 
 
 if __name__ == "__main__":

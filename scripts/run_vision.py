@@ -33,6 +33,7 @@ import time
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 import pyarrow.parquet as pq
 import requests
@@ -68,9 +69,10 @@ PROMPT = (
     "medical/health records, student/PII records, Other sensitive categories. "
     "Use the exact category name. NEVER invent new categories.\n"
     "- Reply with ONE JSON object and nothing else. No markdown fences.\n\n"
-    'Return: {"title": "...", "description": "...", "offensive": false,
- "offense_evidence": "where in the frame you see it — position, object, who is wearing or holding it. If you cannot say where, set offensive to false.", '
-    '"offense_evidence", "offense_category": null, "offense_reason": null, "confidence": "high"}\n'
+    'Return: {"title": "...", "description": "...", "offensive": false, '
+    '"offense_evidence": "where in the frame you see it; if there is no '
+    'observable evidence, set offensive to false", '
+    '"offense_category": null, "offense_reason": null, "confidence": "high"}\n'
 )
 
 IMAGE_PUIDS = {"fmt/43", "fmt/11", "fmt/353", "fmt/3", "fmt/4"}

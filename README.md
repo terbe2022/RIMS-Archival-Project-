@@ -37,3 +37,7 @@ Keep real accession records, private operational data, credentials and restricte
 `src/` and `scripts/` contain pipeline code and entry points; `rules/` contains appraisal rules; `docs/` contains active guidance and historical sources; `validation/` contains experiment guidance; `poc/` preserves earlier experiments. GitHub Issues and the actual Project board hold actionable work, rather than parallel Markdown task lists.
 
 Python dependencies in `requirements.txt` specify version constraints; they are not a fully pinned reproducibility lock. Record the installed environment and exact commit for each experiment.
+
+## Shared server and Colab code
+
+Use [the shared runtime guide](docs/SHARED-SERVER-COLAB.md) for versioned server deployment and [the Colab comparison notebook](https://colab.research.google.com/github/terbe2022/RIMS-Archival-Project-/blob/main/notebooks/shared-pipeline-colab.ipynb) for synthetic text/vision smoke experiments. Both load the same pipeline prompts and record the code commit. Real accession content is not approved for Colab.

@@ -30,3 +30,6 @@ python-magic
 
 # HTTP (for the Ollama API — do NOT shell out to the CLI)
 requests
+
+# Image encoding and synthetic vision fixtures
+Pillow>=10

@@ -54,6 +54,7 @@ def form_for(uid: str, intake: Path) -> Path | None:
     """Map an accession_uid back to its intake form via the registry."""
     try:
         sys.path.insert(0, str(HERE.parent))
+        sys.path.insert(0, str(HERE.parent / "src"))
         from workbench import accessions as acc
         built, _ = acc.resolve(intake, intake / "accession_registry.json",
                                allow_provisional=True)
@@ -96,7 +97,23 @@ def main() -> int:
         print(f"  {uid}  {c['image']:>5} images  {c['text']:>5} text files")
     print()
 
+    # Validate every text input before launching any model work.
+    if not args.skip_text and any(c["text"] for c in counts.values()):
+        if not args.redacted_root:
+            print("--redacted-root is required for text descriptions", file=sys.stderr)
+            return 2
+        for uid, c in counts.items():
+            if not c["text"]:
+                continue
+            form = form_for(uid, intake)
+            acc_id = form.stem if form else uid
+            red = Path(args.redacted_root) / acc_id / "reading_room"
+            if not red.is_dir():
+                print(f"missing pseudonymized input directory: {red}", file=sys.stderr)
+                return 2
+
     produced = []
+    failed = False
     for uid, c in sorted(counts.items(), key=lambda kv: -kv[1]["image"]):
         form = form_for(uid, intake)
         acc_id = form.stem if form else uid
@@ -114,6 +131,8 @@ def main() -> int:
                      + (["--form", str(form)] if form else []))
             if rc == 0:
                 produced.append(f)
+            else:
+                failed = True
 
         if c["text"] and not args.skip_text:
             f = out / f"desc-{acc_id}.jsonl"
@@ -132,9 +151,12 @@ def main() -> int:
                 if red.exists():
                     cmd += ["--redacted", str(red)]
                 else:
-                    print(f"    no redacted text at {red}; summarising raw")
+                    print(f"    missing redacted text at {red}", file=sys.stderr)
+                    return 2
             if run(cmd) == 0:
                 produced.append(f)
+            else:
+                failed = True
 
     combined = out / "all-descriptions.jsonl"
     with open(combined, "w", encoding="utf-8") as fh:
@@ -153,7 +175,7 @@ def main() -> int:
     print(f"Merge with:\n  python3 scripts/run_cpu_pass.py --data data/sample_1k "
           f"--out runs/final --provisional --name-detector presidio "
           f"--image-outputs {combined}")
-    return 0
+    return 1 if failed else 0
 
 
 if __name__ == "__main__":
