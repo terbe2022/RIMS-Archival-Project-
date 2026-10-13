@@ -22,6 +22,8 @@ The website simulates processing and stores reviews in the browser; it is not a 
 
 ## Where everything lives
 
+For the sanitized current server capacity and observed software, see [Hardware](HARDWARE.md). These specifications are not a benchmark or a guarantee of available resources.
+
 Code: [public repository](https://github.com/terbe2022/RIMS-Archival-Project-).
 Data: [private repository](https://github.com/terbe2022/RIMS-data).
 Prototype: [login](https://terbe2022.github.io/RIMS-Archival-Project-/login.html).
