@@ -1,39 +1,52 @@
-# First Qwen experiment: synthetic description smoke test
-Owner: Gauri. Prepared 2026-10-06. Status: protocol draft, not run.
+# First experiment: establish access, then a Nemotron text baseline
 
-## What this tests
-Can Gauri open the published branch in Colab, load one Qwen candidate, generate descriptions for one readable and one abstention case, preserve results and return a reviewed report through GitHub? This is workflow/schema/refusal verification, not creator/date extraction, production certification or a model ranking.
+Updated October 13, 2026. Gauri owns design and evidence. This replaces the
+Colab-first Qwen assignment as the proposed next step; earlier Qwen reports and
+PR #80/#87 remain historical/separate evidence, not proof of Nemotron access.
 
-## Exact files
-- notebooks/colab-model-evaluation.ipynb: synthetic Colab runner.
-- src/workbench/fixtures.py: synthetic corpus generator.
-- src/workbench/evaluate.py: case builder, caller harness and technical scoring.
-- validation/test_recovered_harness.py: eight offline regression checks.
-- validation/GRADING.md and FRONTIER-JUDGING.md: quality rubric and future judge route.
-- validation/experiments/TEMPLATE.md and results/TEMPLATE.md: protocol and report formats.
+## Phase 1: access acceptance
 
-## Prerequisites
-Use the [published validation branch](https://github.com/terbe2022/RIMS-Archival-Project-/tree/gauri/validation-kit-recovery-2026-10-06) and record its exact commit; executable integration remains pending PR #80. Gauri creates a gauri/<experiment> branch from that reviewed base. Verify authorized Colab/account use on her University computer. No local installation, AITS access, paid API or credential sharing is needed. If GPU/model access is unavailable, report the blocker rather than buying compute or improvising credentials.
+Follow [API-ACCESS](API-ACCESS.md). Confirm permission with the service owner;
+from Gauri's computer verify network/model listing; then make one authorized,
+bounded synthetic request. Record exact endpoint privately, actual served model
+ID, network/auth requirements, response/error and duration. Keep credentials out
+of reports. No GPU or weights are installed on Gauri's laptop.
 
-## Procedure
-1. Read START-HERE, root/nested AGENTS and COLAB-WORKFLOW. Open the notebook from the published branch. Set its clone cell to that same branch (it currently defaults to main) and record git rev-parse HEAD.
-2. Run python -B validation/test_recovered_harness.py from the cloned repository root. Passing stub checks is not a model result.
-3. Inspect GPU and package versions. Review runtime-only install/download cells. Start with Qwen/Qwen2.5-7B-Instruct, 4-bit configuration from the notebook. Record model revision and configuration; memory fit is not guaranteed. Qwen3 is a later, explicitly configured candidate.
-4. Build corpus/cases using the notebook cells. Select one readable and one abstention case deterministically. After defining caller, run the following instead of the full-run cell:
+Completion means her own client can request inference and save results within
+approved scope. A successful test on Tayler's computer does not meet this criterion.
+If blocked, name whether permission, network, authentication, service or client
+setup failed, and assign the responsible owner. Do not buy compute to hide it.
 
-```python
-smoke = [next(c for c in cases if not c.expects_abstention),
-         next(c for c in cases if c.expects_abstention)]
-smoke_attempts = E.run_model(MODEL, caller, smoke, repeats=1)
-for a in smoke_attempts:
-    print(a.case_id, a.error, a.seconds, a.raw, a.parsed)
-```
+## Phase 2: component quality baseline
 
-5. Record actual responses, errors and case IDs. Required-key checking expects nonempty string title/description, while the prompt permits null title for unreadable input. Report schema checks and explicit readable=false refusal separately; do not mislabel a correct refusal solely from that required-key mismatch. Parseability is tolerant JSON recovery, not strict JSON-schema validation. Neither metric establishes factual correctness.
-6. Store temporary synthetic output in validation/local-runs/ or the Colab runtime; it is not committed automatically. Put a reviewed summary in validation/results/<experiment>.md using the template. Do not upload entire runtime directories or real material. Save Python helper changes separately from notebook saves.
-7. Clear notebook outputs/execution counts before GitHub submission. Review the diff and create a draft PR through her own authorized account. Record the actual tested commit separately from the later report commit.
+Gauri defines three to six fictional text sources: minutes, correspondence,
+unreadable/insufficient input, a hard negative and evidence located late in a
+long input. Each has independent expected facts, prohibited unsupported claims,
+uncertainty and source evidence. Start with the exact deployed Nemotron ID after
+verification; do not assume vision or embedding capability from the name.
 
-## Completion evidence
-Correct branch and fixture versions recorded; eight offline tests pass; two model calls attempted with preserved results/errors; refusal versus parse/required-key metrics correctly distinguished; output-free notebook/report draft PR accessible to Tayler. A failed model response is a result, not a reason to erase the run. A failed environment setup is a documented blocker.
+Use canonical description prompts and allowed context; withhold valuable/exclude
+criteria. Freeze input, settings and limits. Codex implements the bounded client,
+fixture tests and reports in a gauri branch, using mocked network failures first.
+Existing shared smoke fixtures can check integration but do not replace the
+richer quality cases. Use a recorded reviewed commit and retain failures.
 
-No model-quality threshold or winner is assigned by this smoke test. After protocol review, run the actual built case set twice and report the observed case/abstention counts. Independent frontier judging remains pending funded access and tested adapters. No human grading step is required for this initial synthetic run.
+Report schema/parse validity, abstention, unsupported facts, coverage, specificity
+and usefulness separately, under the agreed grading method. Frontier judging
+awaits funding; do not silently substitute paid calls or treat model self-grades
+as independent truth. Record limitations and define acceptance with Tayler/Joanne.
+
+## Phase 3: performance and comparison
+
+After the baseline succeeds, Gauri proposes contrasting candidates by task and
+resource requirements for the service owner to provision. Measure cold/warm
+latency and failure rates, then bounded throughput/concurrency with authorization.
+Report input/output tokens, effective context/quantization and variability where
+exposed; no archival model winner or system accuracy follows from a smoke run.
+
+Deliver protocol, source-labelled fixtures, access outcome, baseline report and
+findings register. Use [code guide](GAURI-CODE-EVALUATION-GUIDE.md),
+[experiment template](experiments/TEMPLATE.md) and [result template](results/TEMPLATE.md).
+Colab is optional fallback for synthetic cases; original content stays off Colab
+and out of AI prompts. A full end-to-end pipeline is not required for component
+experiments; integration/original-data validation follows separately.

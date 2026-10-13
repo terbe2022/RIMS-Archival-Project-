@@ -1,5 +1,11 @@
 # Archival Accession Processing Tool validation plan
 
+October 13 execution update: investigate the reported University Nemotron NIM API
+as the initial shared compute route. Gauri access is unverified. Colab is optional
+synthetic fallback, not a required setup. See [current access plan](API-ACCESS.md).
+Existing server/Colab procedures below apply only to their named environments;
+the NIM host is a separate service. No service change or access grant is implied.
+
 Last edited: 2026-10-06. Last source/code review: 2026-10-06. Last server verification: not performed in this reconciliation.
 Owner: Gauri. Status: proposed plan; no model or production evaluation was run in this reconciliation.
 
