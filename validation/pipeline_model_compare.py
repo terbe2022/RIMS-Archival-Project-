@@ -4,6 +4,7 @@ This module never reads real accession files. It is not the full validation rubr
 """
 from pathlib import Path
 import argparse
+import ast
 import hashlib
 import importlib.metadata
 import json
@@ -15,8 +16,20 @@ from datetime import datetime, timezone
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / 'src'), str(ROOT)]
-from scripts.run_describe import PROMPT as TEXT_PROMPT, call_ollama, call_vllm
-from scripts.run_vision import PROMPT as VISION_PROMPT
+
+
+def load_prompt(filename):
+    """Read the canonical literal without importing extraction dependencies."""
+    tree = ast.parse((ROOT / 'scripts' / filename).read_text(encoding='utf-8'))
+    for node in tree.body:
+        if isinstance(node, ast.Assign) and any(
+                isinstance(target, ast.Name) and target.id == 'PROMPT' for target in node.targets):
+            return ast.literal_eval(node.value)
+    raise ValueError('Canonical PROMPT missing: ' + filename)
+
+
+TEXT_PROMPT = load_prompt('run_describe.py')
+VISION_PROMPT = load_prompt('run_vision.py')
 
 TEXT_CASES = [
     {'id': 'synthetic-minutes', 'text': 'Minutes of the Fictional River Study Committee. The committee met on 14 May 2025. Members approved a revised sampling schedule and agreed to review the results at the next meeting. No personal information or real institutional records are included.', 'expected_genre': 'minutes'},
@@ -107,6 +120,7 @@ def run(models, lane='text', backend='hf', url=None, out=None):
                         'confidence': 'low', 'offensive': False, 'offense_category': None,
                         'offense_evidence': None, 'offense_reason': None})
                 elif backend in {'ollama', 'vllm'}:
+                    from scripts.run_describe import call_ollama, call_vllm
                     output = (call_ollama if backend == 'ollama' else call_vllm)(prompt, url, model, 180)
                 elif lane == 'text':
                     generated = pipe([{'role': 'user', 'content': prompt}], max_new_tokens=400, do_sample=False)
