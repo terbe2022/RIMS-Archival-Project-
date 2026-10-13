@@ -625,7 +625,7 @@ const VIEWS = {
   intake:  ['New accession','What you write here is what the models are told. Provenance and retention priorities drive every ranking downstream.'],
   queue:   ['Scheduled queue','What is waiting, what it will cost, and in what order it runs. Use the arrows to change the order; demonstration runs are started on demand.'],
   triage:  ['Triage ledger','Every file with its description and the reason it ranked where it did. Decide one at a time, or take a whole band at once.'],
-  search: ['Find files','Search the imported metadata snapshot. Original titles, descriptions and source files are not included in this sanitized export.'],
+  search: ['Find files','Search the authenticated server metadata and available extracted text. Image preview files are not connected yet.'],
   publish: ['Publish & export','Two deliverables from the same decisions: a folder structure for Box and a searchable dataset.'],
   capacity:['Server window','One evening a week on the current hardware. Set the window and the throughput assumptions here.'],
   about:   ['How this works','superseded']
@@ -1077,10 +1077,10 @@ function renderPOC1(){
     </div></div>
     <div class="panel"><div class="panel-h"><h3>The throughput finding</h3></div><div class="panel-b">
       <p class="gen" style="margin-top:0">The pipeline ran at 9 images a minute — 22 hours for the
-      corpus. GPU utilisation was 28–31% while latency inflated 8× under concurrency: the signature
+      corpus. GPU utilisation was 28–31% while latency inflated 8Ã— under concurrency: the signature
       of requests being serialised at the daemon, not of hardware limits.</p>
       <p class="gen">Moving to vLLM with continuous batching, <b>same model, same GPU</b>, gave
-      55.4 images a minute at 97% utilisation. <b>6.22× on identical hardware</b>, of which 3.6× was
+      55.4 images a minute at 97% utilisation. <b>6.22Ã— on identical hardware</b>, of which 3.6Ã— was
       the serving stack alone.</p>
       <p class="gen">That is not an academic win. A 22-hour pipeline gets run once. A 3.7-hour
       pipeline gets used as a working tool — which is what makes prompt refinement and taxonomy
@@ -1588,7 +1588,7 @@ function renderSearch(){
         <button class="btn btn-sm" data-fx="clear">Clear</button>
       </div>
       <input type="search" id="s-q" value="${esc(S.search.q)}" style="width:100%"
-        placeholder="Search available titles, descriptions, filenames and subjects">
+        placeholder="Search titles, descriptions, filenames, subjects and extracted text">
       <div class="fgroups">${groupUI}</div>
     </div>
   </div>
@@ -1835,7 +1835,7 @@ function synthesize(job){
       sizeKB:Math.round(between(30000,52000)),
       title:p[0], description:p[1], keywords:p[2], importance:p[3],
       confidence:+(p[4]+between(-.05,.04)).toFixed(2), flags:p[5],
-      exif:{cam:'Kodachrome carousel scan', dims:'4096 × 2731', gps:'not embedded', note:'Carousel label illegible'},
+      exif:{cam:'Kodachrome carousel scan', dims:'4096 Ã— 2731', gps:'not embedded', note:'Carousel label illegible'},
       rationale: p[5].length
         ? 'Blank, duplicate, or unreadable. The intake form excludes these by name, so it is surfaced for deletion.'
         : p[3]==='high'
@@ -2077,27 +2077,36 @@ function submitIntake(){
 }
 
 /* Public deployment adapter. No real accession content or storage credentials. */
-const STORE_KEY='rims-protected-server-0bbf4418-v1';
+let STORE_KEY='rims-protected-server-0bbf4418-v1';
 let fixtureData;
 S.audit=[]; S.runs=[]; S.reviewer='';
-function held(r){ return (r.flags||[]).some(f=>/sensitive|restricted|identifier|needs a person/i.test(f)); }
+function held(r){ return (r.entities||[]).length>0||(r.flags||[]).some(f=>/sensitive|restricted|identifier|needs a person|phone|email|ssn|medical|ferpa|hipaa/i.test(f)); }
 function proposal(r){ return held(r)?'restricted_review':r.importance==='low'?'discard_candidate':'selected'; }
 function destination(r){
   if(held(r)||r.dispo==='restricted_review')return 'supervisor';
   if((r.flags||[]).some(f=>/duplicate|structural/.test(f)))return 'excluded';
   return r.dispo==='selected'?'medusa_open':'not_selected';
 }
-function snapshot(){return {schema:1,jobs:S.jobs,records:S.records,audit:S.audit,runs:S.runs,settings:S.settings,reviewer:S.reviewer};}
+function snapshot(){
+ const base=new Map((fixtureData?.records||[]).map(r=>[r.id,r]));
+ const fields=['dispo','decidedAt','decidedBy','reviewReason','reviewSource','reviewConfidence','agreedWithPipeline'];
+ const recordReviews=S.records.flatMap(r=>{const original=base.get(r.id);if(!original||!fields.some(k=>JSON.stringify(r[k])!==JSON.stringify(original[k])))return [];const review={id:r.id};for(const k of fields)review[k]=r[k]??null;return [review];});
+ return {schema:2,jobs:S.jobs,recordReviews,audit:S.audit,settings:S.settings,reviewer:S.reviewer};
+}
 function saveState(){try{localStorage.setItem(STORE_KEY,JSON.stringify(snapshot()));return true;}catch{toast('Browser storage unavailable. Export your review before closing.');return false;}}
 async function loadData(){
   try{
     const res=await fetch('/prototype-data.json',{cache:'no-store'});
     if(!res.ok)throw new Error('Unlock the workspace to load its dataset.');
     fixtureData=await res.json();
+    if(fixtureData.snapshotId)STORE_KEY='archival-review-'+fixtureData.snapshotId;
+    if(fixtureData.snapshotId){const banner=document.querySelector('.public-strip');if(banner)banner.textContent='Archival Accession Processing Tool · Protected server metadata · Processing is simulated · Review stays in this browser';}
     S.jobs=structuredClone(fixtureData.jobs);S.records=structuredClone(fixtureData.records);
     try{const saved=JSON.parse(localStorage.getItem(STORE_KEY));
-      if(saved?.schema===1 && Array.isArray(saved.jobs)&&Array.isArray(saved.records)){
-        S.jobs=saved.jobs;S.records=saved.records;S.audit=saved.audit||[];S.runs=saved.runs||[];S.reviewer=saved.reviewer||'';Object.assign(S.settings,saved.settings||{});
+      if(saved?.schema===2 && Array.isArray(saved.recordReviews)){
+        const byId=new Map(S.records.map(r=>[r.id,r]));
+        for(const review of saved.recordReviews){const r=byId.get(review.id);if(r)for(const k of ['dispo','decidedAt','decidedBy','reviewReason','reviewSource','reviewConfidence','agreedWithPipeline'])if(k in review)r[k]=review[k];}
+        if(Array.isArray(saved.jobs))S.jobs=saved.jobs;S.audit=saved.audit||[];S.reviewer=saved.reviewer||'';Object.assign(S.settings,saved.settings||{});
       }
     }catch{}
     S.records.forEach(r=>{for(const key of ['keywords','flags','entities','generated'])if(!Array.isArray(r[key]))r[key]=[];});
@@ -2151,23 +2160,23 @@ function rankSearch(rows,q){
   return rows.map(r=>{const text=searchTerms([r.title,r.description,r.body,r.filename,...(r.keywords||[])].join(' '));const tf=new Map();text.forEach(t=>tf.set(t,(tf.get(t)||0)+1));
     const score=terms.reduce((n,w)=>n+(tf.has(w)?(1+Math.log(tf.get(w)))*(1+Math.log(counts.get(w))):0),0)/Math.sqrt(Math.max(1,text.length));return {r,score};}).filter(x=>x.score>0).sort((a,b)=>b.score-a.score).map(x=>x.r);
 }
-function renderBuilt(){ $('#v-built').innerHTML=`<div class="panel"><div class="panel-h"><h3>The protected online prototype</h3></div><div class="panel-b"><p>Based on the repository’s accession workbench. The layout, intake forms, queue, folder triage, record drawers, search and release review are retained.</p><p><b>Working here:</b> the imported 2,375-record server snapshot, ranked metadata search and filters, individual and bulk review, append-only decision history on this device, saved intake forms and export packages.</p><p><b>Demonstrated, not connected:</b> inventory, AI descriptions, image classification, storage movement and delivery to preservation systems. No GPU inference or institutional storage access occurs on this website.</p><p><b>Data:</b> Imported server export: four accessions and 2,375 records, including previous review decisions. This export contains descriptions and metadata, but no original document bodies or images. Model confidence is not calibrated here.</p><p><b>Access:</b> server-side password protection gates the application and dataset. Review state is browser-local. The password does not make this an approved repository for restricted institutional records.</p><p>The background sections preserve earlier prototype findings as historical design context. They are not fresh measurements of this deployment or assertions of policy compliance.</p></div></div>`; }
-function exportAudit(){dl('rims-demo-audit.json',JSON.stringify({dataset:'synthetic demonstration',events:S.audit,previous_runs:S.runs},null,2),'application/json');}
+function renderBuilt(){ $('#v-built').innerHTML=`<div class="panel"><div class="panel-h"><h3>The protected online prototype</h3></div><div class="panel-b"><p>Based on the repository’s accession workbench. The layout, intake forms, queue, folder triage, record drawers, search and release review are retained.</p><p><b>Working here:</b> the imported 2,375-record server snapshot, ranked metadata search and filters, individual and bulk review, append-only decision history on this device, saved intake forms and export packages.</p><p><b>Demonstrated, not connected:</b> inventory, AI descriptions, image classification, storage movement and delivery to preservation systems. No GPU inference or institutional storage access occurs on this website.</p><p><b>Data:</b> The authenticated snapshot contains imported server metadata and, when available, extracted source text. Image preview files require a separate protected connection. Model confidence is not calibrated here.</p><p><b>Access:</b> server-side password protection gates the application and dataset. Review state is browser-local. The password does not make this an approved repository for restricted institutional records.</p><p>The background sections preserve earlier prototype findings as historical design context. They are not fresh measurements of this deployment or assertions of policy compliance.</p></div></div>`; }
+function exportAudit(){dl('rims-demo-audit.json',JSON.stringify({dataset:fixtureData?.classification||'synthetic-demonstration',events:S.audit,previous_runs:S.runs},null,2),'application/json');}
 function exportDecisions(){const keys=['id','at','file_id','accession','reviewer','previous_decision','decision','reason','agreed_with_proposal'];dl('rims-demo-decisions.csv',[keys,...S.audit.map(e=>keys.map(k=>e[k]))].map(row=>row.map(safeCSV).join(',')).join('\r\n'),'text/csv');}
 function safeCSV(v){let s=String(v??'');if(/^\s*[=+@-]/.test(s))s="'"+s;return '"'+s.replace(/"/g,'""')+'"';}
 function exportLedgerCSV(){const keys=['id','jobId','filename','kind','title','description','importance','dispo','decidedBy','decidedAt'];dl('rims-demo-ledger.csv',[keys,...S.records.map(r=>keys.map(k=>r[k]))].map(row=>row.map(safeCSV).join(',')).join('\r\n'),'text/csv');}
 function releaseRecords(level='open_web',destinations=['medusa_open']){return S.records.filter(r=>r.dispo==='selected'&&!held(r)&&destinations.includes(destination(r))).map(r=>({file_id:r.id,accession:r.jobId,filename:r.filename,kind:r.kind,title:r.title,description:r.description,subjects:r.keywords,source_text:level==='original'?(r.body||''):redact(r.body||'',r.entities||[],level==='reading_room'?'light':'full'),decision:r.dispo,reviewer:r.decidedBy,decided_at:r.decidedAt}));}
-function exportDataset(){dl('rims-demo-release.json',JSON.stringify({dataset:'synthetic demonstration',release_level:'open_web',generated:new Date().toISOString(),records:releaseRecords()},null,2),'application/json');}
+function exportDataset(){dl('rims-demo-release.json',JSON.stringify({dataset:fixtureData?.classification||'synthetic-demonstration',release_level:'open_web',generated:new Date().toISOString(),records:releaseRecords()},null,2),'application/json');}
 function buildPackage(){const level=$('input[name=rel]:checked')?.value||'open_web',dests=$$('[data-inc]:checked').map(e=>e.dataset.inc),records=releaseRecords(level,dests);
-  const pkg={schema:'rims-demo-release-1',dataset:'synthetic demonstration',level,generated:new Date().toISOString(),records,decision_history:S.audit.filter(e=>records.some(r=>r.file_id===e.file_id)),withheld_count:S.records.length-records.length,note:'Only reviewed, non-sensitive selected records are included. No real originals or re-identification keys are present.'};
+  const pkg={schema:'rims-demo-release-1',dataset:fixtureData?.classification||'synthetic-demonstration',level,generated:new Date().toISOString(),records,decision_history:S.audit.filter(e=>records.some(r=>r.file_id===e.file_id)),withheld_count:S.records.length-records.length,note:'Only reviewed, non-sensitive selected records are included. This is a local export, not authorization to publish. Source text and metadata may be sensitive.'};
   dl('rims-demo-package-'+level+'.json',JSON.stringify(pkg,null,2),'application/json');$('#pkg').innerHTML='<div class="callout"><b>Package downloaded</b> · '+records.length+' reviewed records · '+pkg.withheld_count+' withheld. This is a JSON manifest with demo source text and decision history; it is not a repository delivery.</div>';
 }
-function downloadSource(id){const r=recById(id);if(r)dl(r.filename+'.txt',(r.body||r.description)+'\n\nFictional demonstration source.','text/plain');}
+function downloadSource(id){const r=recById(id);if(r)dl(r.filename+'.txt',(r.body||r.description)+'\n\nExtracted source text from the protected snapshot; not an original file download.','text/plain');}
 function renderPublish(){
   const groups={medusa_open:[],supervisor:[],not_selected:[],excluded:[]};S.records.forEach(r=>groups[destination(r)].push(r));
   const names={medusa_open:'Reviewed selections',supervisor:'Withheld for individual review',not_selected:'Undecided or not selected',excluded:'Duplicate or structural example'};
   $('#v-publish').innerHTML=`<div class="stat-row">${Object.entries(groups).map(([k,rows])=>`<div class="stat"><div class="k">${names[k]}</div><div class="v">${rows.length}</div></div>`).join('')}</div>
-  <div class="panel" style="margin-top:16px"><div class="panel-h"><h3>Build a demonstration release</h3></div><div class="panel-b"><p>Only reviewed selections without sensitivity flags are eligible. Nothing is deleted. This produces a downloadable JSON package with demonstration source text and decision history.</p><p>Release modes illustrate the earlier email prototype’s two-tier design. They do not approve real records for publication.</p><div class="checks">${[['open_web','Open web — direct and indirect identifiers removed'],['reading_room','Reading room — direct identifiers removed'],['original','Original — fictional source only']].map(([v,l])=>`<label><input type="radio" name="rel" value="${v}" ${v==='open_web'?'checked':''}>${l}</label>`).join('')}</div><label><input type="checkbox" data-inc="medusa_open" checked> Include reviewed selections</label><p class="muted">${groups.supervisor.length} flagged records and ${groups.not_selected.length} undecided/not-selected records are withheld.</p><button class="btn btn-primary" data-act="package">Build the delivery package</button><div id="pkg" style="margin-top:12px"></div></div></div>
+  <div class="panel" style="margin-top:16px"><div class="panel-h"><h3>Build a demonstration release</h3></div><div class="panel-b"><p>Only reviewed selections without detected identifiers or sensitivity flags are eligible. Nothing is deleted. This produces a local JSON review package, not a public release.</p><p>Release modes illustrate the earlier email prototype’s two-tier design. They do not approve real records for publication.</p><div class="checks">${[['open_web','Open web — direct and indirect identifiers removed'],['reading_room','Reading room — direct identifiers removed'],['original','Original — fictional source only']].map(([v,l])=>`<label><input type="radio" name="rel" value="${v}" ${v==='open_web'?'checked':''}>${l}</label>`).join('')}</div><label><input type="checkbox" data-inc="medusa_open" checked> Include reviewed selections</label><p class="muted">${groups.supervisor.length} flagged records and ${groups.not_selected.length} undecided/not-selected records are withheld.</p><button class="btn btn-primary" data-act="package">Build the delivery package</button><div id="pkg" style="margin-top:12px"></div></div></div>
   <div class="panel" style="margin-top:16px"><div class="panel-h"><h3>Export this browser’s review</h3></div><div class="panel-b"><button class="btn" data-act="export-ledger">Ledger CSV</button> <button class="btn" data-act="export-decisions">Decisions CSV</button> <button class="btn" data-act="export-dataset">Release JSON</button><p class="muted">The ledger is a local review export. The release excludes restricted and undecided records. Audit history includes decision changes and reversals with reviewer aliases.</p></div></div>`;
 }
 document.addEventListener('input',e=>{if(e.target.id==='who'){S.reviewer=e.target.value.slice(0,80);saveState();}});
