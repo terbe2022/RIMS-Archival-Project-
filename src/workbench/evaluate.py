@@ -37,6 +37,7 @@ otherwise would produce a number that looks like evidence and is not.
 from __future__ import annotations
 
 import json
+from pathlib import Path
 import re
 import statistics
 import time
@@ -186,14 +187,60 @@ def build_cases(rows: list[dict], n_real: int = 20,
     return cases
 
 
+def description_schema_errors(value):
+    """Structural checks only; never normalize away candidate defects."""
+    if not isinstance(value, dict):
+        return ['not a JSON object']
+    errors = []
+    if type(value.get('readable')) is not bool:
+        errors.append('readable must be boolean')
+    if not isinstance(value.get('description'), str) or not value['description'].strip():
+        errors.append('description must be a nonempty string')
+    title = value.get('title')
+    if value.get('readable') is False:
+        if title is not None:
+            errors.append('unreadable title must be null')
+    elif not isinstance(title, str) or not title.strip():
+        errors.append('readable title must be a nonempty string')
+    subjects = value.get('subjects')
+    if not isinstance(subjects, list) or not all(isinstance(x, str) for x in subjects):
+        errors.append('subjects must be a list of strings')
+    if not isinstance(value.get('genre'), str) or value['genre'] not in {'correspondence', 'report', 'draft', 'minutes', 'form',
+                                 'dataset', 'publication', 'notes', 'list traffic',
+                                 'administrative', 'unknown'}:
+        errors.append('genre must be an allowed value')
+    return errors
+
+
+def make_hf_caller(model, tokenizer, prompt, max_new=350):
+    """Preserve Gauri's BatchEncoding fix and pass the attention mask."""
+    def call(case):
+        import torch
+        inputs = tokenizer.apply_chat_template(
+            [{'role': 'user', 'content': prompt % case.text}],
+            add_generation_prompt=True, return_dict=True, return_tensors='pt')
+        inputs = {key: value.to(model.device) for key, value in inputs.items()}
+        length = inputs['input_ids'].shape[-1]
+        with torch.no_grad():
+            generated = model.generate(**inputs, max_new_tokens=max_new, do_sample=False,
+                                       pad_token_id=tokenizer.eos_token_id)
+        return tokenizer.decode(generated[0][length:], skip_special_tokens=True)
+    return call
+
+
 def run_model(name: str, call: Callable[[Case], str], cases: list[Case],
-              repeats: int = 1) -> list[Attempt]:
+              repeats: int = 1, checkpoint=None) -> list[Attempt]:
     """
     Run one model over every case. `call` takes a Case and returns raw text,
     so the harness never needs to know which serving stack is behind it.
     """
     if repeats < 1:
         raise ValueError("repeats must be positive")
+    if checkpoint is not None:
+        checkpoint = Path(checkpoint)
+        checkpoint.parent.mkdir(parents=True, exist_ok=True)
+        # Refuse to overwrite another experiment's evidence.
+        checkpoint.open('x', encoding='utf-8').close()
     out = []
     for case in cases:
         for rep in range(repeats):
@@ -207,6 +254,9 @@ def run_model(name: str, call: Callable[[Case], str], cases: list[Case],
                 a.error = f"{type(exc).__name__}: {exc}"
             a.seconds = round(time.perf_counter() - t0, 2)
             out.append(a)
+            if checkpoint is not None:
+                with checkpoint.open('a', encoding='utf-8') as handle:
+                    handle.write(json.dumps(asdict(a), ensure_ascii=False) + '\n')
     return out
 
 
@@ -245,6 +295,9 @@ def score(attempts: list[Attempt], cases: list[Case]) -> dict:
         "calls": len(attempts),
         "errors": sum(1 for a in attempts if a.error),
         "schema": {
+            "description_contract_valid": pct(
+                sum(not description_schema_errors(a.parsed) and not a.error for a in attempts),
+                len(attempts)),
             # Parseability is measured over everything.
             "parsed": pct(sum(1 for a in attempts if a.parsed_ok), len(attempts)),
             # Required keys are measured over REAL cases only. A model that
