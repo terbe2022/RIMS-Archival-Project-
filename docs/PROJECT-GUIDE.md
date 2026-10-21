@@ -1,6 +1,6 @@
 # Archival Accession Processing Tool — current guide
 
-Updated October 13, 2026. This is the main operational entry point. [Evaluation](EVALUATION.md) defines Gauri's quality work; [Decisions](DECISIONS.md) and [Stakeholders](STAKEHOLDERS.md) retain policy and people registers. Issues and the [Project board](https://github.com/users/terbe2022/projects/1) own tasks/deadlines.
+Updated October 21, 2026. This is the main operational entry point. [Evaluation](EVALUATION.md) defines Gauri's quality work; [Decisions](DECISIONS.md) and [Stakeholders](STAKEHOLDERS.md) retain policy and people registers. Issues and the [Project board](https://github.com/users/terbe2022/projects/1) own tasks/deadlines.
 
 ## Purpose and responsibilities
 
@@ -14,7 +14,7 @@ Tayler owns ingestion, integration, deployment and outputs; Gauri owns reproduci
 | --- | --- | --- |
 | GitHub | Shared code merged; 18 local regression tests passed | Broader original-file coverage |
 | Server | Deployed bed430ee68aa16fffa87ba87f46f2e12d20de3d6; 52 files, zero differences | Server tests, actual inference and controlled end-to-end run |
-| Colab | Notebook prepared; synthetic stub checks passed locally | Actual GPU execution and quality comparisons |
+| Colab | Gauri reports two-case and 108-attempt synthetic Qwen/T4 runs with preserved ZIPs | Raw ZIP verification and substantive quality review; no archival accuracy established |
 | Website | Authenticated fuller metadata; public dataset URL checked 404 and unauthenticated backend 401 | Original binary/image previews not connected |
 | Quality | Proposed protocols | Ratified criteria, human labels and measured appraisal accuracy |
 
@@ -67,3 +67,7 @@ Deployment uses scripts/deploy_code.py dry-run -> reviewed apply -> verify, with
 Gauri returns protocol/results/defects; archivists adjudicate labels; Tayler fixes integration through PRs; Gauri retests. The larger recovered harness remains separate pending integration. The shared notebook does not imply every historical experiment merged.
 
 Specialist references: [architecture](design/pipeline-design.md), [manifest](design/manifest-schema.md), [accession context](ai-and-the-accession-form.md), [Teams controls](TEAMS-PROGRAM-MANAGER.md), [work tracking](work-tracking.md), [validation execution](../validation/START-HERE.md). [History](history/README.md) preserves provenance, not current completion.
+
+## Stakeholder answers reviewed October 21
+
+Read the [current answer reconciliation](stakeholders/answer-reconciliation-2026-10-21.md) and [website follow-up list](stakeholder-follow-up.html). Both supplied questionnaires were blank; the existing August answers and supplied email thread remain the evidence. Tayler’s follow-up recommends the project email processing lane, with ePADD only an optional research/access route subject to IT permission. Preserved historical interpretations about configured defaults, cleared access or retention-clock behavior are not proof of implementation. No new approval date or timeline is inferred.
