@@ -2,6 +2,9 @@
 
 # Answers from the Archives — August 2026
 
+> Reviewed against the supplied questionnaires and email thread on October 21, 2026. Read the [current reconciliation and remaining follow-ups](answer-reconciliation-2026-10-21.md) or [website summary](https://terbe2022.github.io/RIMS-Archival-Project-/stakeholder-follow-up.html). The supplied Word copies are blank questionnaires, not new answered returns. Later email direction and engineering proposals are distinguished in the reconciliation; original August responses below are preserved.
+
+
 Record of the responses to `Questions for the Archives` (August 2026).
 
 | | |
