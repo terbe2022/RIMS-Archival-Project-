@@ -1,93 +1,49 @@
-# Gauri's model testing workspace
+# Gauri: start here
 
-Owner: Gauri. Prepared 2026-10-06. Model results: not yet measured.
+Updated October 13, 2026. The immediate task is to establish a usable execution
+route and your evaluation ownership, not to complete a Colab notebook.
 
-Starting runtime approved by Tayler: Colab with synthetic open-weight fixtures.
-Paid model APIs are deferred pending funding. Gauri uses a University computer;
-local software installations are not assumed or required for this starting route.
+## Today's reading path
 
-This is your lane for model comparison, context experiments and pipeline
-validation. Start with synthetic fixtures. The detailed program is in
-[PLAN.md](PLAN.md); operating rules are in [AGENTS.md](AGENTS.md).
+1. [Meeting and access plan](MEETING-ACCESS-PLAN.md): current facts, unknowns and decisions.
+2. [Current project guide](../docs/PROJECT-GUIDE.md): purpose, responsibilities and evidence.
+3. [Code and evaluation guide](GAURI-CODE-EVALUATION-GUIDE.md): code boundaries, gaps, cases and performance work you can own.
+4. [Quality/performance protocol](../docs/EVALUATION.md), [grading](GRADING.md) and [validation rules](AGENTS.md): how results are assessed and what is prohibited.
 
-For account/tool setup read [GAURI-ONBOARDING.md](GAURI-ONBOARDING.md). Role
-definitions and the starter prompt are in [AGENT-ROLES.md](AGENT-ROLES.md).
-Use [GRADING.md](GRADING.md) for the proposed operational rubric and
-[API-ACCESS.md](API-ACCESS.md) for provider access, secrets and run-budget planning.
+Use the code guide's ordered links when exploring implementation; do not start
+by reading every historical document. Root [AGENTS.md](../AGENTS.md) also applies.
 
-Daily Colab/GitHub handoffs: [COLAB-WORKFLOW.md](COLAB-WORKFLOW.md).
-Repository and Project coordination: [PROGRAM-MANAGER.md](PROGRAM-MANAGER.md).
+## Execution route: University model API first, if approved
 
-## First session
+Tayler reports working access to a University-hosted NVIDIA NIM Nemotron service
+set up for this project. Gauri's permission, network reachability and ability to
+make inference requests are unverified. See [API access](API-ACCESS.md).
+The internal endpoint is supplied privately at the meeting, not in public Git.
 
-1. Your existing collaborator access is confirmed by Tayler. Use the validation
-   recovery branch linked in this guide and confirm the expected files are present
-   on GitHub before opening Colab. Record the commit you actually use.
-2. Work on a gauri/<experiment-name> branch. Read the root AGENTS.md. Real
-   accession material, filenames, manifests and mapping vaults never enter Colab.
-3. Copy [the experiment template](experiments/TEMPLATE.md) to a named experiment
-   document. Agree metrics/rejection thresholds before comparing models. Do not
-   guess the conflicting historical rubric thresholds.
-4. Run the offline regression checks from the repository root:
+A server API runs the model on the server. Gauri's laptop needs a reachable client,
+not a GPU or local weights. API-only access is different from server shell access;
+neither is automatically granted by GitHub access or Tayler's existing access.
+More models may be requested; none are promised installed or approved for her.
 
-   ```text
-   python -B validation/test_recovered_harness.py
-   ```
+Colab is an optional synthetic fallback for an available GPU, not a prerequisite
+or guaranteed compute resource. The shared notebook improvements are in draft
+PR #94; confirm merge state before assuming main includes them. No paid compute
+or provider API spending is authorized.
 
-   These use synthetic fixtures and a stub. Passing them is not a model result.
-5. For synthetic cloud testing, use
-   [the Colab notebook](https://github.com/terbe2022/RIMS-Archival-Project-/blob/gauri/validation-kit-recovery-2026-10-06/notebooks/colab-model-evaluation.ipynb). In Colab choose
-   File -> Open notebook -> GitHub, select the repository and the published
-   validation branch (or main after merging), then that notebook. Confirm a GPU
-   runtime and review dependency/model-download cells before running them.
-6. The notebook's clone cell currently clones the default branch. If the recovery
-   PR is not merged, change that cell to clone the published recovery branch:
+## First useful work
 
-   ```text
-   !git clone --branch gauri/validation-kit-recovery-2026-10-06 --single-branch https://github.com/terbe2022/RIMS-Archival-Project-.git
-   ```
+During the meeting: identify the service owner, confirm permission/scope, check
+reachability from Gauri's computer, and if approved make one bounded synthetic
+request. Record each outcome separately; access success is not model quality.
 
-   Record the actual commit used. Do not paste GitHub passwords/tokens into cells.
-   For a private repository, use an approved interactive access workflow.
-7. Run one candidate at a time on the same 54 fixtures and fixed prompt/settings after a two-case smoke check.
-   Record model revision, licence, dependencies, GPU and configuration. Preserve
-   failures, not just favorable outputs. Results are preliminary evidence about
-   observed failure shapes, not a guarantee for real accessions.
-8. Save synthetic run artifacts outside Git under local-runs/. The current
-   notebooks write to an evaluation directory; move only verified synthetic
-   artifacts into local-runs/ or retain them in the experiment runtime. Review
-   before exporting anything. Keep the blind grading key separate from graders.
-9. Use the [current rubric](GRADING.md) for frontier-model grading.
-   Graders need the full synthetic source, not only the displayed opening.
-   Record accuracy, genre, specificity and restraint separately.
-10. Complete a [result report](results/TEMPLATE.md), clear notebook outputs and
-    execution counts, review the Git diff, and open a PR. Link the experiment to
-    its GitHub issue; task status lives there, not in another Markdown TODO list.
+Gauri owns a capability ledger, source-labelled synthetic cases, candidate roles,
+quality/rubric design, long-input experiments, performance measurements and defect
+retests. Codex handles fixture/client/test implementation through reviewed PRs.
+If compute access is blocked, she can inspect code and deliver a protocol/fixture
+specification now; measured comparisons must wait for an execution route.
 
-## University-only follow-up
-
-[The server notebook](https://github.com/terbe2022/RIMS-Archival-Project-/blob/gauri/validation-kit-recovery-2026-10-06/notebooks/model-evaluation.ipynb) can read real manifests
-and is for approved University execution only. Check actual paths, data access,
-service ownership and run authorization first. Its Ollama startup example does
-not authorize starting a service. Do not use it in Colab with real inputs.
-No server connection or access grant is included in this workspace setup.
-
-After model comparison, pre-register the paired context experiment. The supplied
-notebooks do not implement it yet. Gold-set validation follows independently;
-model selection does not establish appraisal-policy accuracy.
-
-## What to share
-
-Share reviewed protocols, code, synthetic aggregate results and failure examples
-with provenance through PRs. Do not commit local-runs/, model weights, credential
-files or real runtime artifacts. No experiment has been run by creating this
-workspace. Tayler reviews engineering implications; Gauri owns evaluation.
-
-Current grading route: [FRONTIER-JUDGING.md](FRONTIER-JUDGING.md). No blind human grading is planned for synthetic model comparison; independent archivist policy/gold-set work remains separate.
-
-
-For the exact first smoke run, use [FIRST-EXPERIMENT.md](FIRST-EXPERIMENT.md). It distinguishes the harness contract from proposed metadata tasks.
-
-## Shared-code integration smoke route
-
-The [shared pipeline notebook](https://colab.research.google.com/github/terbe2022/RIMS-Archival-Project-/blob/main/notebooks/shared-pipeline-colab.ipynb) imports the actual server prompts from a recorded GitHub commit. Use it first to confirm text/vision model integration on a small generated synthetic set. This does not replace the larger recovery harness or agreed grading program. See [shared runtime instructions](../docs/SHARED-SERVER-COLAB.md). Actual GPU execution is not yet verified; no real accession data belongs in this Colab runtime.
+[Onboarding](GAURI-ONBOARDING.md) covers setup; [first experiment](FIRST-EXPERIMENT.md)
+covers acceptance. Existing larger recovered fixtures/harness are on PR #80's
+branch until merged: record the actual executable commit, not only a doc commit.
+Use [experiment](experiments/TEMPLATE.md) and [result](results/TEMPLATE.md) templates.
+Original content stays on approved infrastructure and out of Colab/AI prompts.
