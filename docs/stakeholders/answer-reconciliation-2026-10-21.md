@@ -1,3 +1,5 @@
+> Current follow-ups: [October 22 update](follow-up-update-2026-10-22.md) supersedes the earlier remaining-question list. Historical answers below are preserved.
+
 # Stakeholder answer reconciliation and remaining follow-ups
 
 Reviewed October 21, 2026. This supplements the dated August answer record; it does not replace Joanne’s words or turn engineering interpretations into approvals.

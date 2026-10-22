@@ -1,3 +1,5 @@
+> Current follow-ups: [October 22 update](follow-up-update-2026-10-22.md) supersedes the earlier remaining-question list. Historical answers below are preserved.
+
 > Dated supporting evidence. Historical measurements and proposals are not current system acceptance or renewed operational approval.
 
 # Answers from the Archives — August 2026
