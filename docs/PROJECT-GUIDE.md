@@ -71,3 +71,7 @@ Specialist references: [architecture](design/pipeline-design.md), [manifest](des
 ## Stakeholder answers reviewed October 21
 
 Read the [current answer reconciliation](stakeholders/answer-reconciliation-2026-10-21.md) and [website follow-up list](stakeholder-follow-up.html). Both supplied questionnaires were blank; the existing August answers and supplied email thread remain the evidence. Tayler’s follow-up recommends the project email processing lane, with ePADD only an optional research/access route subject to IT permission. Preserved historical interpretations about configured defaults, cleared access or retention-clock behavior are not proof of implementation. No new approval date or timeline is inferred.
+
+## October 22 follow-up update
+
+The [current outstanding questions](stakeholders/follow-up-update-2026-10-22.md) replace the October 21 list. Gauri starts with intake, then output/export; Tayler supports integration. Researcher email access is deferred, donor restrictions are optional intake design, and storage/confidentiality checks stay with technical owners. Joanne’s questions about models, fixtures, failures and taxonomy retrieval are for our team to answer. Workflow/export requirements remain to be implemented and tested.
