@@ -49,7 +49,7 @@ import json
 import re
 from pathlib import Path
 
-VISION_VERSION = "vision-0.1.0"
+VISION_VERSION = "vision-0.1.1"
 
 # The nine categories. Names must match the prompt exactly — it instructs the
 # model never to invent new ones, and a renamed category here would silently
@@ -213,6 +213,7 @@ def to_manifest(parsed: dict, model: str | None = None,
         row["s04_sensitivity_scores_json"] = json.dumps({
             "category": parsed["category"],
             "reason": parsed.get("reason"),
+            "evidence": parsed.get("offense_evidence"),
             "confidence": parsed.get("confidence"),
             "source": "vlm-combined-prompt",
         })
@@ -240,20 +241,32 @@ def ingest_jsonl(rows: list[dict], jsonl_path: str | Path,
     """
     Merge an existing image-classification run into manifest rows.
 
-    Matches on filename rather than full path, because the image pipeline ran
-    against its own directory layout and the manifest holds accession-relative
-    paths. Filenames in this corpus are sequential and unique, so this is safe
-    here; it would not be in a corpus with repeated names across folders, and
-    the collision count is reported so that assumption stays visible.
+    Prefer file_uid, then exact source/relative paths. Legacy bare filenames
+    are accepted only when unique. Ambiguous or unknown identities never fan
+    out to several files. An explicit unknown UID never falls back to a name.
     """
+    def path_key(value):
+        # Compare path spellings across platforms without guessing a new root
+        # or conflating case-distinct Unix paths.
+        return str(value or "").replace("\\", "/").removeprefix("./")
+
     by_name: dict[str, list[dict]] = {}
+    by_uid: dict[str, list[dict]] = {}
+    by_path: dict[str, list[dict]] = {}
     for r in rows:
-        by_name.setdefault(Path(r.get("filename") or "").name, []).append(r)
+        name = path_key(r.get("filename")).rsplit("/", 1)[-1]
+        if name:
+            by_name.setdefault(name, []).append(r)
+        if r.get("file_uid"):
+            by_uid.setdefault(str(r["file_uid"]), []).append(r)
+        for key in {path_key(r.get("path_raw")), path_key(r.get("path_norm"))} - {""}:
+            by_path.setdefault(key, []).append(r)
 
     matched = unmatched = flagged = errors = 0
     collisions = sum(1 for v in by_name.values() if len(v) > 1)
     categories: dict[str, int] = {}
     warmups = 0
+    ambiguous = 0
 
     with open(jsonl_path, encoding="utf-8") as fh:
         for line in fh:
@@ -274,10 +287,20 @@ def ingest_jsonl(rows: list[dict], jsonl_path: str | Path,
                 errors += 1
                 continue
 
-            name = Path(str(rec.get("image_path") or "")).name
-            targets = by_name.get(name)
+            if rec.get("file_uid"):
+                targets = by_uid.get(str(rec["file_uid"]), [])
+            else:
+                path = path_key(rec.get("image_path"))
+                targets = by_path.get(path, [])
+                if not targets and path and "/" not in path:
+                    targets = by_name.get(path, [])
+            if rec.get("accession_uid"):
+                targets = [r for r in targets if r.get("accession_uid") == rec["accession_uid"]]
             if not targets:
                 unmatched += 1
+                continue
+            if len(targets) != 1:
+                ambiguous += 1
                 continue
 
             parsed = parse_output(rec.get("output"))
@@ -298,6 +321,7 @@ def ingest_jsonl(rows: list[dict], jsonl_path: str | Path,
         "flagged": flagged,
         "by_category": categories,
         "filename_collisions": collisions,
+        "identity_ambiguous": ambiguous,
         "note": ("Flags route to restricted_review through the standard "
                  "precedence rule. No image is discarded on a model's say-so."),
     }
