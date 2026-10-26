@@ -1248,6 +1248,11 @@ function dispoCell(r){
     + ' aria-label="'+d+' '+esc(r.filename)+'">'+({selected:'✓',restricted_review:'⚑',discard_candidate:'◌'}[d])+'</button>';
   return stamp + '<div class="dispo">'+b('selected')+b('restricted_review')+b('discard_candidate')+'</div>';
 }
+function isHeld(r){
+  if((r.entities||[]).length || (r.sensitivityFlags||[]).length || (r.s04_sensitivity_flags||[]).length)return true;
+  const categories=['historical racialized performance','human remains','native american imagery','nudity/sexual content','violence/graphic content','hate symbols','medical/health records','student/pii records','other sensitive categories'];
+  return (r.flags||[]).some(f=>categories.includes(String(f).trim().toLowerCase()) || /sensitive|restricted|identifier|needs a person|phone|email|ssn|medical|ferpa|hipaa|racism|offensive|nudity|hate symbols|^unrecognised:/i.test(f));
+}
 function renderTriage(){
   const rows = filtered();
   const folderRows = (()=>{
@@ -1692,7 +1697,8 @@ function renderPublish(){
     excluded:      {label:'Excluded at triage',       sub:'duplicates and structural noise', c:'var(--ink-3)'}
   };
   const destOf = r =>
-      r.flags.includes('duplicate') || r.flags.some(f=>/exclusion|structural/.test(f)) ? 'excluded'
+      isHeld(r) ? 'supervisor'
+    : r.flags.includes('duplicate') || r.flags.some(f=>/exclusion|structural/.test(f)) ? 'excluded'
     : r.dispo === 'restricted_review' || r.importance === 'high' ? 'supervisor'
     : r.dispo === 'discard_candidate' ? 'not_selected'
     : r.dispo === 'selected' ? (r.flags.some(f=>/identifier/.test(f)) ? 'medusa_closed' : 'medusa_open')
@@ -1818,7 +1824,7 @@ function exportDecisions(){
   dl('decisions-manifest.csv', [head].concat(rows).map(r=>r.map(csvCell).join(',')).join('\n'), 'text/csv');
 }
 function exportDataset(){
-  const recs = S.records.filter(r=>r.dispo && r.dispo!=='discard_candidate' && !r.flags.includes('restricted'));
+  const recs = S.records.filter(r=>r.dispo==='selected' && !isHeld(r));
   const out = {
     generated: new Date().toISOString(),
     generator: 'Accession Workbench prototype',
@@ -2028,7 +2034,7 @@ document.addEventListener('click', e=>{
       let c = 0, held = 0;
       filtered().forEach(r=>{
         if(r.dispo || r.importance !== band) return;
-        if(r.importance === 'high' || r.flags.includes('needs a person')){ held++; return; }
+        if(r.importance === 'high' || isHeld(r)){ held++; return; }
         r.dispo = 'selected'; r.decidedAt = now; r.bulk = true; c++;
       });
       render('triage');
@@ -2038,7 +2044,7 @@ document.addEventListener('click', e=>{
     case 'bulk': {
       const d = a.dataset.d, now = new Date().toISOString().slice(0,16).replace('T',' ');
       let c=0;
-      S.records.forEach(r=>{ if(S.sel.has(r.id)){ r.dispo=d; r.decidedAt=now; c++; }});
+      S.records.forEach(r=>{ if(S.sel.has(r.id) && (!isHeld(r) || d==='restricted_review')){ r.dispo=d; r.decidedAt=now; c++; }});
       S.sel.clear(); render('triage'); toast(c+' files marked '+d);
       break;
     }

@@ -46,6 +46,7 @@ FIELDS = [
     "s03_lane", "s03_status", "s03_text_len", "s03_text_sample",
     "s03_needs_ocr",
     "s04_description", "s04_summary", "s04_sensitivity_flags",
+    "s04_sensitivity_scores_json", "s04_pii_entities_json",
     "s05_decision", "s05_rationale", "s05_generated_fields",
     "s05_human_reviewed",
     "dc_title", "dc_date", "dc_type", "dc_subject", "dc_creator",
@@ -207,7 +208,8 @@ def main() -> int:
                 it["filename"] = f"item-{n:04d}" + (
                     f".{r.get('extension')}" if r.get("extension") else "")
                 for k in ("path_norm", "parent_folder", "s03_text_sample",
-                          "s04_description", "dc_title", "dc_subject", "dc_creator"):
+                          "s04_description", "dc_title", "dc_subject", "dc_creator",
+                          "s04_sensitivity_scores_json", "s04_pii_entities_json"):
                     it[k] = None
             else:
                 it["snippet"] = (r.get("s03_text_sample") or "")[:args.snippet]

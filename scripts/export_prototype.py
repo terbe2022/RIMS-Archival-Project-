@@ -52,7 +52,7 @@ FIELDS = [
     "s01_format_name", "s02_decision", "s02_rule_matched", "s02_band",
     "s02_score", "s02_rationale", "s03_lane", "s03_text_len",
     "s03_text_sample", "s04_description", "s04_sensitivity_flags",
-    "s04_pii_entities_json", "s05_decision", "s05_rationale",
+    "s04_pii_entities_json", "s04_sensitivity_scores_json", "s05_decision", "s05_rationale",
     "s05_generated_fields", "dc_title", "dc_date", "dc_subject",
     "layer", "retained_by_association", "duplicate_of",
     "s02_structural_exclusion",
@@ -146,6 +146,18 @@ def confidence(r: dict):
     return round(float(r["s02_score"]), 3)
 
 
+def sensitivity_evidence(row: dict):
+    raw = row.get("s04_sensitivity_scores_json")
+    if not raw:
+        return None
+    try:
+        return json.loads(raw)
+    except (ValueError, TypeError):
+        # Private review only. Preserve the failed input for diagnosis rather
+        # than treating unparseable evidence as an absence of sensitivity.
+        return {"error": "invalid sensitivity evidence JSON", "raw": raw}
+
+
 def build(rows: list[dict], forms: dict, uid_to_form: dict,
           snippet: int) -> tuple[list, list]:
     by_uid: dict[str, list[dict]] = defaultdict(list)
@@ -180,6 +192,9 @@ def build(rows: list[dict], forms: dict, uid_to_form: dict,
                                 "about its contents."),
                 "keywords": [k for k in (r.get("dc_subject") or "").split("; ") if k],
                 "flags": flags(r),
+                # Complete machine fields, separate from the shortened badges.
+                "sensitivityFlags": list(r.get("s04_sensitivity_flags") or []),
+                "sensitivityEvidence": sensitivity_evidence(r),
                 "importance": importance(r),
                 "confidence": confidence(r),
                 "rationale": rationale(r)["disposition"]

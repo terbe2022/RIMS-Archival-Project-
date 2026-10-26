@@ -2080,7 +2080,11 @@ function submitIntake(){
 let STORE_KEY='rims-protected-server-0bbf4418-v1';
 let fixtureData;
 S.audit=[]; S.runs=[]; S.reviewer='';
-function held(r){ return (r.entities||[]).length>0||(r.flags||[]).some(f=>/sensitive|restricted|identifier|needs a person|phone|email|ssn|medical|ferpa|hipaa/i.test(f)); }
+function held(r){
+  if((r.entities||[]).length || (r.sensitivityFlags||[]).length || (r.s04_sensitivity_flags||[]).length)return true;
+  const categories=['historical racialized performance','human remains','native american imagery','nudity/sexual content','violence/graphic content','hate symbols','medical/health records','student/pii records','other sensitive categories'];
+  return (r.flags||[]).some(f=>categories.includes(String(f).trim().toLowerCase()) || /sensitive|restricted|identifier|needs a person|phone|email|ssn|medical|ferpa|hipaa|racism|offensive|nudity|hate symbols|^unrecognised:/i.test(f));
+}
 function proposal(r){ return held(r)?'restricted_review':r.importance==='low'?'discard_candidate':'selected'; }
 function destination(r){
   if(held(r)||r.dispo==='restricted_review')return 'supervisor';

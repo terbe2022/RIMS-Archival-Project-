@@ -56,7 +56,7 @@ from pathlib import Path
 
 from . import redaction
 
-STAGE_VERSION = "s04-0.1.0"
+STAGE_VERSION = "s04-0.1.1"
 
 LEVELS = ("reading_room", "open_web")
 
@@ -239,7 +239,8 @@ def run(rows: list[dict], accession: dict, out_dir: str | Path,
 
         r["s04_pii_entities_json"] = json.dumps(
             [{"type": e.type, "tier": e.tier, "detector": e.detector,
-              "confidence": e.confidence} for e in entities])
+              "confidence": e.confidence, "start": e.start, "end": e.end,
+              "coordinate_space": "original_extracted_text"} for e in entities])
         r["s04_masked_text_path"] = json.dumps(written)
         r["s04_sensitivity_flags"] = summary["direct"] or None
         r["s04_version"] = STAGE_VERSION

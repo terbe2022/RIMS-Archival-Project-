@@ -34,7 +34,7 @@ import math
 import re
 from dataclasses import dataclass, field
 
-SCORER_VERSION = "relevance-0.1.0"
+SCORER_VERSION = "relevance-0.1.1"
 
 _MATCH_CAP = 6      # distinctive terms above which a match is already convincing
 BAND_HIGH = 0.55
@@ -282,12 +282,20 @@ def score_folders(rows: list[dict], threshold: float = BAND_HIGH) -> int:
     Returns the number of files retained by association.
     """
     from collections import defaultdict
-    by_folder: dict[str, list[dict]] = defaultdict(list)
+    from pathlib import PurePosixPath
+    by_folder: dict[tuple[str, str], list[dict]] = defaultdict(list)
     for r in rows:
-        by_folder[str(r.get("parent_folder") or "")].append(r)
+        path = r.get("path_norm")
+        accession = r.get("accession_uid")
+        # A display folder name cannot establish a contextual relationship.
+        # Missing identity is unknown, not a shared anonymous folder.
+        if not path or not accession:
+            continue
+        folder = str(PurePosixPath(str(path).replace("\\", "/")).parent)
+        by_folder[(str(accession), folder)].append(r)
 
     n = 0
-    for folder, members in by_folder.items():
+    for (accession, folder), members in by_folder.items():
         scores = [m.get("s02_file_score") or 0.0 for m in members]
         if not scores:
             continue

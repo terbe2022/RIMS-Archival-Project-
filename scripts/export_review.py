@@ -36,6 +36,10 @@ _KEEP = [
     "layer", "retained_by_association",
 ]
 
+# Evidence is sensitive review data. Never include it in the public allow-list.
+_PRIVATE = ["s04_sensitivity_flags", "s04_sensitivity_scores_json",
+            "s04_pii_entities_json"]
+
 
 def _public_filename(row: dict, n: int) -> str:
     """A stable, meaningless label so the UI has something to show."""
@@ -44,7 +48,7 @@ def _public_filename(row: dict, n: int) -> str:
 
 
 def load(parquet: Path) -> list[dict]:
-    cols = [c for c in _KEEP + list(_IDENTIFYING)
+    cols = [c for c in _KEEP + _PRIVATE + list(_IDENTIFYING)
             if c in pq.read_schema(parquet).names]
     return pq.read_table(parquet, columns=cols).to_pylist()
 
@@ -77,6 +81,8 @@ def build(rows: list[dict], form: dict | None, public: bool) -> dict:
     out = []
     for i, r in enumerate(rows, 1):
         item = {k: r.get(k) for k in _KEEP if k in r}
+        if not public:
+            item.update({k: r[k] for k in _PRIVATE if k in r})
         if public:
             item["filename"] = _public_filename(r, i)
             item["folder"] = f"folder-{(r.get('depth') or 0)}"
