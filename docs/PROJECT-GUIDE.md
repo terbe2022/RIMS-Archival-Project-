@@ -46,6 +46,17 @@ Authenticate through your own approved account; no passwords/tokens in docs, not
 
 Verify source hashes and raw-to-record mapping before evaluation; equal counts are not proof. Prefer Linux/WSL extraction for Windows-incompatible source names. Extracted text is not original binaries; website preview references are not currently connected assets.
 
+## Gauri's execution access: immediate priority
+
+Tayler reports working access to a University-hosted NVIDIA NIM Nemotron model
+API set up for this project, with additional models requestable. Gauri's own
+permission, network route and inference capability remain unverified. The NIM
+service is separate from the archival pipeline host; do not transfer hardware
+or dependency claims between them. See [meeting/access plan](../validation/MEETING-ACCESS-PLAN.md)
+and [API verification](../validation/API-ACCESS.md). Internal endpoint details
+are supplied privately. Server-hosted inference needs no GPU/weights on her laptop.
+Colab is optional synthetic fallback rather than the required onboarding route.
+
 ## Shared workflow and next checks
 
 Codex edits local source; task branches/PRs integrate through GitHub main; server and Colab use recorded reviewed commits. Same code SHA does not guarantee environment or data parity. Colab runs synthetic experiments; direct Codex-to-Colab runtime control is not configured. Use `tayler/*`, `gauri/*`, `setup/*` branches and meaningful tests.
