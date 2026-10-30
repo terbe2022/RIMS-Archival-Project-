@@ -1,0 +1,8 @@
+# Private virtual environment only; never install into the Colab kernel.
+torch==2.8.0
+torchvision==0.23.0
+transformers==4.57.6
+huggingface-hub==0.36.2
+accelerate==1.10.1
+sentencepiece==0.2.1
+Pillow==11.3.0
