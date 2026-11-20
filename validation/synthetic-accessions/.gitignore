@@ -1,0 +1,6 @@
+# Generator caches only. Do NOT add global patterns such as __pycache__/, .DS_Store,
+# Thumbs.db or .env here: the corpus contains those deliberately as test cases.
+/generator/__pycache__/
+# Multi-GB stress files are generated on demand (generator/make_large_files.py)
+/corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/LabDrive_BIG/
+/labels/large_files_labels.jsonl

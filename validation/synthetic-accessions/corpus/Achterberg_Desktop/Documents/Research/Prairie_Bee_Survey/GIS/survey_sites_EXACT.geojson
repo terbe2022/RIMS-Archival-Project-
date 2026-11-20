@@ -1,0 +1,175 @@
+{
+ "type": "FeatureCollection",
+ "features": [
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -88.6431,
+     40.0712
+    ]
+   },
+   "properties": {
+    "code": "SBP",
+    "name": "Sangamon Bend Prairie",
+    "county": "Piatt",
+    "restored": 1992,
+    "ownership": "state"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -87.7402,
+     40.1489
+    ]
+   },
+   "properties": {
+    "code": "KRR",
+    "name": "Kickapoo Ridge Restoration",
+    "county": "Vermilion",
+    "restored": 1998,
+    "ownership": "state"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -88.1903,
+     40.2511
+    ]
+   },
+   "properties": {
+    "code": "HCP",
+    "name": "Hollis Creek Prairie",
+    "county": "Champaign",
+    "restored": 2003,
+    "ownership": "university"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -88.3127,
+     40.0398
+    ]
+   },
+   "properties": {
+    "code": "MLP",
+    "name": "Meadowlark Prairie",
+    "county": "Champaign",
+    "restored": 2008,
+    "ownership": "county"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -88.2785,
+     39.8102
+    ]
+   },
+   "properties": {
+    "code": "OTW",
+    "name": "Old Tile Works Prairie",
+    "county": "Douglas",
+    "restored": 2011,
+    "ownership": "county"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -88.0164,
+     40.5521
+    ]
+   },
+   "properties": {
+    "code": "BRF",
+    "name": "Ritter Farm Remnant",
+    "county": "Ford",
+    "restored": 1900,
+    "ownership": "private"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -88.8213,
+     39.8925
+    ]
+   },
+   "properties": {
+    "code": "WCR",
+    "name": "Willow Creek Restoration",
+    "county": "Macon",
+    "restored": 2014,
+    "ownership": "state"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -88.1702,
+     39.463
+    ]
+   },
+   "properties": {
+    "code": "PEN",
+    "name": "Pennant Hill Prairie",
+    "county": "Coles",
+    "restored": 2016,
+    "ownership": "private"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -88.091,
+     40.1802
+    ]
+   },
+   "properties": {
+    "code": "CRB",
+    "name": "Cardinal Bluff Planting",
+    "county": "Champaign",
+    "restored": 2018,
+    "ownership": "university"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -88.241,
+     40.0601
+    ]
+   },
+   "properties": {
+    "code": "LAF",
+    "name": "Lafayette Road Planting",
+    "county": "Champaign",
+    "restored": 2019,
+    "ownership": "university"
+   }
+  }
+ ]
+}

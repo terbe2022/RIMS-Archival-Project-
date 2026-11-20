@@ -1,0 +1,21 @@
+{
+  "accession": "ACC-SYN-2026-002",
+  "name": "Office of the Associate Dean for Academic Programs, College of Agricultural and Environmental Sciences — shared drive (SYNTHETIC)",
+  "job_type": "mixed",
+  "source_folder": "corpus/ADAP_Office_Share",
+  "process_classes": ["images", "email", "documents", "media", "other"],
+  "source": "Network shared drive of the Office of the Associate Dean for Academic Programs (ADAP), College of Agricultural and Environmental Sciences (CAES), transferred to the Archives in March 2024 when the office was merged into the college's Office of Undergraduate Affairs. Includes the office's shared folders, saved email, a Teams chat export, and personal folders that staff left on the share. OneDrive synchronisation created conflict copies throughout.",
+  "owner": "Office of the Associate Dean for Academic Programs, CAES. Associate Deans: Leonard Whitcomb (2012-2018) and Sunita Rao (2018-2023). Staff: Brenda Kowal (office manager), Marcus Hale (curriculum coordinator).",
+  "role": "Administrative unit, 2012-2023. Oversaw undergraduate curriculum, academic policy, program review and accreditation, academic integrity cases, and student petitions for the college's 11 majors.",
+  "scope": "Administrative records of college-level academic governance, 2012-2023, including the college's move to remote instruction during COVID-19 (2020-2021) and the 2019-2024 strategic plan.",
+  "research": "Not a research unit. Records are administrative: policies, committee minutes, curriculum proposals, program reviews, accreditation evidence, institutional data and correspondence.",
+  "bio": "The office ran the college Curriculum Committee, wrote the college's academic integrity and grade appeal procedures, led two program reviews and the college's portion of the 2017 institutional accreditation, and coordinated the 2020 emergency shift to remote instruction. Sunita Rao chaired the 2019-2024 strategic planning process.",
+  "valuable": "Final, approved versions of college academic policies and procedures, and drafts that show significant changes in policy. Agendas and minutes of the college Curriculum Committee, and approved or rejected program and course proposals. Program review self-studies, external reviewer reports and responses. Accreditation reports and evidence. The 2019-2024 strategic plan, its drafts, town hall materials and aggregated survey results. Annual reports of the office. Records documenting the college's response to COVID-19, including guidance to faculty, course modality tracking and faculty surveys. Correspondence of the associate dean that sets, explains or applies policy. Organizational charts and aggregated enrollment, retention and course outcome data. Presentations to college leadership and recordings of town halls.",
+  "exclude": "Routine transactional records that have passed their retention period, including purchase orders, travel vouchers, room bookings and catering. Superseded drafts when a final exists and the draft shows no significant change. Exact duplicates and synchronisation conflict copies. Individual student records such as petitions, transcripts and enrollment extracts with student identifiers, which belong in the student records system. Blank forms, templates and letterhead. Announcements and newsletters from other units. Personal files that staff left on the share. Operating-system files and caches.",
+  "access": "Personnel records, including search committee deliberations, candidate application materials, promotion and tenure documents, grievances and salary information, are restricted. Student records are FERPA-protected, including academic integrity cases. Raw strategic-plan survey responses containing names are restricted; aggregated results may be open.",
+  "submitted_at": "2026-11-13T13:00:00-06:00",
+  "submitted_by": "synthetic-test-fixture",
+  "status": "queued",
+  "run_history": [],
+  "notes": "SYNTHETIC TEST ACCESSION (administrative records). Ground-truth labels in labels/ACC-SYN-2026-002/ must never be passed to the pipeline under test."
+}

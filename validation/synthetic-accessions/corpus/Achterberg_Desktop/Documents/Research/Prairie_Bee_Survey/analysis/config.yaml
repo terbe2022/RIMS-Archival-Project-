@@ -1,0 +1,5 @@
+data_dir: ../data
+years: [2016, 2022]
+exclude_taxa: [Apis mellifera]
+k_smooth: 5
+remnant_age_code: 40

@@ -1,0 +1,11 @@
+---
+title: 'Bare ground vs floral density'
+author: 'J. Feld'
+---
+
+```{r}
+q <- read.csv('../data/raw/floral_bareground_quadrats_2019-2022.csv')
+summary(lm(pct_bare_ground ~ site, q))
+```
+
+Bare ground beats flowers by dAIC 6.4.

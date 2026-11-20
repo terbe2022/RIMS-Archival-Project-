@@ -1,0 +1,26 @@
+From: Miriam Achterberg <machterberg@illinois.example.edu>
+To: Rafael Quintero <rquintero@stats.prairiestate.example.edu>
+Subject: Re: Re: richness plateau - mixed model results
+Date: Thu, 23 Apr 2020 07:12:00 -0500
+Message-ID: <179454683927.1164.2409587501154181921@mail.illinois.example.edu>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+
+Rafael -- agreed, say it up front. I'll write a paragraph for the
+discussion framing BRF as the reference condition rather than a data point, a=
+nd we
+can show the specialist curve with and without it in Fig. S4.
+
+I also want to check whether the specialist lag tracks bare-ground cover. Jon=
+ah's
+2019 quadrat data have percent bare ground at every pan-trap station. If grou=
+nd
+nesters are limited by nesting substrate rather than flowers, that's a manage=
+ment
+recommendation DNR can actually act on (prescribed burns open up bare ground).
+
+-- M
+
+On Wed, Apr 22, 2020 at 4:41 PM Rafael Quintero wrote:
+> I reran the richness models with site as a random intercept ...

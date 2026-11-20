@@ -1,0 +1,21 @@
+{
+  "accession": "ACC-SYN-2026-001-B",
+  "name": "Department of Entomology history project — Achterberg teaching, mentoring and service (SYNTHETIC)",
+  "job_type": "mixed",
+  "source_folder": "corpus/Achterberg_Desktop",
+  "process_classes": ["images", "email", "documents", "media", "other"],
+  "source": "Same transfer as ACC-SYN-2026-001: the full office desktop computer of Professor Miriam K. Achterberg, copied by departmental IT on her retirement in June 2024. This second appraisal is requested by the Department of Entomology for its 150th-anniversary history project. Research data and publications are being appraised separately under ACC-SYN-2026-001 and will go to the university research data repository.",
+  "owner": "Miriam K. Achterberg, Professor Emerita of Entomology, Department of Entomology.",
+  "role": "Faculty member 2006-2024. Taught ENTM 210 Insects and People for 15 years. Advised 6 PhD and 9 MS students. Served on the departmental promotion committee, the graduate admissions committee, and the board of the Illinois Prairie Society; member of the statewide pollinator working group.",
+  "scope": "Records of how one faculty member taught, mentored students, ran a lab as a working community, served the department and profession, and engaged the public, 2004-2024.",
+  "research": "Field ecology of native bees in restored prairies. Research content matters here only where it shows teaching, mentoring, lab life, service or public engagement.",
+  "bio": "Achterberg was known in the department for an unusually hands-on introductory course built around field trips to prairie bee plots, for training graduate students in field methods, and for bringing landowners, garden clubs, 4-H groups and journalists into contact with the lab's work.",
+  "valuable": "Syllabi and lecture materials from every year she taught, to show how courses changed. Records of mentoring graduate students, such as her comments on their chapters, committee and exam records, posters and theses they produced, and recommendation correspondence. Records of lab life and culture, including lab meetings, lab rosters, safety practices, and the lab logo. Service to the department, university and profession, including committee work, society boards, working groups, and manuscript or promotion reviews she carried out. Public engagement and outreach, including talks to community groups, media interviews, citizen-science events, and relationships with landowners. Her curriculum vitae, retirement records, and anything summarising her career.",
+  "exclude": "Raw research data, analysis code, GIS layers, specimen images and figures, which are appraised under the research accession. Manuscript drafts and grant proposals, except where they document student training. Unannotated literature by other authors. Personal financial, medical and household records, family photographs and personal media. Operating-system files, installers, caches and exact duplicates. Vendor marketing, spam, phishing and routine announcements she did not write. Individual student grades and class rosters.",
+  "access": "Student records (grades, applications, exam records, letters about students) are FERPA-protected. Promotion reviews of colleagues and personnel matters concerning lab staff are confidential personnel records. Peer reviews she wrote are confidential. Exact locations of the rusty patched bumble bee site remain restricted. Credentials must be flagged and never published.",
+  "submitted_at": "2026-11-13T12:00:00-06:00",
+  "submitted_by": "synthetic-test-fixture",
+  "status": "queued",
+  "run_history": [],
+  "notes": "SYNTHETIC ALTERNATE FORM over the same corpus as ACC-SYN-2026-001. Purpose: confirm that relevance follows the intake form, not the file. Descriptions should be identical across the two runs; only the relevance pass should change. Labels: labels/ACC-SYN-2026-001/ground_truth_formB.csv."
+}
