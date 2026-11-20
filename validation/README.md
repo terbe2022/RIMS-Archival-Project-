@@ -1,5 +1,7 @@
 # Validation workspace
 
+The [synthetic accession package for Gauri](synthetic-accessions/START-HERE.md) contains two invented collections (371 files), three intake forms, unreviewed reference labels and generators. It is copied into this shared repository so no access to Tayler's separate account is needed. Start there for accession-aware routing and relevance tests; this is separate from the earlier 54-case description experiment.
+
 Start with [START-HERE](START-HERE.md), [Gauri onboarding](GAURI-ONBOARDING.md) and [first experiment](FIRST-EXPERIMENT.md). Use [the plan](PLAN.md), [grading](GRADING.md), [experiment template](experiments/TEMPLATE.md) and [results template](results/TEMPLATE.md) to record synthetic evaluation evidence.
 
 These documents are consolidated on main. The [executable kit](https://github.com/terbe2022/RIMS-Archival-Project-/tree/gauri/validation-kit-recovery-2026-10-06/validation) remains in PR #80 pending separate review. Use notebooks, fixtures and harness from the same recorded branch commit. Eight synthetic harness checks passed; this does not establish a successful Qwen run or completed model evaluation.

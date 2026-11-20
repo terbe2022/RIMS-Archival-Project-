@@ -1,0 +1,113 @@
+{
+ "channel": "ADAP > General",
+ "messages": [
+  {
+   "id": "168400000",
+   "createdDateTime": "2020-03-13T09:15:00Z",
+   "from": {
+    "user": {
+     "displayName": "Sunita Rao"
+    }
+   },
+   "body": {
+    "content": "Readiness survey link is live - please push to your departments."
+   }
+  },
+  {
+   "id": "168400001",
+   "createdDateTime": "2020-03-13T10:15:00Z",
+   "from": {
+    "user": {
+     "displayName": "Marcus Hale"
+    }
+   },
+   "body": {
+    "content": "212 responses already!"
+   }
+  },
+  {
+   "id": "168400002",
+   "createdDateTime": "2020-03-13T11:15:00Z",
+   "from": {
+    "user": {
+     "displayName": "Brenda Kowal"
+    }
+   },
+   "body": {
+    "content": "Who has the key to the copier room?"
+   }
+  },
+  {
+   "id": "168400003",
+   "createdDateTime": "2020-03-13T12:15:00Z",
+   "from": {
+    "user": {
+     "displayName": "Sunita Rao"
+    }
+   },
+   "body": {
+    "content": "Labs: we will allow Incompletes. Writing it into the FAQ now."
+   }
+  },
+  {
+   "id": "168400004",
+   "createdDateTime": "2020-03-14T13:15:00Z",
+   "from": {
+    "user": {
+     "displayName": "Marcus Hale"
+    }
+   },
+   "body": {
+    "content": "FAQ v3 posted"
+   }
+  },
+  {
+   "id": "168400005",
+   "createdDateTime": "2020-03-14T14:15:00Z",
+   "from": {
+    "user": {
+     "displayName": "Brenda Kowal"
+    }
+   },
+   "body": {
+    "content": "Lunch order for Friday?"
+   }
+  },
+  {
+   "id": "168400006",
+   "createdDateTime": "2020-03-14T15:15:00Z",
+   "from": {
+    "user": {
+     "displayName": "Sunita Rao"
+    }
+   },
+   "body": {
+    "content": "Provost agreed to P/NP. Huge."
+   }
+  },
+  {
+   "id": "168400007",
+   "createdDateTime": "2020-03-14T16:15:00Z",
+   "from": {
+    "user": {
+     "displayName": "Marcus Hale"
+    }
+   },
+   "body": {
+    "content": "FAQ v7 is final for now"
+   }
+  },
+  {
+   "id": "168400008",
+   "createdDateTime": "2020-03-15T09:15:00Z",
+   "from": {
+    "user": {
+     "displayName": "Brenda Kowal"
+    }
+   },
+   "body": {
+    "content": "Happy birthday Marcus!! 🎂"
+   }
+  }
+ ]
+}

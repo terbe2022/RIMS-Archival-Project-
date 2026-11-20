@@ -1,0 +1,105 @@
+{
+  "survey": "Prairie Bee Survey",
+  "sites": [
+    {
+      "code": "SBP",
+      "name": "Sangamon Bend Prairie",
+      "county": "Piatt",
+      "restored": 1992,
+      "lat": 40.0712,
+      "lon": -88.6431,
+      "ownership": "state",
+      "remnant": false
+    },
+    {
+      "code": "KRR",
+      "name": "Kickapoo Ridge Restoration",
+      "county": "Vermilion",
+      "restored": 1998,
+      "lat": 40.1489,
+      "lon": -87.7402,
+      "ownership": "state",
+      "remnant": false
+    },
+    {
+      "code": "HCP",
+      "name": "Hollis Creek Prairie",
+      "county": "Champaign",
+      "restored": 2003,
+      "lat": 40.2511,
+      "lon": -88.1903,
+      "ownership": "university",
+      "remnant": false
+    },
+    {
+      "code": "MLP",
+      "name": "Meadowlark Prairie",
+      "county": "Champaign",
+      "restored": 2008,
+      "lat": 40.0398,
+      "lon": -88.3127,
+      "ownership": "county",
+      "remnant": false
+    },
+    {
+      "code": "OTW",
+      "name": "Old Tile Works Prairie",
+      "county": "Douglas",
+      "restored": 2011,
+      "lat": 39.8102,
+      "lon": -88.2785,
+      "ownership": "county",
+      "remnant": false
+    },
+    {
+      "code": "BRF",
+      "name": "Ritter Farm Remnant",
+      "county": "Ford",
+      "restored": null,
+      "lat": 40.5521,
+      "lon": -88.0164,
+      "ownership": "private",
+      "remnant": true
+    },
+    {
+      "code": "WCR",
+      "name": "Willow Creek Restoration",
+      "county": "Macon",
+      "restored": 2014,
+      "lat": 39.8925,
+      "lon": -88.8213,
+      "ownership": "state",
+      "remnant": false
+    },
+    {
+      "code": "PEN",
+      "name": "Pennant Hill Prairie",
+      "county": "Coles",
+      "restored": 2016,
+      "lat": 39.463,
+      "lon": -88.1702,
+      "ownership": "private",
+      "remnant": false
+    },
+    {
+      "code": "CRB",
+      "name": "Cardinal Bluff Planting",
+      "county": "Champaign",
+      "restored": 2018,
+      "lat": 40.1802,
+      "lon": -88.091,
+      "ownership": "university",
+      "remnant": false
+    },
+    {
+      "code": "LAF",
+      "name": "Lafayette Road Planting",
+      "county": "Champaign",
+      "restored": 2019,
+      "lat": 40.0601,
+      "lon": -88.241,
+      "ownership": "university",
+      "remnant": false
+    }
+  ]
+}

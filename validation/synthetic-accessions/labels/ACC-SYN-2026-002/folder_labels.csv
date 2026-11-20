@@ -1,0 +1,20 @@
+folder,dominant_relevance,gt_summary
+ADAP_Office_Share/Accreditation,high,"2017 institutional accreditation: college narrative, evidence index, scanned action letter."
+ADAP_Office_Share/Annual_Reports,high,Office annual reports 2013-2022.
+ADAP_Office_Share/COVID-19_Response,high,"COVID-19 response: faculty FAQ, modality tracker, readiness survey, training slides, screenshot, and a routine purchase order."
+ADAP_Office_Share/Correspondence,high,"Saved email sorted by staff into policy, operations, restricted/routine folders."
+ADAP_Office_Share/Correspondence/Policy,high,"Associate dean correspondence that sets or explains policy, COVID-19 guidance, program approval chain."
+ADAP_Office_Share/Correspondence/Restricted_and_Routine,low,"Student petitions and integrity cases (FERPA), search deliberations and salaries (personnel), routine requests."
+ADAP_Office_Share/Correspondence/Routine,none,"Scheduling, catering, room booking, newsletters, phishing."
+ADAP_Office_Share/Curriculum_Committee,high,"Curriculum Committee agendas and minutes 2014-2023 (some as signed scans), course and program proposals, a duplicate ZIP."
+ADAP_Office_Share/Data,high,"Institutional data: aggregated enrollment and outcomes (keep), a student-level extract (FERPA), a dashboard definition, legacy and duplicate copies."
+ADAP_Office_Share/Events,moderate,"Convocation program and photos (near-duplicates), routine room-booking log."
+ADAP_Office_Share/Finance,none,"Purchase orders and travel vouchers past retention, plus an office budget with salary lines."
+ADAP_Office_Share/Org_Charts,high,Organizational charts 2015 and 2019.
+ADAP_Office_Share/Personnel,low,Restricted personnel records: search materials and an offer letter.
+ADAP_Office_Share/Policies,high,"College academic policies: final approved versions, drafts showing major changes, superseded drafts, sync conflicts, legacy format."
+ADAP_Office_Share/Program_Review,high,"Agronomy B.S. 2017 program review: self-study, external report, response, plus logistics and a catering invoice."
+ADAP_Office_Share/Staff_Folders,low,"Staff personal folders: duplicate policies, personal resume and photo, coordinator's working notes and course inventory."
+ADAP_Office_Share/Strategic_Plan_2019-2024,high,"Strategic plan 2019-2024: five drafts (two with significant changes), final, town hall slides and recording, aggregated and raw survey data."
+ADAP_Office_Share/Templates,none,"Blank forms, letterhead and a lock file."
+ADAP_Office_Share/Website_Content,low,Saved web copies of policies.

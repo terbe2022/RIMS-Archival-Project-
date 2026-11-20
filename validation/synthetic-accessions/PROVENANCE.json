@@ -1,0 +1,2430 @@
+{
+  "source_repository": "tayler-erbe/archivist-data",
+  "source_commit": "d7a3ed2884b15cb21bac6f3488dc21ec69412801",
+  "destination_repository": "terbe2022/RIMS-Archival-Project-",
+  "destination_directory": "validation/synthetic-accessions",
+  "source_retained": true,
+  "source_tree": "12fde07067bfc80a5b7ce2ac5d67ce3a6ca4c86c",
+  "source_file_count": 403,
+  "source_bytes": 128977222,
+  "files": [
+    {
+      "path": ".gitattributes",
+      "bytes": 130,
+      "git_blob_sha": "741ff92db57d3ed86a3bdbd5463b8656a9e72288",
+      "sha256": "c093218cc4a21e1bf531f06680ed2f768d3c8df6bb9c7b90d6203a08b8783108"
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 381,
+      "git_blob_sha": "e7afd54d332673152ca92e05f608622a73075e84",
+      "sha256": "142a6cd29100a9a5766557328cfc8c755d4ef67d0dd17745bfecdb682edb850a"
+    },
+    {
+      "path": "README.md",
+      "bytes": 9312,
+      "git_blob_sha": "c07402d90e80e3c50205d2982d0144f4752d5635",
+      "sha256": "cf9df5c7acd9b3849fa9e10ebc8a9d43befbd475e257be04e463537a7372cb11"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Accreditation/HLC_2017/Criterion3_CAES_contribution.docx",
+      "bytes": 36877,
+      "git_blob_sha": "d48db74a37d13b27adbaf8061b93e0f2a3e8fcfd",
+      "sha256": "3f43c3584b6dac2e6dd6b67c7cd02ed9a5abb2147cc03a03ffcbf29a3b2de0a9"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Accreditation/HLC_2017/Evidence_Index_CAES.xlsx",
+      "bytes": 4989,
+      "git_blob_sha": "09f2bead31775511e81d949955a3ee6e060b10de",
+      "sha256": "1db178f5a44312cc1a09f51229507d2c89a8ad0dbe54b6b9b8a5e11d9e937ca9"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Accreditation/HLC_2017/HLC_action_letter_2017.tif",
+      "bytes": 869200,
+      "git_blob_sha": "fd894d2fd4625236715ae808476a2b2b974c33fa",
+      "sha256": "8f059a04f59705910c1de5e1b8994e26c275545318a8db6f5fac4eba7b46f8b8"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Annual_Reports/ADAP_Annual_Report_2013.docx",
+      "bytes": 36804,
+      "git_blob_sha": "1cfeff78de5d0bdf53cc7e9a0889116eb539bc1c",
+      "sha256": "105c5250883d8d9e0590a4c7e756df9bbb32c537789fc2b8aaad87cb89f8eba2"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Annual_Reports/ADAP_Annual_Report_2014.docx",
+      "bytes": 36807,
+      "git_blob_sha": "5148617bfa51717c17b12e25f14a67669f206b02",
+      "sha256": "bb6de1461552f30d6959339976f64ab8c4190cd143e5da9633ec10b756568bab"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Annual_Reports/ADAP_Annual_Report_2015.docx",
+      "bytes": 36805,
+      "git_blob_sha": "ad0ed601e0cee741cef08ee8b9d1637bd2ba4940",
+      "sha256": "a99908a7f189cfc0f3173a6f5fb02d05bcd55655b8428ed05694deaece09e24a"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Annual_Reports/ADAP_Annual_Report_2016.docx",
+      "bytes": 36804,
+      "git_blob_sha": "ca96127b4f46dd3e8d9e4b18d471b2f2a7694a2f",
+      "sha256": "eca9fca2b7d7fe71cb2a8608b90e9747504d4095ae7ed8e645926bba65865aab"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Annual_Reports/ADAP_Annual_Report_2017.docx",
+      "bytes": 36806,
+      "git_blob_sha": "c9da134e19ad1b1f7c0ff085461c39e3b2732c45",
+      "sha256": "20fbcb77f88dde4de7b7544062c1e8af0ea444540aa25554643b1b0c6ef3ba57"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Annual_Reports/ADAP_Annual_Report_2018.pdf",
+      "bytes": 1851,
+      "git_blob_sha": "85ef8696039cef44070acfb92705338a8cc6e93d",
+      "sha256": "f8c511705ede8605f3fa153010c3fbd89baaa5f6daa21f9d6ee359c3043ed07e"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Annual_Reports/ADAP_Annual_Report_2019.pdf",
+      "bytes": 1854,
+      "git_blob_sha": "0bcdcd570cc03c5142908d33945798fd338b9d72",
+      "sha256": "c43b652ffeac899683437f828d54672eab9579707ca83ec4410d7c72bf4d3114"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Annual_Reports/ADAP_Annual_Report_2020.pdf",
+      "bytes": 1962,
+      "git_blob_sha": "174f82cecb327197e5953dab9b8e708105c8b8d4",
+      "sha256": "73a7c74f835e694fa772068307160c0455bf5d0f09d36bce082018458818cfc9"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Annual_Reports/ADAP_Annual_Report_2021.pdf",
+      "bytes": 1852,
+      "git_blob_sha": "f76614e891767cb3d81494fd9baff68a9667257e",
+      "sha256": "cd410209c52875f001a317cb408bc0adf0ee98a7e1e9fcf45c045ecabe790036"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Annual_Reports/ADAP_Annual_Report_2022.pdf",
+      "bytes": 1852,
+      "git_blob_sha": "4245da6a6498751ff067a28f2baf1f77fcbd6256",
+      "sha256": "a8317c3ec57c16c9c4d8b829dbaef71f4e4ca7c274147f8fd25593a89b5379de"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Annual_Reports/~WRL0004.tmp",
+      "bytes": 5000,
+      "git_blob_sha": "21f3a66bc09812a6c37a9bd9183b2e1c07d183ad",
+      "sha256": "2ef661e6a8b214e1c64f0c014569646c83ed9926ce287d591929f0d40bd9a666"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/COVID-19_Response/Course_Modality_Tracker_Fall2020.xlsx",
+      "bytes": 5081,
+      "git_blob_sha": "cdad9dcf856fcac854f53b4dba456fcdba802491",
+      "sha256": "4277b7ddc7f3252032689f4666c54b82d32359f76a26fbdd9acaf38baf79a4f9"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/COVID-19_Response/Faculty_Readiness_Survey_Results_2020-03.pdf",
+      "bytes": 33905,
+      "git_blob_sha": "958950aec8119360b2ff83ebdffc5372b700a4a2",
+      "sha256": "b5ac63be7f20abec512d97d750ed5590afa31786421eb61e71fd80d4c527cefa"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/COVID-19_Response/PO_2020-0412_hand_sanitizer.pdf",
+      "bytes": 1698,
+      "git_blob_sha": "aad9445bac72093c64a8107a5782fc25fda9d675",
+      "sha256": "479a9d19456f1228867f4fc3f488bb7c30a3ac0ca5b4d0671a56f9724fa0e625"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/COVID-19_Response/Remote_Instruction_FAQ_v7.docx",
+      "bytes": 36905,
+      "git_blob_sha": "40922ad99c8a5459f04076a65c55c9f500ecf983",
+      "sha256": "de518dff6a4e9c8ec3f833a9eaf99e3c28694d228bd1ca497a7169f30a07fecc"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/COVID-19_Response/Screenshot_first_remote_dept_heads_meeting.png",
+      "bytes": 18372,
+      "git_blob_sha": "e2322b60ba27a5a0b2b60a3af34f353437af569e",
+      "sha256": "58f9648028c8a9dfae072383578d7eca8eefc6bc690ab6d69679cab5e16d8631"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/COVID-19_Response/Zoom_training_slides.pptx",
+      "bytes": 28297,
+      "git_blob_sha": "ae385ae67102fe2125d8efd0b0f71438adb16b33",
+      "sha256": "caecff0981e32626e131eb3c0fda20812b4a68a4383056f5566820b8d18c6dbb"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Correspondence/Operations/05_Reminder_ course proposals due Sept 15.eml",
+      "bytes": 512,
+      "git_blob_sha": "f9c7ea16514d9e4654db1f3be9edfa7f60afe357",
+      "sha256": "8f8fdeeb0f9dc1a7aeff6e63fd8657ab39269d066f789a906134b7dc53d2449e"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Correspondence/Operations/14_Formal grievance_ teaching assignment.eml",
+      "bytes": 555,
+      "git_blob_sha": "4e329a1368198f5b06cb1cdca05fb2a97cadf75a",
+      "sha256": "d1f288ea87fee0ae626e5eb9f94767712e50e651c19c5e1da0893a401b03dbc0"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Correspondence/Policy/00_Moving to remote instruction effective March 23.eml",
+      "bytes": 863,
+      "git_blob_sha": "eada1afa7a76ef355e5c9d0edbe4561f9ff66886",
+      "sha256": "8928e0afa9d61a2cf429cadf43e603f08da91a8d83f7347f2095f9647f7c7717"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Correspondence/Policy/01_CAES position on temporary Pass_No Pass grading.eml",
+      "bytes": 646,
+      "git_blob_sha": "9fa66ffd8228880ea7d2bcd6d0f7c5735a38238f",
+      "sha256": "5ff8207efb3611479187a6bf829ddd6bbea8b590b20bb67370e298536876be56"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Correspondence/Policy/02_Re_ does the two-strike rule apply to my lab course_.eml",
+      "bytes": 635,
+      "git_blob_sha": "1759b1d47409e6b7eafda7918da39b06c6754e59",
+      "sha256": "c41283c2e34b2a16e93827c45932a142e6675592792cac2b2d0fcb5bfdb00a0e"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Correspondence/Policy/03_Grade distribution report and next steps.eml",
+      "bytes": 612,
+      "git_blob_sha": "eb9a6f607a016c34af9169e134527f43f9a45b43",
+      "sha256": "8e5bc1ae0e03f2a7e3b4f855128e616b682a301f3dd1a2c08b7d8d48e5ee7c89"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Correspondence/Policy/04_FW_ Campus approval - B_S_ Sustainable Food Systems.eml",
+      "bytes": 887,
+      "git_blob_sha": "9ab543b41e3adf5624704a13ce868aaabbc17e80",
+      "sha256": "14be8b9faa56dd9a2481cd01e9acc7dbee725db8794da86372b9ca8919b83767"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Correspondence/Restricted_and_Routine/06_Annual report due July 15.eml",
+      "bytes": 462,
+      "git_blob_sha": "167e97df5bfe1839fceb8c7319aa7e48c233703b",
+      "sha256": "6371007fb1e7c51948c3a901bc31ffdae509a412bf8609c56e8dc40daec6e501"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Correspondence/Restricted_and_Routine/12_Petition for late course drop - medical.eml",
+      "bytes": 549,
+      "git_blob_sha": "1ccbe4125bded30aad6763b276b73bda3bc2a700",
+      "sha256": "3c7075df63ddde55a2183e78901cdea994ff2463dbd1fc8914f874bde2f5d8a1"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Correspondence/Restricted_and_Routine/13_Academic integrity report - AGRON 340.eml",
+      "bytes": 573,
+      "git_blob_sha": "61e2bee6ef6717cc6ad8704ad26577b7699a6048",
+      "sha256": "925239343d5b90ee3abaf4b2f3df6d53401d4959f076b43521ac5391a523aba2"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Correspondence/Restricted_and_Routine/15_Candidate rankings - confidential.eml",
+      "bytes": 564,
+      "git_blob_sha": "d73e6361ae2d44d44e5747e2bfcb413f49f1fe46",
+      "sha256": "51e22a1fdf16eb2e623943809b6a3dd8878464cb38002c675b74070d98881a47"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Correspondence/Restricted_and_Routine/16_FY20 salary lines.eml",
+      "bytes": 460,
+      "git_blob_sha": "458ca5917b63cb332901e13a6b5d488c890b1176",
+      "sha256": "1497120c27d64a6027408f462f5ec7b00071c18fe77f03691224f0939314082e"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Correspondence/Restricted_and_Routine/18_Celebrating Leonard Whitcomb.eml",
+      "bytes": 495,
+      "git_blob_sha": "18b283d8e0d3e938467faa049c1b8b7e0aa105cc",
+      "sha256": "b3acc7f6885112662a299fda5871dffce4244cc7dc5dedaebbdba195da2b916a"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Correspondence/Routine/07_Doodle_ curriculum retreat.eml",
+      "bytes": 494,
+      "git_blob_sha": "6ff21324750742cd4d344c4bc8d010d8e0dc9ce2",
+      "sha256": "c736f8bec1f864c33b084acdd169c455ed896b6ab050e3bedc515b5493ea7e8e"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Correspondence/Routine/08_Order confirmation _8812 - box lunches x 25.eml",
+      "bytes": 435,
+      "git_blob_sha": "9c53acbb63baa31d205915a2fc00b2550b3b45e8",
+      "sha256": "4db4879dcc4268637ce05281f3de414ac27a3e34b0839be6305aa5715bc48147"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Correspondence/Routine/09_Room 112 reserved_ Curriculum Committee Oct 8.eml",
+      "bytes": 409,
+      "git_blob_sha": "4907957e64a2fdd9a89b23731cf3c5298f6b6ef5",
+      "sha256": "79707b50767f4b7e1aa1e032a684a5a167fddd98dfa88fda620e8a79f8231b03"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Correspondence/Routine/10_Green Campus Newsletter - October.eml",
+      "bytes": 434,
+      "git_blob_sha": "bab4005f7d5f8d0090cde25b95462249a3d8ade0",
+      "sha256": "668b5d5387e1a35c7db7d3f09336d19194ee6add420b9e1d8ef38383a4d664e3"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Correspondence/Routine/11_Your mailbox is full - verify now.eml",
+      "bytes": 443,
+      "git_blob_sha": "556e82113a4a734e581f1ab1cb3d2b8f163befe3",
+      "sha256": "aa0e9de1e40735941ef1df8d1db215a4a2727299cb1e431c2001ca25f19ff5fc"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Correspondence/Routine/17_Soccer carpool Saturday.eml",
+      "bytes": 403,
+      "git_blob_sha": "6781bb68db7941a72f34ac8abd47db616b4845f9",
+      "sha256": "1d4e41a335d9c50fdc2d5dcfeaf4401bc30dbcf9cae25c6914e59937677e6450"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Curriculum_Committee/2014-2015/Agenda_2014-10-08.docx",
+      "bytes": 36733,
+      "git_blob_sha": "725cff1d3bf472f8268b43e70c510add3f77c781",
+      "sha256": "79f63dff6d7f9a331e8e2ecd482c5d4ef64e7770d4d7e2b6b9cf5fc0023ede99"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Curriculum_Committee/2014-2015/Agenda_2015-03-04.docx",
+      "bytes": 36733,
+      "git_blob_sha": "b0d13206b2359265f92a7cc80e92e26de0415857",
+      "sha256": "b77d5931ae5dd0004df0d51d9a76650a007c3fdb4b50fc72f6f56a1c5182d657"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Curriculum_Committee/2014-2015/Minutes_2014-10-08.docx",
+      "bytes": 36839,
+      "git_blob_sha": "74e288ee00d40738405d96fde698ab4ea0bf9506",
+      "sha256": "8be4b6b99474803e19589ab38ea668a644f93fa1848df0526b22fe9ef8939533"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Curriculum_Committee/2014-2015/Minutes_2015-03-04_signed.pdf",
+      "bytes": 91077,
+      "git_blob_sha": "3132565cfe1cc2284667748ba21539665509b092",
+      "sha256": "6cd829f6a7a5c795afde8f9dfecf96ee2f39bc36e9d12d28f72e267301ffc654"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Curriculum_Committee/2015-2016/AI_Policy_FINAL_approved_2016-02.pdf",
+      "bytes": 2405,
+      "git_blob_sha": "05d7d878be5886a49a1e2826acbc207ae6f3e85c",
+      "sha256": "6f22e2ff750b6154891f95d65269329e0bc195a3eacdc4c0fff039aa0627c7c6"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Curriculum_Committee/2015-2016/Agenda_2015-10-08.docx",
+      "bytes": 36734,
+      "git_blob_sha": "10766348c2304f6e88747c1a14865dd13721b064",
+      "sha256": "1501ec80905b9ca622e983855f3e0faf45a574afb2fbabe18f185c59820cdf13"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Curriculum_Committee/2015-2016/Agenda_2016-03-04.docx",
+      "bytes": 36740,
+      "git_blob_sha": "d137c26ba473044cb099f13e5e57193d1d7aedda",
+      "sha256": "bbb2ef71343949f4366dcdc04061b210a24d8ab7cdc6243b3428e988171faa2f"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Curriculum_Committee/2015-2016/Minutes_2015-10-08.docx",
+      "bytes": 36836,
+      "git_blob_sha": "c9f49905e9234faeed589f91bc74c69c8628d920",
+      "sha256": "0c26b8066ae225ad2c1617bd4110243722080d0f6ae243542534a90ecce1bcd1"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Curriculum_Committee/2015-2016/Minutes_2016-03-04.docx",
+      "bytes": 36848,
+      "git_blob_sha": "8da517e67f0bfdd4734fd334776a18e61bb78275",
+      "sha256": "efdd3267171729ca330c7faaca2bec4f7e2ee9b700570e3066c4247b4a8eef0e"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Curriculum_Committee/2016-2017/Agenda_2016-10-08.docx",
+      "bytes": 36741,
+      "git_blob_sha": "3cf6611bc3e77d8a54908c869e6dd4ba77caa934",
+      "sha256": "d537b43d8d9d0b712258787dd42005956b6d3246f66c21427e5d9afc0ac9e231"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Curriculum_Committee/2016-2017/Agenda_2017-03-04.docx",
+      "bytes": 36734,
+      "git_blob_sha": "339f31e1726187dad98ab01ead84a9d5b9df65ce",
+      "sha256": "57de59ee713eb05620a5ea4e7a8363aee4143416a69d2fdcf86b965121356881"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Curriculum_Committee/2016-2017/Minutes_2016-10-08.docx",
+      "bytes": 36847,
+      "git_blob_sha": "302795efc8957e9110aaf1727df4ed81c7977dbf",
+      "sha256": "c16038ebe5956682378849ff502425553165430e4cb7876712264429f64e5dc1"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Curriculum_Committee/2016-2017/Minutes_2017-03-04.docx",
+      "bytes": 36840,
+      "git_blob_sha": "03bfaf1b090c99c6fae9b3eee9517ba86e6d0130",
+      "sha256": "d94884067701bef3026544933f348ca97803e8453348f92c3f26d891727b5f36"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Curriculum_Committee/2017-2018/Agenda_2017-10-08.docx",
+      "bytes": 36749,
+      "git_blob_sha": "d044174d90e2bae18e1cf1ce614535d1b15c5e56",
+      "sha256": "bb283bb9d6c62d51b8e3697fe882c69f0c32ac7602ab043f7cd5324b480a7c27"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Curriculum_Committee/2017-2018/Agenda_2018-03-04.docx",
+      "bytes": 36732,
+      "git_blob_sha": "039f08e40e265fdd478255322ead6140f9421ba0",
+      "sha256": "3fc655bcdafb6d29260dcdbc5cc221ff3d0535485cfe45fe7253983a926d6d13"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Curriculum_Committee/2017-2018/Minutes_2017-10-08.docx",
+      "bytes": 36915,
+      "git_blob_sha": "870ccee11d046c9f0e5e93c495baa6dfa1190546",
+      "sha256": "8e359ed979845634e07dd54a101b09ab53df987a7cb21570685d4ed28e4f4d2d"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Curriculum_Committee/2017-2018/Minutes_2018-03-04_signed.pdf",
+      "bytes": 90440,
+      "git_blob_sha": "60c963fe449bf03059594e84f76ac1246cc750c1",
+      "sha256": "6109c9a02566ca44532ec9ed81b85dcdde636dff0caec24d980b0aa3ff5e4793"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Curriculum_Committee/2018-2019/Agenda_2018-10-08.docx",
+      "bytes": 36746,
+      "git_blob_sha": "cdb57b0dddbc2558558f63cc8df6c06702c73f78",
+      "sha256": "c12adbaf2e1d3929d6c4a6c433e90af1cdfe1aa6e299cc37d579938f4047896a"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Curriculum_Committee/2018-2019/Agenda_2019-03-04.docx",
+      "bytes": 36737,
+      "git_blob_sha": "a2ae2fd53722be571b0d2227b2e72a225617f2b7",
+      "sha256": "4630b5eb9b99367e0b71e9e3182fe08ccc5768fa56980ac77509053325e3317d"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Curriculum_Committee/2018-2019/Minutes_2018-10-08.docx",
+      "bytes": 36859,
+      "git_blob_sha": "c920e47933024f78a0160f15e8462a55cadb384d",
+      "sha256": "f3962e2a20d8d8513054bae8ba5882d26462dd8123d8f1a3a500c7a2f6ba475c"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Curriculum_Committee/2018-2019/Minutes_2019-03-04.docx",
+      "bytes": 36837,
+      "git_blob_sha": "929fe5fdfd7dae09a1d4c6766e637cdb9168d4ed",
+      "sha256": "a5994d0d49484df47c306a32bd48e541991cb3cfa3fd57554c10a57a458dbab0"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Curriculum_Committee/2019-2020/Agenda_2019-10-08.docx",
+      "bytes": 36744,
+      "git_blob_sha": "e8beaae6f94191c0cace8cabcb746c1ac3e243fe",
+      "sha256": "e6f7c4a87c46d91085d0d0604cd51f59a6e174f6f3839fd77e77bc4c4c004aab"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Curriculum_Committee/2019-2020/Agenda_2020-03-04.docx",
+      "bytes": 36742,
+      "git_blob_sha": "37739206137b4980c01e0e4e1c22942d31d280f8",
+      "sha256": "096deb89c2e54bf9d6064f491f13f082a202a00b99451ed42c13138d01b11819"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Curriculum_Committee/2019-2020/Minutes_2019-10-08.docx",
+      "bytes": 36844,
+      "git_blob_sha": "9494a3ca5b029360053727778ca87b0c5bffe729",
+      "sha256": "9f8f2ed27c9bf65ad0819ca65dac67058076d181019d276067d3847961dcbe90"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Curriculum_Committee/2019-2020/Minutes_2020-03-04.docx",
+      "bytes": 36845,
+      "git_blob_sha": "49a70aa67a6a2e55ec4377386c0441809a9c397c",
+      "sha256": "6310e591955bc8ba324a53aaf428daa7d90c9363ab5159f0d3ca07767c1dd84a"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Curriculum_Committee/2020-2021/Agenda_2020-10-08.docx",
+      "bytes": 36743,
+      "git_blob_sha": "96f7bcd51b10e1082c2cd6085ceffd05fa122ab6",
+      "sha256": "e7eed79693705c90c01f53f26d34bd32f98d403221d04001b12e823e7a1367e8"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Curriculum_Committee/2020-2021/Agenda_2021-03-04.docx",
+      "bytes": 36742,
+      "git_blob_sha": "134c6bad7a0c775c23248f74226e9939d62909b8",
+      "sha256": "2f982bfb0599c3d1942b4a8851c42fb0b613c2f001bb8faaaffdeec2133c5fec"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Curriculum_Committee/2020-2021/Minutes_2020-10-08.docx",
+      "bytes": 36894,
+      "git_blob_sha": "2e7f8e39ed0233daa04f2111907a0cab56a1f5dc",
+      "sha256": "4ece2d286b7f3edb87663e80b9f4598d516cb3db9e642f174bdced5ebaab36a8"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Curriculum_Committee/2020-2021/Minutes_2021-03-04.docx",
+      "bytes": 36887,
+      "git_blob_sha": "2f1bcd99f5298fec4954ddfa5be4444b2889d647",
+      "sha256": "3d6035b0016f32c70465cce266edbf103a5982da654391af7447104270e3a473"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Curriculum_Committee/2021-2022/Agenda_2021-10-08.docx",
+      "bytes": 36739,
+      "git_blob_sha": "b3791ad995eb1f0401d31e6225c505782cb04e43",
+      "sha256": "51241a5048d506a24a65a37ef30fa661a3a0911136e4730a3997f0f22bb6a65f"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Curriculum_Committee/2021-2022/Agenda_2022-03-04.docx",
+      "bytes": 36730,
+      "git_blob_sha": "f1512ba70b1ab4dad7f5f3549d60c4618f026756",
+      "sha256": "80758c5d0a24257c1039024e0f5af48bb9861682814f6ad42cc7b3122cd76066"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Curriculum_Committee/2021-2022/Minutes_2021-10-08.docx",
+      "bytes": 36840,
+      "git_blob_sha": "31adbda29d907fa1d498d79a781fa1e40c6d7015",
+      "sha256": "da5d7b99551731a448a570c90c75352721a1c947b2504be77aa8ff48e963ecc1"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Curriculum_Committee/2021-2022/Minutes_2022-03-04.docx",
+      "bytes": 36831,
+      "git_blob_sha": "0f8a042e7eea7a83ce8e072409e05d64dd65b222",
+      "sha256": "20a77310e6b79e034ec8e517f5fbae7348ecaa9245d4958bd99f0bb143751643"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Curriculum_Committee/2022-2023/Agenda_2022-10-08.docx",
+      "bytes": 36751,
+      "git_blob_sha": "05bd8d0fdd479aec5c41e5c0bbe260bc425c837d",
+      "sha256": "c1804ca39363c4d0513c54c80b35eec23800e8f0945c795e1cfe05af2b781ebc"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Curriculum_Committee/2022-2023/Agenda_2023-03-04.docx",
+      "bytes": 36741,
+      "git_blob_sha": "ed88d82122f5648157740ddd3370f0ef58de14c6",
+      "sha256": "6cd7db0abf0d93f5e58057718b5155c0d28925cbf38637e4e891b1d810ca0a8b"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Curriculum_Committee/2022-2023/Minutes_2022-10-08.docx",
+      "bytes": 36853,
+      "git_blob_sha": "ff18102926081b1b3047486aedc986d8098b2e13",
+      "sha256": "c6cddbb2dc70ca6607c130e8a825188c24ccd1584f39610c4b5b7032bf77722f"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Curriculum_Committee/2022-2023/Minutes_2023-03-04.docx",
+      "bytes": 36845,
+      "git_blob_sha": "69fd8a78ddc8bc2dca17ce1fccf86727e58e5008",
+      "sha256": "a94798c3bd36a029769a13f6fa27afe9b6a3364c5503d69315273d8a9641d012"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Curriculum_Committee/Curriculum_Committee_2014-2016_ARCHIVE.zip",
+      "bytes": 459897,
+      "git_blob_sha": "46f5e01a0ec3356e22d5e2e37308957464044536",
+      "sha256": "d12656a8747dfc0546591f30e06857708838f8765fd668d4a89d126b72ddddbf"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Curriculum_Committee/Proposals/ACES199_Data_Literacy_proposal.docx",
+      "bytes": 36794,
+      "git_blob_sha": "a890cd3b38e235b6d764b8f0b2f820bd756a309c",
+      "sha256": "bae19835f308aeea9218bce2f5cb2a054196a6669584ffcc4848c499887a6ec3"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Curriculum_Committee/Proposals/HORT199_Cannabis_Cultivation_proposal.docx",
+      "bytes": 36869,
+      "git_blob_sha": "ede0407d1be7a62b72b4fd5556791e7a7a01fe4c",
+      "sha256": "cbf4cb640963f40fcf946716b9350ba3fb5c499ced033d6fd5bc7aa96bb0b1c2"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Curriculum_Committee/Proposals/Sustainable_Food_Systems_BS_proposal_2018.pdf",
+      "bytes": 46226,
+      "git_blob_sha": "20b40c1dc45be6e82503e1c600464ce4d4a5dd08",
+      "sha256": "40af07360298909c79b4039910f26307209f0a189fa92cb851ae258f51a4d66c"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Data/Copy of Copy of Enrollment_by_Major_2012-2023.xlsx",
+      "bytes": 52486,
+      "git_blob_sha": "5eac264c839d2338e543769205d8aa6a6feb0090",
+      "sha256": "972c67b36b61bba0a258b395459518874e359cec4cf2521dfe6ee217aae017e9"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Data/DFW_rates_by_course_2016-2022.csv",
+      "bytes": 414,
+      "git_blob_sha": "643e896c645d2d7037891e865b16b9b07e2c227c",
+      "sha256": "91b4c150ec273a0134c7902e1cfab8b90c55cdecfde3adce5867cc4ea0cbf4c8"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Data/Enrollment_by_Major_2012-2023.xlsx",
+      "bytes": 52486,
+      "git_blob_sha": "5eac264c839d2338e543769205d8aa6a6feb0090",
+      "sha256": "972c67b36b61bba0a258b395459518874e359cec4cf2521dfe6ee217aae017e9"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Data/Enrollment_dashboard.twb",
+      "bytes": 292,
+      "git_blob_sha": "e40c9a3f6b079969ee6395fba09e043927ca0323",
+      "sha256": "9eecde0d645eabdbb5d02c4e02258b474a188095e7ef0f5f9cd57877928bf070"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Data/extracts/student_enrollment_extract_FA2019.csv",
+      "bytes": 13381,
+      "git_blob_sha": "c71893d1526da9ec30b2f9f6815e6fa61bdaa659",
+      "sha256": "799880efe72cd6d1b4b3457b2d9e9d53801dc0233f693085b466c1f8897cf9ff"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Data/old/enrollment_2013.xls",
+      "bytes": 5632,
+      "git_blob_sha": "c73bfa47310cd9e4353d682a6b02a13cd3a500ce",
+      "sha256": "a8b929c3ea2d888a58cfb813033b9090ab14645094df76db0f6e5761b30025a6"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Events/Commencement_Program_2019.pdf",
+      "bytes": 1714,
+      "git_blob_sha": "799b10331745709cd261d838306e5a4dcb060961",
+      "sha256": "449de7cabdae76188637cf26e6df06c4f486443bdb4ee5ddb647dfd5e81f1ac9"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Events/Photos_Convocation_2019/DSC_3301.JPG",
+      "bytes": 58366,
+      "git_blob_sha": "901afb64363968fc60dae11d46c36ef73445f259",
+      "sha256": "1dcff87eb5851f7895bf766b69d5ff2111251f992540fdcbff7afaa7ed01234a"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Events/Photos_Convocation_2019/DSC_3302.JPG",
+      "bytes": 58366,
+      "git_blob_sha": "f921c2ce4f0aa777e2d8da652e15e4abc6bb0e29",
+      "sha256": "1be93a557d802d042019dfa2eb51a936a3420c7e66b9c84ab2bcf7f0b3033adb"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Events/Photos_Convocation_2019/DSC_3303.JPG",
+      "bytes": 58366,
+      "git_blob_sha": "911f4e14c35a98345203c5c19c766f9d7320f584",
+      "sha256": "cbe41d4c0dcbbbcf1d08da2f5006638c730678087ed6577ab351bee13b62dc3b"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Events/room_bookings_2018-2022.csv",
+      "bytes": 1826,
+      "git_blob_sha": "72ee064376a031cdf1068617717a5e5b57409104",
+      "sha256": "e811c0733e127f0053c7179a0c617bdca8883b55c2253b8267ce28c3e449fda8"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Finance/ADAP_budget_FY20.xlsx",
+      "bytes": 4973,
+      "git_blob_sha": "e66dc92309c5e2e072a1ea1a405d497b143fd243",
+      "sha256": "4ed67a49bfd698ca8ec7f3d578a54a943afba94d36bd06607ba89c6e7dd32fc3"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Finance/Purchase_Orders/PO_2014-1000.pdf",
+      "bytes": 1688,
+      "git_blob_sha": "7c9e21a0ad48f6406489f77b3ff89dfc874a7db2",
+      "sha256": "f598bd2d80a29f6e462e197b4173849a9655cffda070d351867412ece2cc278d"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Finance/Purchase_Orders/PO_2016-1077.pdf",
+      "bytes": 1688,
+      "git_blob_sha": "26ee36d06cb881248252d1cc703b0c1737261220",
+      "sha256": "9d91946cc16121ff49ef7cc2d582ffe124ab87c5a6384e38ef04f83716f8c566"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Finance/Purchase_Orders/PO_2017-1154.pdf",
+      "bytes": 1700,
+      "git_blob_sha": "44b7b5dab9e8ca085a159c17ff10bc67cc23c37c",
+      "sha256": "ad5ea59ad430ec07ac9f2e199fa6eb1fe3310e0814e34be01d9a418e85bf24a3"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Finance/Purchase_Orders/PO_2019-1231.pdf",
+      "bytes": 1693,
+      "git_blob_sha": "72684c499a56ac5444e60d504cf99d21fa5ef716",
+      "sha256": "8771cb4b85747c3c9d1dde1f298d25b6639038ab94dac8343c21a206c20735a9"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Finance/Purchase_Orders/PO_2021-1308.pdf",
+      "bytes": 1677,
+      "git_blob_sha": "35e25bf3c00431c71237e8f0ef0b995fa13f7dd8",
+      "sha256": "ed018a435277c51deb4d4214b51e3e65b6333ad3f7f0c073ae0f9f335925e9ac"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Finance/Travel/travel_voucher_2015_0.pdf",
+      "bytes": 74054,
+      "git_blob_sha": "43c1a8d6f875eefe388dd5376e4a206db62dda38",
+      "sha256": "5f37462b5862523fe131df98b9b7a455c432d9a49c2a7fc326135d010d264178"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Finance/Travel/travel_voucher_2018_1.pdf",
+      "bytes": 74021,
+      "git_blob_sha": "f1db9336fa47d71192d2b2406d2ba79041373b73",
+      "sha256": "85a67e64a11503dd31761841178c0d320dd7fee4bd1bedb3a5e281791bfd27b5"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Finance/Travel/travel_voucher_2022_2.pdf",
+      "bytes": 74253,
+      "git_blob_sha": "6d066b4bb13f83d918cf0b8cb533c2c04e868452",
+      "sha256": "c5ed95a8346a588c0251b405f77252aa1cf19f78186148f3c113b481d6e706c6"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Org_Charts/ADAP_org_chart_2015.png",
+      "bytes": 15858,
+      "git_blob_sha": "27de5b56a1f7ad0883b77f264f8cb1654883bc48",
+      "sha256": "ce6b14ebcbee63bb96b0f63c4337335f7b8c2aa397a61fef6b075997ccaff587"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Org_Charts/ADAP_org_chart_2019.pdf",
+      "bytes": 40639,
+      "git_blob_sha": "5b0c60aca037cbe4386b92e15db6370242e001aa",
+      "sha256": "5b403e7b96a63256010a1abae7da89ffc603d2397e8f7ef33bf0851b5fdd40e6"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Personnel/Mbeki_offer_letter_2019.docx",
+      "bytes": 36729,
+      "git_blob_sha": "a1ea575b48547c5a409f1ee29197f26738b2e589",
+      "sha256": "b99d5d68d879c5f1901ac6994dda7ca9a16ee83c6be424f53c4cf6ebc648329b"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Personnel/Search_2019_Assistant_Dean/Candidate_A_CV.pdf",
+      "bytes": 1768,
+      "git_blob_sha": "7fc98baac25c06f93f8fec229631d1a423807be6",
+      "sha256": "d6453defa92552cdca1dc75e58249dea6ff78a15326a3058a28fd8fb56c87bb9"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Personnel/Search_2019_Assistant_Dean/Candidate_B_CV.pdf",
+      "bytes": 1756,
+      "git_blob_sha": "660ac4cbc23c8956656429325b14b602de8676fa",
+      "sha256": "25e77e5e05cb211fdfae55060ad0e51226c3981ac9b0dcb467553ffb96930305"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Personnel/Search_2019_Assistant_Dean/committee_scoring_matrix.xlsx",
+      "bytes": 4967,
+      "git_blob_sha": "9540f388f4b60091d25c35a27c7889135cb8f780",
+      "sha256": "ebb906a418b20f67d1151a3e7cad76148c08b2d38c69c0675d776dfd72696539"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Policies/.849C9593-D756-4E56-8D6E-42412F2A707B",
+      "bytes": 0,
+      "git_blob_sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Policies/Academic_Integrity/AI_Policy_FINAL_approved_2016-02.pdf",
+      "bytes": 2405,
+      "git_blob_sha": "05d7d878be5886a49a1e2826acbc207ae6f3e85c",
+      "sha256": "6f22e2ff750b6154891f95d65269329e0bc195a3eacdc4c0fff039aa0627c7c6"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Policies/Academic_Integrity/AI_Policy_REVISED_2021_FINAL.docx",
+      "bytes": 37067,
+      "git_blob_sha": "9604dc21ac7b809db51faa96acccdf8a1c2151dc",
+      "sha256": "b50e991d957de4e96605897aeee9ab33420ab3eaf836081e8f0fd54166d60c9d"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Policies/Academic_Integrity/drafts/AI_Policy_draft_v1_2015-09.docx",
+      "bytes": 36890,
+      "git_blob_sha": "fd41be14d3033c63ba79f19d601212567f4c2ff0",
+      "sha256": "8d19f3cea84dcc95889eae05bbcc84ea99457d0b36bf4f169d7315bf0a7042e6"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Policies/Academic_Integrity/drafts/AI_Policy_draft_v2_2015-11.docx",
+      "bytes": 37114,
+      "git_blob_sha": "25bf3783bb57159222cf1adb147f9b05f5843719",
+      "sha256": "99e420bda844e3460be9fe657528a338f6196c9dfc20c1410fcbb83408f43e1a"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Policies/Academic_Integrity/drafts/AI_Policy_draft_v3_2015-12.docx",
+      "bytes": 37028,
+      "git_blob_sha": "a94ea89f9eff413ceb913e2f1cfae3e08911343b",
+      "sha256": "366621e59a7ea66d93dc5fff2225446fef8d2891a7bbc118b6efbb93831382d2"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Policies/Course_Repeat/Course_Repeat_Policy_2012.doc",
+      "bytes": 18432,
+      "git_blob_sha": "b1a9fed496a1fc8bf88999ec8e1a3d09e718f987",
+      "sha256": "b31d56de1cf800352891c07d2057f6e6980bb0f9d7a29fb6b713f4f91274c2f1"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Policies/Grade_Appeals/Grade_Appeal_Procedure_2018_FINAL-BKOWAL-LT.docx",
+      "bytes": 36924,
+      "git_blob_sha": "668522533ac16dcfe0db2521d2646500ad7f35d0",
+      "sha256": "6655650e7405483fa859f2d0fd310d1ec4ee704dffab86e34d155fecebd0a8fb"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Policies/Grade_Appeals/Grade_Appeal_Procedure_2018_FINAL.docx",
+      "bytes": 36922,
+      "git_blob_sha": "35ed3f3da2499d46bb4bef0d78a1f4fe857573f3",
+      "sha256": "4719738aa812e2cd3a5266927bc502dcbeeeaa607a2efcca97f3b1c7c4220684"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Program_Review/Agronomy_BS_2017/Agronomy_BS_Self-Study_2017.pdf",
+      "bytes": 67600,
+      "git_blob_sha": "cd920519a80572fdda457f1608a14d9be2358df6",
+      "sha256": "04bc779ad68d98036f6f6497edbcc503007a3dbfae53c5d44d60983612e5f426"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Program_Review/Agronomy_BS_2017/Department_Response_2017.docx",
+      "bytes": 36773,
+      "git_blob_sha": "40e0a58501f5c1b1545f3fc6e66c0cceeb99e62b",
+      "sha256": "35c3aed5832b5bb3a043a7f06d9ada9971e8a9d4166df6595986bfc48dd6f251"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Program_Review/Agronomy_BS_2017/External_Reviewers_Report_2017.pdf",
+      "bytes": 1812,
+      "git_blob_sha": "ad1d4267640fb20db1c8fb1a092be8f5d1066b67",
+      "sha256": "21576eb567de34c9267c77ff7037ec0e0c8b68e2824a9bcf3402cee53f44bf8e"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Program_Review/Agronomy_BS_2017/catering_invoice_0418.pdf",
+      "bytes": 1691,
+      "git_blob_sha": "b336567d8c4279eef776f40194d2a9167aa30729",
+      "sha256": "022e5e890387ac3df252a734c6256a070f12566c4be71c21a8e3905726315058"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Program_Review/Agronomy_BS_2017/site_visit_schedule.docx",
+      "bytes": 36751,
+      "git_blob_sha": "d963a16ec694fbdae5a3dc663187f04f7b175726",
+      "sha256": "07d5cd48710725ff89a8a89ff73e00785538a299ad47efb5bed54472078c6f8c"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Staff_Folders/Brenda/my_resume_2023.docx",
+      "bytes": 36687,
+      "git_blob_sha": "8a8fe20598a0eb5f49a2a450f5ac33af739c207e",
+      "sha256": "c918acc4d052247009f93fd4ae4a7dea3225986c276d68e6445e7ae648344b58"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Staff_Folders/Brenda/policies I need/AI_Policy_FINAL_approved_2016-02.pdf",
+      "bytes": 2405,
+      "git_blob_sha": "05d7d878be5886a49a1e2826acbc207ae6f3e85c",
+      "sha256": "6f22e2ff750b6154891f95d65269329e0bc195a3eacdc4c0fff039aa0627c7c6"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Staff_Folders/Brenda/vacation/IMG_2201.jpg",
+      "bytes": 98532,
+      "git_blob_sha": "37b5757baf32daec461b3e9ae39317c3fd87a60b",
+      "sha256": "42f923f798ba657f136ee028ac64e74bf7b78169646bd8d70de95c9ef73b91fd"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Staff_Folders/Marcus/Grade_Appeal_Procedure_2018_FINAL.docx",
+      "bytes": 36922,
+      "git_blob_sha": "35ed3f3da2499d46bb4bef0d78a1f4fe857573f3",
+      "sha256": "4719738aa812e2cd3a5266927bc502dcbeeeaa607a2efcca97f3b1c7c4220684"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Staff_Folders/Marcus/Thumbs.db",
+      "bytes": 2048,
+      "git_blob_sha": "50755f12899dd80ad9a317c643ca912f0cfa000f",
+      "sha256": "192ecf4bb495eafd8afc34049603a08cdf2a1ade5aa58534dc8e091642eca7ed"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Staff_Folders/Marcus/course_inventory_WORKING.xlsx",
+      "bytes": 5019,
+      "git_blob_sha": "91a510842ca93c116e2caf33de31cfe069499e5b",
+      "sha256": "ea073ddbb76722bc6aa6bc2e7eddc7e2daa9a9043d1dcff28cda4f656d67512d"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Staff_Folders/Marcus/curric_mtg_notes_2021-10.txt",
+      "bytes": 179,
+      "git_blob_sha": "976a145d50b55fd0da5dfe62c697e16294c19d08",
+      "sha256": "435f1eaeacb776a750eec10ba8132446089f96a57a0b492e27519faf59df4fa3"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Strategic_Plan_2019-2024/CAES_Strategic_Plan_2019-2024_FINAL.pdf",
+      "bytes": 1910,
+      "git_blob_sha": "46e2d62d3ae2422d90ba25d9e7e2d586263fc54f",
+      "sha256": "5c1cd361adf097e0c4ff2c661af5097473669536d8a31984606ddcde092b939d"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Strategic_Plan_2019-2024/Town_Hall_2019-03_recording.mp4",
+      "bytes": 209608,
+      "git_blob_sha": "8c0f71f9d0f2e902a547ab2b0703af8113379749",
+      "sha256": "e4cbd29acaa8b9241987939dc3e3f1fc0fe9b2847b54be8a64dbd60249e71e9c"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Strategic_Plan_2019-2024/Town_Hall_2019-03_slides.pptx",
+      "bytes": 55056,
+      "git_blob_sha": "c6c0023ebe88a4ee6b6011e003f1e262cec027b4",
+      "sha256": "52ef016430eb38eda318eca2473145972d3c9cb8aa71bfeda55a4a896bf330bf"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Strategic_Plan_2019-2024/drafts/Strategic_Plan_DRAFT_v1.docx",
+      "bytes": 36828,
+      "git_blob_sha": "37519680e96998459d0a28552cdf4f1b95a915a4",
+      "sha256": "bedb01cad785b34b4ddca73a67303ac2cf1e74039cb747ab28aedaffcc6c6943"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Strategic_Plan_2019-2024/drafts/Strategic_Plan_DRAFT_v2.docx",
+      "bytes": 36843,
+      "git_blob_sha": "c7dfef857020f9d2768c4949098d1ca5d54ccd2b",
+      "sha256": "aa5fa0e5fe07ef8fff35a319b56be5ac7aa5c718ad81336dcfaf3e6a5f33c501"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Strategic_Plan_2019-2024/drafts/Strategic_Plan_DRAFT_v3.docx",
+      "bytes": 36846,
+      "git_blob_sha": "8c36d949384030fc840d1191e3776e55e264ff6c",
+      "sha256": "a495b3500ebbc0f51af032b0f09aa8b6a9159924a2a39141c981d80883353b67"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Strategic_Plan_2019-2024/drafts/Strategic_Plan_DRAFT_v4.docx",
+      "bytes": 36860,
+      "git_blob_sha": "a93bc6b2486535f26ce5c77653ba92569e9a98bf",
+      "sha256": "fab06ca1de218e10d940750c05cd7a2a0fbd4e528320ab5ff63794a2d62011f4"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Strategic_Plan_2019-2024/drafts/Strategic_Plan_DRAFT_v5.docx",
+      "bytes": 36878,
+      "git_blob_sha": "0a803358e6a84b319d32cbd7683324f8ba1f044d",
+      "sha256": "0835eb3bb718afefcfa9f820c381056c1ec7dee1e7f132defb50e6ca54432903"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Strategic_Plan_2019-2024/survey/Strategic_Plan_Survey_RESULTS_aggregated.xlsx",
+      "bytes": 27592,
+      "git_blob_sha": "c6e2acfa8ebc491e002d5f09f74c96371b0ec66d",
+      "sha256": "90466b63c86364a302f94d22ca0ec15f5899dc3a5a8b874caf52e2057d2c6c52"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Strategic_Plan_2019-2024/survey/raw_responses_WITH_NAMES.csv",
+      "bytes": 4586,
+      "git_blob_sha": "31304347b166b7482ad24db98f6840120d876872",
+      "sha256": "7b960d9663b212969b81ee84b245d141ded8295edb1cfbd0b31da360669a3408"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Teams_Export/ADAP_General_channel_2020-03.json",
+      "bytes": 2022,
+      "git_blob_sha": "ac648d979ac2985ea9c8386b07e42897ab9467b2",
+      "sha256": "71629bdc85236a4d8b06d4ccd96819c711b7ea3db2a0591e784a23c21819f671"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Templates/ADAP_letterhead.docx",
+      "bytes": 36731,
+      "git_blob_sha": "1eda9f3f2e17fc3b15be2b111f66ce404886c430",
+      "sha256": "58234ecfcaa9884932aab6c9d0c2aa8c42833f4e89af6ddb044bdb44b02864c1"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Templates/BLANK_Course_Proposal_Form_2019.docx",
+      "bytes": 36706,
+      "git_blob_sha": "325be5e6517f21e42f8c356f2195a6b69fdad44a",
+      "sha256": "89bd0c51f9fe4c8171b8795353ff502a72300a8c41a24feaad9fa0ed8ab9963c"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Templates/~$AP_letterhead.docx",
+      "bytes": 162,
+      "git_blob_sha": "15988d00888340dde6902317b489fac45a6a3cbc",
+      "sha256": "1221ad60773992c65ae1e272a42b94c88b5c4259f9c59b4990709db1a5e13ef7"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/Website_Content/policies_academic_integrity.html",
+      "bytes": 831,
+      "git_blob_sha": "cfc2eb8676af6e7deb942b8d5157f39b558d07c8",
+      "sha256": "8349e973447842fbd89f789bdb74b8e89942730639201a7ebe7b042d472a4305"
+    },
+    {
+      "path": "corpus/ADAP_Office_Share/desktop.ini",
+      "bytes": 146,
+      "git_blob_sha": "d5b4a50921920de9264a7d27479748b76a84b07c",
+      "sha256": "e9d072d752b832ba97a0eed1528d3b8631fd906ed48f9ba138e417ce18effd5a"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Desktop/.DS_Store",
+      "bytes": 6148,
+      "git_blob_sha": "8fdee28daee30c49c422831d1e523c481878f65f",
+      "sha256": "cbf05a12353e204c74c0fca8ee448eb00eedbf2b8ba00309fd2d711bd5322160"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Desktop/.localized",
+      "bytes": 0,
+      "git_blob_sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Desktop/Achterberg_CV_2024.pdf",
+      "bytes": 35275,
+      "git_blob_sha": "20cb4fe671e3440587de67578e2dfcc8d0e45021",
+      "sha256": "778a0f7ed887bd919978f1bfb72d3b3185e744f1451dd77c7886ddf79f628f9f"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Desktop/BOLD Systems.url",
+      "bytes": 62,
+      "git_blob_sha": "03439fad50808cc7c6d70ce21606776b8d962b82",
+      "sha256": "36baf786c4aeb811d785f221d8885d079fc7c367c3249b54d81537e96ba87fa9"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Desktop/FINAL_FINAL_revised_after_meeting_with_Rafael_and_Priya_use_this_one_NOT_the_other_one_specialist_lag_discussion_paragraph_for_JPE_revision_november_2020_v7b.txt",
+      "bytes": 219,
+      "git_blob_sha": "244c279ff512b5a86b95a557ddce59dc48c91afb",
+      "sha256": "3526625f7f73916acdd4a0ba9f5342e27999797df9c2939c0518e69e25b1a06d"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Desktop/Prairie Bee Survey - Shortcut.lnk",
+      "bytes": 196,
+      "git_blob_sha": "a8d933e799d301eb2697734490686796012a599e",
+      "sha256": "38787a3e984c9e82625fe414cfa3198babba6acb26ff19cbf455b2452266f106"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Desktop/README_for_archives.md",
+      "bytes": 273,
+      "git_blob_sha": "2eb30d3922cd7f09f6791ba44366c7a0e89854a6",
+      "sha256": "193abc11b640261367ed53179fd6a09207b2973a9715c782ef6c77fd80606ce6"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Desktop/Screenshot 2020-11-12 at 3.22.10 PM.png",
+      "bytes": 39189,
+      "git_blob_sha": "ecce1ea213112a853c8e88b8d5590aba3013c90b",
+      "sha256": "966490d13b0c419c7a0a427346e0a133ed755e31971a3724833ef4f17f5b724c"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Desktop/TODO.txt",
+      "bytes": 211,
+      "git_blob_sha": "ff403cefd7e36cbbc383528ffbeeb19fc9fb886b",
+      "sha256": "2ad6e377369d53a5138708d0b5f234c1ae0cbec8bf606af6793521659841697b"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Desktop/misc_data.xlsx",
+      "bytes": 5535,
+      "git_blob_sha": "c577939a5e0a010f9d156a1615786f1c72007b10",
+      "sha256": "c6354f8df53d5dbf4df6cfa65570560def6471aaadf960fd65767d76a52b67d5"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Desktop/notes.txt",
+      "bytes": 36833,
+      "git_blob_sha": "0d4817b83b050011b307882dbdcb0675d1c2dbb4",
+      "sha256": "e54a8fada1ab42630a0a3b29c1b10d8cff3b6827a47da7347905ab78b91dd530"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Desktop/pantrap_specimens_2019 (copy).csv",
+      "bytes": 212800,
+      "git_blob_sha": "85269724b2273b69ede8748f7494ce900c413d35",
+      "sha256": "0b2a6f912174a8d3566f71a4429c856c5b0604f80bb9a8cfaae64e07411bd04b"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Desktop/wifi_password.txt",
+      "bytes": 86,
+      "git_blob_sha": "e63fd88fd6809b9b02a4201b14e139777d961ebf",
+      "sha256": "1a180e4f3b9abebc60ac05c7f587414b387b847316dd21076fef6af5e5a3992e"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Admin/Personnel/Penner_PIP_2019-06-14.docx",
+      "bytes": 36970,
+      "git_blob_sha": "6069fd8eee532e13244c7f611c78bb5f1f0e4047",
+      "sha256": "d99883cb8abae14926551b7e4d9ae5edda880933293bef87a8666e4268c8ddba"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Admin/Travel/2019_ESA_reimbursement_signed.pdf",
+      "bytes": 118198,
+      "git_blob_sha": "5cd130a16b41ff7f0b035d9c6f676f304a8bd5b3",
+      "sha256": "ca266521f0b54e27940f4db395771e5d2cbbb771db6a30ad2468a92c29279ab0"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/CV/Achterberg_CV_2024.docx",
+      "bytes": 36982,
+      "git_blob_sha": "660bf19d19575cc327c9963aeb41c80bb7e4704a",
+      "sha256": "6da97ef8d0584cedbd2426eb6e628c943cb333293cd917785989ec226351115b"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Calendar/field_season_2020.ics",
+      "bytes": 482,
+      "git_blob_sha": "817d7d6117bb3a8f9673944c21afb9aeacb69dc1",
+      "sha256": "bdf0a6a1c459b23d6f494654c06c7613616ff43b02d5bfd10d8bec04ac32d3ed"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Contacts/field_contacts.vcf",
+      "bytes": 419,
+      "git_blob_sha": "9e5be29c093fe121a3fe07f6e730c9f790fb60ad",
+      "sha256": "1494ee0101afe4fc1ad8f58f2f39fc0148edac2e23d60e2814f1972250207206"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Lab_Admin/branding/lab_logo_print.eps",
+      "bytes": 2188036,
+      "git_blob_sha": "42fa9f12d89c70b3cbc5336d5e782667f986b538",
+      "sha256": "e2fcb63a1953a11a7937dd1b20100e5d9ff8cf8cfad10d572315003a53f56f9d"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Lab_Admin/branding/lab_logo_transparent.png",
+      "bytes": 14646,
+      "git_blob_sha": "5dfe44d01fefc0dc198bda13892d40a1a73c5743",
+      "sha256": "e42424dc53913c16a7c2bf19ac72433a544de45a0c599721f0155c584737d8b0"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Lab_Admin/lab_roster_and_keys_2020.xlsx",
+      "bytes": 4995,
+      "git_blob_sha": "c6678896b363a757a1ebfbcabb8e11e8cb053fbb",
+      "sha256": "22bf2651e52f74ee7be9541f51bb19fc0036af0f6011a1fe20dc38ed715e1ee2"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Lab_Admin/lab_safety_SOP_ethanol.pdf",
+      "bytes": 1520,
+      "git_blob_sha": "2d3dd09699fefc4992d4c5ce2fb4508dcfcd4298",
+      "sha256": "4de75c1b9b58a00fd270d427933bccb06fcdd1d8b0a0b4047b86db5ddf66556d"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Personal/Car/insurance_card_2022.pdf",
+      "bytes": 1515,
+      "git_blob_sha": "5df9c61979ccfe2593b84deccde323374f2d9300",
+      "sha256": "60318518f997cccb70dac28799c1553f6cc88092b79834b0b42130400df2c50d"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Personal/Medical/PT_exercises_knee.docx",
+      "bytes": 36643,
+      "git_blob_sha": "83f9262b4f89ff07f8f09d302269a3c3a13078e9",
+      "sha256": "0779276d554590d256ee3d06c941487831042104100c5b2f5ff9168e72d1a3b4"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Personal/Recipes/grandmas_rhubarb_pie.txt",
+      "bytes": 242,
+      "git_blob_sha": "c5894dd3ee69fe861681422e27814537d1d4a57f",
+      "sha256": "7eacccd6efc282ba519a36e1a876856b535caac616a942c31489e43329a7a728"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Personal/Taxes/2021_tax_return.pdf",
+      "bytes": 2312,
+      "git_blob_sha": "72c9170031df2ab0d7ec58706f95d53841c11f1b",
+      "sha256": "95554f8a69b6fccef1457478f9bb2c7f874422b448ee616d91a2eca01359870b"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Personal/fantasy_football_2021.xlsx",
+      "bytes": 4998,
+      "git_blob_sha": "9961d6de26ef0a83661f87cb4e5328a3b0633034",
+      "sha256": "cbed3de42e0849dd8b851735fa212b94ca3d925fdbb535b4b4699e3fd97a1fcf"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Personal/garden_plan_2020.xlsx",
+      "bytes": 4958,
+      "git_blob_sha": "58e84e2bdbf562b254d6391c967239a94d89db67",
+      "sha256": "7e39a3b1790911e9db098a73a457079d3c293cedd3a2f3d1230c2192cb095070"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Personal/household_budget_2021.png",
+      "bytes": 23157,
+      "git_blob_sha": "4077f7387f45e30fa27253a88c7c4cf640228d9f",
+      "sha256": "0dc0eb64a33dfed32d9c95f75475ab9ecf80864430e03fe5f9a95724bcdea102"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Collaborations/Bonn_2009/Ergebnisse_Wildbienen_\u00dcbersicht_\u2013_\u00c4nderungen.txt",
+      "bytes": 123,
+      "git_blob_sha": "ffa32780e0f0292cfdf52384cda14b09a0de9e4b",
+      "sha256": "5d15ff6b843f8a964b2055b8431599da0b1d2c5cb5225563b69d726988e7a841"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Grants/NSF_DEB-1900417/proposal/DEB-1900417_budget_FINAL_v3.xlsx",
+      "bytes": 43171,
+      "git_blob_sha": "43ec21bfb20b4e27529456b969e805fcaaa47ac6",
+      "sha256": "ad67bf964dd847ae1a18798ad77b3b9922945035c382b78553e4fc50fdfc3f1b"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Grants/NSF_DEB-1900417/proposal/DEB-1900417_full_proposal.pdf",
+      "bytes": 127828,
+      "git_blob_sha": "0019ffe4208adf7613f7c1d6c4eb48aee1805777",
+      "sha256": "f11f10527aecabf8a747c07b18fa229d74b650b2e39912ad4cc33119720aecbc"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Grants/NSF_DEB-1900417/proposal/DMP.md",
+      "bytes": 632,
+      "git_blob_sha": "55925223c58e9d72b324ba6d69a98dac42bd3a00",
+      "sha256": "63c5ea7faebefa67493e0222424ee5d79fab1bff51e053f606b2f1b17a2fd408"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Grants/NSF_DEB-1900417/reports/Annual_Report_Y1_2020.docx",
+      "bytes": 36826,
+      "git_blob_sha": "5942ed5c476d9fbbb67ee518f139737e622456a1",
+      "sha256": "2f5465f79613a40c568063819531e97f57da87bc3a7dca1b9b88759087fed249"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Grants/NSF_DEB-1900417/reports/Annual_Report_Y2_2021.docx",
+      "bytes": 36833,
+      "git_blob_sha": "0d4817b83b050011b307882dbdcb0675d1c2dbb4",
+      "sha256": "e54a8fada1ab42630a0a3b29c1b10d8cff3b6827a47da7347905ab78b91dd530"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Grants/NSF_DEB-1900417/reports/Annual_Report_Y3_2022.docx",
+      "bytes": 36824,
+      "git_blob_sha": "c972e81c22cab9d47098988cfbb5bdb6a8a8197c",
+      "sha256": "21bdbd8de8edc6362267f0d3ed058c2bf9e3e57fd6e3c42b1698a5e388e36d1f"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Literature/Harmon-Threatt_2016_restoration_review.pdf",
+      "bytes": 2322,
+      "git_blob_sha": "cb4f72e1d2ccb4120a26dc7174855479c7de09fa",
+      "sha256": "9542ff33a32549925f03cc93f9d5cd0b9fa0f37fe6a210244cd53e6187a16620"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Literature/Kremen_2002_PNAS_crop_pollination.pdf",
+      "bytes": 1950,
+      "git_blob_sha": "a1940adbe6724ab08e744f0b19fe2e1a1b3554cd",
+      "sha256": "6cd875aedf910e89e47169d4079692e4829e559033f7d0f4ef044d73fa16bdb3"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Literature/Smith_2019_soybean_aphid.pdf",
+      "bytes": 1957,
+      "git_blob_sha": "74e73b1e38849f7e6a2453e8dbac789664d575d4",
+      "sha256": "c0945572895b1e917cf53eb888ae106db211d2398434f1b71c41aa1d6def9cb3"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Literature/Winfree_2009_meta-analysis_disturbance.pdf",
+      "bytes": 2336,
+      "git_blob_sha": "5f0e33205fffcc8f91cc56d5ba572a6c45429c9b",
+      "sha256": "4e19ab546436e80577b201aaff05b45fd2bcc9845dcdddfe4c09b41b843a6dc3"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Literature/zotero_export.ris",
+      "bytes": 472,
+      "git_blob_sha": "912d5166bec02b25d85877fd7ea1f5c91431c299",
+      "sha256": "92e9b36f54c144794cc564ef33e080363cfc12a088c9a707d97f7f72fd7d7dee"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Manuscripts/2021_JPE_restoration_age/drafts/Achterberg_restoration_age_v1.docx",
+      "bytes": 135741,
+      "git_blob_sha": "9b264fdab4c3ff9daf952b68777ec28e44b766f4",
+      "sha256": "33503004f72ab4611d9652cabcd3c35d2293ff22040d70865b55404395409187"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Manuscripts/2021_JPE_restoration_age/drafts/Achterberg_restoration_age_v2.docx",
+      "bytes": 135841,
+      "git_blob_sha": "a73073a007e45c16250488932815f6f6c7be80bf",
+      "sha256": "e4ac49b1bbd1f2615c6a51cc58d9c61e20aab4f43008edc159921208e57e08ab"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Manuscripts/2021_JPE_restoration_age/drafts/Achterberg_restoration_age_v3.docx",
+      "bytes": 136058,
+      "git_blob_sha": "fefe3b57a0a3afacfe41f207d48d76dfd2ca3e71",
+      "sha256": "3b3a334cd803e3ef1ff3933a658d17d4549d8a1e5c2454f95bc549662f58e607"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Manuscripts/2021_JPE_restoration_age/drafts/Achterberg_restoration_age_v4.docx",
+      "bytes": 136059,
+      "git_blob_sha": "e5ab32c7445ee091f92b745592c5b878cfddd803",
+      "sha256": "143d292cc030f557cd61ec566c5f6877917a275ff961c87e690029d32fb25be2"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Manuscripts/2021_JPE_restoration_age/drafts/~$hterberg_restoration_age_v4.docx",
+      "bytes": 163,
+      "git_blob_sha": "18e4d7165ebe17b35ffb6faf06fdf0a8088a4e2d",
+      "sha256": "c464c7476c439c0b14253b8539ad10692565c9255e8dabd164352d0cc48b89a9"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Manuscripts/2021_JPE_restoration_age/latex/main.tex",
+      "bytes": 3581,
+      "git_blob_sha": "1f5d036a737f7b19d8bcb2f236583909650b61d4",
+      "sha256": "a2f9317824838cf01d622d77b812a86f20805c010d8cb89d3b828c241e9e23d8"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Manuscripts/2021_JPE_restoration_age/latex/refs.bib",
+      "bytes": 663,
+      "git_blob_sha": "d64e7a4ff2af67274e66ada21576bd57f2a59e78",
+      "sha256": "92eb895352459a73492098c2e9f6a054806d54a92e10e37bf99fa537e80d67d0"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Manuscripts/2021_JPE_restoration_age/published/Achterberg_etal_2021_JPE.pdf",
+      "bytes": 101360,
+      "git_blob_sha": "22c2490f1d17918c0f08949034bc002968605464",
+      "sha256": "cd7488c4dc3a0d17cb33c5e5d31aeb86d2608f6109e9eda2619fbc53540286be"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Manuscripts/2021_JPE_restoration_age/review/Response_to_Reviewers_JPE-2020-0388.docx",
+      "bytes": 37170,
+      "git_blob_sha": "9dc38593f54e22291623b99564aeadcc4775bd52",
+      "sha256": "3d8513e14762cd2242b925fe13ef6f7d844592efa32c255f9862dfe1d90394e0"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Other_projects/Brandt_mosquito_collab/aedes_counts_2017.csv",
+      "bytes": 80,
+      "git_blob_sha": "cb9cd79ece1ed79ba736c36dc688a70fb1bf8ba2",
+      "sha256": "e4b9abb7c0a0c1e962d712814d20a7c05f73cc7db7909d6a3f71a764f8ba87a3"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Other_projects/Monarch_citizen_science_2014/notes.txt",
+      "bytes": 162,
+      "git_blob_sha": "4748bc710bfb9f303a7919bb12b6e8fd78ddae37",
+      "sha256": "bfc4fe0d67452319c8bf0db5eba58583b1f793ddcc000a6a72ec019dbdb751b3"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/GIS/maps/site_map_internal.png",
+      "bytes": 39667,
+      "git_blob_sha": "dc0edee9a38de2c3b86e9f8c256730aa7c6927ad",
+      "sha256": "94c087a86ca603debef374bad8c4e0af3ed18111433333076bceec8542691095"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/GIS/maps/site_map_public.svg",
+      "bytes": 42339,
+      "git_blob_sha": "8cb8ceb7026bc43b658a91bd9f6c69cb3ca9ddaa",
+      "sha256": "63f8e1d1b7a3acc3cc0fc32502b7b656cc13a7f529596a0beff5fb9e0580e2b3"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/GIS/pbs_sites_for_google_earth.kml",
+      "bytes": 1227,
+      "git_blob_sha": "8fb67b701142eac568dc65fab5ff67265074e6fc",
+      "sha256": "3e4aec280c2a51c9ef14ee54a04dda6ac4bd0a0c1aae7baa4e26657b58f0e837"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/GIS/restricted/BRF_locations.zip",
+      "bytes": 342,
+      "git_blob_sha": "89405292e8ae4a75383962c5f3dd0ea15b5cf54c",
+      "sha256": "36a2414cde2e959f2ae68faf20882f5f01f5534eee8927c1676aeb5a76a21f30"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/GIS/shp/pbs_sites.dbf",
+      "bytes": 2303,
+      "git_blob_sha": "f3f8d645fdf4277d15775a3c263c95ac6090cb70",
+      "sha256": "a56150f8c86de2df8b49817e12b5d8c3f34171751b273936b0d78fb73baedcfa"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/GIS/shp/pbs_sites.prj",
+      "bytes": 143,
+      "git_blob_sha": "a30c00a55de19be195abf9e942f6cff93bf0a825",
+      "sha256": "98aaf3d1c0ecadf1a424a4536de261c3daf4e373697cb86c40c43b989daf52eb"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/GIS/shp/pbs_sites.shp",
+      "bytes": 380,
+      "git_blob_sha": "08394367ff084822f775e1951700f333a788ea59",
+      "sha256": "8d676da64322b83cb3eb2ee45a93a732f3139b8e7cf90bd1554aca9859def2c9"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/GIS/shp/pbs_sites.shx",
+      "bytes": 180,
+      "git_blob_sha": "70aab0dbcb9008971713da455a33da2bda8d0041",
+      "sha256": "c37e6f2d40f2d02ee467f11e5a5f03aab49b299fe679583d2197995f3ee12a61"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/GIS/survey_sites_EXACT.geojson",
+      "bytes": 2895,
+      "git_blob_sha": "b2c61597a3f68df1676af582dc4332255db86f70",
+      "sha256": "8960a5440f57b72c851e072245f59041bff50a844f16d47c882a20bf9fd48c33"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/GIS/survey_sites_PUBLIC.geojson",
+      "bytes": 2616,
+      "git_blob_sha": "40ae181490bcab5e5e891d3a673d953cae248d3f",
+      "sha256": "5aafc4c9093827d59a0a7daa53707555b47f47fe28e7720b2e1fb55820ab8138"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/LabDrive_copy/barcoding/COI_barcodes_batch07.fasta",
+      "bytes": 28560,
+      "git_blob_sha": "7a122111212ecbebada6287e5065b1e8569b1ed0",
+      "sha256": "8f54a3341f09fbc101a57b3c680298d3ec60d68ad6f58f0ac97215807e3887d4"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/LabDrive_copy/dataloggers/HOBO_temp_rh_all_sites_2019-2021_6min.csv",
+      "bytes": 47465291,
+      "git_blob_sha": "075091f874f870ac0f4ad21600e8c2107de0dbcd",
+      "sha256": "5474775558867fac1880d266f4e6268cc27b9afef23ccdae76e7d81895ed4a11"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/LabDrive_copy/dataloggers/microclimate_daily.h5",
+      "bytes": 96576,
+      "git_blob_sha": "21ac66a8eec896a970f5107445cd0e45674da434",
+      "sha256": "65df6914f09ca0be5e48270c69249d2d68d3507c91de7ee9a219d8a6e82a3d87"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/LabDrive_copy/field_photos_2020_for_Rafael.zip",
+      "bytes": 746280,
+      "git_blob_sha": "af2cc177505a60206606ac18f61e3c9f8d24ab9c",
+      "sha256": "27fac7f9cd5858964c7fafaa96601663636f479397fd520d7392d48796e02faf"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/LabDrive_copy/gps/BRF_2019-06-15.gpx",
+      "bytes": 3441,
+      "git_blob_sha": "2b75ff16cd16ac8f9543191090e927d0894ae5d9",
+      "sha256": "c563c9e0d158f9d7e67837112b8866e14ff68e032326d9a018e95de0252662e0"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/LabDrive_copy/instrument/net3852448d",
+      "bytes": 30004,
+      "git_blob_sha": "c60e48ca69efacd799dd934a1a938f0c391437c1",
+      "sha256": "a65bc5be55df2e52c7798eb80a70fa49086b08dc7dab6a81f530c5bfa5f96571"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/LabDrive_copy/instrument/spectro_run12.career2",
+      "bytes": 12011,
+      "git_blob_sha": "c44f99b39dbe78f73d0b6630450eb3b4799b155f",
+      "sha256": "bbead87ecff23dd440d1309a617ad9b6c848a6e5cce5cd763948f274c1907a88"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/LabDrive_copy/old/backup/2018/from_laptop/Desktop/New Folder/New Folder (2)/empty_folder_placeholder/.keep",
+      "bytes": 0,
+      "git_blob_sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/LabDrive_copy/old/backup/2018/from_laptop/Desktop/New Folder/New Folder (2)/stuff/keep/2018_station_coords_handheld.csv",
+      "bytes": 121,
+      "git_blob_sha": "ca06fccc615cd5efec80078cd03b6ce1fc40243d",
+      "sha256": "cac17bbfcaff5494d24509a80546557295b195d9fc6dd31c90436a9d0fd00800"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/LabDrive_copy/panoramas/BRF_north_pasture_panorama_2021_stitched.tif",
+      "bytes": 46800140,
+      "git_blob_sha": "e1ed946e43956a20b46dd0eadfac711c96c1bb6a",
+      "sha256": "4d7dd31b78d74b4eef24f44991cb050b56bf8eb200efd09caa51d1cfa691576b"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/LabDrive_copy/quintero_models/occupancy_posteriors.mat",
+      "bytes": 4832,
+      "git_blob_sha": "dd8874169459a1d232426a93a8350f6997969702",
+      "sha256": "b58f998cf5e80e1dbe4b2b8449eb420dcd1ae16a2ed65f05fb3d4e4050fcd44c"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/LabDrive_copy/quintero_models/rarefaction_curves.npy",
+      "bytes": 16128,
+      "git_blob_sha": "c866f2aaa0181a5b5c62e369a483d6ba3267ac0c",
+      "sha256": "37de3f31169a4941e5ed808c5c913f39a998461d620698eccb071e11453c54dd"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/LabDrive_copy/raw_video/lab_meeting_2021-02-18_zoom_recording.mp4",
+      "bytes": 1176807,
+      "git_blob_sha": "1db9ec4699b9756b478f23d9cbc88314f6d143ac",
+      "sha256": "9280cab61bf6f91387c2c007740490a410d3e1675c156a83e4e00c9a07ef9639"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/LabDrive_copy/students/Natarajan_thesis_backup_2022-03.tar.gz",
+      "bytes": 747,
+      "git_blob_sha": "90042a70e50fac938373ee3ab3c062c322cf3307",
+      "sha256": "37a783210bb14879780f558128ff90b562d3504ecc760ced1ad7d371d845c473"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/analysis/.Rhistory",
+      "bytes": 137,
+      "git_blob_sha": "69623a264d0f3df81a496791c5546d41b4c66e0b",
+      "sha256": "98daa908cf8e03e23c4c2bc1cc44405ff80409f8ea8777a91056930adfa0c543"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/analysis/.env",
+      "bytes": 156,
+      "git_blob_sha": "abe251f46dedf8a6e6cd3e624a98fb2d76e5c084",
+      "sha256": "254a986ab1f9721658ea364defbb5e3c4d8bcda563bf2aed846a983d445273f9"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/analysis/__pycache__/clean_pantrap.cpython-39.pyc",
+      "bytes": 1163,
+      "git_blob_sha": "deaf79fb81d698f8190100fd83678ca0eba8c898",
+      "sha256": "a66786f597b69307db63e70d172513729cbbd0ef2dd6735f0d9ef28f485f5d5a"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/analysis/bareground_vs_floral.Rmd",
+      "bytes": 226,
+      "git_blob_sha": "8adbf71974b67a9ddab0615a423dfa738677e0a6",
+      "sha256": "ffa3afa6ba7ffe53e243d91752c8a2761e932f04b8a784a85bb8620213c2d284"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/analysis/clean_pantrap.py",
+      "bytes": 524,
+      "git_blob_sha": "5dac8bf7ee404912da580e4f81d6fef3b66541d6",
+      "sha256": "3d2dab0d36451df3cb9e2f662e06e57ffd682056b494e50a4eca3b9ba1cf3fdc"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/analysis/config.yaml",
+      "bytes": 102,
+      "git_blob_sha": "8a3f0c16913f5610c62717ed084366f9fb012e2d",
+      "sha256": "db10ef31d89bc8eaf1e5648a80da984497df80195e6d35815da1cbc10debe877"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/analysis/gam_richness_v4.R",
+      "bytes": 717,
+      "git_blob_sha": "8573e89af69879567a36e0d7d29ae21872b2169b",
+      "sha256": "99b5c13c82f5b890f1f878bbcdb5d9a926fd270f35bc987b0945471b0d6a13da"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/analysis/logs/clean_pantrap_2021-01-20.log",
+      "bytes": 4205,
+      "git_blob_sha": "12659291d4f804b02658832606ccb714699dcf25",
+      "sha256": "d6a05c95cfcde52b29dfe4fa8d67cc182c36e39a4a86cc9a3ef108b4f8ce30eb"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/analysis/report_queries.sql",
+      "bytes": 212,
+      "git_blob_sha": "7c6f2b7862cc3f13571f206b8233856a141804ce",
+      "sha256": "42dc69a0850457a9e04202da7e1e74cc5a8b398891e81ba613496aae4fee0b46"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/analysis/specialist_lag_figS4.ipynb",
+      "bytes": 71682,
+      "git_blob_sha": "5c443d446cbdbd83d23e2fdc1e8ceab626b7831e",
+      "sha256": "6ed9385963f12610b6daabe44b339899809f93477a813f2dc84e6637f6f5d492"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/data/PBS_specimens.sqlite",
+      "bytes": 1613824,
+      "git_blob_sha": "b2fd1f85dc39187312d1006b808441d15ab519ba",
+      "sha256": "8cff4ca3fee1a8747398a77b46c8fdbbe4652b83f4f795f047be15843f15997e"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/data/metadata/PBS_specimens_EML.xml",
+      "bytes": 748,
+      "git_blob_sha": "767b7cc9b9484044bf04b1666a2bcbafc5e99a4c",
+      "sha256": "89d4be225a02e764131b89d4247446102f2a42dd744583f0dcc8b593a8dffa0c"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/data/processed/PBS_specimens_2016-2022_ALL.csv",
+      "bytes": 1518134,
+      "git_blob_sha": "9c13aaa5efe51ab5bf8217e72550faca4d531a56",
+      "sha256": "faece4e15230682cad76655407a97914bd1556b2f125df8fda69f4b6b53779b2"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/data/processed/richness_by_site_year.csv",
+      "bytes": 1570,
+      "git_blob_sha": "2ccbf75c5ad77d4c63848a26a52c8d9487d855d6",
+      "sha256": "c2c63edcf673a3f1f0034880747b0b6447bc1cdcb5d7a4bf5c5fed1ace68c833"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/data/processed/specimens_2022.parquet",
+      "bytes": 30369,
+      "git_blob_sha": "89f5c1d0f547962a4dd3ff3e79ae0959fa5324ae",
+      "sha256": "d15e4d8c1c8597475a922dbfa96c1416aba8142f1e1d37cffad477347f1dc02e"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/data/raw/floral_bareground_quadrats_2019-2022.csv",
+      "bytes": 27198,
+      "git_blob_sha": "6c40732865cb70f5b92a10f558da00eef6dd589e",
+      "sha256": "4500a3aed0c988ef5b6290a6cbb18e79d5020960be96635fed774c34d5400b25"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/data/raw/pantrap_specimens_2016.csv",
+      "bytes": 177844,
+      "git_blob_sha": "90e8b16e02327296c4b7982e985c801eb6351681",
+      "sha256": "665149f89f76b5e37c5f87ba70af998cef1b1f3621a412f9f4306d225978bf81"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/data/raw/pantrap_specimens_2016.csv.gz",
+      "bytes": 13486,
+      "git_blob_sha": "5b76088242b60cbab4f96d14c6fef599a0d845ac",
+      "sha256": "b9f10d4a7c05d7012b42768108de332be10204d2fc828c9516740d64e08c641a"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/data/raw/pantrap_specimens_2017.csv",
+      "bytes": 191079,
+      "git_blob_sha": "23f0c854fc6f67a19b398ce790371c6a23de6b8b",
+      "sha256": "1020b6bd9dd0a414ec0f4b2dd66e0da566a8e1566a9e1b28a9b995df6b8819b2"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/data/raw/pantrap_specimens_2018.csv",
+      "bytes": 197083,
+      "git_blob_sha": "28a7d03f1e957268ef95bdb839f736a45e432f41",
+      "sha256": "d8444492439b475754730a34a1f3e3cbe5983d517abbe4a50fc08459592a2859"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/data/raw/pantrap_specimens_2019.csv",
+      "bytes": 212800,
+      "git_blob_sha": "85269724b2273b69ede8748f7494ce900c413d35",
+      "sha256": "0b2a6f912174a8d3566f71a4429c856c5b0604f80bb9a8cfaae64e07411bd04b"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/data/raw/pantrap_specimens_2020.csv",
+      "bytes": 234402,
+      "git_blob_sha": "6c8b64247d4a31f894d0c6f630d479f5aa6fe7f2",
+      "sha256": "a120fadbab1606226bef0d3317e9ae2bda3f9747af5ae0b878408288d78dd722"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/data/raw/pantrap_specimens_2021.csv",
+      "bytes": 249077,
+      "git_blob_sha": "95028bc87bee119605b52b398709b5ee3a7e8b65",
+      "sha256": "6d4616deb81bed0b25d0d86ecb05a49f590b1adb444a608b585df0f998c6ea2c"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/data/raw/pantrap_specimens_2022.csv",
+      "bytes": 256347,
+      "git_blob_sha": "4c29b04146e9ca53269029d1272dae08d4964cc6",
+      "sha256": "93c684d2670b49b2fddc29b0638bcadfa786c86977cd6161a0fc16ae686aad76"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/data/raw/pantrap_specimens_2023.csv",
+      "bytes": 0,
+      "git_blob_sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/data/site_metadata.json",
+      "bytes": 2277,
+      "git_blob_sha": "3e19ef68c7b194d670c485f09c2b9e033aa73b92",
+      "sha256": "fdc18ee2558085781fd9831058f893e7aa7221e9009131107cf45b318f0a082c"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/field_notebooks/Field_Notebook_2019_vol2_scan.pdf",
+      "bytes": 398802,
+      "git_blob_sha": "9c538e6ad4d595e11f552968046d809bd42575db",
+      "sha256": "b0e3a4c58368f8d563db613b25d7206f70303c63ebd788beb1a51fd15f084f70"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/field_notebooks/raw_scans/00361-00363",
+      "bytes": 3715904,
+      "git_blob_sha": "9a9f72899ec8e8e9ad996185508cb87ef97eaf76",
+      "sha256": "9f9d2967137b09349afec727d19b4531e971e20d684cc4e04d1d0348ca3631b5"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/field_photos/2018/HCP/IMG_4222.JPG",
+      "bytes": 127866,
+      "git_blob_sha": "d8f2d0fd086d528087091bbea6646900cb655387",
+      "sha256": "544d6f0259ae5ea0bb74c38bf749df0286c4329184c00ecdfbc58f964dcccd9f"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/field_photos/2019/BRF/IMG_4148.JPG",
+      "bytes": 165202,
+      "git_blob_sha": "e85b775e83aec65d902c583d5913bb84411a7946",
+      "sha256": "4d8f186d088e0b2525b68a85f3f1af5e2444980b68c505b54fc7163062454c6b"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/field_photos/2019/LAF/IMG_4037.JPG",
+      "bytes": 63843,
+      "git_blob_sha": "7e4074b47a02a5239736c41b4b2ee4ed948bc83e",
+      "sha256": "96156cbb099fb248baa1e652f27214889ac811cb9e2b64f5a538f3f1407a359c"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/field_photos/2019/SBP/.DS_Store",
+      "bytes": 2052,
+      "git_blob_sha": "cfb815a41e1de93ac88dde91db4572893be01926",
+      "sha256": "387f0b6064c1b6eb3be5d9bb924398628db83a3466b7069ada63428bee8653b1"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/field_photos/2019/SBP/IMG_4000.JPG",
+      "bytes": 127909,
+      "git_blob_sha": "5fc71d02f1602b87d3499668530fc1e685ee3ae4",
+      "sha256": "4650aa7810e5b4256b5f74469d2b6f707c36e836cef71deb8fb34fae2d7b70e2"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/field_photos/2019/SBP/IMG_4000_damaged.JPG",
+      "bytes": 85272,
+      "git_blob_sha": "2045184dffe320c77772c9386d04a2abc6ca8a38",
+      "sha256": "4a5b9ed8ca42234231c018168d20ade0e9314c256cbc04cec694bb52ed8c970c"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/field_photos/2020/BRF/IMG_4185.JPG",
+      "bytes": 172117,
+      "git_blob_sha": "08c9419a5f357b7f34dab47ef71d4c854c7ebfda",
+      "sha256": "1d23cb5f3f87cdf9e3853cac85d42d74f72ddc0a8164e384de361f1f181a5989"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/field_photos/2020/HCP/burst/IMG_5000.JPG",
+      "bytes": 133283,
+      "git_blob_sha": "aecfa4789507caa495863b73e073e4df7c60253d",
+      "sha256": "d911c6dc61a0f07b1fc1a57f77762683ed708a02aef0b61793614e51ea2bdc7b"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/field_photos/2020/HCP/burst/IMG_5001.JPG",
+      "bytes": 141030,
+      "git_blob_sha": "3fcb5c3406d1be8a6c783e266379917b975325da",
+      "sha256": "6f3a7e8f0d7b0be79ea664ef0b104e925cc3a4a8dc6ae6d023fee54ae046428a"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/field_photos/2020/HCP/burst/IMG_5002.JPG",
+      "bytes": 141579,
+      "git_blob_sha": "b32ff7be21f5feec3c5f257107df14a889e11167",
+      "sha256": "ef5e5bb338e7badd6f22f99d2c051f90991f9e9dcc1a4d7d9c21a912095410d0"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/field_photos/2020/HCP/burst/IMG_5003.JPG",
+      "bytes": 141284,
+      "git_blob_sha": "cadd9649cb34dfe9da98d87ee5d6fbf4ba5ac726",
+      "sha256": "73ed0fc91116cd80cf9bf8f30ee5bb124ab038a146687ec299fa7f5042c438a4"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/field_photos/2020/MLP/IMG_4074.JPG",
+      "bytes": 132343,
+      "git_blob_sha": "3b9f98ab50202a1c60c0baeab76ced46fe0864f9",
+      "sha256": "dc81ef7423d7a0704c92b160fb06fbd21f42d00d851f067a2847b65a593e7ddf"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/field_photos/2021/KRR/IMG_4111.JPG",
+      "bytes": 199253,
+      "git_blob_sha": "232179e782fa88638aec1161ccf4c6680067a7ea",
+      "sha256": "2e2e9e59fe0939608b3e390ce95681e826ffceb627b0d4d9c1bf1b6e33d270cf"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/field_photos/2022/CRB/IMG_4259.JPG",
+      "bytes": 72115,
+      "git_blob_sha": "aedb60c48857f600988cef9cfaaaf1a4dbf5d1d4",
+      "sha256": "d22920d67d2a1da4fc378a8ce1c290237187ad29e3e6a578d42bc8a4ad59ff52"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/figures/fig1_richness_age.png",
+      "bytes": 72925,
+      "git_blob_sha": "883c1364969bd19dfbfd5c0a5f6f3ef93407e456",
+      "sha256": "a0a19d86cc3e06e75307685a455726f3d10e7c0eb012a66b51a8725d2e257ddb"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/figures/fig2_specialists_age.png",
+      "bytes": 77417,
+      "git_blob_sha": "ed8eae52b360269ce33bcfd4562ba1dd4f8beafd",
+      "sha256": "2aa7ea049bb2a7960f388113777522019969d255c46a34c7c8cf9edb45d90b6c"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/figures/figS2_bowl_colour.png",
+      "bytes": 46011,
+      "git_blob_sha": "a599f6be0c53a40546392354c208b255ec9ee88e",
+      "sha256": "2daf1e0f7605479da1cd34a3fb80264b1dae55d3872be1e86565d6bb37d9f938"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/figures/figS4_specialists_noBRF.pdf",
+      "bytes": 21707,
+      "git_blob_sha": "21b04734807c96d6ff408bc59c50ea7f591467d9",
+      "sha256": "f7581ba8def7c66be3cb6b2445a538cbbfde073ce670c3304f3b70cb3de258a2"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/figures/taxa_top15.png",
+      "bytes": 87894,
+      "git_blob_sha": "4f40e20cf05c30a3c7ee6175e5b22b1385ca9d87",
+      "sha256": "c6f6d6e00371123f9dc5901b9d29cf95783df5d232aef44ac8d5f348e4be3409"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/oral_history/Ritter_interview_2019-07-09.wav",
+      "bytes": 4486082,
+      "git_blob_sha": "5d90997dfded97a0af3efbdb606dc8c20bf75bfd",
+      "sha256": "5509003329886537ea31810426de2a89d6ab49b0cf52b0ccd0443ef2e6f696d9"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/oral_history/Ritter_interview_2019-07-09_access_copy.mp3",
+      "bytes": 611375,
+      "git_blob_sha": "554169e5c69b25c49b7586cbb4e0967fef8ed173",
+      "sha256": "b2653e59da4c7e6567eb87cb52180ca7d4c67d4c37a4e9bfd75fb30fcefb7437"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/specimen_images/tiff_masters/PBS-2019-001200_Bombus_affinis.tif",
+      "bytes": 162224,
+      "git_blob_sha": "4cc3bedaec8067d7f578ce354eea48426dbfeed5",
+      "sha256": "badd156258e71b17092853b1333348a4eb0e07020a479907c6b3de1590c95dbe"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/specimen_images/tiff_masters/PBS-2019-001411_Andrena_commoda.tif",
+      "bytes": 162396,
+      "git_blob_sha": "575caa361e9e58e2206a90287a0dd193a6b13096",
+      "sha256": "a334899edb16faf59f1ea7c578f0714702a564b8ad97215fddf357573530e988"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/specimen_images/tiff_masters/PBS-2019-001622_Agapostemon_virescens.tif",
+      "bytes": 162792,
+      "git_blob_sha": "588a403c1bf7048de0f1ed2e65ac7c0701dc1e8b",
+      "sha256": "5a9a3736188c7b0d53595b6fad328606fa5421324716c4e857c52297ea68b87a"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/specimen_images/tiff_masters/PBS-2019-001833_Lasioglossum_pilosum.tif",
+      "bytes": 162276,
+      "git_blob_sha": "00fffadafe089ba3b811638f65c0ec60de82831a",
+      "sha256": "2d56fca292e019822907f9a97ed5685793383cf402c872076c1a79d5211cf664"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/specimen_images/tiff_masters/PBS-2019-002044_Calliopsis_andreniformis.tif",
+      "bytes": 162778,
+      "git_blob_sha": "9882d72716b2c739aea167095c5c172c2b7f6dbb",
+      "sha256": "cffa683d872922382ac00a9e04afbe68e434a3588449f2d39d46e4b030a9166c"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/specimen_images/tiff_masters/PBS-2019-002255_Melissodes_trinodis.tif",
+      "bytes": 161094,
+      "git_blob_sha": "f250dc5813defe9c19de0c632ee81c2b2035ff3c",
+      "sha256": "73ae0b4339721831a3933952a4083b922ae140f8b623f581e9e54ab30b162d1b"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/specimen_images/web/PBS-2018-000777.webp",
+      "bytes": 8896,
+      "git_blob_sha": "66a2f12a0aadbb42a8155937381874f94dd0c7e6",
+      "sha256": "bb50d336c10b683b1478562fc94f7c38559a2bc7273677a6b615e4a5ab0c0b52"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/specimen_images/web/PBS-2019-001200.jpg",
+      "bytes": 22613,
+      "git_blob_sha": "41fcff4ca77334afa3958281fe18571c559e8402",
+      "sha256": "9dd449b981801b93efdf1732b57e2303802e249dd799030de09645566dd6fa2a"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/specimen_images/web/PBS-2019-001411.jpg",
+      "bytes": 22318,
+      "git_blob_sha": "f1011f87a1242ee1aea6e6169e7810f07d356771",
+      "sha256": "3c46bb8e47d877365e95a571dc5824c632dc05a1ffe6449628b4a1ccfd4e291d"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/specimen_images/web/PBS-2019-001622.jpg",
+      "bytes": 22163,
+      "git_blob_sha": "3c32ebda2452e60d79daeaf9d2cfc0fbd57c1183",
+      "sha256": "86a71a11f7efe2b6b33771446f9ba7f6ed31c7068eefa727a797e91777a7a72b"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/specimen_images/web/PBS-2019-001833.jpg",
+      "bytes": 21695,
+      "git_blob_sha": "1f3e3e3c8554b688ef965cb1f1e0a2c8247d00a1",
+      "sha256": "dc8cc91a09b410ae8e267321ac3705470b4b0d687871c4469db906acafabf4f1"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/specimen_images/web/PBS-2019-002044.jpg",
+      "bytes": 22916,
+      "git_blob_sha": "3a9460c404aec324df0a477a4c55e6dc3ce97351",
+      "sha256": "832de229b81f914ced0d13b64d960d387231bba069e094a092be81600b87db76"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/specimen_images/web/PBS-2019-002255.jpg",
+      "bytes": 22430,
+      "git_blob_sha": "ab4dc3b978adc6f63f056007f24a841c1e973589",
+      "sha256": "3f0dc234273c4493ef355596dd3f5b536858e9847462103acbb0365e26eb1ba3"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/video/DJI_0042.MOV",
+      "bytes": 227287,
+      "git_blob_sha": "59d9ce0e36ddfb54efc5183dddd1538982c65566",
+      "sha256": "08225ebd859e2036fe0e62fdaf85cc808969a4300bdba1e19dcb0291eea4dc4e"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/video/MLP_pantrap_timelapse_2020-07-12.mp4",
+      "bytes": 619719,
+      "git_blob_sha": "6398da7bd08e7e00aba25c1dfb2fc0ab5bcc5bf3",
+      "sha256": "671b62286940f8c6da07b9c6087eb58711cb5503a4ec4f54ed9c976ca8df921f"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Research/Prairie_Bee_Survey/voice_memos/memo_2021-03-02.m4a",
+      "bytes": 127075,
+      "git_blob_sha": "b15823d4a2b94c09cbafbaf6aad9d4c59e88d7f1",
+      "sha256": "ebbd43f866b12d52255e52d892b3420766b6d73ead0be6ae4708d08633b98012"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Service/Prairie_Society/statement_solar_on_remnants_DRAFT.docx",
+      "bytes": 36729,
+      "git_blob_sha": "838b723b72cf1a792177429d4303fcfe3af3cd64",
+      "sha256": "c3f43979bda7935d8443dbb5c6326c79ec1aebc602cf911219e62861689467a1"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Service/Promotion_Committee/2022_dossier_review_notes.docx",
+      "bytes": 36698,
+      "git_blob_sha": "7ed1c7f4f8aca65fd4e517f6db6ec3c0ce6ff6e1",
+      "sha256": "5f68a788ad0ffd7c9b8f3dbeb8367e46f91435ecb3080877a805570704e89af9"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Service/Reviews/ECOAPP-2021-1172_review_MKA.txt",
+      "bytes": 624,
+      "git_blob_sha": "4efc4bbd485a772ba517d936afbfe57cbbad5857",
+      "sha256": "cba95204709b9f845493df3ad0a6a31513da674bde8478bee5c2422523ff9fca"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Talks/2018_garden_club_bees_in_your_backyard.pptx",
+      "bytes": 29180,
+      "git_blob_sha": "6053b7fd7aeab7fbaaa2affcb361f1ce4345caf4",
+      "sha256": "26c64f9c25bd90544d102e054c337414bf0ce6639f34e8cc904b9d2fc9651db7"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Talks/2020-10-14_Dept_Seminar_prairie_bees.pptx",
+      "bytes": 250998,
+      "git_blob_sha": "181b1d46d64d0e8451abf427fb75aece4ac5ebc0",
+      "sha256": "e33633bbb53af627cba13eaf20c29b3ff47487704ba275e2aecd513fa9258830"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Talks/media/bee_approach_animation.gif",
+      "bytes": 373698,
+      "git_blob_sha": "097a4830fb21da08ce3f0ba919b2e8203e20970f",
+      "sha256": "c0a3d7b50278993db770c3d5dadc342c093dc13531f90f07ed3deca8ef2c0611"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Talks/media/voicemail_courier_2021-07-13.wav",
+      "bytes": 217816,
+      "git_blob_sha": "e20947d5f1517cc27c8efdca3888453c2a5fa9c2",
+      "sha256": "edd1cd3a0c7ec9c5f05583492cdea57fa42ac6cc0a77315354f3be3628196e9d"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Teaching/ENTM210/ENTM210_Syllabus_F2019.docx",
+      "bytes": 36779,
+      "git_blob_sha": "9a8a3cc9b54fadc8c385906ed2f78a5d2245433b",
+      "sha256": "511cf59cfa76bd03f8ab368f9e7402b54b2b5fc189799e85576c0733818b3984"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Teaching/ENTM210/grades/ENTM210_F2019_gradebook.xlsx",
+      "bytes": 7282,
+      "git_blob_sha": "adb4723de07b8a7275eb9e7194f5e0d935ce20ec",
+      "sha256": "daf7493b8656e4a60cf0b9ac9c38265f9624f4c40e2c57b6c52fcdcce831ec2d"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Teaching/ENTM210/lectures/week05_pollination.pptx",
+      "bytes": 30034,
+      "git_blob_sha": "c6cb4596e6dd10f5a46735a19f771ab74164b48e",
+      "sha256": "c74e277994db3df5d91300d25b9899dfb8928af9c996b17d62f544695510005d"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Teaching/ENTM210/lectures/week08_mosquitoes.pptx",
+      "bytes": 29956,
+      "git_blob_sha": "5d12fca88f70cae69fca74ab251028522d7e8d19",
+      "sha256": "983a1f5625df4a1bdca7c9f4292b834464fe70db74244b1e6255ff3ccea3cb8e"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Teaching/ENTM210/old/ENTM210_Syllabus_F2017.rtf",
+      "bytes": 18335,
+      "git_blob_sha": "2f755c18979b5120c1a2dfa2af1a346008c5acb7",
+      "sha256": "20000d95a108c2b1d9548d098eb34cd3180b292cacba959c06ef00d834dbecce"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Documents/Teaching/ENTM210/roster_F2019.csv",
+      "bytes": 145,
+      "git_blob_sha": "3faf5082c28f043dfe8918ee62edc28fb3547014",
+      "sha256": "d1a016d0c4e4f3d989d4073cf55f6b87749441d176e3be49e3c40d7930326c3a"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Downloads/.~lock.budget.xlsx#",
+      "bytes": 116,
+      "git_blob_sha": "c83c5290fe676d93c1732b97dfde0b507be9216d",
+      "sha256": "4fd43de6c79bc30afd4977b552ba7c09e9d68e5b63df014041c5c7b8cf724b9b"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Downloads/Achterberg_CV_2024.docx",
+      "bytes": 36982,
+      "git_blob_sha": "660bf19d19575cc327c9963aeb41c80bb7e4704a",
+      "sha256": "6da97ef8d0584cedbd2426eb6e628c943cb333293cd917785989ec226351115b"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Downloads/Achterberg_etal_2021_JPE (1).pdf",
+      "bytes": 33786,
+      "git_blob_sha": "8c98a9aac00fea8bb67d8028f9cd35f5f81b2bf8",
+      "sha256": "df54847eeec0b354dc9729e8eff1cbfe46cfde19879758aa4bd22f0b806ef8d4"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Downloads/Bee_Movie_script.txt",
+      "bytes": 140,
+      "git_blob_sha": "a2eac2d661934d134babb29c75fffb6eceb9ded6",
+      "sha256": "7289533ae020e1bb45a4722cc0df3b72ea190fe89693ddcdec074148e0d18eff"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Downloads/Conference_Program_ESA_2019.pdf",
+      "bytes": 1530,
+      "git_blob_sha": "3c1f3c17e5f19192dccbf620bab2c8b37e176a7c",
+      "sha256": "df106e787b55920ceeb365b4d6567e570340fe8e0b9f70b354d77f548df592a7"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Downloads/DNR burn schedule 2020.mhtml",
+      "bytes": 359,
+      "git_blob_sha": "d915dec84d93383fdbcc9a83110b61ad0232eab1",
+      "sha256": "ab4a63a54b461acf82fc1f52720cc9a611954623ca965f22c23f4a4cfe65af68"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Downloads/IMG_4148.JPG",
+      "bytes": 165202,
+      "git_blob_sha": "e85b775e83aec65d902c583d5913bb84411a7946",
+      "sha256": "4d8f186d088e0b2525b68a85f3f1af5e2444980b68c505b54fc7163062454c6b"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Downloads/R-4.0.2.pkg",
+      "bytes": 400008,
+      "git_blob_sha": "915f577796a6e9642a86fc4ea5a6cf17968aad30",
+      "sha256": "fa46965beb32f63c075ac2a5a3802ea8f23c32f9ff03a4a4183e309932b11b12"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Downloads/Rusty Patched Bumble Bee - Species Profile.html",
+      "bytes": 335,
+      "git_blob_sha": "6485c8e25b9e437944c13370f6f2b1c6d0a70fdf",
+      "sha256": "f1f39e21322ea3f2e71caf46ee63324b4b84bac16bb0c62289fc6d1856a68525"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Downloads/W-4_2020_blank.pdf",
+      "bytes": 1455,
+      "git_blob_sha": "207b3310bf2505973e44cf69b5432e9e07f5dd42",
+      "sha256": "e37021e60402e08f8ec508b6fc1c3ec5e474d3924573a87fc1ba7f9f30ec3195"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Downloads/ZoomInstaller.exe",
+      "bytes": 200068,
+      "git_blob_sha": "ff2586103abf32e1ffa58a9c83f923ebbd8beab6",
+      "sha256": "04f31e0689ac0cb1d31ddca41b332070f458f2be1c799fa8d3d2de773ef1b66a"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Downloads/beekeeping_supplies_catalog_2020.pdf",
+      "bytes": 1471,
+      "git_blob_sha": "768ffe61a96a1aa7ce2ecec6fe2048e866c3e522",
+      "sha256": "e92a67ef3b02d3308d45c69ff4663d0de65d73a0d05abb7aef5a8f44e861f01d"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Downloads/funny_cat_compilation.webm",
+      "bytes": 87057,
+      "git_blob_sha": "f929b7a44bacccc7e7fe5ab64b31d997df6ffaac",
+      "sha256": "36a1ece03695bbff183a8e976beb8421540dd7a32f1084d49265cd3e0a370116"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Downloads/image(3).jpg",
+      "bytes": 77417,
+      "git_blob_sha": "ed8eae52b360269ce33bcfd4562ba1dd4f8beafd",
+      "sha256": "2aa7ea049bb2a7960f388113777522019969d255c46a34c7c8cf9edb45d90b6c"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Downloads/old_reprints.7z",
+      "bytes": 1714,
+      "git_blob_sha": "3d49117ff4241a44eaf0d3f8c78a1df8d1dccd42",
+      "sha256": "922a440569e4e0d0ded4bf3114467d3115398192eb533e2f7d57c9798f9d1617"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Downloads/sample_data_DO_NOT_OPEN.zip",
+      "bytes": 203958,
+      "git_blob_sha": "7d3ea68861c201988b246950201e5c72290b3400",
+      "sha256": "32d33d2cc69deb3e1c0b8d2f2e864c4a6dbfaf90da399916d0464ed65df81693"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Email/Saved_Messages/Misc/11_Newsletter_ Pollinator Partners Quarterly - Spring 2021.eml",
+      "bytes": 803,
+      "git_blob_sha": "3e75080a9c30cd47ffc76d83c06ff166c0b30341",
+      "sha256": "b5db12933f49c191daaf3b428804d233d2b890ab33f1a5d4ef168ca283bec214"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Email/Saved_Messages/Misc/12_Parking lot E14 closed for resurfacing July 6-10.eml",
+      "bytes": 617,
+      "git_blob_sha": "afc7e688269622b4b9938c279723905d49b5e10d",
+      "sha256": "88d602ac647973f01e119fde1a97b62d15b007ff22a18206a493d195b0fbbdfd"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Email/Saved_Messages/Misc/13_Action required_ Duo enrollment by Friday.eml",
+      "bytes": 508,
+      "git_blob_sha": "fb536e2d594fa3fb92a97644d7e8d1bd55d4f7e9",
+      "sha256": "9cae1e2f1220ad04504e683d8d398f31f4bfbb0b311a2657edd4343a14118519"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Email/Saved_Messages/Misc/14_Travel confirmation_ ESA Annual Meeting_ St_ Louis.eml",
+      "bytes": 624,
+      "git_blob_sha": "01321b723cec0f07b0070a2240f8df2db0ea4681",
+      "sha256": "2e8b4f3d1f8522b5e9f8afbc63b756a8c0c517e4c1a51ed8a900136bfb677688"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Email/Saved_Messages/Misc/15_40_ OFF insect pins _ FREE shipping this week only__.eml",
+      "bytes": 607,
+      "git_blob_sha": "f46a305a9ffdf34bc8ddc2e9d0c39b60440ed33c",
+      "sha256": "c876495b16e56822ccdfa484135116f487ec651859eae6c810b6c96d3b2f7f39"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Email/Saved_Messages/Misc/16_URGENT_ Verify your direct deposit to avoid payment delay.eml",
+      "bytes": 639,
+      "git_blob_sha": "0bbb2e22d8f54de8d3d2b0bb24e1e328fa14f70f",
+      "sha256": "7e0af204e2d254df0af490ce555d02bc54fc13a10931e72319fd673ebe5b1425"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Email/Saved_Messages/Misc/17_Confidential_ Doug Penner - performance concerns.eml",
+      "bytes": 837,
+      "git_blob_sha": "8cee22e4c3e2dc81a666d19f28e183ef73cb86a3",
+      "sha256": "38615db28914a13ab82b737eb2387c1ddd85738ddc0a6897bb6fa18f3e90806e"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Email/Saved_Messages/Misc/18_mom_s appointment _ groceries.eml",
+      "bytes": 520,
+      "git_blob_sha": "09004ba85b39863e06aee3c761abd344c5327df9",
+      "sha256": "b665ad0a3f3369c79cd53b776786b138b29a5af619e5350781ab20d03c298052"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Email/Saved_Messages/Misc/19_Re_ grad application - letter for Jonah_.eml",
+      "bytes": 612,
+      "git_blob_sha": "d071419a923df63fa26920fbc3183c9b0d19d9a6",
+      "sha256": "7a1f0c74da7927fdb2ba20c9882eeebfa26f84ba4586d65708278a0f73e21c8f"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Email/Saved_Messages/Misc/30_Faculty meeting agenda - Sept 9.eml",
+      "bytes": 489,
+      "git_blob_sha": "de921b89a76e3b03d9cc6eb762850b1e89209d69",
+      "sha256": "3218cbcf3f996ec8c08f273e3918017f926a947a3658f803083cd7006cadf001"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Email/Saved_Messages/Misc/31_Seminar today_ Dr_ K_ Brandt on mosquito vector compete.eml",
+      "bytes": 492,
+      "git_blob_sha": "df9b5a701795ced0c2e5913a0528065dfec52fbd",
+      "sha256": "08994e500b39babc0c6035d048987a7c4a60cdcbe6e8423d9bb0fbf49d3ab2f4"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Email/Saved_Messages/Misc/32_Reminder_ annual ethics training due Dec 31.eml",
+      "bytes": 456,
+      "git_blob_sha": "d9ec3c878cdd15a676063cbbe7f0fa465549ecd9",
+      "sha256": "ee9ced9e4530840feb5f9ebbf596e12c85fbe330bca16a8ec5ec88c892dfd128"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Email/Saved_Messages/Misc/33_Scheduled maintenance_ email outage Saturday 2-6 am.eml",
+      "bytes": 471,
+      "git_blob_sha": "b828f0fc7ad6df5e40bf2af23f6ed69516982d9a",
+      "sha256": "f9ee2c807a3f2c9c5caf0788efecca31fdd59cab8c855406b72aa8b2377f46c8"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Email/Saved_Messages/Misc/35_Prelim exam scheduled_ P_ Natarajan.eml",
+      "bytes": 511,
+      "git_blob_sha": "9b6ec2ad87b470ae7a1cdedbfe41b20c22cf3713",
+      "sha256": "0d0660312856e05d86c0f78303395888b4da9b58df881468061bae2dda3a1869"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Email/Saved_Messages/Misc/36_Invitation to review JIC-2022-0567.eml",
+      "bytes": 531,
+      "git_blob_sha": "b3506bf8b79e3bb874d3d243561de052e43cf106",
+      "sha256": "03ca4379778de6fa508377b189b508ea229ea66b623c8aa0c7ca62ee63d7e070"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Email/Saved_Messages/Misc/37_Your order has shipped_ 6 x Solo 3_25 oz plastic bowls.eml",
+      "bytes": 553,
+      "git_blob_sha": "6d13fa6540639523f29d053983e269afafe07389",
+      "sha256": "794c924688565137e31145d383d6cb90e7941ee381d05ff7e7bdb2d0c1010162"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Email/Saved_Messages/Misc/38_Re_ summer vacation_.eml",
+      "bytes": 456,
+      "git_blob_sha": "8a2e003b18b8c53ea5dde1cb9977b798dced8797",
+      "sha256": "dc4ffb6be957dabe1367127a16590f778dcf38dbfd1464d5a9edc659214011d6"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Email/Saved_Messages/Misc/39_Westview Elementary Newsletter - March.eml",
+      "bytes": 490,
+      "git_blob_sha": "c1082ea9fd905a46b02e7982fe7fe86fa93328ad",
+      "sha256": "36f33ea003d03511d2471f580678cb54d6c4e69f23c0eac464efce6d82fd1311"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Email/Saved_Messages/Misc/40_fantasy draft order.eml",
+      "bytes": 422,
+      "git_blob_sha": "31d874b8277eea27df7a9616ff58a2b87ec5a71b",
+      "sha256": "36e19030ee6f1fd60c16fb15e9942320a294cabe6acaae5582baf5495ae10440"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Email/Saved_Messages/Misc/41_Can_t make lab meeting - sick.eml",
+      "bytes": 425,
+      "git_blob_sha": "d90a50274c85221f186a81064b496c6f3f637812",
+      "sha256": "2a072eb156d33ff143469be966e1b0a7c25a83639b5930eb6b16908dea70a222"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Email/Saved_Messages/Misc/42_bowls for Thursday_.eml",
+      "bytes": 418,
+      "git_blob_sha": "8e98cae1cb173fe5ca10e978319be9110f42f1c5",
+      "sha256": "7d56de90ffecbaa3ea19bee03a7e54e604a0357ccd7cab38bb4d260ec51d3ad3"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Email/Saved_Messages/Misc/46_We want your feedback_.eml",
+      "bytes": 404,
+      "git_blob_sha": "8746c55a15f8fa614fe86f9fde74f9dab04515fb",
+      "sha256": "1d74f241f2c1cd5d7d0a80a341844fa7f287517110d81ce37888c7909c04900b"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Email/Saved_Messages/Prairie_Bee_Survey/00_Re_ richness plateau - mixed model results.eml",
+      "bytes": 1589,
+      "git_blob_sha": "0476a89cf35b14c02059c386be1bb3e459492e60",
+      "sha256": "f154cd39ee5310bafc866ac8d2ca9d8e83976bd1fc0b63cbbde1763b6aa0970e"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Email/Saved_Messages/Prairie_Bee_Survey/01_Re_ Re_ richness plateau - mixed model results.eml",
+      "bytes": 1070,
+      "git_blob_sha": "f865e9e8abe32c4c7bc71e6856c4d6d701e955b2",
+      "sha256": "43e67f1c30af9f2fbbabf37c0d48467595ef6f9651b1f6a5198dd8dd056801d3"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Email/Saved_Messages/Prairie_Bee_Survey/02_B_ affinis at BRF again -- photos attached.eml",
+      "bytes": 8086,
+      "git_blob_sha": "8b379a53a5da4a17e821c97d454c5c57e9c5e0dc",
+      "sha256": "a7bd5431c2d305579e29786f816d5848e1b1faf02b37ef8fe0fcdd2bd01c7a93"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Email/Saved_Messages/Prairie_Bee_Survey/03_Location data for Bombus affinis records -- please read.eml",
+      "bytes": 1156,
+      "git_blob_sha": "f3ff5def8bc5089f7d9adaee13a94f8e25289c40",
+      "sha256": "fe1e28c301e14b37353ccc74914fd8fc50b9a99177936ffc7dfacaf3374d8ffa"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Email/Saved_Messages/Prairie_Bee_Survey/04_Decision on JPE-2020-0388_ Major revision.eml",
+      "bytes": 1940,
+      "git_blob_sha": "09b681cddedec829fb98feacf29c47211c6a0e87",
+      "sha256": "10f68dff95d2dce812ec2b6dbf74631066fdcb33841ef2abe9761b1a2d66295f"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Email/Saved_Messages/Prairie_Bee_Survey/05_pan trap protocol v3 _ question about tipped bowls.eml",
+      "bytes": 50944,
+      "git_blob_sha": "0c51be5a6893ab46a708c58f9540e32b438393c5",
+      "sha256": "fa91fe3582f964a37375b665bf196420645208e023cd2bc1358db9298e2af2de"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Email/Saved_Messages/Prairie_Bee_Survey/06_the old prairie on our place.eml",
+      "bytes": 1064,
+      "git_blob_sha": "4e645db3a554c4165b90530e11e4cfb628810827",
+      "sha256": "b56571873536d1e3e6b6ca174bc880d76dfb1e35d6d5358e1d3ada500ee4befa"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Email/Saved_Messages/Prairie_Bee_Survey/07_FW_ Prairie Bee Survey - statewide working group.eml",
+      "bytes": 1782,
+      "git_blob_sha": "78df84048f67f6441ec885cf7578205b3752969f",
+      "sha256": "49c7af517a7c80ba29c69380b0b9879ea82936a1d75fc7161fbc414ff9b23723"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Email/Saved_Messages/Prairie_Bee_Survey/09_Re_ committee meeting _ chapter 2 comments.eml",
+      "bytes": 746,
+      "git_blob_sha": "0e7562477f08ebf27966b838a4f0db83f0b8c8e8",
+      "sha256": "6258503e7b6cfaac1c7d89fcd0bc9d031307d3745d667af7d973a6f1fff13a2c"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Email/Saved_Messages/Prairie_Bee_Survey/43_Re_ burn permits Cardinal Bluff _ Lafayette Rd.eml",
+      "bytes": 592,
+      "git_blob_sha": "47edcf15da95914f4763c038713b59d9ea4f45e2",
+      "sha256": "408127210559cfeae16b6093452f76672fddb7cc4caaaef082239da5571f2e47"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Email/Saved_Messages/Professional/08_Interview request_ bees and prairie restoration.eml",
+      "bytes": 752,
+      "git_blob_sha": "3a72c089dab68b2b43bec475a86f220b895ddbcb",
+      "sha256": "c1ceb3f4a8adff1af35264ecb5a3c5609c97425bf378cc2d52f639e8b0c537a1"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Email/Saved_Messages/Professional/10_Your seminar is confirmed_ Oct 14_ 3_00 pm.eml",
+      "bytes": 1511,
+      "git_blob_sha": "ceb025578c11c6ab8f99705b382e8006acabd0f5",
+      "sha256": "9bca70bce4f67e1f16c8662afb209d6f3a43d8734e156303ebd9f665783a9af5"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Email/Saved_Messages/Professional/20_Besuch im Juli _ visit in July.eml",
+      "bytes": 600,
+      "git_blob_sha": "30bda09c89020a3cd21774b899809bf687082e0d",
+      "sha256": "23d88e8af532210ba8b6102169de9945f56b1fc019a269b26f730a7ff8ccd3c6"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Email/Saved_Messages/Professional/34_Board minutes _ vote on research grants.eml",
+      "bytes": 660,
+      "git_blob_sha": "cf7e443d45bcaca71161e2c29c4e5c1f67e748e2",
+      "sha256": "2419a946d9457a57114e9dc6aab16c4c01ed270c9ec3090e5c89c493049c1d65"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Email/Saved_Messages/Professional/44_Congratulations on your retirement.eml",
+      "bytes": 500,
+      "git_blob_sha": "498bd0c999ce4c17074e1e442a613b7f8917a3eb",
+      "sha256": "cc59c6e3d2557aa3163f45d47ea074e83e4e6d25953dcfea6aa77a471289f25e"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Email/Saved_Messages/Professional/45_Abstract accepted_ Poster P-311.eml",
+      "bytes": 534,
+      "git_blob_sha": "01eb1f73a57ede5acef84154f071171d47b9136a",
+      "sha256": "cc9ad80c5ce593cfc338ec13fe0c0ece50af4b2fae944964298f51f39af1dd44"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Email/Thunderbird_Export/Inbox_2019-2021.mbox",
+      "bytes": 71982,
+      "git_blob_sha": "1da06b2229be955a8283823166b56cf09717221c",
+      "sha256": "76dc6e7a04409e2cccf1d46a62c73bf429cdb59140e3218f4727d4bdc54c508f"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Music/iTunes/Unknown Artist/Prairie Winds (instrumental).mp3",
+      "bytes": 129234,
+      "git_blob_sha": "201b6086209de5bfd4c812de01495060cd3ae3be",
+      "sha256": "0023160f7065a7f875634cc30febbd2cd6fac69850d398852531aac156b4cacc"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Old_Computer_Backup_2009/My Documents/My Pictures/Thumbs.db",
+      "bytes": 4096,
+      "git_blob_sha": "de2539974d2c77cd07ba94e3f0f1d2bf12153a53",
+      "sha256": "850d7d9215f5a29e88284763b10335109b07dc089b9cab56099d05e51e5fbf19"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Old_Computer_Backup_2009/My Documents/My Pictures/hollis_creek_2007.bmp",
+      "bytes": 921654,
+      "git_blob_sha": "e46b3b459c4bdc9b08cdc1d224f3bd0bb4022519",
+      "sha256": "8d4e240015e6a63faba298a5d40a28f00a16bc91b02e231a6244c8f4e8ff8b6a"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Old_Computer_Backup_2009/My Documents/bees/METHODS",
+      "bytes": 18432,
+      "git_blob_sha": "13e1d929bf1b5192b445f5e4629c3c8a8fcbeab1",
+      "sha256": "8139c19bed30db0454440ecbcbb4167f2a424bccfa55f1b446663e4af7e72640"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Old_Computer_Backup_2009/My Documents/bees/pilot_counts_2008.xls",
+      "bytes": 6144,
+      "git_blob_sha": "22bc430fbae59640b46e01dfbf0ccfd1e5409a4f",
+      "sha256": "f39035081b107a3c2fab6449fbe3b084c168966e8eeefddf4f3a56ac6c3bf498"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Old_Computer_Backup_2009/My Documents/bees/pilot_methods_2008 copy.doc1",
+      "bytes": 18432,
+      "git_blob_sha": "13e1d929bf1b5192b445f5e4629c3c8a8fcbeab1",
+      "sha256": "8139c19bed30db0454440ecbcbb4167f2a424bccfa55f1b446663e4af7e72640"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Old_Computer_Backup_2009/My Documents/bees/pilot_methods_2008.doc",
+      "bytes": 18432,
+      "git_blob_sha": "13e1d929bf1b5192b445f5e4629c3c8a8fcbeab1",
+      "sha256": "8139c19bed30db0454440ecbcbb4167f2a424bccfa55f1b446663e4af7e72640"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Old_Computer_Backup_2009/My Documents/desktop.ini",
+      "bytes": 170,
+      "git_blob_sha": "683979ce05b99a1b72ca2c486f50f955f871c7f4",
+      "sha256": "270b5607d4122cff1f7d23e211de25d3830043f0a69aca80d8fb27db5c02eda2"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Old_Computer_Backup_2009/My Documents/lab meetings/bombus pilot 2007.ppt",
+      "bytes": 648704,
+      "git_blob_sha": "97d48f73bea9cbf2a6a235669e0449f9cee7ad45",
+      "sha256": "ca2e93aad137c951e8a1c85b62c061e5141dc8b21fb0e586b6636d605b1a2298"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Old_Computer_Backup_2009/My Documents/letters/support_letter_county_prairie_2005.odt",
+      "bytes": 14209,
+      "git_blob_sha": "efb25d43165e0cabb0c0a07fcb73b79fc1c79d98",
+      "sha256": "5cbdf3cbdfc26666261d44810bb8653f02a4057033f390e07b5735baec75cfa6"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Old_Computer_Backup_2009/My Documents/notes/prairie_conf_2006.txt",
+      "bytes": 223,
+      "git_blob_sha": "7537885c4be99846e23d306467ccbf61ac0d4fbc",
+      "sha256": "449cdbb9de90f638035bdee485b6eaa7886606cb1b6ef0dd3267a7390116ec80"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Old_Computer_Backup_2009/My Documents/notes/specimen_loans.txt",
+      "bytes": 218,
+      "git_blob_sha": "da127fbdf4ee4fd3ae5ef49505d0ed041865d6d3",
+      "sha256": "8087d4ee6b1976964399ee103b039dcb17b5a8e543cf81c558591ae720971e74"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Pictures/Family/2018/IMG_7000.jpg",
+      "bytes": 23890,
+      "git_blob_sha": "8af760ecce4541e92e3150df608ada0df149f865",
+      "sha256": "224e8e24d733a9922e7089fcf03c162ecbe07dcf1f19acf9839c30167d0ba3ac"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Pictures/Family/2019/IMG_7001.jpg",
+      "bytes": 21293,
+      "git_blob_sha": "0389065c2ab7cb5a12a68c802370cf4ee369eb36",
+      "sha256": "4ec5363123911c04e3a5531342d6713f94421ad29c081c487002f000d50ed0f7"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Pictures/Family/2020/IMG_7002.jpg",
+      "bytes": 24854,
+      "git_blob_sha": "371ba78bbcd8e298bbe5f8c351c602a8bd9919e1",
+      "sha256": "ce05e9b889ab8397cad5dda4f49a84cca3d294fb9dc2179638080871b30e20ef"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Pictures/Phone/IMG_20190921_134402.jpg",
+      "bytes": 117725,
+      "git_blob_sha": "faa75ae9be20ab080adb94dafb28a3a05672debb",
+      "sha256": "89ff098d3052aa83d516578d6495bc7b7b48cef026638e7efea74c06ec71906b"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Pictures/Phone/IMG_20200410_154455.jpg",
+      "bytes": 106626,
+      "git_blob_sha": "8aa292ad0d3667ba9230899baa53ff6f562be7d8",
+      "sha256": "c6f17d57f4d001a1f30a6e197e2353e6413d25a16faff4e20d35b58f4f784baa"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Pictures/Phone/IMG_20210703_081210.jpg",
+      "bytes": 55971,
+      "git_blob_sha": "10c5f4ee805f4829cd3957f1a6506be141f4b00b",
+      "sha256": "307bace8eda9ddf611dd56db343b71c4ff12e84b738607038ee7a7338c537ad9"
+    },
+    {
+      "path": "corpus/Achterberg_Desktop/Pictures/Phone/IMG_20220514_101500.jpg",
+      "bytes": 59373,
+      "git_blob_sha": "aad4731869f593b087921a1b757898f4ad44a462",
+      "sha256": "fccc9bdf7487bbc12fddd45e4bb03fc5a1aaa430cb8b2a0af606e72673202018"
+    },
+    {
+      "path": "docs/PIPELINE_DESIGN_NOTES.md",
+      "bytes": 6577,
+      "git_blob_sha": "b78a47bbed3edb912e8b9b821c5247b332aa44c4",
+      "sha256": "d721f135f2a7d95d90a17cbb229a217f86740a9817a370121984bcf883ba9005"
+    },
+    {
+      "path": "generator/acc002.py",
+      "bytes": 76299,
+      "git_blob_sha": "8ee8d17753a1dece561b83a8f6bb5b4dc0a82a32",
+      "sha256": "5eeabb6ba3fa40cfa977adb4af420165b44ceb4b7300c71fb503d48fa906075e"
+    },
+    {
+      "path": "generator/alt_intake.py",
+      "bytes": 6889,
+      "git_blob_sha": "27233ebde373cd5e9e4ae5bb790e8f252883274c",
+      "sha256": "4b4e1670e1b2b36964c627b48a07a401335c7d255f3d1c79c16f39127be313e4"
+    },
+    {
+      "path": "generator/build.py",
+      "bytes": 4351,
+      "git_blob_sha": "ac72876aebd3eb26f3a67ac43c1973aafcc2a9f2",
+      "sha256": "ecb3720efa328f5089699e87219fa95361cdf250c541ef0b5b284cc4f17dcbf9"
+    },
+    {
+      "path": "generator/charts.py",
+      "bytes": 3831,
+      "git_blob_sha": "ff6f683cb8beeeaee4ada715d597898d6272d2b9",
+      "sha256": "a4a90b60655110d9c746d2199f6c7cc95d13403401f55b1bf0f7f78325da7ce7"
+    },
+    {
+      "path": "generator/common.py",
+      "bytes": 8219,
+      "git_blob_sha": "769a3ee7e32ba479e9bad58634755a6b025b3a3f",
+      "sha256": "6dcd6c91dc7c16d11d25c00636ea81ee9b9a6c3f42078bc29c80164725859c2c"
+    },
+    {
+      "path": "generator/gen_data.py",
+      "bytes": 29275,
+      "git_blob_sha": "a900949abb921f8b901f386b08a8b92bf36a8017",
+      "sha256": "fab86a5fdacdc0a71c0b0221af7c8bc1adcfdf0650be13838b0dc4ef14fd15a1"
+    },
+    {
+      "path": "generator/gen_docs.py",
+      "bytes": 52224,
+      "git_blob_sha": "602eda762d774be6b11d99d8cbb987b12c17fb4c",
+      "sha256": "f93804020d2d26b7f42af43fe4f50fb0cece45cfccb945578342eec2922c7933"
+    },
+    {
+      "path": "generator/gen_edge.py",
+      "bytes": 24385,
+      "git_blob_sha": "ce3389e70b5235b595173422be17779fcbde7110",
+      "sha256": "4ce0e33cc481606e8ead913d050fe17becafd219a2e0cfdf3196978d7f94ebf9"
+    },
+    {
+      "path": "generator/gen_emails.py",
+      "bytes": 30719,
+      "git_blob_sha": "bd47a16edcc322f276d9b966251334392fac56f3",
+      "sha256": "2248ea78f503c1740d478fb50daef0e90ef895df4359d57cf6b032b2259b659d"
+    },
+    {
+      "path": "generator/gen_media.py",
+      "bytes": 31604,
+      "git_blob_sha": "96328a4eff0473f37cd39f37a62fc8a40cc908dd",
+      "sha256": "118db07b30991c67aeb57deecbde552affe55b2235a776d3a42dd58dca9fa85b"
+    },
+    {
+      "path": "generator/gen_more.py",
+      "bytes": 20499,
+      "git_blob_sha": "b01fb5db4f49faea184e7f57707eb785fc93c6be",
+      "sha256": "f38e82736c7cc45a676a0507b23960529fb598d7a4a6561b042fcba928fb64aa"
+    },
+    {
+      "path": "generator/make_large_files.py",
+      "bytes": 5077,
+      "git_blob_sha": "fd0d5cc33cada33f2708b2b8bee40910e0a3163b",
+      "sha256": "964e3740bbeab4deed0ea8995f44750193be5bc914066e81c314a0514deed95e"
+    },
+    {
+      "path": "generator/survey.py",
+      "bytes": 3949,
+      "git_blob_sha": "f21bee6957b2c8f3e1b81f6dd415250988991b84",
+      "sha256": "19c882796110f5f1eb9a56160e238d87e387d7d64d346eba91491d40753561a9"
+    },
+    {
+      "path": "generator/texts.py",
+      "bytes": 8713,
+      "git_blob_sha": "ee4ba350f4f2727792ccffb7d32399b6b919c0d7",
+      "sha256": "c84e3b666977698e381cefa16a5d9501576eefbd341c70ba6e0fa3766d091b1b"
+    },
+    {
+      "path": "intake/ACC-SYN-2026-001-B.json",
+      "bytes": 3920,
+      "git_blob_sha": "d61c1abd5aa6883b8cd914b46b30f768da5f2159",
+      "sha256": "c2b8908bbe227cec0253356ec777a113812f860a499c2a564d79902a616ccb2c"
+    },
+    {
+      "path": "intake/ACC-SYN-2026-001.json",
+      "bytes": 5091,
+      "git_blob_sha": "947123873447f29ca76bca5d3ada3325e9f6e0c7",
+      "sha256": "9f6dc5c9f0addf1aacac6e46b2b2898310291e73299cb057cf80c551418c1d0c"
+    },
+    {
+      "path": "intake/ACC-SYN-2026-002.json",
+      "bytes": 4076,
+      "git_blob_sha": "cabe71125bb2ff761eb4a2b566d89fc35e486d5b",
+      "sha256": "36c463013f075f898124abc556b531c5d7a3baba2fa9aea06db582e232e195e8"
+    },
+    {
+      "path": "labels/ACC-SYN-2026-001/folder_labels.csv",
+      "bytes": 5289,
+      "git_blob_sha": "043cb29f726a7cfc0cc2be7ea60a6c7e97985ba5",
+      "sha256": "97dce91d3e7ca6ca7646ce0997904469bdadb0006bd54cb129ed7cda88d90b30"
+    },
+    {
+      "path": "labels/ACC-SYN-2026-001/ground_truth.csv",
+      "bytes": 130255,
+      "git_blob_sha": "21b0aff0c9272997fa671a2f92bb270029a40160",
+      "sha256": "9821cb9bc6b5edc4d952803364a11fa17b95b4a996a81018c41613c21f383cfb"
+    },
+    {
+      "path": "labels/ACC-SYN-2026-001/ground_truth.jsonl",
+      "bytes": 207497,
+      "git_blob_sha": "5ddf607855f5e175b515febd06e4506397887e0f",
+      "sha256": "45c92dec6f10befd229f308974b8f7f9d9a629a9f5ed65a5a58d4db4bfc33afa"
+    },
+    {
+      "path": "labels/ACC-SYN-2026-001/ground_truth_formB.csv",
+      "bytes": 60137,
+      "git_blob_sha": "19cb048c9f6597c02eda0953fd5c081f03ea7f38",
+      "sha256": "3dc8e93c42a9b1a7076d30c6405c28e871f250ee24171f353ee06fa52ecf81b4"
+    },
+    {
+      "path": "labels/ACC-SYN-2026-001/summary_stats.json",
+      "bytes": 4345,
+      "git_blob_sha": "7c14779eb49082db30a302ba4ce42adfd784d8e4",
+      "sha256": "12254f4c8449783adede6f0b7f697ba4a1a597b5e21764355ac36d2be66c0f66"
+    },
+    {
+      "path": "labels/ACC-SYN-2026-001/summary_stats_formB.json",
+      "bytes": 447,
+      "git_blob_sha": "5ea8cf227f35d08eddd234406e96e29564ad792f",
+      "sha256": "bba291390c83167b731e1dd32e26389147ac3192a1e0d26ae063add57067c0dd"
+    },
+    {
+      "path": "labels/ACC-SYN-2026-002/folder_labels.csv",
+      "bytes": 2550,
+      "git_blob_sha": "014c9a7b3d7769563a5d7b03757f30814cc69e16",
+      "sha256": "6931c4b0dbfdf4949bdb25096c4d7a7b29d87f25cff2aacf1ee46e3774d3bcdc"
+    },
+    {
+      "path": "labels/ACC-SYN-2026-002/ground_truth.csv",
+      "bytes": 69546,
+      "git_blob_sha": "7d6a19fde78f4e5a67c2da0f4a7e72754ed65b40",
+      "sha256": "0f3dca1b5076712d5661b65242a3064d496e581b7b298e30a0e1579a6622f15b"
+    },
+    {
+      "path": "labels/ACC-SYN-2026-002/ground_truth.jsonl",
+      "bytes": 116936,
+      "git_blob_sha": "0edc38f7f897d18a801b3f6ca50f50067689e8bc",
+      "sha256": "67ff22ff92d0fe1a154200c0acdd7cc4efa025690d5e3c7a318a6a9fa34f4b31"
+    },
+    {
+      "path": "labels/ACC-SYN-2026-002/summary_stats.json",
+      "bytes": 2002,
+      "git_blob_sha": "0b53139af6246a334e9bde0786844c479cbc0d4c",
+      "sha256": "1051ab6ade186eab3c78760e4f51ce561533a7174d985c6571ff551b2fd3c9ab"
+    },
+    {
+      "path": "labels/LABEL_SCHEMA.md",
+      "bytes": 3941,
+      "git_blob_sha": "e4da924942cb720e0d2361c29db966ff60f77ebd",
+      "sha256": "c20d49570d043168ffacf987e0a042379bb4f60809240f331dd94a6aa159854b"
+    }
+  ]
+}

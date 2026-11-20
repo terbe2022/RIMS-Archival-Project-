@@ -1,0 +1,12 @@
+CONFIDENTIAL REVIEW - Manuscript ECOAPP-2021-1172 (synthetic)
+Title: 'Urban vacant lots as refugia for cavity-nesting bees'
+
+Summary: The authors survey 40 vacant lots in a midwestern city with trap nests and claim lots older than 15 years support more cavity-nesting species.
+
+Major concerns:
+1. Lot age is confounded with distance to the river corridor; please include distance as a covariate.
+2. Trap-nest occupancy was scored once, in October, so early-season species are missed.
+3. The unpublished data from the Gregson lab cited in Table 2 cannot be evaluated.
+
+Recommendation: major revision.
+Reviewer: M. Achterberg

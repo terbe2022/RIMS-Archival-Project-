@@ -1,0 +1,24 @@
+{
+  "form": "ACC-SYN-2026-001-B",
+  "files": 228,
+  "changed": 149,
+  "by_relevance_B": {
+    "none": 49,
+    "high": 35,
+    "low": 129,
+    "moderate": 15
+  },
+  "transitions_A_to_B": {
+    "high->high": 12,
+    "high->low": 99,
+    "high->moderate": 7,
+    "low->high": 11,
+    "low->low": 12,
+    "low->moderate": 2,
+    "moderate->high": 12,
+    "moderate->low": 16,
+    "moderate->moderate": 6,
+    "none->low": 2,
+    "none->none": 49
+  }
+}

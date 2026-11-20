@@ -1,0 +1,21 @@
+BEGIN:VCARD
+VERSION:3.0
+FN:Harold Ritter
+EMAIL:hjritter.farm@mailbox.example.com
+TEL:(555) 0142
+ORG:Ritter Farm
+END:VCARD
+BEGIN:VCARD
+VERSION:3.0
+FN:Karen Lindqvist
+EMAIL:karen.lindqvist@dnr.illinois.example.gov
+TEL:(555) 0177
+ORG:Illinois DNR
+END:VCARD
+BEGIN:VCARD
+VERSION:3.0
+FN:Rafael Quintero
+EMAIL:rquintero@stats.prairiestate.example.edu
+TEL:(555) 0110
+ORG:Prairie State University
+END:VCARD

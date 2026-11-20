@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<eml:eml xmlns:eml="eml://ecoinformatics.org/eml-2.1.1" packageId="pbs.1.1">
+<dataset><title>Prairie Bee Survey specimen data 2016-2022 (SYNTHETIC)</title>
+<creator><individualName><surName>Achterberg</surName></individualName></creator>
+<abstract><para>Pan-trap and netting records of wild bees at nine restored and one remnant prairie.</para></abstract>
+<coverage><geographicCoverage><geographicDescription>East-central Illinois; BRF generalised to Ford County</geographicDescription></geographicCoverage><temporalCoverage><rangeOfDates><beginDate><calendarDate>2016-05-20</calendarDate></beginDate><endDate><calendarDate>2022-08-09</calendarDate></endDate></rangeOfDates></temporalCoverage></coverage>
+</dataset></eml:eml>

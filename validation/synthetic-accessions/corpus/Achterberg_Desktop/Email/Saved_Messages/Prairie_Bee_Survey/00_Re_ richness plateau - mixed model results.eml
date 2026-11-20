@@ -1,0 +1,40 @@
+From: Rafael Quintero <rquintero@stats.prairiestate.example.edu>
+To: Miriam Achterberg <machterberg@illinois.example.edu>
+Subject: Re: richness plateau - mixed model results
+Date: Wed, 22 Apr 2020 16:41:00 -0500
+Message-ID: <179454683927.1164.336588732259638391@mail.illinois.example.edu>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+
+Miriam,
+
+I reran the richness models with site as a random intercept and restoration a=
+ge as
+a smoothed term (k =3D 5) rather than the linear fit we had in the March draf=
+t. The
+result is cleaner than I expected:
+
+  * Rarefied species richness rises steeply for the first 6-8 years and is fl=
+at
+    after about year 10 (edf =3D 2.7, p < 0.001).
+  * The ground-nesting specialists (Andrena, Calliopsis, the Melissodes we can
+    resolve to species) do NOT plateau. They are still climbing at 25 years, =
+and
+    the two oldest restorations (SBP, KRR) are still below the Ritter remnant.
+  * Pan-trap colour interacts with year, but it does not change the shape of =
+the
+    curve, so I think we can report blue/yellow/white pooled and put the colo=
+ur
+    model in the supplement.
+
+The uncomfortable part: if we drop BRF (the remnant) the specialist result lo=
+ses
+most of its power, because the remnant anchors the top end. Reviewers will ask
+about that. I'd rather we say it up front than have it pulled out of us.
+
+Code is in the shared folder under analysis/gam_richness_v4.R. I fixed the
+offset for unequal trapping effort (we were using bowl-days without removing
+tipped bowls).
+
+Rafael
